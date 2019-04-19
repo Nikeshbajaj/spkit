@@ -17,8 +17,7 @@
 **Continuase Wavelet Transform** and other functions comming soon..
 
 
-### Requirement : 
-['numpy','matplotlib']
+### Requirement :  *numpy, matplotlib*
 
 ## Installation
 
