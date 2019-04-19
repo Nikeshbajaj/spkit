@@ -1,0 +1,18 @@
+
+include *.md
+include *.rst
+include LICENSE
+include requirements.txt
+include spkit/__init__.py
+
+recursive-include spkit *.py
+recursive-include spkit *.txt
+recursive-include examples *.py
+recursive-include examples *.ipynb
+recursive-include *.ipynb
+
+
+### Exclude
+
+recursive-exclude * __pycache__
+recursive-exclude *.yml
