@@ -1,8 +1,6 @@
 # Signal Processing toolkit
 
-### **[Github](https://github.com/Nikeshbajaj/spkit)**
-### **[PyPi - project](https://pypi.org/project/spkit/)**
-
+###Links: **[Github](https://github.com/Nikeshbajaj/spkit)**, **[PyPi - project](https://pypi.org/project/spkit/)**
 
 ### Requirement :  numpy, matplotlib, scipy.stats, scikit-learn
 
@@ -20,8 +18,6 @@ Download the repository or clone it with git, after cd in directory build it fro
 ```
 python setup.py install
 ```
-
-
 
 **Signal Processing Techniques**
 
@@ -44,14 +40,16 @@ python setup.py install
 
 **Continuase Wavelet Transform** and other functions comming soon..
 
-**Machine Learning models**
+**Machine Learning models - with visualizations**
 * Logistic Regression
 * Naive Bayes
 * Decision Trees
 * DeepNet (to be updated)
 
 
-## Example -  Information Theory
+# Examples
+## Information Theory
+### [View notebook](https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/1.1_Entropy_Example.ipynb)
 
 ```
 import numpy as np
@@ -108,10 +106,8 @@ sp.HistPlot(y,show=False)
 plt.show()
 ```
 
-
-
-## Example -  ICA
-
+## ICA
+### [View notebook](https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/1.2_ICA_Example.ipynb)
 ```
 from spkit import ICA
 from spkit.data import load_data
@@ -137,18 +133,10 @@ ica.fit(x.T)
 s4 = ica.transform(x.T)
 ```
 
-
-## Example -  Machine Learning
-
-
-
-
-
-
-
-
-
-
+## Machine Learning
+1. [Logistic Regression](https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.1_LogisticRegression_examples.ipynb)
+2. [Naive Bayes](https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.2_NaiveBayes_example.ipynb)
+3. [Decision Trees](https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.3_Tree_Example_Classification_and_Regression.ipynb)
 
 ______________________________________
 
