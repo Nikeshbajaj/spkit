@@ -3,21 +3,8 @@
 ### **[Github](https://github.com/Nikeshbajaj/spkit)**
 ### **[PyPi - project](https://pypi.org/project/spkit/)**
 
-**Information Theory functions**
-* Entropy : Shannon entropy, Rényi entropy of order α, Collision entropy
-* Joint entropy
-* Conditional entropy
-* Mutual Information
-* Cross entropy
-* Kullback–Leibler divergence
-* Computation of optimal bin size for histogram using FD-rule
-* Plot histogram with optimal bin size
 
-
-**Continuase Wavelet Transform** and other functions comming soon..
-
-
-### Requirement :  *numpy, matplotlib*
+### Requirement :  numpy, matplotlib, scipy.stats, scikit-learn
 
 ## Installation
 
@@ -33,6 +20,36 @@ Download the repository or clone it with git, after cd in directory build it fro
 ```
 python setup.py install
 ```
+
+
+
+**Signal Processing Techniques**
+
+**Information Theory functions**  for real valued signals
+* Entropy : Shannon entropy, Rényi entropy of order α, Collision entropy
+* Joint entropy
+* Conditional entropy
+* Mutual Information
+* Cross entropy
+* Kullback–Leibler divergence
+* Computation of optimal bin size for histogram using FD-rule
+* Plot histogram with optimal bin size
+
+**Matrix Decomposition**
+* SVD
+* ICA using InfoMax, Extended-InfoMax, FastICA & **Picard**
+
+**Linear Feedback Shift Register**
+* pylfsr
+
+**Continuase Wavelet Transform** and other functions comming soon..
+
+**Machine Learning models**
+* Logistic Regression
+* Naive Bayes
+* Decision Trees
+* DeepNet (to be updated)
+
 
 ## Example -  Information Theory
 
@@ -90,6 +107,47 @@ plt.subplot(122)
 sp.HistPlot(y,show=False)
 plt.show()
 ```
+
+
+
+## Example -  ICA
+
+```
+from spkit import ICA
+from spkit.data import load_data
+X,ch_names = load_data.eegSample()
+
+x = X[128*10:128*12,:]
+t = np.arange(x.shape[0])/128.0
+
+ica = ICA(n_components=14,method='fastica')
+ica.fit(x.T)
+s1 = ica.transform(x.T)
+
+ica = ICA(n_components=14,method='infomax')
+ica.fit(x.T)
+s2 = ica.transform(x.T)
+
+ica = ICA(n_components=14,method='picard')
+ica.fit(x.T)
+s3 = ica.transform(x.T)
+
+ica = ICA(n_components=14,method='extended-infomax')
+ica.fit(x.T)
+s4 = ica.transform(x.T)
+```
+
+
+## Example -  Machine Learning
+
+
+
+
+
+
+
+
+
 
 
 ______________________________________

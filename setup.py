@@ -28,5 +28,5 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     include_package_data=True,
-    install_requires=['numpy','matplotlib']
+    install_requires=['numpy','matplotlib','scipy','scikit-learn','python-picard']
 )

@@ -1,4 +1,4 @@
-Predictive Analysis of Auditory Attention from Physiological Signals documentation!
+Signal Processing ToolKit!
 =====================================
 
 This package includes following components:

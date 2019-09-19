@@ -10,9 +10,9 @@ recursive-include spkit *.txt
 recursive-include examples *.py
 recursive-include examples *.ipynb
 recursive-include *.ipynb
+recursive-include *.pkl
 
 
 ### Exclude
-
 recursive-exclude * __pycache__
 recursive-exclude *.yml
