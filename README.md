@@ -151,6 +151,7 @@ s4 = ica.transform(x.T)
 2. [**Naive Bayes**](https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.2_NaiveBayes_example.ipynb) - *View in notebook*
 3. [**Decision Trees**](https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.3_Tree_Example_Classification_and_Regression.ipynb) - *View in notebook*
 
+[**view in repository **](https://github.com/Nikeshbajaj/spkit/tree/master/notebooks)
 
 ## LFSR
 ```
