@@ -1,10 +1,23 @@
 # Signal Processing toolkit
 
-###Links: **[Github](https://github.com/Nikeshbajaj/spkit)**, **[PyPi - project](https://pypi.org/project/spkit/)**
+### Links: **[Github](https://github.com/Nikeshbajaj/spkit)**, **[PyPi - project](https://pypi.org/project/spkit/)**
 
-### Requirement :  numpy, matplotlib, scipy.stats, scikit-learn
+
+-----
+## Table of contents
+- [Installation](#installation)
+- [Functions List](#functions-list)
+- [Examples](#examples)
+    - [Information Theory](#information-theory)
+    - [ICA](#ica)
+    - [Machine Learning](#machine-learning)
+    - [LFSR](#lfsr)
+-----
+
 
 ## Installation
+
+**Requirement**:  numpy, matplotlib, scipy.stats, scikit-learn
 
 ### with pip
 
@@ -19,8 +32,8 @@ Download the repository or clone it with git, after cd in directory build it fro
 python setup.py install
 ```
 
-**Signal Processing Techniques**
-
+## Functions list
+#### Signal Processing Techniques
 **Information Theory functions**  for real valued signals
 * Entropy : Shannon entropy, Rényi entropy of order α, Collision entropy
 * Joint entropy
@@ -40,7 +53,7 @@ python setup.py install
 
 **Continuase Wavelet Transform** and other functions comming soon..
 
-**Machine Learning models - with visualizations**
+#### Machine Learning models - with visualizations
 * Logistic Regression
 * Naive Bayes
 * Decision Trees
@@ -138,6 +151,20 @@ s4 = ica.transform(x.T)
 2. [Naive Bayes](https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.2_NaiveBayes_example.ipynb)
 3. [Decision Trees](https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.3_Tree_Example_Classification_and_Regression.ipynb)
 
+
+## LFSR
+```
+import numpy as np
+from spkit.pylfsr import LFSR
+## Example 1  ## 5 bit LFSR with x^5 + x^2 + 1
+L = LFSR() 
+L.info()
+L.next()
+L.runKCycle(10)
+L.runFullCycle()
+L.info()
+tempseq = L.runKCycle(10000)    # generate 10000 bits from current state
+```
 ______________________________________
 
 # Contacts:
