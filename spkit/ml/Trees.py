@@ -97,6 +97,7 @@ class DecisionTree(object):
             print('---------------------------------------')
             print('|Building the tree.....................')
         self.tree = self._build_tree(X, y)
+        self.tree = self.pruneTree(self.tree)
         if self.verbose>0:
             print('|\n|.........................tree is buit!')
             print('---------------------------------------')
@@ -265,7 +266,6 @@ class DecisionTree(object):
         elif self.verbose==4: self.plotTreePath(self.cpath,ax=self.ax,fig=self.fig)
 
         return node
-
     def predict_value(self, x, tree=None,path=''):
         """ Do a recursive search down the tree and make a prediction of the data sample by the
             value of the leaf that we end up at """
@@ -309,7 +309,6 @@ class DecisionTree(object):
             y_pred = np.array([self.predict_value(x)[0] for x in X])
 
         return y_pred
-
     def get_tree(self):
         if self.trained:
             return self.tree
@@ -321,7 +320,6 @@ class DecisionTree(object):
             self.feature_names = ['f'+str(i) for i in range(1,self.nfeatures+1)]
         else:
             self.feature_names = feature_names
-
     def splitX(self,X,ind,threshold):
         if isinstance(threshold, int) or isinstance(threshold, float):
             X1 = X[X[:,ind]>=threshold,:]
@@ -330,7 +328,17 @@ class DecisionTree(object):
             X1 = X[X[:,ind]==threshold,:]
             X2 = X[X[:,ind]!=threshold,:]
         return X1,X2
-    def plotTree(self,scale=True,show=True, showtitle =True, showDirection=True,DiffBranchColor=False):
+    def pruneTree(self,DT):
+        if not DT['leaf']:
+            if DT['T']['leaf'] and DT['F']['leaf']:
+                if DT['T']['value']==DT['F']['value']:
+                    #print('same valued leafs')
+                    return {'value': DT['T']['value'], 'leaf': True}
+            else:
+                DT['T'] = self.pruneTree(DT['T'])
+                DT['F'] = self.pruneTree(DT['F'])
+        return DT
+    def plotTree(self,scale=True,show=True, showtitle =True, showDirection=True,DiffBranchColor=False,legend=True):
         import copy
         self.DT = copy.deepcopy(self.tree)
         if self.DictDepth(self.DT)>1 and scale:
@@ -349,11 +357,10 @@ class DecisionTree(object):
         if DiffBranchColor:
             plt.plot(x,y,'-b', label = 'True branch')
             plt.plot(x,y,'-r', label = 'False branch')
-            plt.legend()
+            if legend: plt.legend()
         elif showDirection:
             plt.text(x1,y,r'$<-False$ | $True->$',color='r',horizontalalignment='center')
         if show: plt.show()
-
     def DictDepth(self,DT,n = 0):
         if type(DT)==dict:
             n+=1
@@ -376,7 +383,6 @@ class DecisionTree(object):
             ilxy =lxy.copy()
             irxy =xy.copy()
             self.set_xyNode(DT['F'],xy=ixy,lxy=ilxy,rxy=irxy)
-
     def showTree(self,DT,DiffBranchColor=False):
         d =0.0
         x,y = DT['xy']
@@ -404,7 +410,6 @@ class DecisionTree(object):
                      verticalalignment='top')
             plt.plot(x,y,'og')
         plt.axis('off')
-
     def plotTreePath(self,path,ax=None,fig=None):
         if ax is None:
             fig,ax = plt.subplots(1,1)
