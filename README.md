@@ -1,17 +1,17 @@
 # Signal Processing toolkit
 
-### Links: **[Github](https://github.com/Nikeshbajaj/spkit)**, **[PyPi - project](https://pypi.org/project/spkit/)**
+### Links: **[Github](https://github.com/Nikeshbajaj/spkit)**  |  **[PyPi - project](https://pypi.org/project/spkit/)**
 
 
 -----
 ## Table of contents
-- [Installation](#installation)
-- [Functions List](#functions-list)
-- [Examples](#examples)
-    - [Information Theory](#information-theory)
-    - [ICA](#ica)
-    - [Machine Learning](#machine-learning)
-    - [LFSR](#lfsr)
+- [**Installation**](#installation)
+- [**Signal Processing & ML function list**](#functions-list)
+- [**Examples**](#examples)
+    - [**Information Theory**](#information-theory)
+    - [**Machine Learning**](#machine-learning)
+    - [**ICA**](#ica)
+    - [**LFSR**](#lfsr)
 -----
 
 
