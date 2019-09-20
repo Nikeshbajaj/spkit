@@ -10,6 +10,9 @@
 - [**Examples**](#examples)
     - [**Information Theory**](#information-theory)
     - [**Machine Learning**](#machine-learning)
+        -[Logistic Regression](#logistic-regression---view-in-notebook)
+        -[Naive Bayes](#naive-bayes---view-in-notebook)
+        -[Decision Trees](#decision-trees---view-in-notebook)
     - [**ICA**](#ica)
     - [**LFSR**](#lfsr)
 -----
@@ -154,6 +157,18 @@ s4 = ica.transform(x.T)
 <p align="center"><img src="https://raw.githubusercontent.com/Nikeshbajaj/MachineLearningFromScratch/master/Probabilistic/img/FeatureDist.png" width="600"/></p>
 
 ### [Decision Trees](https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.3_Tree_Example_Classification_and_Regression.ipynb) - *View in notebook*
+<p align="center">
+<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_linear.png" width="800"/>
+<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_gaussians.png" width="800"/>
+<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_moons.png" width="800"/>
+<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_sinusoidal.png" width="800"/>
+<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_spiral.png" width="800"/>
+<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_linear.png" width="800"/>
+
+</p>
+
+
+
 <p align="center"><img src="https://raw.githubusercontent.com/Nikeshbajaj/MachineLearningFromScratch/master/Trees/img/a123_nik.gif" width="600"/></p>
 
 [**view in repository **](https://github.com/Nikeshbajaj/spkit/tree/master/notebooks)
