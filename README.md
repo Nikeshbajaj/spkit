@@ -157,12 +157,14 @@ s4 = ica.transform(x.T)
 <p align="center"><img src="https://raw.githubusercontent.com/Nikeshbajaj/MachineLearningFromScratch/master/Probabilistic/img/FeatureDist.png" width="600"/></p>
 
 ### [Decision Trees](https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.3_Tree_Example_Classification_and_Regression.ipynb) - *View in notebook*
+
+[**[source code]**](https://github.com/Nikeshbajaj/spkit/blob/master/examples/trees_example.py) | [**[jupyter-notebook]**](https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.3.1_Trees_Classification_Example.ipynb)
 <p align="center">
 <img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_sinusoidal.png" width="800"/>
 <img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/trees.png" width="800"/>
 </p>
 
-[**[source code]**](https://github.com/Nikeshbajaj/spkit/blob/master/examples/trees_example.py) | [**[jupyter-notebook]**](https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.3.1_Trees_Classification_Example.ipynb)
+
 #### Plottng tree while training
 
 <p align="center"><img src="https://raw.githubusercontent.com/Nikeshbajaj/MachineLearningFromScratch/master/Trees/img/a123_nik.gif" width="600"/></p>
