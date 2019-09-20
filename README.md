@@ -163,11 +163,9 @@ s4 = ica.transform(x.T)
 <img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_moons.png" width="800"/>
 <img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_sinusoidal.png" width="800"/>
 <img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_spiral.png" width="800"/>
-<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_linear.png" width="800"/>
-
 </p>
 
-
+#### Plottng tree while training
 
 <p align="center"><img src="https://raw.githubusercontent.com/Nikeshbajaj/MachineLearningFromScratch/master/Trees/img/a123_nik.gif" width="600"/></p>
 
