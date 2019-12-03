@@ -178,6 +178,11 @@ s4 = ica.transform(x.T)
 [**view in repository **](https://github.com/Nikeshbajaj/spkit/tree/master/notebooks)
 
 ## LFSR
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/nikeshbajaj/Linear_Feedback_Shift_Register/master/images/LFSR.jpg" width="300"/>
+</p>
+
 ```
 import numpy as np
 from spkit.pylfsr import LFSR
