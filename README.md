@@ -1,6 +1,12 @@
 # Signal Processing toolkit
 
 ### Links: **[Github](https://github.com/Nikeshbajaj/spkit)**  |  **[PyPi - project](https://pypi.org/project/spkit/)**
+### Installation: *[pip install spkit](https://pypi.org/project/spkit/)*
+
+## Updates:: Decision Tree
+<p align="center">
+<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_sinusoidal.png" width="600"/>
+</p>
 
 
 -----
