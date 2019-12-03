@@ -13,7 +13,7 @@ setuptools.setup(
     name="spkit",
     version= version,
     author="Nikesh Bajaj",
-    author_email="nikkeshbajaj@gmail.com",
+    author_email="bajaj.nikey@gmail.com",
     description="SpKit: Signal Processing toolkit",
     long_description=long_description,
     long_description_content_type="text/markdown",

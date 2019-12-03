@@ -187,7 +187,7 @@ s4 = ica.transform(x.T)
 import numpy as np
 from spkit.pylfsr import LFSR
 ## Example 1  ## 5 bit LFSR with x^5 + x^2 + 1
-L = LFSR() 
+L = LFSR()
 L.info()
 L.next()
 L.runKCycle(10)

@@ -16,7 +16,7 @@ name = "Signal Processing tool kit"
 # Dev branch marker is: 'X.Y.devN' where N is an integer.
 #
 
-__version__ = '0.0.2'
+__version__ = '0.0.4'
 __author__ = 'Nikesh Bajaj'
 import sys, os
 

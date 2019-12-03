@@ -65,7 +65,6 @@ class DecisionTree(object):
 
         # Function to determine prediction of y at leaf
         self._leaf_value_calculation = None
-
     def fit(self, X, y):
         '''
         Building a tree and saving in an dictionary at self.tree
@@ -98,11 +97,12 @@ class DecisionTree(object):
             print('|Building the tree.....................')
         self.tree = self._build_tree(X, y)
         self.tree = self.pruneTree(self.tree)
+        self.tree = self.pruneTree(self.tree)
+        self.tree = self.pruneTree(self.tree)
         if self.verbose>0:
             print('|\n|.........................tree is buit!')
             print('---------------------------------------')
         self.trained = True
-
     def _build_tree(self, X, y, current_depth=0):
         """ Recursive method which builds out the decision tree and splits X and respective y
         on the feature of X which (based on impurity) best separates the data"""
@@ -356,7 +356,7 @@ class DecisionTree(object):
         #if showDirection: plt.xlabel(r'$<-False$ | $True->$',color='r',horizontalalignment='center')
         if DiffBranchColor:
             plt.plot(x,y,'-b', label = 'True branch')
-            plt.plot(x,y,'-r', label = 'False branch')
+            plt.plot(x,y,'--r', label = 'False branch')
             if legend: plt.legend()
         elif showDirection:
             plt.text(x1,y,r'$<-False$ | $True->$',color='r',horizontalalignment='center')
@@ -390,17 +390,22 @@ class DecisionTree(object):
         if not(DT['leaf']):
             fn  = DT['feature_name']
             thr = DT['threshold']
-            st =fn+'\n(=>'+str(np.around(thr,2))+'?)\n'
-            plt.text(x,y-d*y,st,horizontalalignment='center',
-                     verticalalignment='bottom')
-            plt.plot(x,y,'ob')
+            #st =fn+'\n(=>'+str(np.around(thr,2))+'?)\n'
+            #plt.text(x,y-d*y,st,horizontalalignment='center',
+            #         verticalalignment='bottom')
+            plt.plot(x,y,'ok',alpha=0.8)
             x1,y1 =DT['T']['xy']
             x2,y2 =DT['F']['xy']
             plt.plot([x,x1],[y,y1],'-b',alpha=1)
             if DiffBranchColor:
-                plt.plot([x,x2],[y,y2],'-r',alpha=1)
+                plt.plot([x,x2],[y,y2],'--r',alpha=1)
             else:
                 plt.plot([x,x2],[y,y2],'-b',alpha=1)
+            if isinstance(thr, int) or isinstance(thr, float):
+                st =fn+'\n('+r'$\geq$'+str(np.around(thr,2))+'?)\n'
+            else:
+                st =fn+'\n(='+thr+'?)\n'
+            plt.text(x,y-d*y,st,horizontalalignment='center',verticalalignment='bottom')
             self.showTree(DT['T'],DiffBranchColor=DiffBranchColor)
             self.showTree(DT['F'],DiffBranchColor=DiffBranchColor)
         else:
