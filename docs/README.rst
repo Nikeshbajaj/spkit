@@ -78,10 +78,6 @@ Build from the source - Download the repository or clone it with git, after cd i
 
 `Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/1.1_Entropy_Example.ipynb>`_
 
-`View in notebook`_ 
-
-.. _ : https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/1.1_Entropy_Example.ipynb
-
 ::
  
   import numpy as np
@@ -138,8 +134,7 @@ Build from the source - Download the repository or clone it with git, after cd i
   plt.show()
   
 **ICA**
-`View in notebook`__
-.. __ : https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/1.2_ICA_Example.ipynb
+`Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/1.2_ICA_Example.ipynb>`_
 
 ::
   
@@ -170,15 +165,16 @@ Build from the source - Download the repository or clone it with git, after cd i
 **Machine Learning**
 -------------------
 
-* **Logistic Regression** `View in notebook`__
-.. __ : https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.1_LogisticRegression_examples.ipynb
+* **Logistic Regression** `Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.1_LogisticRegression_examples.ipynb
+>`_
 
-* **Naive Bayes** `View in notebook`__
-.. __ : https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.2_NaiveBayes_example.ipynb
+`View in notebook`__
+.. __ : 
+* **Naive Bayes** `Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.2_NaiveBayes_example.ipynb>`_
 
 
-* **Decision Trees** `View in notebook`__
-.. __ : https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.3_Tree_Example_Classification_and_Regression.ipynb
+* **Decision Trees** `Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.3_Tree_Example_Classification_and_Regression.ipynb>`_
+
 
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_sinusoidal.png
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/trees.png
