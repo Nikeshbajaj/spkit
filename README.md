@@ -11,7 +11,14 @@
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/nikeshbajaj/spkit.svg)](http://isitmaintained.com/project/nikeshbajaj/spkit "Percentage of issues still open")
 [![PyPI download month](https://img.shields.io/pypi/dm/spkit.svg)](https://pypi.org/project/spkit/)
 [![PyPI download week](https://img.shields.io/pypi/dw/spkit.svg)](https://pypi.org/project/spkit/)
+
+
+[![Generic badge](https://img.shields.io/badge/pip%20install-spkit-blue.svg)](https://shields.io/)
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](mailto:n.bajaj@qmul.ac.uk)
+
+
+
+
 
 
 ### Links: **[Github](https://github.com/Nikeshbajaj/spkit)**  |  **[PyPi - project](https://pypi.org/project/spkit/)**
@@ -176,7 +183,11 @@ s4 = ica.transform(x.T)
 ### [Naive Bayes](https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.2_NaiveBayes_example.ipynb) - *View in notebook*
 <p align="center"><img src="https://raw.githubusercontent.com/Nikeshbajaj/MachineLearningFromScratch/master/Probabilistic/img/FeatureDist.png" width="600"/></p>
 
-### [Decision Trees](https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.3_Tree_Example_Classification_and_Regression.ipynb) - *View in notebook*
+### [Decision Trees]
+(https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.3_Tree_Example_Classification_and_Regression.ipynb) - *View in notebook*
+
+### This implimentation also works with *Catogorical features*, without need to change them into float or interger type
+
 
 [**[source code]**](https://github.com/Nikeshbajaj/spkit/blob/master/examples/trees_example.py) | [**[jupyter-notebook]**](https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.3.1_Trees_Classification_Example.ipynb)
 <p align="center">
