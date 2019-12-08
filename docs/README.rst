@@ -76,9 +76,11 @@ Build from the source - Download the repository or clone it with git, after cd i
 
 **Information Theory**
 
-`View in notebook`__ 
+`Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/1.1_Entropy_Example.ipynb>`_
 
-.. __ : https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/1.1_Entropy_Example.ipynb
+`View in notebook`_ 
+
+.. _ : https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/1.1_Entropy_Example.ipynb
 
 ::
  
