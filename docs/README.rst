@@ -40,7 +40,8 @@ Build from the source - Download the repository or clone it with git, after cd i
 
 **Signal Processing Techniques**
 
-* **Information Theory functions**  for real valued signals
+**Information Theory functions for real valued signals**
+
 * Entropy : Shannon entropy, Rényi entropy of order α, Collision entropy
 * Joint entropy
 * Conditional entropy
@@ -53,8 +54,8 @@ Build from the source - Download the repository or clone it with git, after cd i
 
 **Matrix Decomposition**
 
-* SVD
-* ICA using InfoMax, Extended-InfoMax, FastICA & **Picard**
+* **SVD**
+* **ICA** using InfoMax, Extended-InfoMax, FastICA & **Picard**
 
 **Linear Feedback Shift Register**
 
@@ -74,7 +75,10 @@ Build from the source - Download the repository or clone it with git, after cd i
 -----------
 
 **Information Theory**
-View in notebook - https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/1.1_Entropy_Example.ipynb
+
+`View in notebook`__ 
+
+.. __ : https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/1.1_Entropy_Example.ipynb
 
 ::
  
@@ -132,7 +136,8 @@ View in notebook - https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/ma
   plt.show()
   
 **ICA**
-View in notebook - https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/1.2_ICA_Example.ipynb
+`View in notebook`__
+.. __ : https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/1.2_ICA_Example.ipynb
 
 ::
   
@@ -163,52 +168,56 @@ View in notebook - https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/ma
 **Machine Learning**
 -------------------
 
-* **Logistic Regression** https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.1_LogisticRegression_examples.ipynb) - *View in notebook*
+* **Logistic Regression** `View in notebook`__
+.. __ : https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.1_LogisticRegression_examples.ipynb
+
+* **Naive Bayes** `View in notebook`__
+.. __ : https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.2_NaiveBayes_example.ipynb
 
 
-* **Naive Bayes** https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.2_NaiveBayes_example.ipynb - *View in notebook*
+* **Decision Trees** `View in notebook`__
+.. __ : https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.3_Tree_Example_Classification_and_Regression.ipynb
+
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_sinusoidal.png
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/trees.png
 
 
-### [Decision Trees](https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.3_Tree_Example_Classification_and_Regression.ipynb) - *View in notebook*
+**Plottng tree while training**
 
-[**[source code]**](https://github.com/Nikeshbajaj/spkit/blob/master/examples/trees_example.py) | [**[jupyter-notebook]**](https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.3.1_Trees_Classification_Example.ipynb)
-<p align="center">
-<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_sinusoidal.png" width="800"/>
-<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/trees.png" width="800"/>
-</p>
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/MachineLearningFromScratch/master/Trees/img/a123_nik.gif
 
 
-#### Plottng tree while training
+**Linear Feedback Shift Register**
 
-<p align="center"><img src="https://raw.githubusercontent.com/Nikeshbajaj/MachineLearningFromScratch/master/Trees/img/a123_nik.gif" width="600"/></p>
+.. image:: https://raw.githubusercontent.com/nikeshbajaj/Linear_Feedback_Shift_Register/master/images/LFSR.jpg
+   :height: 100px
+  
+  
+**Example: 5 bit LFSR with x^5 + x^2 + 1**
+  
+::
 
-[**view in repository **](https://github.com/Nikeshbajaj/spkit/tree/master/notebooks)
+  import numpy as np
+  from spkit.pylfsr import LFSR
+  
+  L = LFSR()
+  L.info()
+  L.next()
+  L.runKCycle(10)
+  L.runFullCycle()
+  L.info()
+  tempseq = L.runKCycle(10000)    # generate 10000 bits from current state
 
-## LFSR
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/nikeshbajaj/Linear_Feedback_Shift_Register/master/images/LFSR.jpg" width="300"/>
-</p>
 
-```
-import numpy as np
-from spkit.pylfsr import LFSR
-## Example 1  ## 5 bit LFSR with x^5 + x^2 + 1
-L = LFSR()
-L.info()
-L.next()
-L.runKCycle(10)
-L.runFullCycle()
-L.info()
-tempseq = L.runKCycle(10000)    # generate 10000 bits from current state
-```
-______________________________________
+____________________________________
 
-# Contacts:
+Contacts
+--------
 
 * **Nikesh Bajaj**
-* http://nikeshbajaj.in
-* n.bajaj@qmul.ac.uk
-* bajaj.nikkey@gmail.com
-### PhD Student: Queen Mary University of London & University of Genoa
+* *http://nikeshbajaj.in*
+* *n.bajaj@qmul.ac.uk*
+* *bajaj.nikkey@gmail.com*
+* *PhD Student: Queen Mary University of London*
 ______________________________________
