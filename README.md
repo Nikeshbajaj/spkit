@@ -8,6 +8,7 @@
 [![PyPI format](https://img.shields.io/pypi/format/spkit.svg)](https://pypi.python.org/pypi/spkit/)
 [![PyPI implementation](https://img.shields.io/pypi/implementation/spkit.svg)](https://pypi.python.org/pypi/spkit/)
 [![HitCount](http://hits.dwyl.io/nikeshbajaj/spkit.svg)](http://hits.dwyl.io/nikeshbajaj/spkit)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/y/nikeshbajaj/spkit?style=plastic)
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/nikeshbajaj/spkit.svg)](http://isitmaintained.com/project/nikeshbajaj/spkit "Percentage of issues still open")
 [![PyPI download month](https://img.shields.io/pypi/dm/spkit.svg)](https://pypi.org/project/spkit/)
 [![PyPI download week](https://img.shields.io/pypi/dw/spkit.svg)](https://pypi.org/project/spkit/)
