@@ -133,7 +133,7 @@ Build from the source - Download the repository or clone it with git, after cd i
   sp.HistPlot(y,show=False)
   plt.show()
   
-**ICA**
+**Independent Component Analysis - ICA**
 `Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/1.2_ICA_Example.ipynb>`_
 
 ::
@@ -165,11 +165,8 @@ Build from the source - Download the repository or clone it with git, after cd i
 **Machine Learning**
 -------------------
 
-* **Logistic Regression** `Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.1_LogisticRegression_examples.ipynb
->`_
+* **Logistic Regression** `Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.1_LogisticRegression_examples.ipynb>`_
 
-`View in notebook`__
-.. __ : 
 * **Naive Bayes** `Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.2_NaiveBayes_example.ipynb>`_
 
 
@@ -186,6 +183,7 @@ Build from the source - Download the repository or clone it with git, after cd i
 
 
 **Linear Feedback Shift Register**
+------------------
 
 .. image:: https://raw.githubusercontent.com/nikeshbajaj/Linear_Feedback_Shift_Register/master/images/LFSR.jpg
    :height: 100px
