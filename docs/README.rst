@@ -1,45 +1,40 @@
-# Signal Processing toolkit
+Signal Processing toolkit
+======================================
 
-### Links: **[Github](https://github.com/Nikeshbajaj/spkit)**  |  **[PyPi - project](https://pypi.org/project/spkit/)**
-### Installation: *[pip install spkit](https://pypi.org/project/spkit/)*
+**Links**
+----------
+### **[Github](https://github.com/Nikeshbajaj/spkit)**  |  **[PyPi - project](https://pypi.org/project/spkit/)**
 
-#### Updates:: Decision Tree
-<p align="center">
-<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_sinusoidal.png" width="600"/>
-</p>
+**Installation**
+----------
+
+::
+  
+  pip install spkit
+ 
+Build from the source: Download the repository or clone it with git, after cd in directory build it from source with
+
+::
+  
+  python setup.py install
 
 
+
+**Table of contents**
+----------
+* [**Installation**](#installation)
+* [**Signal Processing & ML function list**](#functions-list)
+* [**Examples**](#examples)
+    * [**Information Theory**](#information-theory)
+    * [**Machine Learning**](#machine-learning)
+        * [Logistic Regression](#logistic-regression---view-in-notebook)
+        * [Naive Bayes](#naive-bayes---view-in-notebook)
+        * [Decision Trees](#decision-trees---view-in-notebook)
+    * [**ICA**](#ica)
+    * [**LFSR**](#lfsr)
 -----
-## Table of contents
-- [**Installation**](#installation)
-- [**Signal Processing & ML function list**](#functions-list)
-- [**Examples**](#examples)
-    - [**Information Theory**](#information-theory)
-    - [**Machine Learning**](#machine-learning)
-        -[Logistic Regression](#logistic-regression---view-in-notebook)
-        -[Naive Bayes](#naive-bayes---view-in-notebook)
-        -[Decision Trees](#decision-trees---view-in-notebook)
-    - [**ICA**](#ica)
-    - [**LFSR**](#lfsr)
------
 
 
-## Installation
-
-**Requirement**:  numpy, matplotlib, scipy.stats, scikit-learn
-
-### with pip
-
-```
-pip install spkit
-```
-
-### Build from the source
-Download the repository or clone it with git, after cd in directory build it from source with
-
-```
-python setup.py install
-```
 
 ## Functions list
 #### Signal Processing Techniques
