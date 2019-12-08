@@ -16,7 +16,7 @@
 [![Generic badge](https://img.shields.io/badge/pip%20install-spkit-blue.svg)](https://shields.io/)
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](mailto:n.bajaj@qmul.ac.uk)
 
-
+![PyPI - Downloads](https://img.shields.io/pypi/dm/spkit?style=social)
 
 
 
