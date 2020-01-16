@@ -1,9 +1,9 @@
-
 include *.md
-include *.rst
+include docs/index.rst
 include LICENSE
 include requirements.txt
 include spkit/__init__.py
+include spkit/data/EEG16SecData.pkl
 
 recursive-include spkit *.py
 recursive-include spkit *.txt
@@ -12,7 +12,5 @@ recursive-include examples *.ipynb
 recursive-include *.ipynb
 recursive-include *.pkl
 
-
-### Exclude
 recursive-exclude * __pycache__
 recursive-exclude *.yml

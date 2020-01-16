@@ -20,9 +20,9 @@ import matplotlib.pyplot as plt
 
 # Super class for Classification and Regression
 class DecisionTree(object):
-    """Super class of RegressionTree and ClassificationTree.
+    '''Super class of RegressionTree and ClassificationTree.
 
-    """
+    '''	
     def __init__(self, min_samples_split=2, min_impurity=1e-7, max_depth=float("inf"), thresholdFromMean=False):
 
         '''
@@ -104,8 +104,8 @@ class DecisionTree(object):
             print('---------------------------------------')
         self.trained = True
     def _build_tree(self, X, y, current_depth=0):
-        """ Recursive method which builds out the decision tree and splits X and respective y
-        on the feature of X which (based on impurity) best separates the data"""
+        ''' Recursive method which builds out the decision tree and splits X and respective y
+        on the feature of X which (based on impurity) best separates the data'''
 
         largest_impurity = 0
         best_criteria = None    # Feature index and threshold
@@ -267,8 +267,8 @@ class DecisionTree(object):
 
         return node
     def predict_value(self, x, tree=None,path=''):
-        """ Do a recursive search down the tree and make a prediction of the data sample by the
-            value of the leaf that we end up at """
+        ''' Do a recursive search down the tree and make a prediction of the data sample by the
+            value of the leaf that we end up at '''
 
         # check if sample has same number of features
         assert len(x)==self.nfeatures
@@ -301,7 +301,7 @@ class DecisionTree(object):
         # Test subtree
         return self.predict_value(x, branch,path)
     def predict(self, X,treePath=False):
-        """ Classify samples one by one and return the set of labels """
+        '''Classify samples one by one and return the set of labels '''
 
         if treePath:
             y_pred = np.array([list(self.predict_value(x)) for x in X])
@@ -338,7 +338,7 @@ class DecisionTree(object):
                 DT['T'] = self.pruneTree(DT['T'])
                 DT['F'] = self.pruneTree(DT['F'])
         return DT
-    def plotTree(self,scale=True,show=True, showtitle =True, showDirection=True,DiffBranchColor=False,legend=True):
+    def plotTree(self,scale=True,show=True, showtitle =True, showDirection=False,DiffBranchColor=True,legend=True):
         import copy
         self.DT = copy.deepcopy(self.tree)
         if not(self.DT['leaf']):
@@ -444,9 +444,10 @@ class DecisionTree(object):
 
 class ClassificationTree(DecisionTree):
     def entropy(self,y):
-        """ Calculate the entropy of array y
+        '''
+		Calculate the entropy of array y
         H(y) = - sum(p(y)*log2(p(y)))
-        """
+        '''
         yi = y
         if len(y.shape)>1 and y.shape[1]>1:
             yi = np.argmax(y,axis=1)
@@ -457,11 +458,10 @@ class ClassificationTree(DecisionTree):
         return Hy
 
     def _infoGain(self, y, y1, y2):
-        # Calculate information gain
-		""" Calculate the information Gain with Entropy
-        H(y) = - sum(p(y)*log2(p(y)))
-		I_gain = H(y) - P(y1) * H(y1) - (1 - P(y1)) * H(y2)
-        """
+        '''
+        Calculate the information Gain with Entropy
+        I_gain = H(y) - P(y1) * H(y1) - (1 - P(y1)) * H(y2)
+        '''
         p = len(y1) / len(y)
         info_gain = self.entropy(y) - p * self.entropy(y1) - (1 - p) * self.entropy(y2)
         return info_gain
@@ -476,13 +476,13 @@ class ClassificationTree(DecisionTree):
         '''
         Parameters:
         -----------
-              X:: ndarray (number of sample, number of features)
-              y:: list of 1D array
-        verbose::0 - no progress or tree (silent)
-               ::1 - show progress in short
-               ::2 - show progress with details with branches
-			   ::3 - show progress with branches True/False 
-			   ::4 - show progress in short with plot tree
+              X	:: ndarray (number of sample, number of features)
+              y	:: list of 1D array
+        verbose	::0 - no progress or tree (silent)
+				::1 - show progress in short
+				::2 - show progress with details with branches
+				::3 - show progress with branches True/False 
+				::4 - show progress in short with plot tree
 	
         feature_names:: (optinal) list, Provide for better look at tree while plotting or shwoing the progress,
                        default to None, if not provided, features are named as f1,...fn
@@ -496,10 +496,10 @@ class ClassificationTree(DecisionTree):
 
 class RegressionTree(DecisionTree):
     def _varReduction(self, y, y1, y2):
-		'''
-		Calculate the variance reduction
-		VarRed = Var(y) - P(y1) * Var(y1) - P(p2) * Var(y2)
-		'''
+        '''
+        Calculate the variance reduction
+        VarRed = Var(y) - P(y1) * Var(y1) - P(p2) * Var(y2)
+        '''
         assert len(y.shape)==1 or y.shape[1]==1
         
         p1 = len(y1) / len(y)

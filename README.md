@@ -1,6 +1,5 @@
 # Signal Processing toolkit
 
-
 [![Documentation Status](https://readthedocs.org/projects/spkit/badge/?version=latest)](https://spkit.readthedocs.io/en/latest/?badge=latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PyPI version fury.io](https://badge.fury.io/py/spkit.svg)](https://pypi.org/project/spkit/)
@@ -19,8 +18,6 @@
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](mailto:n.bajaj@qmul.ac.uk)
 
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/spkit?style=social)
-
-
 
 ### Links: **[Github](https://github.com/Nikeshbajaj/spkit)**  |  **[PyPi - project](https://pypi.org/project/spkit/)**
 ### Installation: *[pip install spkit](https://pypi.org/project/spkit/)*
@@ -225,5 +222,5 @@ ______________________________________
 * http://nikeshbajaj.in
 * n.bajaj@qmul.ac.uk
 * bajaj.nikkey@gmail.com
-### PhD Student: Queen Mary University of London & University of Genoa
+### PhD Student: Queen Mary University of London
 ______________________________________

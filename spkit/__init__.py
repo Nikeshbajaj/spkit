@@ -1,6 +1,6 @@
 name = "Signal Processing tool kit"
 
-__version__ = '0.0.5'
+__version__ = '0.0.6'
 __author__ = 'Nikesh Bajaj'
 import sys, os
 
