@@ -159,9 +159,9 @@ class DecisionTree(object):
                         # index
                         if impurity > largest_impurity:
                             largest_impurity = impurity
-
+                            thr_str = np.around(threshold,2) if isinstance(threshold, int) or isinstance(threshold, float) else str(threshold)
                             if self.verbose: status3 = ' Gain::'+str(np.around(impurity,2))+\
-                            ' thr::'+str(np.around(threshold,2)) + '_Depth = '+str(current_depth)+'   '
+                            ' thr::'+str() + '_Depth = '+str(current_depth)+'   '
 
                             node ={'feature_index':feature_i,"threshold": threshold,
                                    'feature_name':self.feature_names[feature_i],
@@ -341,26 +341,29 @@ class DecisionTree(object):
     def plotTree(self,scale=True,show=True, showtitle =True, showDirection=True,DiffBranchColor=False,legend=True):
         import copy
         self.DT = copy.deepcopy(self.tree)
-        if self.DictDepth(self.DT)>1 and scale:
-            r = self.DictDepth(self.DT['T'])
-            l = self.DictDepth(self.DT['F'])
-        else:
-            r,l=1,1
-        self.set_xyNode(self.DT,lxy=[1-l,1],xy=[1,1],rxy=[1+r,1],ldiff=1)
+        if not(self.DT['leaf']):
+            if self.DictDepth(self.DT)>1 and scale:
+                r = self.DictDepth(self.DT['T'])
+                l = self.DictDepth(self.DT['F'])
+            else:
+                r,l=1,1
+            self.set_xyNode(self.DT,lxy=[1-l,1],xy=[1,1],rxy=[1+r,1],ldiff=1)
 
-        self.showTree(self.DT,DiffBranchColor=DiffBranchColor)
-        x,y = self.DT['xy']
-        if r>=l: x1,_= self.DT['T']['xy']
-        else: x1,_= self.DT['F']['xy']
-        if showtitle: plt.title('Decision Tree\n\n',color='k',horizontalalignment='center')
-        #if showDirection: plt.xlabel(r'$<-False$ | $True->$',color='r',horizontalalignment='center')
-        if DiffBranchColor:
-            plt.plot(x,y,'-b', label = 'True branch')
-            plt.plot(x,y,'--r', label = 'False branch')
-            if legend: plt.legend()
-        elif showDirection:
-            plt.text(x1,y,r'$<-False$ | $True->$',color='r',horizontalalignment='center')
-        if show: plt.show()
+            self.showTree(self.DT,DiffBranchColor=DiffBranchColor)
+            x,y = self.DT['xy']
+            if r>=l: x1,_= self.DT['T']['xy']
+            else: x1,_= self.DT['F']['xy']
+            if showtitle: plt.title('Decision Tree\n\n',color='k',horizontalalignment='center')
+            #if showDirection: plt.xlabel(r'$<-False$ | $True->$',color='r',horizontalalignment='center')
+            if DiffBranchColor:
+                plt.plot(x,y,'-b', label = 'True branch')
+                plt.plot(x,y,'--r', label = 'False branch')
+                if legend: plt.legend()
+            elif showDirection:
+                plt.text(x1,y,r'$<-False$ | $True->$',color='r',horizontalalignment='center')
+            if show: plt.show()
+        else:
+            print('Error:: Tree has no branches!!\nAll target values must be same')
     def DictDepth(self,DT,n = 0):
         if type(DT)==dict:
             n+=1
@@ -455,6 +458,10 @@ class ClassificationTree(DecisionTree):
 
     def _infoGain(self, y, y1, y2):
         # Calculate information gain
+		""" Calculate the information Gain with Entropy
+        H(y) = - sum(p(y)*log2(p(y)))
+		I_gain = H(y) - P(y1) * H(y1) - (1 - P(y1)) * H(y2)
+        """
         p = len(y1) / len(y)
         info_gain = self.entropy(y) - p * self.entropy(y1) - (1 - p) * self.entropy(y2)
         return info_gain
@@ -471,9 +478,12 @@ class ClassificationTree(DecisionTree):
         -----------
               X:: ndarray (number of sample, number of features)
               y:: list of 1D array
-        verbose::0(default)-no progress or tree
-               ::1 - show progress
-               ::2 - show tree
+        verbose::0 - no progress or tree (silent)
+               ::1 - show progress in short
+               ::2 - show progress with details with branches
+			   ::3 - show progress with branches True/False 
+			   ::4 - show progress in short with plot tree
+	
         feature_names:: (optinal) list, Provide for better look at tree while plotting or shwoing the progress,
                        default to None, if not provided, features are named as f1,...fn
         '''
@@ -486,8 +496,12 @@ class ClassificationTree(DecisionTree):
 
 class RegressionTree(DecisionTree):
     def _varReduction(self, y, y1, y2):
+		'''
+		Calculate the variance reduction
+		VarRed = Var(y) - P(y1) * Var(y1) - P(p2) * Var(y2)
+		'''
         assert len(y.shape)==1 or y.shape[1]==1
-        # Calculate the variance reduction
+        
         p1 = len(y1) / len(y)
         p2 = len(y2) / len(y)
 
@@ -505,9 +519,12 @@ class RegressionTree(DecisionTree):
         -----------
               X:: ndarray (number of sample, number of features)
               y:: list of 1D array
-        verbose::0(default)-no progress or tree
-               ::1 - show progress
-               ::2 - show tree
+        verbose::0 - no progress or tree (silent)
+               ::1 - show progress in short
+               ::2 - show progress with details with branches
+			   ::3 - show progress with branches True/False 
+			   ::4 - show progress in short with plot tree
+	
         feature_names:: (optinal) list, Provide for better look at tree while plotting or shwoing the progress,
                        default to None, if not provided, features are named as f1,...fn
         '''
