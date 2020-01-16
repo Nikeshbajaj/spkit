@@ -1,5 +1,27 @@
 # Signal Processing toolkit
 
+
+[![Documentation Status](https://readthedocs.org/projects/spkit/badge/?version=latest)](https://spkit.readthedocs.io/en/latest/?badge=latest)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PyPI version fury.io](https://badge.fury.io/py/spkit.svg)](https://pypi.org/project/spkit/)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/spkit.svg)](https://pypi.python.org/pypi/spkit/)
+[![GitHub release](https://img.shields.io/github/release/nikeshbajaj/spkit.svg)](https://GitHub.com/nikeshbajaj/spkit/releases/)
+[![PyPI format](https://img.shields.io/pypi/format/spkit.svg)](https://pypi.python.org/pypi/spkit/)
+[![PyPI implementation](https://img.shields.io/pypi/implementation/spkit.svg)](https://pypi.python.org/pypi/spkit/)
+[![HitCount](http://hits.dwyl.io/nikeshbajaj/spkit.svg)](http://hits.dwyl.io/nikeshbajaj/spkit)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/y/nikeshbajaj/spkit?style=plastic)
+[![Percentage of issues still open](http://isitmaintained.com/badge/open/nikeshbajaj/spkit.svg)](http://isitmaintained.com/project/nikeshbajaj/spkit "Percentage of issues still open")
+[![PyPI download month](https://img.shields.io/pypi/dm/spkit.svg)](https://pypi.org/project/spkit/)
+[![PyPI download week](https://img.shields.io/pypi/dw/spkit.svg)](https://pypi.org/project/spkit/)
+
+
+[![Generic badge](https://img.shields.io/badge/pip%20install-spkit-blue.svg)](https://pypi.org/project/spkit/)
+[![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](mailto:n.bajaj@qmul.ac.uk)
+
+![PyPI - Downloads](https://img.shields.io/pypi/dm/spkit?style=social)
+
+
+
 ### Links: **[Github](https://github.com/Nikeshbajaj/spkit)**  |  **[PyPi - project](https://pypi.org/project/spkit/)**
 ### Installation: *[pip install spkit](https://pypi.org/project/spkit/)*
 
