@@ -22,7 +22,23 @@
 ### Links: **[Github](https://github.com/Nikeshbajaj/spkit)**  |  **[PyPi - project](https://pypi.org/project/spkit/)**
 ### Installation: *[pip install spkit](https://pypi.org/project/spkit/)*
 
-#### Updates:: Decision Tree
+#### <mark>New Updates</mark>:: Decision Tree
+Version: 0.0.7
+* **Analysing the performance measure of trained tree at different depth - with ONE-TIME Training ONLY**
+* **Optimize the depth of tree**
+* **Shrink the trained tree with optimal depth**
+* **Plot the Learning Curve**
+* **Classification: Compute the probability and counts of label at a leaf for given example sample**
+* **Regression: Compute the standard deviation and number of training samples at a leaf for given example sample**
+
+<mark></mark>
+<p align="center">
+<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/DTree_withKDepth1.png" width="500"/>
+<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/DTree_LCurve.png" width="300"/>
+</p>
+
+Version: 0.0.6
+* **Toy examples to understand the effect of incresing max_depth of Decision Tree**
 <p align="center">
 <img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_sinusoidal.png" width="600"/>
 </p>
@@ -52,6 +68,13 @@
 ```
 pip install spkit
 ```
+
+### update with pip
+
+```
+pip install spkit --upgrade
+```
+
 
 ### Build from the source
 Download the repository or clone it with git, after cd in directory build it from source with
