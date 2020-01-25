@@ -29,17 +29,17 @@ setuptools.setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
-		
+
         "License :: OSI Approved :: MIT License",
-		
+
         "Operating System :: OS Independent",
         'Topic :: Scientific/Engineering :: Artificial Intelligence',
         'Topic :: Scientific/Engineering :: Information Analysis',
         'Topic :: Software Development :: Libraries :: Python Modules',
-		
+
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
-		
+
         'Development Status :: 5 - Production/Stable',
     ],
     include_package_data=True,
