@@ -37,8 +37,7 @@
 -----
 
 ## New Updates
-#### <mark>New Updates</mark>:: Decision Tree
-#### [View Notebooks](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/DecisionTree/)
+#### <mark>New Updates</mark>:: Decision Tree [View Notebooks](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/DecisionTree/)
 
 **<mark>Version: 0.0.7</mark>**
 * **Analysing the performance measure of trained tree at different depth - with ONE-TIME Training ONLY**
