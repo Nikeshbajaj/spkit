@@ -21,9 +21,24 @@
 
 ### Links: **[Github](https://github.com/Nikeshbajaj/spkit)**  |  **[PyPi - project](https://pypi.org/project/spkit/)**
 ### Installation: *[pip install spkit](https://pypi.org/project/spkit/)*
+-----
+## Table of contents
+- [**New Updates**](#new-updates)
+- [**Installation**](#installation)
+- [**Signal Processing & ML function list**](#functions-list)
+- [**Examples**](#examples)
+    - [**Information Theory**](#information-theory)
+    - [**Machine Learning**](#machine-learning)
+        -[Logistic Regression](#logistic-regression---view-in-notebook)
+        -[Naive Bayes](#naive-bayes---view-in-notebook)
+        -[Decision Trees](#decision-trees---view-in-notebook)
+    - [**ICA**](#ica)
+    - [**LFSR**](#lfsr)
+-----
 
+## New Updates
 #### <mark>New Updates</mark>:: Decision Tree
-### [View Notebooks](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/DecisionTree/)
+#### [View Notebooks](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/DecisionTree/)
 
 <mark>Version: 0.0.7</mark>
 * **Analysing the performance measure of trained tree at different depth - with ONE-TIME Training ONLY**
@@ -50,20 +65,6 @@
 <img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_sinusoidal.png" width="600"/>
 </p>
 
-
------
-## Table of contents
-- [**Installation**](#installation)
-- [**Signal Processing & ML function list**](#functions-list)
-- [**Examples**](#examples)
-    - [**Information Theory**](#information-theory)
-    - [**Machine Learning**](#machine-learning)
-        -[Logistic Regression](#logistic-regression---view-in-notebook)
-        -[Naive Bayes](#naive-bayes---view-in-notebook)
-        -[Decision Trees](#decision-trees---view-in-notebook)
-    - [**ICA**](#ica)
-    - [**LFSR**](#lfsr)
------
 
 
 ## Installation
