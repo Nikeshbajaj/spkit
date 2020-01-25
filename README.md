@@ -24,8 +24,8 @@
 ## Table of contents
 - [**New Updates**](#new-updates)
 - [**Installation**](#installation)
-- [**Signal Processing & ML function list**](#functions-list)
-- [**Examples**](#examples)
+- [**Function list: Signal Processing & ML**](#functions-list)
+- [**Examples with Notebooks**](#examples)
     - [**Information Theory**](#information-theory)
     - [**Machine Learning**](#machine-learning)
         -[Logistic Regression](#logistic-regression---view-in-notebook)
