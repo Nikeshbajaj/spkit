@@ -23,7 +23,7 @@
 ### Installation: *[pip install spkit](https://pypi.org/project/spkit/)*
 
 #### <mark>New Updates</mark>:: Decision Tree
-### [View in notebooks](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/DecisionTree/)
+### [View Notebooks](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/DecisionTree/)
 
 <mark>Version: 0.0.7</mark>
 * **Analysing the performance measure of trained tree at different depth - with ONE-TIME Training ONLY**
