@@ -23,7 +23,7 @@
 ### Installation: *[pip install spkit](https://pypi.org/project/spkit/)*
 
 #### <mark>New Updates</mark>:: Decision Tree
-**Check example notebooks [here](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_DecisionTree/)**
+### [View in notebooks](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/DecisionTree/)
 
 <mark>Version: 0.0.7</mark>
 * **Analysing the performance measure of trained tree at different depth - with ONE-TIME Training ONLY**
@@ -120,7 +120,7 @@ python setup.py install
 
 # Examples
 ## Information Theory
-### [View in notebook](https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/1.1_Entropy_Example.ipynb)
+### [View in notebook](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_InfoTheory/1_Entropy_Example.ipynb)
 
 ```
 import numpy as np
@@ -178,7 +178,7 @@ plt.show()
 ```
 
 ## ICA
-### [View in notebook](https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/1.2_ICA_Example.ipynb)
+### [View in notebook](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_SP/1_EEG_ICA_Example_spkit.ipynb)
 ```
 from spkit import ICA
 from spkit.data import load_data
@@ -205,15 +205,15 @@ s4 = ica.transform(x.T)
 ```
 
 ## Machine Learning
-### [Logistic Regression](https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.1_LogisticRegression_examples.ipynb) - *View in notebook*
+### [Logistic Regression](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_ML/LogisticRegression/1_LogisticRegression_examples_spkit.ipynb) - *View in notebook*
 <p align="center"><img src="https://raw.githubusercontent.com/Nikeshbajaj/MachineLearningFromScratch/master/LogisticRegression/img/example5.gif" width="600"/></p>
 
-### [Naive Bayes](https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.2_NaiveBayes_example.ipynb) - *View in notebook*
+### [Naive Bayes](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_ML/NaiveBayes/1_NaiveBayes_example_spkit.ipynb) - *View in notebook*
 <p align="center"><img src="https://raw.githubusercontent.com/Nikeshbajaj/MachineLearningFromScratch/master/Probabilistic/img/FeatureDist.png" width="600"/></p>
 
-### [Decision Trees](https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.3_Tree_Example_Classification_and_Regression.ipynb) - *View in notebook*
+### [Decision Trees](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_ML/DecisionTree/1_Tree_ClassificationRegression_spkitV0.0.5.ipynb) - *View in notebook*
 
-[**[source code]**](https://github.com/Nikeshbajaj/spkit/blob/master/examples/trees_example.py) | [**[jupyter-notebook]**](https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.3.1_Trees_Classification_Example.ipynb)
+[**[source code]**](https://github.com/Nikeshbajaj/spkit/blob/master/examples/trees_example.py) | [**[jupyter-notebooks]**](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/DecisionTree/)
 <p align="center">
 <img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_sinusoidal.png" width="800"/>
 <img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/trees.png" width="800"/>
@@ -224,7 +224,7 @@ s4 = ica.transform(x.T)
 
 <p align="center"><img src="https://raw.githubusercontent.com/Nikeshbajaj/MachineLearningFromScratch/master/Trees/img/a123_nik.gif" width="600"/></p>
 
-[**view in repository **](https://github.com/Nikeshbajaj/spkit/tree/master/notebooks)
+[**view in repository **](https://github.com/Nikeshbajaj/Notebooks/tree/master/spkit_ML/DecisionTree)
 
 ## LFSR
 
