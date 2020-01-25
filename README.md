@@ -40,7 +40,7 @@
 #### <mark>New Updates</mark>:: Decision Tree
 #### [View Notebooks](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/DecisionTree/)
 
-<mark>Version: 0.0.7</mark>
+**<mark>Version: 0.0.7</mark>**
 * **Analysing the performance measure of trained tree at different depth - with ONE-TIME Training ONLY**
 * **Optimize the depth of tree**
 * **Shrink the trained tree with optimal depth**
@@ -53,19 +53,13 @@
 <img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/DTree_LCurve.png" width="300"/>
 </p>
 
-<mark>Version 0.0.6</mark>
-* **Works with catogorical features without converting them into binary vector**
+
+* **<mark>Version: 0.0.6</mark>**: Works with catogorical features without converting them into binary vector
+* **<mark>Version: 0.0.5</mark>**: Toy examples to understand the effect of incresing max_depth of Decision Tree
 <p align="center">
 <img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/DTree_withCatogoricalFeatures.png" width="300"/>
+<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_sinusoidal.png" width="500"/>
 </p>
-
-<mark>Version: 0.0.5</mark>
-* **Toy examples to understand the effect of incresing max_depth of Decision Tree**
-<p align="center">
-<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_sinusoidal.png" width="600"/>
-</p>
-
-
 
 ## Installation
 
