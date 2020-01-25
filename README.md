@@ -24,6 +24,7 @@
 
 #### <mark>New Updates</mark>:: Decision Tree
 **Check example notebooks [here](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_DecisionTree/)**
+
 <mark>Version: 0.0.7</mark>
 * **Analysing the performance measure of trained tree at different depth - with ONE-TIME Training ONLY**
 * **Optimize the depth of tree**
