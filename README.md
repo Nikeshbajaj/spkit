@@ -31,8 +31,8 @@
         -[Logistic Regression](#logistic-regression---view-in-notebook)
         -[Naive Bayes](#naive-bayes---view-in-notebook)
         -[Decision Trees](#decision-trees---view-in-notebook)
-    - [**ICA**](#ica)
-    - [**LFSR**](#lfsr)
+    - [**Independent Component Analysis**](#independent-component-analysis)
+    - [**Linear Feedback Shift Register**](#linear-feedback-shift-register)
 -----
 
 ## New Updates
@@ -170,7 +170,7 @@ sp.HistPlot(y,show=False)
 plt.show()
 ```
 
-## ICA
+## Independent Component Analysis
 ### [View in notebook](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_SP/1_EEG_ICA_Example_spkit.ipynb)
 ```
 from spkit import ICA
@@ -219,7 +219,7 @@ s4 = ica.transform(x.T)
 
 [**view in repository **](https://github.com/Nikeshbajaj/Notebooks/tree/master/spkit_ML/DecisionTree)
 
-## LFSR
+## Linear Feedback Shift Register
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/nikeshbajaj/Linear_Feedback_Shift_Register/master/images/LFSR.jpg" width="300"/>
