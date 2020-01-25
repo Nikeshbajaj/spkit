@@ -19,8 +19,7 @@
 
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/spkit?style=social)
 
-### Links: **[Github](https://github.com/Nikeshbajaj/spkit)**  |  **[PyPi - project](https://pypi.org/project/spkit/)**
-### Installation: *[pip install spkit](https://pypi.org/project/spkit/)*
+### Links: **[Github](https://github.com/Nikeshbajaj/spkit)**  |  **[PyPi - project](https://pypi.org/project/spkit/)** &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  Installation: *[pip install spkit](https://pypi.org/project/spkit/)*
 -----
 ## Table of contents
 - [**New Updates**](#new-updates)
