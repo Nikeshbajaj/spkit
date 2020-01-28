@@ -3,27 +3,32 @@ Signal Processing toolkit
 
 **Links**
 ----------
+
 * **Github Page** : https://github.com/Nikeshbajaj/spkit
 * **PyPi-project**: https://pypi.org/project/spkit/
 
 **Installation**
 ----------
+
 With **pip**
 
 ::
   
   pip install spkit
  
-Build from the source - Download the repository or clone it with git, after cd in directory build it from source with
+
+**Build from source**
+
+Download the repository or clone it with git, after cd in directory build it from source with
 
 ::
-  
-  python setup.py install
 
+  python setup.py install
 
 
 **Table of contents**
 ----------
+
 * **Signal Processing & ML function list**
 * **Examples**
     * **Information Theory**
@@ -33,7 +38,7 @@ Build from the source - Download the repository or clone it with git, after cd i
         * Decision Trees
     * **ICA**
     * **LFSR**
-----------
+    
 
 **Functions list**
 ----------
@@ -132,7 +137,8 @@ Build from the source - Download the repository or clone it with git, after cd i
   plt.subplot(122)
   sp.HistPlot(y,show=False)
   plt.show()
-  
+
+
 **Independent Component Analysis - ICA**
 `Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/1.2_ICA_Example.ipynb>`_
 
@@ -163,7 +169,7 @@ Build from the source - Download the repository or clone it with git, after cd i
 
 
 **Machine Learning**
--------------------
+----------
 
 * **Logistic Regression** `Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.1_LogisticRegression_examples.ipynb>`_
 
@@ -183,7 +189,7 @@ Build from the source - Download the repository or clone it with git, after cd i
 
 
 **Linear Feedback Shift Register**
-------------------
+----------
 
 .. image:: https://raw.githubusercontent.com/nikeshbajaj/Linear_Feedback_Shift_Register/master/images/LFSR.jpg
    :height: 100px
@@ -206,14 +212,14 @@ Build from the source - Download the repository or clone it with git, after cd i
 
 
 
-____________________________________
-
 Contacts
---------
+----------
 
-* **Nikesh Bajaj**
-* *http://nikeshbajaj.in*
-* *n.bajaj@qmul.ac.uk*
-* *bajaj.nikkey@gmail.com*
-* *PhD Student: Queen Mary University of London*
-______________________________________
+If any doubt, confusion or feedback please contact me
+
+Nikesh Bajaj: http://nikeshbajaj.in
+
+* `n.bajaj@qmul.ac.uk`
+* `nikkeshbajaj@gmail.com`
+
+PhD Student: **Queen Mary University of London**
