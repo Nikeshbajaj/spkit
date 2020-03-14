@@ -26,21 +26,7 @@ Download the repository or clone it with git, after cd in directory build it fro
   python setup.py install
 
 
-**Table of contents**
-----------
-
-* **Signal Processing & ML function list**
-* **Examples**
-    * **Information Theory**
-    * **Machine Learning**
-        * Logistic Regression
-        * Naive Bayes
-        * Decision Trees
-    * **ICA**
-    * **LFSR**
-    
-
-**Functions list**
+**List of all functions**
 ----------
 
 **Signal Processing Techniques**
