@@ -1,9 +1,9 @@
-Signal Processing ToolKit!
+Signal Processing ToolKit documentation!
 =====================================
 
-This package includes following components :
+This package includes following components:
 
 .. toctree::
    :maxdepth: 2
-   
+
    README
