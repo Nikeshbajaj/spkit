@@ -1,9 +1,11 @@
 include *.md
 include docs/index.rst
 include LICENSE
+include Version
 include requirements.txt
 include spkit/__init__.py
 include spkit/data/EEG16SecData.pkl
+include spkit/data/primitive_polynomials_GF2_dict.txt
 
 recursive-include spkit *.py
 recursive-include spkit *.txt

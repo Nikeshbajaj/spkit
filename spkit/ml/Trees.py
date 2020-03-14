@@ -67,12 +67,13 @@ class DecisionTree(object):
         self.verbose = None
         self.feature_names = None
         self.randomBranch=None
-
+        self.__author__ = 'Nikesh Bajaj'
         # Function to calculate impurity (classif.=>info gain, regr=>variance reduct.)
         self._impurity_calculation = None
 
         # Function to determine prediction of y at leaf
         self._leaf_value_calculation = None
+
     def fit(self, X, y):
         '''
         Building a tree and saving in an dictionary at self.tree
@@ -110,7 +111,7 @@ class DecisionTree(object):
         self.tree = self.pruneTree(self.tree)
         self.tree = self.pruneTree(self.tree)
         self.tree = self.pruneTree(self.tree)
-        if self.verbose>0:
+        if self.verbose:
             print('|\n|.........................tree is buit!')
             print('---------------------------------------')
         self.trained = True
@@ -504,7 +505,7 @@ class DecisionTree(object):
             print("No tree found, haven't trained yet!!")
     def set_featureNames(self,feature_names=None):
         if feature_names is None or len(feature_names)!=self.nfeatures:
-            print('setting feature names to default..f1, f2....fn')
+            if self.verbose: print('setting feature names to default..f1, f2....fn')
             self.feature_names = ['f'+str(i) for i in range(1,self.nfeatures+1)]
         else:
             self.feature_names = feature_names
