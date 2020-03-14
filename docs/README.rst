@@ -67,8 +67,6 @@ Download the repository or clone it with git, after cd in directory build it fro
 
 **Information Theory**
 
-`Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/1.1_Entropy_Example.ipynb>`_
-
 ::
  
   import numpy as np
@@ -114,8 +112,6 @@ Download the repository or clone it with git, after cd in directory build it fro
   print('Cross Entropy of : H(x,y) = :',H_xy_cross)
   print('Kullback–Leibler divergence : Dkl(x,y) = :',D_xy)
 
-
-
   plt.figure(figsize=(12,5))
   plt.subplot(121)
   sp.HistPlot(x,show=False)
@@ -126,7 +122,6 @@ Download the repository or clone it with git, after cd in directory build it fro
 
 
 **Independent Component Analysis - ICA**
-`Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/1.2_ICA_Example.ipynb>`_
 
 ::
   
@@ -157,13 +152,11 @@ Download the repository or clone it with git, after cd in directory build it fro
 **Machine Learning**
 ----------
 
-* **Logistic Regression** `Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.1_LogisticRegression_examples.ipynb>`_
+* **Logistic Regression** 
 
-* **Naive Bayes** `Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.2_NaiveBayes_example.ipynb>`_
+* **Naive Bayes** 
 
-
-* **Decision Trees** `Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/spkit/blob/master/notebooks/2.3_Tree_Example_Classification_and_Regression.ipynb>`_
-
+* **Decision Trees** 
 
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_sinusoidal.png
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/trees.png
