@@ -261,7 +261,7 @@
 ----------
 
 .. image:: https://raw.githubusercontent.com/nikeshbajaj/Linear_Feedback_Shift_Register/master/images/LFSR.jpg
-   :height: 50px
+   :height: 100px
   
   
 **Example: 5 bit LFSR with x^5 + x^2 + 1**
@@ -280,4 +280,4 @@
   tempseq = L.runKCycle(10000)    # generate 10000 bits from current state
 
 
-`Check out more examples <https://linear-feedback-shift-register.readthedocs.io/en/latest/README.html#lfsr-examples>`_
+**`Check out more examples of LFSR <https://linear-feedback-shift-register.readthedocs.io/en/latest/README.html#lfsr-examples>`_**
