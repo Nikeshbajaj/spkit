@@ -97,6 +97,9 @@
 **Logistic Regression** 
 ----------
 
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/MachineLearningFromScratch/master/LogisticRegression/img/example1.gif
+   :height: 120px
+
 `View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/LogisticRegression/>`_
 
 ::
@@ -134,6 +137,9 @@
 
 **Naive Bayes** 
 ----------
+
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/MachineLearningFromScratch/master/Probabilistic/img/FeatureDist.png
+   :height: 120px
 
 `View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_ML/NaiveBayes/1_NaiveBayes_example_spkit.ipynb>`_
 
@@ -198,6 +204,7 @@
 `View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/DecisionTree/>`_
 
 ::
+  
   import numpy as np
   import matplotlib.pyplot as plt
   
@@ -253,7 +260,7 @@
 ----------
 
 .. image:: https://raw.githubusercontent.com/nikeshbajaj/Linear_Feedback_Shift_Register/master/images/LFSR.jpg
-   :height: 200px
+   :height: 100px
   
   
 **Example: 5 bit LFSR with x^5 + x^2 + 1**
@@ -273,17 +280,3 @@
 
 
 `Check out more examples <https://linear-feedback-shift-register.readthedocs.io/en/latest/README.html#lfsr-examples>`_
-
-
-
-Contacts
-----------
-
-If any doubt, confusion or feedback please contact me
-
-Nikesh Bajaj: http://nikeshbajaj.in
-
-* `n.bajaj@qmul.ac.uk`
-* `nikkeshbajaj@gmail.com`
-
-PhD Student: **Queen Mary University of London**
