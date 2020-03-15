@@ -1,8 +1,10 @@
 **Examples**
 ======================================
 
-**Information Theory - Entroy**
+**Information Theory - Entropy**
 ----------
+
+`View in Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_InfoTheory/1_Entropy_Example.ipynb>`_
 
 ::
  
@@ -61,6 +63,8 @@
 **Independent Component Analysis - ICA**
 ----------
 
+`View in Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_SP/1_EEG_ICA_Example_spkit.ipynb>`_
+
 ::
   
   from spkit import ICA
@@ -93,7 +97,7 @@
 **Logistic Regression** 
 ----------
 
-![View more examples in Notebooks](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/LogisticRegression/)
+`View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/LogisticRegression/>`_
 
 ::
   
@@ -131,7 +135,7 @@
 **Naive Bayes** 
 ----------
 
-![View in Notebook](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_ML/NaiveBayes/1_NaiveBayes_example_spkit.ipynb)
+`View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_ML/NaiveBayes/1_NaiveBayes_example_spkit.ipynb>`_
 
 ::
   
@@ -189,7 +193,9 @@
 **Decision Trees** 
 ----------
 
-![View more examples in Notebooks](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/DecisionTree/)
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_sinusoidal.png
+
+`View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/DecisionTree/>`_
 
 ::
   import numpy as np
@@ -234,7 +240,7 @@
   plt.figure(figsize=(15,12))
   clf.plotTree()
 
-.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_sinusoidal.png
+
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/trees.png
 
 
@@ -247,7 +253,7 @@
 ----------
 
 .. image:: https://raw.githubusercontent.com/nikeshbajaj/Linear_Feedback_Shift_Register/master/images/LFSR.jpg
-   :height: 100px
+   :height: 200px
   
   
 **Example: 5 bit LFSR with x^5 + x^2 + 1**
@@ -264,6 +270,9 @@
   L.runFullCycle()
   L.info()
   tempseq = L.runKCycle(10000)    # generate 10000 bits from current state
+
+
+`Check out more examples <https://linear-feedback-shift-register.readthedocs.io/en/latest/README.html#lfsr-examples>`_
 
 
 
