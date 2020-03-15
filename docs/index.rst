@@ -7,3 +7,5 @@ This package includes following components:
    :maxdepth: 2
 
    README
+   Examples
+   Contacts
