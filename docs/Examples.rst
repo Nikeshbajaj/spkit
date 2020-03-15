@@ -98,7 +98,7 @@
 ----------
 
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/MachineLearningFromScratch/master/LogisticRegression/img/example1.gif
-   :height: 120px
+   :height: 80px
 
 `View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/LogisticRegression/>`_
 
@@ -139,7 +139,7 @@
 ----------
 
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/MachineLearningFromScratch/master/Probabilistic/img/FeatureDist.png
-   :height: 120px
+   :height: 100px
 
 `View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_ML/NaiveBayes/1_NaiveBayes_example_spkit.ipynb>`_
 
@@ -200,6 +200,7 @@
 ----------
 
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_sinusoidal.png
+   :height: 80px
 
 `View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/DecisionTree/>`_
 
@@ -260,7 +261,7 @@
 ----------
 
 .. image:: https://raw.githubusercontent.com/nikeshbajaj/Linear_Feedback_Shift_Register/master/images/LFSR.jpg
-   :height: 100px
+   :height: 50px
   
   
 **Example: 5 bit LFSR with x^5 + x^2 + 1**
