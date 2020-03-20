@@ -13,7 +13,6 @@
 [![PyPI download month](https://img.shields.io/pypi/dm/spkit.svg)](https://pypi.org/project/spkit/)
 [![PyPI download week](https://img.shields.io/pypi/dw/spkit.svg)](https://pypi.org/project/spkit/)
 
-[![DOI](https://zenodo.org/badge/182173232.svg)](https://zenodo.org/badge/latestdoi/182173232)
 
 [![Generic badge](https://img.shields.io/badge/pip%20install-spkit-blue.svg)](https://pypi.org/project/spkit/)
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](mailto:n.bajaj@qmul.ac.uk)

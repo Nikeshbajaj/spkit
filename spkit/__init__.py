@@ -1,7 +1,10 @@
-name = "Signal Processing tool kit"
+from __future__ import absolute_import, division, print_function
 
-__version__ = '0.0.7'
+name = "Signal Processing toolkit"
+__version__ = '0.0.9'
 __author__ = 'Nikesh Bajaj'
+
+
 import sys, os
 
 sys.path.append(os.path.dirname(__file__))

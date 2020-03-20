@@ -1,14 +1,28 @@
+from __future__ import absolute_import, division, print_function
+
+import sys
+
+if sys.version_info[:2] < (3, 3):
+    old_print = print
+    def print(*args, **kwargs):
+        flush = kwargs.pop('flush', False)
+        old_print(*args, **kwargs)
+        if flush:
+            file = kwargs.get('file', sys.stdout)
+            # Why might file=None? IDK, but it works for print(i, file=None)
+            file.flush() if file is not None else sys.stdout.flush()
+
 import numpy as np
 import matplotlib.pyplot as plt
 
 class NaiveBayes():
     """
-    The Gaussian Naive Bayes classifier. 
+    The Gaussian Naive Bayes classifier.
     Based on the bayes rule
-    
+
     X::shape (n, nf), n samples with nf features
     y::shape (n,) or (n,1)
-    
+
     """
     def __init__(self):
         self.classes = None
@@ -19,6 +33,10 @@ class NaiveBayes():
         # Parameters :: mu, sigma (mean and variance) and prior of each class
         self.parameters = dict()
 
+    def __repr__(self):
+        info = "NaiveBayes()"
+        return info
+
     def fit(self, X, y):
         assert X.shape[0]==y.shape[0]
         assert len(y.shape)==1 or y.shape[1]==1
@@ -26,9 +44,9 @@ class NaiveBayes():
         self.X = X
         self.y = y
         self.classes = np.unique(y)
-        
+
         # Calculate the mean and variance of each feature for each class
-        # Calculate the prior for each class c 
+        # Calculate the prior for each class c
         # P(Y) = number of samples in class c / total numberof samples
         for c in self.classes:
             param = {}
@@ -44,14 +62,12 @@ class NaiveBayes():
         pxy = a*np.exp(-(((x - mu)**2) / (2 * sig)))
         return pxy
 
-    
-
     # Classify using Bayes Rule, P(Y|X) = P(X|Y)*P(Y)/P(X)
     # P(X|Y) - Probability. Gaussian distribution (fun _Pxy)
     # P(Y)   - Prior
     # P(X)   - Scales the posterior to the range 0 - 1
-    # P(Y|X) - (posterior) 
-    # Classify the sample as the class that results in the largest 
+    # P(Y|X) - (posterior)
+    # Classify the sample as the class that results in the largest
     def _Pyx(self, xi):
         Pyx = []
         # Go through list of classes
@@ -65,7 +81,7 @@ class NaiveBayes():
         #Normalizing
         Pyx /= Pyx.sum(-1)[None].T
         return Pyx
-    
+
     # Predict the class labels corresponding to the
     # samples in X
     def predict(self, X):
@@ -73,15 +89,15 @@ class NaiveBayes():
         return self.classes[Pyx.argmax(-1)]
     def predict_prob(self,X):
         return self._Pyx(X)
-    
+
     def set_class_labels(self,labels):
         assert len(labels)==len(self.classes)
         self.class_labels = labels
-    
+
     def set_feature_names(self,fnames):
         assert len(fnames)==self.nf
         self.feature_names = fnames
-    
+
     def _getPDF(self,mean,var,imin,imax,points=1000):
         xi  = np.linspace(imin,imax,points)
         a  = (1.0 / (np.sqrt((2.0 * np.pi) * var)))
@@ -92,17 +108,17 @@ class NaiveBayes():
             self.class_labels  = ['C'+str(c) for c in self.classes]
         if self.feature_names is None:
             self.feature_names = ['f'+str(i+1) for i in range(self.nf)]
-        
+
         if nfeatures is None:
             ngrid = int(np.ceil(np.sqrt(self.nf)))
             NF = list(range(self.nf))
         else:
             ngrid = int(np.ceil(np.sqrt(len(nfeatures))))
             NF = list(nfeatures)
-        
+
         mn = self.X.min(0)
         mx = self.X.max(0)
-        
+
         for j in NF:
             plt.subplot(ngrid,ngrid,j+1-NF[0])
             for i in range(len(self.classes)):
@@ -121,5 +137,5 @@ class NaiveBayes():
                 plt.grid(alpha=0.5)
                 plt.tight_layout()
                 plt.ticklabel_format(style='sci',axis='y',scilimits=(0,0))
-        
+
         plt.show()

@@ -1,5 +1,22 @@
+from __future__ import absolute_import, division, print_function
+
+import sys
+
+if sys.version_info[:2] < (3, 3):
+    old_print = print
+    def print(*args, **kwargs):
+        flush = kwargs.pop('flush', False)
+        old_print(*args, **kwargs)
+        if flush:
+            file = kwargs.get('file', sys.stdout)
+            # Why might file=None? IDK, but it works for print(i, file=None)
+            file.flush() if file is not None else sys.stdout.flush()
+
+
+
 import numpy as np
 import matplotlib.pyplot as plt
+
 
 '''
 Author @ Nikesh Bajaj

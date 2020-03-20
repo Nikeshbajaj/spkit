@@ -10,6 +10,20 @@ https://doi.org/10.6084/m9.figshare.7797095.v1
 Bajaj, Nikesh (2019): Decision Tree with Visualsation. figshare. Code.
 
 '''
+from __future__ import absolute_import, division, print_function
+
+import sys
+
+if sys.version_info[:2] < (3, 3):
+    old_print = print
+    def print(*args, **kwargs):
+        flush = kwargs.pop('flush', False)
+        old_print(*args, **kwargs)
+        if flush:
+            file = kwargs.get('file', sys.stdout)
+            # Why might file=None? IDK, but it works for print(i, file=None)
+            file.flush() if file is not None else sys.stdout.flush()
+
 
 
 #Libraries
@@ -352,7 +366,6 @@ class DecisionTree(object):
         path = path +ipath
         # Test subtree
         return self._predict_value_depth(x, branch,path,depth=depth+1,max_depth=max_depth)
-
     def _predict_proba(self, x, tree=None,path=''):
         ''' Do a recursive search down the tree and make a prediction of the data sample by the
             value of the leaf that we end up at '''
@@ -419,7 +432,6 @@ class DecisionTree(object):
         path = path +ipath
         # Test subtree
         return self._predict_proba_depth(x, branch, path,depth=depth+1,max_depth=max_depth)
-
     def predict_(self, X,treePath=False):
         '''Classify samples one by one and return the set of labels '''
 
@@ -449,7 +461,6 @@ class DecisionTree(object):
         else:
             y_pred = np.array([self._predict_value_depth(x,max_depth=max_depth)[0] for x in X])
         return y_pred
-
     def predict_proba_(self, X,label_counts=False,treePath=False):
         '''Compute probability of samples one by one and return the set of labels'''
 
@@ -497,7 +508,6 @@ class DecisionTree(object):
             return y_prob,y_paths
         else:
             return y_prob
-
     def get_tree(self):
         if self.trained:
             return self.tree
@@ -669,21 +679,21 @@ class DecisionTree(object):
     def set_xyNode(self,DT,lxy=[0,1],xy=[1,1],rxy=[2,1],ldiff=1):
         DT['xy'] = xy
         if not(DT['leaf']):
-            ixy =xy.copy()
+            ixy =xy[:] #ixy =xy.copy()
             ixy[0] = (xy[0]+rxy[0])/2.0
             ixy[1]-=ldiff
-            ilxy =xy.copy()
-            irxy =rxy.copy()
+            ilxy =xy[:]  #ilxy =xy.copy()
+            irxy =rxy[:] #irxy =rxy.copy()
             self.set_xyNode(DT['T'],xy=ixy,lxy=ilxy,rxy=irxy)
 
-            ixy =xy.copy()
+            ixy =xy[:] # ixy =xy.copy()
             ixy[0] = (xy[0]+lxy[0])/2.0
             ixy[1]-=ldiff
-            ilxy =lxy.copy()
-            irxy =xy.copy()
+            ilxy =lxy[:] #ilxy =lxy.copy()
+            irxy =xy[:] #irxy =xy.copy()
             self.set_xyNode(DT['F'],xy=ixy,lxy=ilxy,rxy=irxy)
     def showTree(self,DT,DiffBranchColor=False,showNodevalues=True,showThreshold=True):
-        d =0.0
+        d = 0.0
         x,y = DT['xy']
 
         if not(DT['leaf']):
@@ -741,7 +751,6 @@ class DecisionTree(object):
     def _hlines(self,diff=1,ls='-.',lw=0.5,color='k'):
         for i in range(self.getTreeDepth()):
             plt.axhline(y=-i*diff,ls=ls,color=color,lw=lw)
-
     def _showMeasures(self,color='b',dcml=0):
         if len(self.Lcurve)>0:
             xmn,xmx = plt.gca().get_xlim()
@@ -760,7 +769,6 @@ class DecisionTree(object):
                 plt.text(xmx,-d,st,color=color,verticalalignment='center')
         else:
             print('No Learning curve values found!!!\n Please use method "getLcurve(Xt,yt,Xs,ys)" to create Lcurve')
-
     def getLcurve(self,Xt=None,yt=None,Xs=None,ys=None,measure='acc'):
         Lcurve ={}
         assert measure in ['acc','mse','mae']
@@ -792,7 +800,6 @@ class DecisionTree(object):
             if title: ax.set_title('Learning Curve')
         else:
             print('No Learning curve values found!!!\n Please use method "getLcurve(Xt,yt,Xs,ys)" to create Lcurve')
-
     def _loss(self,y,yp,measure='acc'):
         assert y.shape==yp.shape
         if measure=='mse':
@@ -805,9 +812,13 @@ class DecisionTree(object):
         else:
             return np.mean(yp==y)
 
-
-
 class ClassificationTree(DecisionTree):
+
+    def __repr__(self):
+        info = 'ClassificationTree(' +\
+               'max_depth={}, min_samples_split={},min_impurity={},'.format(self.max_depth,self.min_samples_split,self.min_impurity) +\
+               'thresholdFromMean='.format(self.thresholdFromMean)
+        return info
     def _entropy(self,y):
         '''
 		Calculate the entropy of array y
@@ -876,6 +887,12 @@ class ClassificationTree(DecisionTree):
         super(ClassificationTree, self).fit(X, y)
 
 class RegressionTree(DecisionTree):
+
+    def __repr__(self):
+        info = 'RegressionTree(' +\
+               'max_depth={}, min_samples_split={},min_impurity={},'.format(self.max_depth,self.min_samples_split,self.min_impurity) +\
+               'thresholdFromMean='.format(self.thresholdFromMean)
+        return info
     def _varReduction(self, y, y1, y2):
         '''
         Calculate the variance reduction

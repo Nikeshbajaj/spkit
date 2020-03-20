@@ -1,4 +1,5 @@
 ##------------------------------Dataset Generators---------------------------------------------
+from __future__ import absolute_import, division, print_function
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -32,7 +33,7 @@ def mclassGaus(N=100, nClasses = 2,var =0.1,ShowPlot=False):
         plt.show()
     return X,y
 
-def spiral(N, s = 0.5, wrappings = 'random', m = 'random'):
+def spiral(N=[100,100], s = 0.5, wrappings = 'random', m = 'random'):
     '''
     %Sample a dataset from a dataset separated by a sinusoidal line
     %   X, Y, s, wrappings, m = spiral(N, s, wrappings, m)
@@ -79,7 +80,7 @@ def spiral(N, s = 0.5, wrappings = 'random', m = 'random'):
 
     return X.T, Y.T, s, wrappings, m
 
-def sinusoidal(N, s = 0.1):
+def sinusoidal(N=[100,100], s = 0.1):
     '''
     %Sample a dataset from a dataset separated by a sinusoidal line
     %   X, Y, s = sinusoidal(N, s)
@@ -118,7 +119,7 @@ def sinusoidal(N, s = 0.1):
 
     return X.T, Y.T, s
 
-def moons(N, s =0.1, d='random', angle = 'random'):
+def moons(N=[100,100], s =0.1, d='random', angle = 'random'):
     '''
     % Sample a dataset from two "moon" distributions
     %   X, Y, s, d, angle = moons(N, s, d, angle)
@@ -169,7 +170,7 @@ def moons(N, s =0.1, d='random', angle = 'random'):
 
     return X.T, Y.T, s, d, angle
 
-def gaussian(N, ndist = 3, means ='random', sigmas='random'):
+def gaussian(N=[100,100], ndist = 3, means ='random', sigmas='random'):
     '''
     %Sample a dataset from a mixture of gaussians
     %   X, Y, ndist, means, sigmas = gaussian(N, ndist, means, sigmas)
@@ -222,7 +223,7 @@ def gaussian(N, ndist = 3, means ='random', sigmas='random'):
 
     return X.T, Y.T, ndist, means, sigmas
 
-def linear_data(N, m ='random', b ='random', s =0.1):
+def linear_data(N=[100,100], m ='random', b ='random', s =0.1):
     '''
     %Sample a dataset from a linear separable dataset
     %   X, Y, m, b, s = linear(N, m, b)
@@ -272,7 +273,7 @@ def linear_data(N, m ='random', b ='random', s =0.1):
 
     return X.T, Y.T, m, b, s
 
-def create_dataset(N, Dtype, noise, varargin = 'PRESET',**Options):
+def create_dataset(N=100, Dtype='GAUSSIANS', noise=0, varargin = 'PRESET',**Options):
     '''
     %Sample a dataset from different distributions
     %   [X, Y, varargout] = create_dataset(N, type, noise, varargin)

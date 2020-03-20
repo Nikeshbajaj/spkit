@@ -1,10 +1,24 @@
-import numpy as np
 '''
 Author @ Nikesh Bajaj
 Date: 22 Oct 2017
 Contact: n.bajaj@qmul.ac.uk
 '''
 
+from __future__ import absolute_import, division, print_function
+name = "Signal Processing toolkit | LFSR"
+import sys
+
+if sys.version_info[:2] < (3, 3):
+    old_print = print
+    def print(*args, **kwargs):
+        flush = kwargs.pop('flush', False)
+        old_print(*args, **kwargs)
+        if flush:
+            file = kwargs.get('file', sys.stdout)
+            # Why might file=None? IDK, but it works for print(i, file=None)
+            file.flush() if file is not None else sys.stdout.flush()
+
+import numpy as np
 from .data import load_data
 
 
