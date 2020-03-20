@@ -60,6 +60,8 @@
   plt.show()
 
 
+
+
 **Independent Component Analysis - ICA**
 ----------
 
@@ -98,48 +100,100 @@
 ----------
 
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/MachineLearningFromScratch/master/LogisticRegression/img/example1.gif
-   :height: 80px
 
 `View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/LogisticRegression/>`_
+
+**Binary Class**
 
 ::
   
   import numpy as np
   import matplotlib.pyplot as plt
-  from matplotlib.gridspec import GridSpec
 
-
-  from spkit.data import dataGen as ds
-  from spkit.ml import LR
+  import spkit
+  print(spkit.__version__)
+  0.0.9
+  
+  from spkit.ml import LogisticRegression
 
   # Generate data
-  Xt, yt,_ = ds.create_dataset(N = 200, Dtype='SINUSOIDAL',noise = 0.05) # for training
-  Xs, ys,_ = ds.create_dataset(N = 200, Dtype='SINUSOIDAL',noise = 0.05) # for testing
+  N = 300
+  np.random.seed(1)
+  X = np.random.randn(N,2)
+  y = np.random.randint(0,2,N)
+  y.sort()
 
-  #In cureent version LR takes X and y as shape (nf,n) and (n,1)
-  Xt,yt,Xs,ys = Xt.T, yt[None,:], Xs.T, ys[None,:]
-
-  print(Xt.shape, yt.shape,Xs.shape, ys.shape)
-  
-  clf = LR(Xt,yt,alpha=0.0003,polyfit=True,degree=3,lambd=0.1)
-  clf.fit(Xt,yt,itr=1000,verbose=0)
-
-  ytp = clf.predict(Xt)[1]*1
-  ysp = clf.predict(Xs)[1]*1
-  print('Training Accuracy :',np.mean(yt==ytp))
-  print('Testing  Accuracy :',np.mean(ys==ysp))
-  
-  fig, ax = plt.subplots(1,2,figsize=(15,5))
-  clf.Bplot(ax[0],hardbound=False)
-  clf.LCurvePlot(ax[1])
+  X[y==0,:]+=2 # just creating classes a little far
+  print(X.shape, y.shape)
+  plt.plot(X[y==0,0],X[y==0,1],'.b')
+  plt.plot(X[y==1,0],X[y==1,1],'.r')
   plt.show()
-  
 
+  
+  clf = LogisticRegression(alpha=0.1)
+  print(clf)
+  clf.fit(X,y,max_itr=1000)
+  yp  = clf.predict(X)
+  ypr = clf.predict_proba(X)
+  print('Accuracy : ',np.mean(yp==y))
+  print('Loss     : ',clf.Loss(y,ypr))
+  
+  plt.figure(figsize=(12,7))
+  ax1 = plt.subplot(221) 
+  clf.plot_Lcurve(ax=ax1)
+  ax2 = plt.subplot(222)
+  clf.plot_boundries(X,y,ax=ax2)
+
+  ax3 = plt.subplot(223)
+  clf.plot_weights(ax=ax3)
+  ax4 = plt.subplot(224)
+  clf.plot_weights2(ax=ax4,grid=False)
+  
+  
+**Multi Class - with polynomial features**  
+
+::
+  
+  N =300
+  X = np.random.randn(N,2)
+  y = np.random.randint(0,3,N)
+  y.sort()
+
+  X[y==0,1]+=3
+  X[y==2,0]-=3
+  print(X.shape, y.shape)
+
+  plt.plot(X[y==0,0],X[y==0,1],'.b')
+  plt.plot(X[y==1,0],X[y==1,1],'.r')
+  plt.plot(X[y==2,0],X[y==2,1],'.g')
+  plt.show()
+
+  clf = LogisticRegression(alpha=0.1,polyfit=True,degree=3,lambd=0,FeatureNormalize=True)
+  clf.fit(X,y,max_itr=1000)
+  yp  = clf.predict(X)
+  ypr = clf.predict_proba(X)
+  print(clf)
+  print('')
+  print('Accuracy : ',np.mean(yp==y))
+  print('Loss     : ',clf.Loss(clf.oneHot(y),ypr))
+
+
+  plt.figure(figsize=(15,7))
+  ax1 = plt.subplot(221) 
+  clf.plot_Lcurve(ax=ax1)
+  ax2 = plt.subplot(222)
+  clf.plot_boundries(X,y,ax=ax2)
+
+  ax3 = plt.subplot(223)
+  clf.plot_weights(ax=ax3)
+  ax4 = plt.subplot(224)
+  clf.plot_weights2(ax=ax4,grid=True)
+
+  
 **Naive Bayes** 
 ----------
 
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/MachineLearningFromScratch/master/Probabilistic/img/FeatureDist.png
-   :height: 100px
 
 `View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_ML/NaiveBayes/1_NaiveBayes_example_spkit.ipynb>`_
 
@@ -200,7 +254,6 @@
 ----------
 
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_sinusoidal.png
-   :height: 80px
 
 `View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/DecisionTree/>`_
 
@@ -261,7 +314,7 @@
 ----------
 
 .. image:: https://raw.githubusercontent.com/nikeshbajaj/Linear_Feedback_Shift_Register/master/images/LFSR.jpg
-   :height: 10px
+   :height: 300px
   
   
 **Example: 5 bit LFSR with x^5 + x^2 + 1**
