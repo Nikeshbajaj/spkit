@@ -4,6 +4,8 @@ Signal Processing toolkit
 **Links**
 ----------
 
+* **Homepage**    : https://spkit.github.io
+* **Documentation** : https://spkit.readthedocs.io/
 * **Github Page** : https://github.com/Nikeshbajaj/spkit
 * **PyPi-project**: https://pypi.org/project/spkit/
 
