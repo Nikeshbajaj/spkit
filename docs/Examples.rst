@@ -268,14 +268,14 @@
 Or just execute all the examples online, without installing anything
 
 .. image:: https://mybinder.org/badge_logo.svg
- :target: https://mybinder.org/v2/gh/Nikeshbajaj/Notebooks/master?urlpath=lab/tree/spkit/0.0.9/ML/Trees
-~~~~~~~~~~~~~~~~~~~~~~
+   :height: 40
+   :target: https://mybinder.org/v2/gh/Nikeshbajaj/Notebooks/master?urlpath=lab/tree/spkit/0.0.9/ML/Trees
 
 One example file is
 
 .. image:: https://mybinder.org/badge_logo.svg
+ :height: 40
  :target: https://mybinder.org/v2/gh/Nikeshbajaj/Notebooks/master?filepath=spkit/0.0.9/ML/Trees/1_DecisionTree_Visualization_spkit_v0.0.9.ipynb
-~~~~~~~~~~~~~~~~~~~~~~
 
 ::
   
