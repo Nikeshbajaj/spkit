@@ -36,6 +36,11 @@
 -----
 
 ## New Updates
+**<mark>Version: 0.0.9.1</mark>**
+* **Fixed the Import Error with python 2.7**
+* **Logistic Regression with multiclass**
+* **Updated Examples with 0.0.9 version [View Notebooks](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit/0.0.9/ML/Trees/)
+
 #### <mark>New Updates</mark>:: Decision Tree [View Notebooks](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/DecisionTree/)
 
 **<mark>Version: 0.0.7</mark>**
