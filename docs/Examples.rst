@@ -265,13 +265,16 @@
 `View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit/0.0.9/ML/Trees/>`_
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Or use 
-.. image:: https://mybinder.org/badge_logo.svg
- :target: https://mybinder.org/v2/gh/Nikeshbajaj/Notebooks/master?filepath=spkit%2F0.0.9%2FML%2FTrees
-~~~~~~~~~~~~~~~~~~~~~~
+Or just execute all the examples online, without installing anything
 
 .. image:: https://mybinder.org/badge_logo.svg
- :target: https://mybinder.org/v2/gh/Nikeshbajaj/Notebooks/master?filepath=spkit%2F0.0.9%2FML%2FTrees%2F1_DecisionTree_Visualization_spkit_v0.0.9.ipynb
+ :target: https://mybinder.org/v2/gh/Nikeshbajaj/Notebooks/master?urlpath=lab/tree/spkit/0.0.9/ML/Trees
+~~~~~~~~~~~~~~~~~~~~~~
+
+One example file is
+
+.. image:: https://mybinder.org/badge_logo.svg
+ :target: https://mybinder.org/v2/gh/Nikeshbajaj/Notebooks/master?filepath=spkit/0.0.9/ML/Trees/1_DecisionTree_Visualization_spkit_v0.0.9.ipynb
 ~~~~~~~~~~~~~~~~~~~~~~
 
 ::
