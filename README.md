@@ -39,9 +39,7 @@
 **<mark>Version: 0.0.9.1</mark>**
 * **Fixed the Import Error with python 2.7**
 * **Logistic Regression with multiclass**
-* **Updated Examples with 0.0.9 version [View Notebooks](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit/0.0.9/ML/Trees/) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Nikeshbajaj/Notebooks/master)
-
-[![Binder](https://mybinder.org/v2/gh/Nikeshbajaj/Notebooks/d0a12c5cde49bc659e93e6f22dca94442db7ad76)
+* **Updated Examples with 0.0.9 version [View Notebooks](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit/0.0.9/ML/Trees/) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Nikeshbajaj/Notebooks/master) | [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Nikeshbajaj/Notebooks/master?filepath=spkit%2F0.0.9%2FML%2FTrees)
 
 #### <mark>New Updates</mark>:: Decision Tree [View Notebooks](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/DecisionTree/)
 
