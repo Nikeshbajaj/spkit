@@ -5,6 +5,7 @@
 ----------
 
 `View in Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_InfoTheory/1_Entropy_Example.ipynb>`_
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
  
@@ -66,6 +67,8 @@
 ----------
 
 `View in Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_SP/1_EEG_ICA_Example_spkit.ipynb>`_
+~~~~~~~~~~~~~~~~~~~~~~
+
 
 ::
   
@@ -102,8 +105,10 @@
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/MachineLearningFromScratch/master/LogisticRegression/img/example1.gif
 
 `View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/LogisticRegression/>`_
+~~~~~~~~~~~~~~~~~~~~~~
 
 **Binary Class**
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
   
@@ -151,6 +156,7 @@
   
   
 **Multi Class - with polynomial features**  
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
   
@@ -196,6 +202,7 @@
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/MachineLearningFromScratch/master/Probabilistic/img/FeatureDist.png
 
 `View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_ML/NaiveBayes/1_NaiveBayes_example_spkit.ipynb>`_
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
   
@@ -255,7 +262,8 @@
 
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_sinusoidal.png
 
-`View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/DecisionTree/>`_
+`View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit/0.0.9/ML/Trees/>`_
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
   
@@ -333,4 +341,6 @@
   tempseq = L.runKCycle(10000)    # generate 10000 bits from current state
 
 
-`**Check out more examples of LFSR** <https://linear-feedback-shift-register.readthedocs.io/en/latest/README.html#lfsr-examples>`_
+`Check out more examples of LFSR** <https://linear-feedback-shift-register.readthedocs.io/en/latest/README.html#lfsr-examples>`_
+~~~~~~~~~~~~~~~~~~~~~~
+
