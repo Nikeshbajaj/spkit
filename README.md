@@ -39,7 +39,7 @@
 **<mark>Version: 0.0.9.1</mark>**
 * **Fixed the Import Error with python 2.7**
 * **Logistic Regression with multiclass**
-* **Updated Examples with 0.0.9 version [View Notebooks](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit/0.0.9/ML/Trees/) Run all the examples with [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Nikeshbajaj/Notebooks/master?urlpath=lab/tree/spkit/0.0.9/ML/Trees)
+* **Updated Examples with 0.0.9 version [View Notebooks](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit/0.0.9/ML/Trees/) | Run all the examples with [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Nikeshbajaj/Notebooks/master?urlpath=lab/tree/spkit/0.0.9/ML/Trees)**
 
 #### <mark>New Updates</mark>:: Decision Tree [View Notebooks](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/DecisionTree/)
 
@@ -211,7 +211,7 @@ s4 = ica.transform(x.T)
 
 ### [Decision Trees](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_ML/DecisionTree/1_Tree_ClassificationRegression_spkitV0.0.5.ipynb) - *View in notebook*
 
-[**[source code]**](https://github.com/Nikeshbajaj/spkit/blob/master/examples/trees_example.py) | [**[jupyter-notebooks]**](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/DecisionTree/)
+[**[jupyter-notebooks]**](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit/0.0.9/ML/Trees/) | **[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Nikeshbajaj/Notebooks/master?urlpath=lab/tree/spkit/0.0.9/ML/Trees)**
 <p align="center">
 <img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_sinusoidal.png" width="800"/>
 <img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/trees.png" width="800"/>
