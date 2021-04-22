@@ -1,7 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
 name = "Signal Processing toolkit"
-__version__ = '0.0.9'
+__version__ = '0.0.9.2'
 __author__ = 'Nikesh Bajaj'
 
 
@@ -14,9 +14,10 @@ from .infotheory import (entropy, entropy_joint, entropy_cond, mutual_Info,entro
 
 #ICA
 from .matDecomposition import ICA, SVD
-import ml
+import ml, data, utils, cwt
+from .data import load_data
 
 #LFSR
 #from .pylfsr import LFSR
 
-__all__ = ['ICA', 'SVD','pylfsr', 'ml', 'example','data']
+__all__ = ['ICA', 'SVD','pylfsr', 'ml', 'example','data','load_data','cwt','utils']

@@ -34,16 +34,22 @@ setuptools.setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
-
+        'Natural Language :: English',
         "License :: OSI Approved :: MIT License",
-
         "Operating System :: OS Independent",
+        'Development Status :: 5 - Production/Stable',
         'Topic :: Scientific/Engineering :: Artificial Intelligence',
         'Topic :: Scientific/Engineering :: Information Analysis',
         'Topic :: Software Development :: Libraries :: Python Modules',
+        'Topic :: Multimedia',
+        'Topic :: Multimedia :: Sound/Audio :: Analysis',
+        'Topic :: Multimedia :: Sound/Audio :: Speech',
+        'Topic :: Scientific/Engineering :: Image Processing',
+        'Topic :: Scientific/Engineering :: Visualization',
 
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
+        'Intended Audience :: Education',
 
         'Development Status :: 5 - Production/Stable',
     ],
