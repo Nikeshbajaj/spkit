@@ -39,10 +39,17 @@
 -----
 
 ## New Updates
+**<mark>Version: 0.0.9.2</mark>**
+* **Added Scalogram with CWT functions**
+<p align="center">
+<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/cwt_ex0.jpg" width="800"/>
+</p>
+
 **<mark>Version: 0.0.9.1</mark>**
 * **Fixed the Import Error with python 2.7**
 * **Logistic Regression with multiclass**
 * **Updated Examples with 0.0.9 version [View Notebooks](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit/0.0.9/ML/Trees/) | Run all the examples with [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Nikeshbajaj/Notebooks/master?urlpath=lab/tree/spkit/0.0.9/ML/Trees)**
+
 
 #### <mark>New Updates</mark>:: Decision Tree [View Notebooks](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/DecisionTree/)
 
@@ -120,6 +127,33 @@ python setup.py install
 
 
 # Examples
+## Scalogram CWT
+
+```
+import numpy as np
+import matplotlib.pyplot as plt
+import spkit as sp
+from spkit.cwt import ScalogramCWT
+from spkit.cwt import compare_cwt_example
+
+x,fs = sp.load_data.eegSample_1ch()
+t = np.arange(len(x))/fs
+print(x.shape, t.shape)
+compare_cwt_example(x,t,fs=fs)
+```
+<p align="center">
+<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/cwt_examples.jpg" width="800"/>
+</p>
+
+```
+f0 = np.linspace(0.1,10,100)
+Q  = np.linspace(0.1,5,100)
+XW,S = ScalogramCWT(x,t,fs=fs,wType='Gauss',PlotPSD=True,f0=f0,Q=Q)
+```
+<p align="center">
+<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/cwt_ex6_gauss.jpg" width="800"/>
+</p>
+
 ## Information Theory
 ### [View in notebook](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_InfoTheory/1_Entropy_Example.ipynb)
 
