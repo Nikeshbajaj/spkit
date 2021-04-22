@@ -29,6 +29,7 @@
 - [**Installation**](#installation)
 - [**Function list: Signal Processing & ML**](#functions-list)
 - [**Examples with Notebooks**](#examples)
+    - [**Scalogram CWT**](https://github.com/Nikeshbajaj/spkit#scalogram-cwt)
     - [**Information Theory**](#information-theory)
     - [**Machine Learning**](#machine-learning)
         -[Logistic Regression](#logistic-regression---view-in-notebook)
