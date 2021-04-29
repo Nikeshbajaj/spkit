@@ -288,7 +288,7 @@ tempseq = L.runKCycle(10000)    # generate 10000 bits from current state
 ```
 ______________________________________
 
-## Cite As
+# Cite As
 ```
 @software{nikesh_bajaj_2021_4710694,
   author       = {Nikesh Bajaj},
