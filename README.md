@@ -22,6 +22,11 @@
 
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/spkit?style=social)
 
+[![DOI](https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/zenodo.4710694.svg)](https://doi.org/10.5281/zenodo.4710694)
+
+<!--[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4710694.svg)](https://doi.org/10.5281/zenodo.4710694)
+<a href="https://doi.org/10.5281/zenodo.4710694"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.4710694.svg" alt="DOI"></a>
+-->
 
 -----
 ## Table of contents
