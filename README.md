@@ -42,6 +42,7 @@
         -[Decision Trees](#decision-trees---view-in-notebook)
     - [**Independent Component Analysis**](#independent-component-analysis)
     - [**Linear Feedback Shift Register**](#linear-feedback-shift-register)
+- [**Cite as**](#cite-as)
 -----
 
 ## New Updates
@@ -286,6 +287,18 @@ L.info()
 tempseq = L.runKCycle(10000)    # generate 10000 bits from current state
 ```
 ______________________________________
+
+## Cite As
+@software{nikesh_bajaj_2021_4710694,
+  author       = {Nikesh Bajaj},
+  title        = {Nikeshbajaj/spkit: 0.0.9.2},
+  month        = apr,
+  year         = 2021,
+  publisher    = {Zenodo},
+  version      = {0.0.9.2},
+  doi          = {10.5281/zenodo.4710694},
+  url          = {https://doi.org/10.5281/zenodo.4710694}
+}
 
 # Contacts:
 
