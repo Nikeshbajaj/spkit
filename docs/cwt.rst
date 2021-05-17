@@ -45,11 +45,11 @@ Gabor wavelet
 
 
 
-Complex Maxican wavelet
+Maxican wavelet 
 -------------
 
 
-Complex Shannon wavelet
+Shannon wavelet
 -------------
 
 
