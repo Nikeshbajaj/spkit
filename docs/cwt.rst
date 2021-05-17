@@ -34,26 +34,26 @@ A quick example to compare different wavelets
 
 Gauss wavelet
 -------------
-
+#TODO
 
 Morlet wavelet
 -------------
-
+#TODO
 
 Gabor wavelet
 -------------
-
+#TODO
 
 Poisson wavelet
 -------------
-
+#TODO
 
 Maxican wavelet 
 -------------
-
+#TODO
 
 Shannon wavelet
 -------------
-
+#TODO
 
 
