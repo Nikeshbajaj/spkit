@@ -9,6 +9,9 @@ and (other such functions)
 Entropy of real-valued signal
 -----------
 
+`View in Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Entropy_example.ipynb>`_
+~~~~~~~~~~~~~~~~~~~~~~
+
 ::
   
   import numpy as np
@@ -117,6 +120,8 @@ Cross entropy & Kullback–Leibler divergence
   
 EEG Signal
 -----------
+`View in Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Entropy_EEG_Example.ipynb>`_
+~~~~~~~~~~~~~~~~~~~~~~
 Single Channel
 ~~~~~~~~~~~~~~~
 
