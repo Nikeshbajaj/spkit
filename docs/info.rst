@@ -29,6 +29,12 @@ spkit - Signal Processing Toolkit - Documentation
 * **PyPi-project**  - https://pypi.org/project/spkit
 * **Installation:** *pip install spkit*
 
+:Authors:
+    Nikesh Bajaj,
+    Jesús Requena Carrión
+    
+:Version: 0.0.9.2 of 05/2021
+
 
 **Installation**
 ---------
