@@ -44,6 +44,9 @@ Gabor wavelet
 -------------
 
 
+Poisson wavelet
+-------------
+
 
 Maxican wavelet 
 -------------
