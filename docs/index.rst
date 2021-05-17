@@ -53,7 +53,7 @@ Independent Component Analysis
    ica
   
    
-Continuous wavelet transform
+Complex Continuous Wavelet Transform
 ---------- 
 
 .. toctree::
