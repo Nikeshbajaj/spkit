@@ -54,19 +54,6 @@ Information Theory
    
    InformationTheory
 
-
-Continuous wavelet transform
----------- 
-
-.. toctree::
-   :maxdepth: 3
-   
-   cwt
-   signal
-   machinelearning
-   pylfsr
-   contacts
-   
    
    
 Continuous wavelet transform
