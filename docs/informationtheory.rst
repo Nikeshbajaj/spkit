@@ -29,7 +29,10 @@ Entropy of real-valued signal
  
 .. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/entropy_12.jpg
 
-  
+
+Shannan entropy
+~~~~~~~~~~~~~~~
+
 ::
   
   #Shannan entropy
@@ -46,6 +49,8 @@ Entropy of real-valued signal
   Entropy of x: H(x) =  4.4581180171280685
   Entropy of y: H(y) =  5.04102391756942
 
+Rényi entropy
+~~~~~~~~~~~~~~~
 
 ::
   
@@ -62,6 +67,10 @@ Entropy of real-valued signal
   Entropy of x: H(x) =  4.456806796146617
   Entropy of y: H(y) =  4.828391418226062
 
+
+Mutual Information & Joint Entropy
+-----------
+
 ::
   
   I_xy = sp.mutual_Info(x,y)
@@ -75,7 +84,9 @@ Entropy of real-valued signal
   Joint Entropy H(x,y) =  9.439792556949234
   Mutual Information I(x,y) =  0.05934937774825322
 
-  
+Conditional entropy
+-----------
+
 ::
   
   H_x1y= sp.entropy_cond(x,y)
@@ -87,7 +98,10 @@ Entropy of real-valued signal
   
   Conditional Entropy of : H(x|y) =  4.398768639379814
   Conditional Entropy of : H(y|x) =  4.9816745398211655
-  
+
+Cross entropy & Kullback–Leibler divergence
+-----------  
+
 ::
   
   H_xy_cross= sp.entropy_cross(x,y)
