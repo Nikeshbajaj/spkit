@@ -8,7 +8,7 @@ spkit - Signal Processing Toolkit - Documentation
   :target: https://spkit.readthedocs.io/en/latest/
   :alt: Documentation Status
   
-.. image:: https://img.shields.io/pypi/v/pylfsr?style=plastic
+.. image:: https://img.shields.io/pypi/v/spkit?style=plastic
   :target: https://pypi.python.org/pypi/spkit
   :alt: PyPI
 .. image:: https://img.shields.io/pypi/dm/spkit
