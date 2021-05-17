@@ -1,6 +1,9 @@
 spkit - Signal Processing Toolkit - Documentation
 ===================
 
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/cwt_ex0.jpg
+
+
 .. image:: https://img.shields.io/circleci/build/github/Nikeshbajaj/spkit
   :target: https://pypi.python.org/pypi/spkit
   :alt: CircleCI
@@ -18,27 +21,14 @@ spkit - Signal Processing Toolkit - Documentation
   :target: https://github.com/Nikeshbajaj/spkit
   :alt: GitHub
   
-  
-
-**Links:**
------
-
-* **Homepage**   - http://spkit.github.io
-* **Documentation** - https://spkit.readthedocs.io
-* **Github**	    - https://github.com/Nikeshbajaj/spkit
-* **PyPi-project**  - https://pypi.org/project/spkit
-* **Installation:** *pip install spkit*
-
 :Authors:
     Nikesh Bajaj,
     Jesús Requena Carrión
 :Version: 0.0.9.2 of 05/2021   
 
 
-.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/cwt_ex0.jpg
 
-
-Installation
+Getting started
 ----------
 
 .. toctree::
