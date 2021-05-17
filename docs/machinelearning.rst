@@ -1,6 +1,35 @@
 **Machine Learning**
 ====================
 
+New Updates 
+-----------
+
+`Decision Tree - View Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit/ML/Trees/>`_
+~~~~~~~~~~~~~~~~~~~~~~
+
+* **Version: 0.0.9**:
+* **Analysing the performance measure of trained tree at different depth - with ONE-TIME Training ONLY**
+* **Optimize the depth of tree**
+* **Shrink the trained tree with optimal depth**
+* **Plot the Learning Curve**
+* **Classification: Compute the probability and counts of label at a leaf for given example sample**
+* **Regression: Compute the standard deviation and number of training samples at a leaf for given example sample**
+
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/DTree_withKDepth1.png
+   :width: 70%
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/DTree_LCurve.png
+   :width: 30%
+
+
+* **Version: 0.0.6**: Works with catogorical features without converting them into binary vector
+* **Version: 0.0.5**: Toy examples to understand the effect of incresing max_depth of Decision Tree
+
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/DTree_withCatogoricalFeatures.png
+   :width: 30%
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_sinusoidal.png
+   :width: 70%
+
+
 **Logistic Regression** 
 ----------
 
