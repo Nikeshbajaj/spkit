@@ -1,4 +1,4 @@
-Signal Processing Toolkit - *spkit* - Documentation
+Signal Processing Toolkit - Documentation!
 ===================
 
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/cwt_ex0.jpg
@@ -20,12 +20,14 @@ Signal Processing Toolkit - *spkit* - Documentation
 .. image:: https://img.shields.io/github/license/Nikeshbajaj/spkit
   :target: https://github.com/Nikeshbajaj/spkit
   :alt: GitHub
-  
+
 :Authors:
     Nikesh Bajaj,
     Jesús Requena Carrión
 :Version: 0.0.9.2 of 05/2021   
 
+*spkit*
+-------
 
 Getting started
 ----------
