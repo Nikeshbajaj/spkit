@@ -1,7 +1,7 @@
 Independent Component Analysis - ICA
 ----------
 
-`View in Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_SP/1_EEG_ICA_Example_spkit.ipynb>`_
+`View in Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/ICA_EEG_example.ipynb>`_
 ~~~~~~~~~~~~~~~~~~~~~~
 
 
