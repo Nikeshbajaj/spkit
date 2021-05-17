@@ -113,3 +113,122 @@ Cross entropy & Kullback–Leibler divergence
   
   Cross Entropy of : H(x,y) = : 11.591688735915701
   Kullback–Leibler divergence : Dkl(x,y) = : 4.203058010473213
+  
+  
+EEG Signal
+-----------
+Single Channel
+~~~~~~~~~~~~~~~
+::
+  
+  import numpy as np
+  import matplotlib.pyplot as plt
+  import spkit as sp
+  from spkit.data import load_data
+  print(sp.__version__)
+  
+  # load sample of EEG segment
+  X,ch_names = load_data.eegSample()
+  t = np.arange(X.shape[0])/128
+  nC = len(ch_names)
+  
+  
+  x1 =X[:,0] #'AF3' - Frontal Lobe
+  x2 =X[:,6] #'O1'  - Occipital Lobe
+  #Shannan entropy
+  H_x1= sp.entropy(x1,alpha=1)
+  H_x2= sp.entropy(x2,alpha=1)
+
+  #Rényi entropy
+  Hr_x1= sp.entropy(x1,alpha=2)
+  Hr_x2= sp.entropy(x2,alpha=2)
+
+  
+
+  print('Shannan entropy')
+  print('Entropy of x1: H(x1) =\t ',H_x1)
+  print('Entropy of x2: H(x2) =\t ',H_x2)
+  print('-')
+  print('Rényi entropy')
+  print('Entropy of x1: H(x1) =\t ',Hr_x1)
+  print('Entropy of x2: H(x2) =\t ',Hr_x2)
+  print('-')
+  
+  
+Multi-Channels (cross)
+~~~~~~~~~~~~~~~  
+
+  #Joint entropy
+  H_x12= sp.entropy_joint(x1,x2)
+
+  #Conditional Entropy
+  H_x12= sp.entropy_cond(x1,x2)
+  H_x21= sp.entropy_cond(x2,x1)
+
+  #Mutual Information
+  I_x12 = sp.mutual_Info(x1,x2)
+
+  #Cross Entropy
+  H_x12_cross= sp.entropy_cross(x1,x2)
+
+  #Diff Entropy
+  D_x12= sp.entropy_kld(x1,x2)
+  
+  print('Joint Entropy H(x1,x2) =\t',H_x12)
+  print('Mutual Information I(x1,x2) =\t',I_x12)
+  print('Conditional Entropy of : H(x1|x2) =\t',H_x12)
+  print('Conditional Entropy of : H(x2|x1) =\t',H_x21)
+  print('-')
+  print('Cross Entropy of : H(x1,x2) =\t',H_x12_cross)
+  print('Kullback–Leibler divergence : Dkl(x1,x2) =\t',D_x12)
+
+
+  MI = np.zeros([nC,nC])
+  JE = np.zeros([nC,nC])
+  CE = np.zeros([nC,nC])
+  KL = np.zeros([nC,nC])
+  for i in range(nC):
+      x1 = X[:,i]
+      for j in range(nC):  
+          x2 = X[:,j]
+
+          #Mutual Information
+          MI[i,j] = sp.mutual_Info(x1,x2)
+
+          #Joint entropy
+          JE[i,j]= sp.entropy_joint(x1,x2)
+
+          #Cross Entropy
+          CE[i,j]= sp.entropy_cross(x1,x2)
+
+          #Diff Entropy
+          KL[i,j]= sp.entropy_kld(x1,x2)
+
+
+
+    plt.figure(figsize=(10,10))
+    plt.subplot(221)
+    plt.imshow(MI,origin='lower')
+    plt.yticks(np.arange(nC),ch_names)
+    plt.xticks(np.arange(nC),ch_names,rotation=90)
+    plt.title('Mutual Information')
+    plt.subplot(222)
+    plt.imshow(JE,origin='lower')
+    plt.yticks(np.arange(nC),ch_names)
+    plt.xticks(np.arange(nC),ch_names,rotation=90)
+    plt.title('Joint Entropy')
+    plt.subplot(223)
+    plt.imshow(CE,origin='lower')
+    plt.yticks(np.arange(nC),ch_names)
+    plt.xticks(np.arange(nC),ch_names,rotation=90)
+    plt.title('Cross Entropy')
+    plt.subplot(224)
+    plt.imshow(KL,origin='lower')
+    plt.yticks(np.arange(nC),ch_names)
+    plt.xticks(np.arange(nC),ch_names,rotation=90)
+    plt.title('KL-Divergence')
+    plt.subplots_adjust(hspace=0.3)
+    plt.show()
+
+
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/EEG_it3.png
