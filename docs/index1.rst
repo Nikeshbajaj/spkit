@@ -1,8 +1,6 @@
 spkit - Signal Processing Toolkit - Documentation
 ===================
 
-
-
 .. image:: https://img.shields.io/circleci/build/github/Nikeshbajaj/spkit
   :target: https://pypi.python.org/pypi/spkit
   :alt: CircleCI
@@ -40,12 +38,68 @@ spkit - Signal Processing Toolkit - Documentation
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/cwt_ex0.jpg
 
 
+Installation
+----------
+
+.. toctree::
+   :maxdepth: 1
+   
+   installation
+   
+Information Theory
+----------   
+
 .. toctree::
    :maxdepth: 3
    
-   installation
    InformationTheory
+
+
+Continuous wavelet transform
+---------- 
+
+.. toctree::
+   :maxdepth: 3
+   
+   cwt
    signal
    machinelearning
    pylfsr
+   contacts
+   
+   
+   
+Continuous wavelet transform
+---------- 
+
+.. toctree::
+   :maxdepth: 3
+   
+   cwt
+   
+   
+Machine Learning
+---------- 
+
+.. toctree::
+   :maxdepth: 3
+   
+   machinelearning
+   
+   
+LFSR
+---------- 
+
+.. toctree::
+   :maxdepth: 2
+   
+   pylfsr
+
+
+Contacts
+---------- 
+
+.. toctree::
+   :maxdepth: 1
+   
    contacts
