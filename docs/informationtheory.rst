@@ -119,6 +119,7 @@ EEG Signal
 -----------
 Single Channel
 ~~~~~~~~~~~~~~~
+
 ::
   
   import numpy as np
@@ -143,8 +144,6 @@ Single Channel
   Hr_x1= sp.entropy(x1,alpha=2)
   Hr_x2= sp.entropy(x2,alpha=2)
 
-  
-
   print('Shannan entropy')
   print('Entropy of x1: H(x1) =\t ',H_x1)
   print('Entropy of x2: H(x2) =\t ',H_x2)
@@ -156,8 +155,10 @@ Single Channel
   
   
 Multi-Channels (cross)
-~~~~~~~~~~~~~~~  
+~~~~~~~~~~~~~~~ 
 
+::
+  
   #Joint entropy
   H_x12= sp.entropy_joint(x1,x2)
 
@@ -203,8 +204,8 @@ Multi-Channels (cross)
 
           #Diff Entropy
           KL[i,j]= sp.entropy_kld(x1,x2)
-
-
+          
+          
 
     plt.figure(figsize=(10,10))
     plt.subplot(221)
