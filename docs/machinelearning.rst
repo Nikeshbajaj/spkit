@@ -253,6 +253,7 @@ One example file is
   clf.plotTree()
 
 **Depth Analysis**
+~~~~~~~~~~~~~~~~~~~
 `View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/0.0.9/ML/Trees/2_ClassificationTrees_Depth_DecisionBoundaries_spkit_v0.0.9.ipynb>`_
 
 
