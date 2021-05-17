@@ -1,3 +1,13 @@
+**Links:**
+-----
+
+* **Homepage**   - http://spkit.github.io
+* **Documentation** - https://spkit.readthedocs.io
+* **Github**	    - https://github.com/Nikeshbajaj/spkit
+* **PyPi-project**  - https://pypi.org/project/spkit
+* **Installation:** *pip install spkit*
+
+
 **Installation**
 ---------
 
