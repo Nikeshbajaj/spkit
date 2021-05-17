@@ -52,7 +52,7 @@ Information Theory
 .. toctree::
    :maxdepth: 3
    
-   InformationTheory
+   informationtheory
 
    
    
