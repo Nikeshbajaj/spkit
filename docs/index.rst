@@ -43,7 +43,15 @@ Information Theory
    
    informationtheory
 
+
+Independent Component Analysis
+----------   
+
+.. toctree::
+   :maxdepth: 2
    
+   ica
+  
    
 Continuous wavelet transform
 ---------- 
