@@ -2,7 +2,7 @@
 
 ### Links: **[Homepage](https://spkit.github.io)** | **[Documentation](https://spkit.readthedocs.io/)** | **[Github](https://github.com/Nikeshbajaj/spkit)**  |  **[PyPi - project](https://pypi.org/project/spkit/)** |     _ **Installation:** [pip install spkit](https://pypi.org/project/spkit/)
 -----
-
+![CircleCI](https://img.shields.io/circleci/build/github/Nikeshbajaj/spkit)
 [![Documentation Status](https://readthedocs.org/projects/spkit/badge/?version=latest)](https://spkit.readthedocs.io/en/latest/?badge=latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PyPI version fury.io](https://badge.fury.io/py/spkit.svg)](https://pypi.org/project/spkit/)
