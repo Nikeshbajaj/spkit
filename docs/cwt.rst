@@ -36,6 +36,13 @@ Gauss wavelet
 -------------
 #TODO
 
+.. math::
+
+   \psi(t) &= e^{-a(t-t_0)^{2}} \cdot e^{-2\pi jf_0(t-t_0)}
+   \psi(f) &= \sqrt{\pi/a}\left( e^{-2\pi jft_0}\cdot e^{-\pi^{2}((f-f_0)^{2})/a}\right)
+   & \text{where $a = \left(\frac{f_0}{Q}\right)^{2} $} 
+   
+
 ::
   
   import numpy as np
@@ -47,8 +54,8 @@ Gauss wavelet
   from spkit.cwt import ScalogramCWT
 
 **Parameters for a Gauss wavelet**
-**f0 - center frequency**
-**Q  - associated with spread of bandwidth, as a = (f0/Q)^2**
+* **f0 - center frequency**
+* **Q  - associated with spread of bandwidth, as a = (f0/Q)^2**
 
 Plot wavelet functions
 ~~~~~~~~~~~~~~~~~~~~~~~~
