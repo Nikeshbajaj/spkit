@@ -46,6 +46,10 @@ Gauss wavelet
 
 .. math::
    
+   a &= \left( f_0/Q \right)^{2} 
+
+.. math::
+   
    a &= \left( \frac{f_0}{Q} \right)^{2} 
    
 
@@ -54,9 +58,10 @@ Gauss wavelet
    a &= \left( \\frac{f_0}{Q} \right)^{2} 
    
    
-:math: 'a = \left( \\frac{f_0}{Q} \right)^{2}' 
+:math: a = \left( \\frac{f_0}{Q} \right)^{2}
    
-:math: 'a = \left(f_0/Q} \right)^{2}' 
+.. math::
+   a = \left(f_0/Q} \right)^{2}
 
 ::
   
