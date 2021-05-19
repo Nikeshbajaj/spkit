@@ -38,17 +38,17 @@ Gauss wavelet
 
 .. math::
   
-  \\psi(t) &= e^{-a(t-t_0)^{2}} \cdot e^{-2\pi jf_0(t-t_0)}
+  \psi(t) &= e^{-a(t-t_0)^{2}} \cdot e^{-2\pi jf_0(t-t_0)}
    
 .. math::
   
-  \\psi(f) &= \sqrt{\pi/a}\left( e^{-2\pi jft_0}\cdot e^{-\pi^{2}((f-f_0)^{2})/a}\right)
+  \psi(f) &= \sqrt{\pi/a}\left( e^{-2\pi jft_0}\cdot e^{-\pi^{2}((f-f_0)^{2})/a}\right)
 
 **where**
 
 .. math::
   
-   a &= \left( \\frac{f_0}{Q} \right)^{2} 
+   a &= \left( \frac{f_0}{Q} \right)^{2} 
    
 
 ::
