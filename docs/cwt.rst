@@ -35,11 +35,6 @@ A quick example to compare different wavelets
 Gauss wavelet
 -------------
 #TODO Equations
-
-.. math::
-  
-  \\psi(t) &= e^{-a(t-t_0)^{2}} \cdot e^{-2\pi jf_0(t-t_0)}\\
-  \\psi(f) &= \sqrt{\pi/a}\left( e^{-2\pi jft_0}\cdot e^{-\pi^{2}((f-f_0)^{2})/a}\right)
    
 .. math::
   
@@ -53,10 +48,15 @@ Gauss wavelet
    
    a &= \left( \frac{f_0}{Q} \right)^{2} 
    
+
+.. math::
    
-:math:'a = \left( \\frac{f_0}{Q} \right)^{2}' 
+   a &= \left( \\frac{f_0}{Q} \right)^{2} 
    
-:math:'a = \left(f_0/Q} \right)^{2}' 
+   
+:math: 'a = \left( \\frac{f_0}{Q} \right)^{2}' 
+   
+:math: 'a = \left(f_0/Q} \right)^{2}' 
 
 ::
   
