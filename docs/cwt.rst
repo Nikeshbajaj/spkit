@@ -58,9 +58,10 @@ where
   import spkit as sp
   from spkit.cwt import ScalogramCWT
 
-**Parameters for a Gauss wavelet**
-* **f0 - center frequency**
-* **Q  - associated with spread of bandwidth, as a = (f0/Q)^2**
+**Parameters for a Gauss wavelet**:
+
+  - **f0 - center frequency**
+  - **Q  - associated with spread of bandwidth, as a = (f0/Q)^2**
 
 Plot wavelet functions
 ~~~~~~~~~~~~~~~~~~~~~~~~
