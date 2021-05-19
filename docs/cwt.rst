@@ -129,7 +129,7 @@ With a range of scale parameters
   plt.show()
 
 
-.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/wavelets/gauss_3.png
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/wavelets/gauss_3_range.png
 
 
 
