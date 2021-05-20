@@ -48,30 +48,30 @@ The Gauss Wavelet function in time and frequency domain are defined as :math:`\p
 .. math::
    a = \left( \frac{f_0}{Q} \right)^{2} 
 
+..
+  **where** :math:`a = \left(\frac{f_0}{Q} \right)^{2}`
+  
+  **where**
+  
+  .. math::
+     a = \left(f_0/Q \right)^{2}
 
-**where** :math:`a = \left(\frac{f_0}{Q} \right)^{2}`
+  .. math::
+     a = ( f_0/Q )^{2}
 
-**where**
+  .. math::
+     a = ( \frac{f_0}{Q} )^{2} 
 
-.. math::
-   a = \left(f_0/Q \right)^{2}
 
-.. math::
-   a = ( f_0/Q )^{2}
+  .. math::
+     a = \left( \frac{f_0}{Q} \right)^{2} 
 
-.. math::
-   a = ( \frac{f_0}{Q} )^{2} 
-   
 
-.. math::
-   a = \left( \frac{f_0}{Q} \right)^{2} 
-   
-   
-:math: `a = \left( \frac{f_0}{Q} \right)^{2}`
-   
-.. math::
-   a = \left(f_0/Q \right)^{2}
-   
+  :math: `a = \left( \frac{f_0}{Q} \right)^{2}`
+
+  .. math::
+     a = \left(f_0/Q \right)^{2}
+
 
 ::
   
