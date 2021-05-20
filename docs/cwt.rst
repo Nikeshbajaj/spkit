@@ -48,6 +48,13 @@ The Gauss Wavelet function in time and frequency domain are defined as :math:`\p
 .. math::
    a = \left( \frac{f_0}{Q} \right)^{2} 
 
+
+**Parameters for a Gauss wavelet**:
+
+  - **f0 - center frequency**
+  - **Q  - associated with spread of bandwidth, as a = (f0/Q)^2**
+
+
 ..
   **where** :math:`a = \left(\frac{f_0}{Q} \right)^{2}`
   
