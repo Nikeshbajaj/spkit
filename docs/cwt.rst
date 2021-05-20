@@ -34,7 +34,8 @@ A quick example to compare different wavelets
 
 Gauss wavelet
 -------------
-#TODO Equations clean
+..
+  #TODO Equations clean
 
 The Gauss Wavelet function in time and frequency domain are defined as :math:`\psi(t)` and :math:`\psi(f)` as below;
    
@@ -277,6 +278,16 @@ With a plot of analysis wavelets
 .. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/wavelets/gauss_psd_6_1.png
 .. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/wavelets/gauss_psd_6_2.png
 
+
+#TODO Speech/Audio Signal
+
+Speech
+~~~~~~~~~~~~~~~~~~~~~
+#TODO
+
+Audio
+~~~~~~~~~~~~~~~~~~~~~
+#TODO
 
 
 Morlet wavelet
