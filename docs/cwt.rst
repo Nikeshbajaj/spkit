@@ -47,6 +47,9 @@ Gauss wavelet
 **where**
 
 .. math::
+   a = \left(f_0/Q \right)^{2}
+
+.. math::
    
    a &= ( f_0/Q )^{2}
 
