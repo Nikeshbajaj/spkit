@@ -36,7 +36,7 @@ Gauss wavelet
 -------------
 #TODO Equations clean
 
-The Gauss Wavelet function in time and frequency domain are defined as :math: `\psi(t)` and :math: `\psi(f)` as below;
+The Gauss Wavelet function in time and frequency domain are defined as :math:`\psi(t)` and :math:`\psi(f)` as below;
    
 .. math::
   
