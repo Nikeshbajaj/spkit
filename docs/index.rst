@@ -29,6 +29,9 @@ Signal Processing Toolkit - Documentation!
 *spkit*
 -------
 
+Homepage - https://spkit.github.io
+----------
+
 Getting started
 ----------
 
