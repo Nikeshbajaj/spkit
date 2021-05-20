@@ -42,6 +42,8 @@ Gauss wavelet
   \psi(f) &= \sqrt{\pi/a}\left( e^{-2\pi jft_0}\cdot e^{-\pi^{2}((f-f_0)^{2})/a}\right)
   
 
+**where** :math:`a = (\frac{f_0}{Q})^{2}`
+
 **where**
 
 .. math::
