@@ -44,34 +44,29 @@ Gauss wavelet
 
 **where** :math:`a = (\frac{f_0}{Q})^{2}`
 
+**where** :math:`a = \left(\frac{f_0}{Q} \right)^{2}`
+
 **where**
 
 .. math::
    a = \left(f_0/Q \right)^{2}
 
 .. math::
-   
-   a &= ( f_0/Q )^{2}
+   a = ( f_0/Q )^{2}
 
 .. math::
-   
-   a &= (\frac{f_0}{Q})^{2} 
+   a = ( \frac{f_0}{Q} )^{2} 
    
 
 .. math::
-   
    a &= \left( \frac{f_0}{Q} \right)^{2} 
    
    
-:math: a = \left( \\frac{f_0}{Q} \right)^{2}
+:math: `a = \left( \frac{f_0}{Q} \right)^{2}`
    
 .. math::
    a = \left(f_0/Q \right)^{2}
    
-   
-:math:`\frac{ \sum_{t=0}^{N}f(t,k) }{N}`
-
-:math:`\\frac{f_0}{Q}`
 
 ::
   
