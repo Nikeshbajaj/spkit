@@ -7,6 +7,12 @@ New Updates
 `Decision Tree - View Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit/ML/Trees/>`_
 ~~~~~~~~~~~~~~~~~~~~~~
 
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
+   :width: 200
+   :align: right
+   :target: https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit/ML/Trees/
+
+
 * **Version: 0.0.9**:
 * **Analysing the performance measure of trained tree at different depth - with ONE-TIME Training ONLY**
 * **Optimize the depth of tree**
@@ -36,7 +42,7 @@ New Updates
 ~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
-   :width: 100
+   :width: 200
    :align: right
    :target: https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/LogisticRegression/
 
@@ -136,17 +142,24 @@ New Updates
 
 .. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
    :width: 200
-   :align: center
+   :align: right
    :target: https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/LogisticRegression/
 
   
 **Naive Bayes** 
 ----------
+`View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_ML/NaiveBayes/1_NaiveBayes_example_spkit.ipynb>`_
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
+   :width: 200
+   :align: right
+   :target: https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_ML/NaiveBayes/1_NaiveBayes_example_spkit.ipynb
+
 
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/MachineLearningFromScratch/master/Probabilistic/img/FeatureDist.png
 
-`View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_ML/NaiveBayes/1_NaiveBayes_example_spkit.ipynb>`_
-~~~~~~~~~~~~~~~~~~~~~~
+
 
 ::
   
@@ -200,14 +213,27 @@ New Updates
   fig = plt.figure(figsize=(10,8))
   clf.VizPx()
 
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
+   :width: 200
+   :align: right
+   :target: https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_ML/NaiveBayes/1_NaiveBayes_example_spkit.ipynb
+   
+   
 
 **Decision Trees** 
 ----------
+`View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit/0.0.9/ML/Trees/>`_
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
+   :width: 200
+   :align: right
+   :target: https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit/0.0.9/ML/Trees/
+
 
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_sinusoidal.png
 
-`View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit/0.0.9/ML/Trees/>`_
-~~~~~~~~~~~~~~~~~~~~~~
+
 
 Or just execute all the examples online, without installing anything
 
