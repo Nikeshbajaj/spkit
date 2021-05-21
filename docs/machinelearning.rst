@@ -148,8 +148,6 @@ New Updates
 
 ------------
 
-<hr>
-
 
 **Naive Bayes** 
 ----------
@@ -225,8 +223,6 @@ New Updates
    
    
 ------------
-
-<hr>
 
 
 **Decision Trees** 
