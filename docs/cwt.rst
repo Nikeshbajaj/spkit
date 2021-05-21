@@ -8,6 +8,12 @@ Notebook
 ~~~~~~~~~~~~~~~~~~~~~~
 
 
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
+   :width: 200
+   :align: right
+   :target: https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/ScalogramCWT_v0.0.9.2.ipynb
+
+
 A quick example to compare different wavelets
 ----------------------------
 
@@ -31,6 +37,12 @@ A quick example to compare different wavelets
 .. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/cwt_2.png
 
 
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
+   :width: 100
+   :align: right
+   :target: https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/ScalogramCWT_v0.0.9.2.ipynb
+
+-------------
 
 Gauss wavelet
 -------------
