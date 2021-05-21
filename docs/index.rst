@@ -25,7 +25,7 @@ Signal Processing Toolkit - Documentation!
     Nikesh Bajaj,
     Jesús Requena Carrión
 :Version: 0.0.9.2 of 05/2021
-:home: https://spkit.github.io  
+:Home: https://spkit.github.io  
 
 
 Homepage *spkit* - https://spkit.github.io
