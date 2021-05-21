@@ -128,6 +128,10 @@ New Updates
 
 `View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/LogisticRegression/>`_
 
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
+   :width:200
+   :target: https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/LogisticRegression/
+
   
 **Naive Bayes** 
 ----------
