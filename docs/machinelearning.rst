@@ -145,7 +145,10 @@ New Updates
    :align: right
    :target: https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/LogisticRegression/
 
-  
+
+<hr>
+
+
 **Naive Bayes** 
 ----------
 `View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_ML/NaiveBayes/1_NaiveBayes_example_spkit.ipynb>`_
@@ -219,6 +222,9 @@ New Updates
    :target: https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_ML/NaiveBayes/1_NaiveBayes_example_spkit.ipynb
    
    
+
+<hr>
+
 
 **Decision Trees** 
 ----------
@@ -295,7 +301,10 @@ One example file is
 ~~~~~~~~~~~~~~~~~~~
 `View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/0.0.9/ML/Trees/2_ClassificationTrees_Depth_DecisionBoundaries_spkit_v0.0.9.ipynb>`_
 
-
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
+   :width: 200
+   :align: right
+   :target: https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/ML/Trees/2_ClassificationTrees_Depth_DecisionBoundaries_spkit_v0.0.9.ipynb
 
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/trees.png
 
