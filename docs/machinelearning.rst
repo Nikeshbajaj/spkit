@@ -32,11 +32,11 @@ New Updates
 
 **Logistic Regression** 
 ----------
-
-.. image:: https://raw.githubusercontent.com/Nikeshbajaj/MachineLearningFromScratch/master/LogisticRegression/img/example1.gif
-
 `View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/LogisticRegression/>`_
 ~~~~~~~~~~~~~~~~~~~~~~
+
+
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/MachineLearningFromScratch/master/LogisticRegression/img/example1.gif
 
 **Binary Class**
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -125,6 +125,8 @@ New Updates
   clf.plot_weights(ax=ax3)
   ax4 = plt.subplot(224)
   clf.plot_weights2(ax=ax4,grid=True)
+
+`View more examples in Notebooks <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit_ML/LogisticRegression/>`_
 
   
 **Naive Bayes** 
