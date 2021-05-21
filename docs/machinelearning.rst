@@ -313,5 +313,10 @@ One example file is
 
 
 **Plottng tree while training**
+~~~~~~~~~~~~~~~~~~~
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
+   :width: 200
+   :align: right
+   :target: https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/ML/Trees/1_DecisionTree_Visualization_spkit_v0.0.9.ipynb
 
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/MachineLearningFromScratch/master/Trees/img/a123_nik.gif
