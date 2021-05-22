@@ -12,6 +12,11 @@ Entropy of real-valued signal
 `View in Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Entropy_example.ipynb>`_
 ~~~~~~~~~~~~~~~~~~~~~~
 
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
+   :width: 200
+   :align: right
+   :target: https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Entropy_example.ipynb
+
 ::
   
   import numpy as np
@@ -118,10 +123,25 @@ Cross entropy & Kullback–Leibler divergence
   Kullback–Leibler divergence : Dkl(x,y) = : 4.203058010473213
   
   
+  
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
+   :width: 100
+   :align: right
+   :target: https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Entropy_example.ipynb
+   
+-----------   
+   
 EEG Signal
 -----------
 `View in Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Entropy_EEG_Example.ipynb>`_
 ~~~~~~~~~~~~~~~~~~~~~~
+
+ 
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
+   :width: 200
+   :align: right
+   :target: https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Entropy_EEG_Example.ipynb
+
 Single Channel
 ~~~~~~~~~~~~~~~
 
@@ -236,5 +256,12 @@ Multi-Channels (cross)
     plt.subplots_adjust(hspace=0.3)
     plt.show()
 
-
 .. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/EEG_it3.png
+
+
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
+   :width: 100
+   :align: right
+   :target: https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Entropy_EEG_Example.ipynb
+
+-----------   
