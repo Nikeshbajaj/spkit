@@ -4,6 +4,12 @@ Independent Component Analysis - ICA
 `View in Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/ICA_EEG_example.ipynb>`_
 ~~~~~~~~~~~~~~~~~~~~~~
 
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
+   :width: 200
+   :align: right
+   :target: https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/ICA_EEG_example.ipynb
+
+-----------   
 
 ::
   
@@ -57,9 +63,15 @@ Independent Component Analysis - ICA
   plt.show()
   
  
- 
 .. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/eeg_ica_4.png
 
 
+  .. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
+   :width: 100
+   :align: right
+   :target: https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/ICA_EEG_example.ipynb
+
+-----------   
+ 
   
   
