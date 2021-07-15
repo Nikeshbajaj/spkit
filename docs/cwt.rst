@@ -365,13 +365,14 @@ Admiddibility const :math:`C_{\psi} =\frac{1}{n}` and  :math:`w = 2\pi f`
    w = 2\pi f
    
    
- #Type 3 (n)
+#Type 3 (n)
  
 .. math::
    \psi(t) &= \frac{1}{2\pi}(1-jt)^{-(n+1)}\\
    \psi(w) &= \frac{1}{\Gamma{n+1}}w^{n}e^{-w}u(w)
  
- **where**
+
+**where**
 
 .. math::
    u(w) =1 \quad \text{ if  $w>=0$ }\quad \text{else  } 0\\
