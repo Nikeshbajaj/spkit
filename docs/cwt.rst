@@ -336,7 +336,7 @@ The Gabor Wavelet function (technically same as Gaussian) in time and frequency 
 
 Poisson wavelet
 -------------
-#TODO
+Poisson wavelet is defined by positive integers ($n$), unlike other, and associated with Poisson probability distribution 
 
 The Poisson Wavelet function in time and frequency domain are defined as :math:`\psi(t)` and :math:`\psi(f)` as below;
 
@@ -381,11 +381,11 @@ Admiddibility const :math:`C_{\psi} =\frac{1}{n}` and  :math:`w = 2\pi f`
    u(w) =1 \quad \text{ if  $w>=0$ }\quad \text{else  } 0\\
    w = 2\pi f
    
-   
+#TODO   
 
 Maxican wavelet 
 -------------
-#TODO
+Complex Mexican hat wavelet is derived from the conventional Mexican hat wavelet. It is a low-oscillation wavelet which is modulated by a complex exponential function with frequency $f_0$ `Ref <https://en.wikipedia.org/wiki/Complex_Mexican_hat_wavelet>`_..
 
 The Maxican Wavelet function in time and frequency domain are defined as :math:`\psi(t)` and :math:`\psi(f)` as below;
    
@@ -399,11 +399,11 @@ The Maxican Wavelet function in time and frequency domain are defined as :math:`
 .. math::
    w = 2\pi f \quad\quad w_0 = 2\pi f_0
 
+#TODO
 
 Shannon wavelet
 -------------
-#TODO
-
+Complex Shannon wavelet is the most simplified wavelet function, exploiting Sinc function by modulating with sinusoidal, which results in an ideal bandpass filter. Real Shannon wavelet is modulated by only a cos function `Ref <https://en.wikipedia.org/wiki/Shannon_wavelet>`_.
 
 The Shannon Wavelet function in time and frequency domain are defined as :math:`\psi(t)` and :math:`\psi(f)` as below;
    
@@ -417,4 +417,4 @@ The Shannon Wavelet function in time and frequency domain are defined as :math:`
 where :math:`\prod (x) = 1` if :math:`x \leq 0.5`, 0 else and :math:`w = 2\pi f` and :math:`w_0 = 2\pi f_0`
 
 
-
+#TODO
