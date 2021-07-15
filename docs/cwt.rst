@@ -378,7 +378,7 @@ Admiddibility const :math:`C_{\psi} =\frac{1}{n}` and  :math:`w = 2\pi f`
 **where**
 
 .. math::
-   \text{unit step function} u(w) &=1 \quad \text{ if  $w>=0$ }\quad \text{else  } 0\\
+   \text{unit step function }\quad u(w) &=1 \quad \text{ if  $w>=0$ }\quad \text{else  } 0\\
    w &= 2\pi f
    
 #TODO   
