@@ -378,8 +378,8 @@ Admiddibility const :math:`C_{\psi} =\frac{1}{n}` and  :math:`w = 2\pi f`
 **where**
 
 .. math::
-   u(w) =1 \quad \text{ if  $w>=0$ }\quad \text{else  } 0\\
-   w = 2\pi f
+   \text{unit step function} u(w) &=1 \quad \text{ if  $w>=0$ }\quad \text{else  } 0\\
+   w &= 2\pi f
    
 #TODO   
 
@@ -394,10 +394,7 @@ The Maxican Wavelet function in time and frequency domain are defined as :math:`
    \psi(w) &= 2\sqrt{\frac{2}{3}}\pi^{-1/4}(w-w_0)^2e^{-\frac{1}{2} (w-w_0)^2}  \quad \text{ if  $w\ge 0$,}\quad \text{ 0  else}
  
  
-**where**
-
-.. math::
-   w = 2\pi f \quad\quad w_0 = 2\pi f_0
+**where**  :math:`w = 2\pi f` and :math:`w_0 = 2\pi f_0`
 
 #TODO
 
