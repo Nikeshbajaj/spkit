@@ -306,20 +306,86 @@ Morlet wavelet
 -------------
 #TODO
 
+The Morlet Wavelet function in time and frequency domain are defined as :math:`\psi(t)` and :math:`\psi(f)` as below;
+   
+.. math::
+  
+  \psi(t) &= C_{\sigma}\pi^{-0.25}  e^{-0.5t^2} \left(e^{j\sigma t}-K_{\sigma} \right)\\
+  \psi(w) &= C_{\sigma}\pi^{-0.25} \left(e^{-0.5(\sigma-w)^2} -K_{\sigma}e^{-0.5w^2} \right)
+  
+**where**
+
+.. math::
+   C_{\sigma} = \left(1+ e^{-\sigma^{2}} - 2e^{-\frac{3}{4}\sigma^{2}}   \right)^{-0.5}
+   K_{\sigma} =e^{-0.5\sigma^{2}}
+
 Gabor wavelet
 -------------
 #TODO
+
+The Gabor Wavelet function (technically same as Gaussian) in time and frequency domain are defined as :math:`\psi(t)` and :math:`\psi(f)` as below;
+   
+.. math::
+   \psi(t) &= e^{-(t-t_0)^2/a^2}e^{-jf_0(t-t_0)}\\
+   \psi(f) &= e^{-((f-f_0)a)^2}e^{-jt_0(f-f_0)}
+ 
+ **where**
+
+.. math::
+   a is oscilation rate
+   f_0 is center frequency
 
 Poisson wavelet
 -------------
 #TODO
 
+The Poisson Wavelet function in time and frequency domain are defined as :math:`\psi(t)` and :math:`\psi(f)` as below;
+
+#Type 1 (n)
+.. math::
+   \psi(t) &= \left(\frac{t-n}{n!}\right)t^{n-1} e^{-t}\\
+   \psi(w) &= \frac{-jw}{(1+jw)^{n+1}}
+ 
+ **where**
+
+.. math::
+   Admiddibility const C_{\psi} =\frac{1}{n}
+   
+   
+
 Maxican wavelet 
 -------------
 #TODO
 
+The Gabor Wavelet function (technically same as Gaussian) in time and frequency domain are defined as :math:`\psi(t)` and :math:`\psi(f)` as below;
+   
+.. math::
+   \psi(t) &= e^{-(t-t_0)^2/a^2}e^{-jf_0(t-t_0)}\\
+   \psi(f) &= e^{-((f-f_0)a)^2}e^{-jt_0(f-f_0)}
+ 
+ **where**
+
+.. math::
+   a is oscilation rate
+   f_0 is center frequency
+
+
 Shannon wavelet
 -------------
 #TODO
+
+
+The Gabor Wavelet function (technically same as Gaussian) in time and frequency domain are defined as :math:`\psi(t)` and :math:`\psi(f)` as below;
+   
+.. math::
+   \psi(t) &= e^{-(t-t_0)^2/a^2}e^{-jf_0(t-t_0)}\\
+   \psi(f) &= e^{-((f-f_0)a)^2}e^{-jt_0(f-f_0)}
+ 
+ **where**
+
+.. math::
+   a is oscilation rate
+   f_0 is center frequency
+
 
 
