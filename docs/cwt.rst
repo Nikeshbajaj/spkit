@@ -316,8 +316,9 @@ The Morlet Wavelet function in time and frequency domain are defined as :math:`\
 **where**
 
 .. math::
-   C_{\sigma} = \left(1+ e^{-\sigma^{2}} - 2e^{-\frac{3}{4}\sigma^{2}}   \right)^{-0.5}
-   K_{\sigma} =e^{-0.5\sigma^{2}}
+   C_{\sigma} = \left(1+ e^{-\sigma^{2}} - 2e^{-\frac{3}{4}\sigma^{2}}   \right)^{-0.5}\\
+   K_{\sigma} =e^{-0.5\sigma^{2}}\\
+   w = 2\pi f
 
 Gabor wavelet
 -------------
@@ -329,9 +330,10 @@ The Gabor Wavelet function (technically same as Gaussian) in time and frequency 
    \psi(t) &= e^{-(t-t_0)^2/a^2}e^{-jf_0(t-t_0)}\\
    \psi(f) &= e^{-((f-f_0)a)^2}e^{-jt_0(f-f_0)}
  
+ 
  **where**
-   * a is oscilation rate
-   * f_0 is center frequency
+ * a is oscilation rate
+ * f_0 is center frequency
 
 Poisson wavelet
 -------------
@@ -347,19 +349,21 @@ The Poisson Wavelet function in time and frequency domain are defined as :math:`
  
 **where**
 
-Admiddibility const :math:`C_{\psi} =\frac{1}{n}`
+Admiddibility const :math:`C_{\psi} =\frac{1}{n}` and  :math:`w = 2\pi f`
    
 #Type 2
 
 .. math::
    \psi(t) &= \frac{1}{\pi} \frac{1-t^2}{(1+t^2)^2}\\
-   \psi(t) = p(t) + \frac{d}{dt}p(t)\\
+   \psi(t) &= p(t) + \frac{d}{dt}p(t)\\
    \psi(w) &= |w|e^{-|w|}
  
  **where**
    
 .. math::
-   p(t) =\frac{1}{\pi}\frac{1}{1+t^2}
+   p(t) =\frac{1}{\pi}\frac{1}{1+t^2}\\
+   w = 2\pi f
+   
    
  #Type 3 (n)
  
@@ -370,7 +374,8 @@ Admiddibility const :math:`C_{\psi} =\frac{1}{n}`
  **where**
 
 .. math::
-   u(w) =1 \quad \text{ if  $w>=0$,}\quad \text{0 else}
+   u(w) =1 \quad \text{ if  $w>=0$ }\quad \text{else  } 0\\
+   w = 2\pi f
    
    
 
