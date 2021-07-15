@@ -386,14 +386,13 @@ Maxican wavelet
 The Maxican Wavelet function in time and frequency domain are defined as :math:`\psi(t)` and :math:`\psi(f)` as below;
    
 .. math::
-   \psi(t) &= e^{-(t-t_0)^2/a^2}e^{-jf_0(t-t_0)}\\
-   \psi(f) &= e^{-((f-f_0)a)^2}e^{-jt_0(f-f_0)}
+   \psi(t) &= \frac{2}{\sqrt{3}} \pi^{-\frac{1}{4}}\left(\sqrt{\pi}(1-t^2)e^{-\frac{1}{2}t^2} - \left(\sqrt{2}jt + \sqrt{\pi}erf\left[\frac{j}{\sqrt{2}}t \right] (1-t^2)e^{-\frac{1}{2}t^2}\right)\right)e^{-2\pi jf_0 t}\\\\
+   \psi(w) &= 2\sqrt{\frac{2}{3}}\pi^{-1/4}(w-w_0)^2e^{-\frac{1}{2} (w-w_0)^2}  \quad \text{ if  $w\ge 0$,}\quad \text{ 0  else}
  
  **where**
 
 .. math::
-   a is oscilation rate
-   f_0 is center frequency
+   w = 2\pi f \quad\quad w_0 = 2\pi f_0
 
 
 Shannon wavelet
@@ -404,14 +403,12 @@ Shannon wavelet
 The Shannon Wavelet function in time and frequency domain are defined as :math:`\psi(t)` and :math:`\psi(f)` as below;
    
 .. math::
-   \psi(t) &= e^{-(t-t_0)^2/a^2}e^{-jf_0(t-t_0)}\\
-   \psi(f) &= e^{-((f-f_0)a)^2}e^{-jt_0(f-f_0)}
+   \psi(t) &= Sinc(t/2) \cdot e^{-2j\pi f_0t}\\
+   \psi(w) &= \prod \left( \frac{w-w_0}{\pi} \right)
  
  **where**
 
-.. math::
-   a is oscilation rate
-   f_0 is center frequency
+where :math:`\prod (x) = 1$ if :math:`x \leq 0.5`, 0 else and :math:`w = 2\pi f` and :math:`w_0 = 2\pi f_0`
 
 
 
