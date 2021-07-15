@@ -385,7 +385,7 @@ Admiddibility const :math:`C_{\psi} =\frac{1}{n}` and  :math:`w = 2\pi f`
 
 Maxican wavelet 
 -------------
-Complex Mexican hat wavelet is derived from the conventional Mexican hat wavelet. It is a low-oscillation wavelet which is modulated by a complex exponential function with frequency $f_0$ `Ref <https://en.wikipedia.org/wiki/Complex_Mexican_hat_wavelet>`_..
+Complex Mexican hat wavelet is derived from the conventional Mexican hat wavelet. It is a low-oscillation wavelet which is modulated by a complex exponential function with frequency :math:`f_0` `Ref <https://en.wikipedia.org/wiki/Complex_Mexican_hat_wavelet>`_..
 
 The Maxican Wavelet function in time and frequency domain are defined as :math:`\psi(t)` and :math:`\psi(f)` as below;
    
