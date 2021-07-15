@@ -330,10 +330,8 @@ The Gabor Wavelet function (technically same as Gaussian) in time and frequency 
    \psi(f) &= e^{-((f-f_0)a)^2}e^{-jt_0(f-f_0)}
  
  **where**
-
-.. math::
-   a is oscilation rate
-   f_0 is center frequency
+   * a is oscilation rate
+   * f_0 is center frequency
 
 Poisson wavelet
 -------------
@@ -342,14 +340,37 @@ Poisson wavelet
 The Poisson Wavelet function in time and frequency domain are defined as :math:`\psi(t)` and :math:`\psi(f)` as below;
 
 #Type 1 (n)
+
 .. math::
    \psi(t) &= \left(\frac{t-n}{n!}\right)t^{n-1} e^{-t}\\
    \psi(w) &= \frac{-jw}{(1+jw)^{n+1}}
  
+**where**
+
+Admiddibility const :math:`C_{\psi} =\frac{1}{n}`
+   
+#Type 2
+
+.. math::
+   \psi(t) &= \frac{1}{\pi} \frac{1-t^2}{(1+t^2)^2}\\
+   \psi(t) = p(t) + \frac{d}{dt}p(t)\\
+   \psi(w) &= |w|e^{-|w|}
+ 
+ **where**
+   
+.. math::
+   p(t) =\frac{1}{\pi}\frac{1}{1+t^2}
+   
+ #Type 3 (n)
+ 
+.. math::
+   \psi(t) &= \frac{1}{2\pi}(1-jt)^{-(n+1)}\\
+   \psi(w) &= \frac{1}{\Gamma{n+1}}w^{n}e^{-w}u(w)
+ 
  **where**
 
 .. math::
-   Admiddibility const C_{\psi} =\frac{1}{n}
+   u(w) =1 \quad \text{ if  $w>=0$,}\quad \text{0 else}
    
    
 
@@ -357,7 +378,7 @@ Maxican wavelet
 -------------
 #TODO
 
-The Gabor Wavelet function (technically same as Gaussian) in time and frequency domain are defined as :math:`\psi(t)` and :math:`\psi(f)` as below;
+The Maxican Wavelet function in time and frequency domain are defined as :math:`\psi(t)` and :math:`\psi(f)` as below;
    
 .. math::
    \psi(t) &= e^{-(t-t_0)^2/a^2}e^{-jf_0(t-t_0)}\\
@@ -375,7 +396,7 @@ Shannon wavelet
 #TODO
 
 
-The Gabor Wavelet function (technically same as Gaussian) in time and frequency domain are defined as :math:`\psi(t)` and :math:`\psi(f)` as below;
+The Shannon Wavelet function in time and frequency domain are defined as :math:`\psi(t)` and :math:`\psi(f)` as below;
    
 .. math::
    \psi(t) &= e^{-(t-t_0)^2/a^2}e^{-jf_0(t-t_0)}\\
