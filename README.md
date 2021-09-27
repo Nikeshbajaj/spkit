@@ -49,7 +49,8 @@
 ## New Updates
 
 **<mark>Version: 0.0.9.3</mark>**
-Following functionaliets are added
+
+Following functionaliets are added in 0.0.9.3 version
 * **ATAR Algorithm for EEG Artifact removal**
 * **ICA based artifact removal algorith**
 * **Basic filtering, wavelet filtering, EEG signal processing techniques**
