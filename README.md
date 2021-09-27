@@ -47,6 +47,17 @@
 -----
 
 ## New Updates
+
+**<mark>Version: 0.0.9.3</mark>**
+Following functionaliets are added
+* **ATAR Algorithm for EEG Artifact removal**
+* **ICA based artifact removal algorith**
+* **Basic filtering, wavelet filtering, EEG signal processing techniques**
+* **spectral, sample, aproximate and svd entropy functions**
+<p align="center">
+<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/Beta.gif" width="500"/>
+</p>
+
 **<mark>Version: 0.0.9.2</mark>**
 * **Added Scalogram with CWT functions**
 <p align="center">
