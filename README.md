@@ -51,7 +51,7 @@
 **<mark>Version: 0.0.9.3</mark>**
 
 Following functionaliets are added in 0.0.9.3 version
-* **ATAR Algorithm for EEG Artifact removal**
+* **ATAR Algorithm for EEG Artifact removal** [Automatic and Tunable Artifact Removal Algorithm for EEG from artical](https://www.sciencedirect.com/science/article/pii/S1746809419302058)
 * **ICA based artifact removal algorith**
 * **Basic filtering, wavelet filtering, EEG signal processing techniques**
 * **spectral, sample, aproximate and svd entropy functions**
