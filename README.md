@@ -105,10 +105,10 @@ Download the repository or clone it with git, after cd in directory build it fro
 python setup.py install
 ```
 
-## Functions list
-#### Signal Processing Techniques
+# Functions list
+## Signal Processing Techniques
 **Information Theory functions**  for real valued signals
-* Entropy : Shannon entropy, Rényi entropy of order α, Collision entropy
+* Entropy : Shannon entropy, Rényi entropy of order α, Collision entropy, Spectral Entropy, Approximate Entropy, Sample Entropy
 * Joint entropy
 * Conditional entropy
 * Mutual Information
@@ -124,7 +124,26 @@ python setup.py install
 **Linear Feedback Shift Register**
 * pylfsr
 
-**Continuase Wavelet Transform** and other functions comming soon..
+**Continuase Wavelet Transform**
+* Gauss wavelet
+* Morlet wavelet
+* Gabor wavelet
+* Poisson wavelet
+* Maxican wavelet
+* Shannon wavelet
+
+**Discrete Wavelet Transform**
+* Wavelet filtering
+* Wavelet Packet Analysis and Filtering
+
+**Basic Filtering**
+* Removing DC/ Smoothing for multi-channel signals
+* Bandpass/Lowpass/Highpass/Bandreject filtering for multi-channel signals
+
+## Biomedical Signal Processing
+**Artifact Removal Algorithm**
+* **ATAR Algorithm** [Automatic and Tunable Artifact Removal Algorithm for EEG from artical](https://www.sciencedirect.com/science/article/pii/S1746809419302058)
+* **ICA based Algorith** 
 
 #### Machine Learning models - with visualizations
 * Logistic Regression
