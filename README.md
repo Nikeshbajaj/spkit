@@ -29,6 +29,7 @@
 -->
 
 -----
+### For more updated documentation check github or [Documentation](https://spkit.readthedocs.io/)
 ## Table of contents
 - [**New Updates**](#new-updates)
 - [**Installation**](#installation)
@@ -107,7 +108,8 @@ python setup.py install
 
 # Functions list
 ## Signal Processing Techniques
-**Information Theory functions**  for real valued signals
+### **Information Theory functions** 
+ **for real valued signals**
 * Entropy : Shannon entropy, Rényi entropy of order α, Collision entropy, Spectral Entropy, Approximate Entropy, Sample Entropy
 * Joint entropy
 * Conditional entropy
@@ -117,14 +119,14 @@ python setup.py install
 * Computation of optimal bin size for histogram using FD-rule
 * Plot histogram with optimal bin size
 
-**Matrix Decomposition**
+### **Matrix Decomposition**
 * SVD
 * ICA using InfoMax, Extended-InfoMax, FastICA & **Picard**
 
-**Linear Feedback Shift Register**
+### **Linear Feedback Shift Register**
 * pylfsr
 
-**Continuase Wavelet Transform**
+### **Continuase Wavelet Transform**
 * Gauss wavelet
 * Morlet wavelet
 * Gabor wavelet
@@ -132,11 +134,11 @@ python setup.py install
 * Maxican wavelet
 * Shannon wavelet
 
-**Discrete Wavelet Transform**
+### **Discrete Wavelet Transform**
 * Wavelet filtering
 * Wavelet Packet Analysis and Filtering
 
-**Basic Filtering**
+### **Basic Filtering**
 * Removing DC/ Smoothing for multi-channel signals
 * Bandpass/Lowpass/Highpass/Bandreject filtering for multi-channel signals
 
@@ -145,7 +147,7 @@ python setup.py install
 * **ATAR Algorithm** [Automatic and Tunable Artifact Removal Algorithm for EEG from artical](https://www.sciencedirect.com/science/article/pii/S1746809419302058)
 * **ICA based Algorith** 
 
-#### Machine Learning models - with visualizations
+## Machine Learning models - with visualizations
 * Logistic Regression
 * Naive Bayes
 * Decision Trees
