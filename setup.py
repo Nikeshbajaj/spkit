@@ -26,7 +26,7 @@ setuptools.setup(
     download_url = 'https://github.com/Nikeshbajaj/spkit/tarball/' + version,
     packages=setuptools.find_packages(),
     license = 'MIT',
-    keywords = 'Signal processing machine-learning entropy Rényi Kullback–Leibler divergence mutual information decision-tree logistic-regression naive-bayes LFSR ICA',
+    keywords = 'Signal processing machine-learning entropy Rényi Kullback–Leibler divergence mutual information decision-tree logistic-regression naive-bayes LFSR ICA EEG-signal-processing ATAR',
     classifiers=[
         "Programming Language :: Python :: 2",
 		"Programming Language :: Python :: 2.7",

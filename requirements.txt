@@ -3,3 +3,4 @@ scipy
 scikit-learn
 python-picard
 matplotlib>1.3
+PyWavelets

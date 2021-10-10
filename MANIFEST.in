@@ -6,6 +6,7 @@ include requirements.txt
 include spkit/__init__.py
 include spkit/data/EEG16SecData.pkl
 include spkit/data/primitive_polynomials_GF2_dict.txt
+include spkit/eeg/Standard_1020.csv
 
 recursive-include spkit *.py
 recursive-include spkit *.txt
@@ -13,6 +14,7 @@ recursive-include examples *.py
 recursive-include examples *.ipynb
 recursive-include *.ipynb
 recursive-include *.pkl
+recursive-include spkit/data *.pkl
 
 recursive-exclude * __pycache__
 recursive-exclude *.yml

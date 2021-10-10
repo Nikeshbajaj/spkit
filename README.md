@@ -56,8 +56,8 @@ Following functionaliets are added in 0.0.9.3 version
 * **Basic filtering, wavelet filtering, EEG signal processing techniques**
 * **spectral, sample, aproximate and svd entropy functions**
 <p align="center">
-<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/Beta.gif" width="400"/>
-<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/Wavelet_filtering_topo_map.png" width="400"/>
+<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/Beta.gif" width="350"/>
+<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/Wavelet_filtering_topo_map.png" width="350"/>
 </p>
 
 **<mark>Version: 0.0.9.2</mark>**
@@ -121,7 +121,7 @@ python setup.py install
 
 # Functions list
 ## Signal Processing Techniques
-### **Information Theory functions** 
+### **Information Theory functions**
  **for real valued signals**
 * Entropy : Shannon entropy, Rényi entropy of order α, Collision entropy, Spectral Entropy, Approximate Entropy, Sample Entropy
 * Joint entropy
@@ -158,7 +158,7 @@ python setup.py install
 ## Biomedical Signal Processing
 **Artifact Removal Algorithm**
 * **ATAR Algorithm** [Automatic and Tunable Artifact Removal Algorithm for EEG from artical](https://www.sciencedirect.com/science/article/pii/S1746809419302058)
-* **ICA based Algorith** 
+* **ICA based Algorith**
 
 ## Machine Learning models - with visualizations
 * Logistic Regression
@@ -339,7 +339,6 @@ ______________________________________
 
 * **Nikesh Bajaj**
 * http://nikeshbajaj.in
-* n.bajaj@qmul.ac.uk
-* bajaj.nikkey@gmail.com
+* n.bajaj[AT]qmul.ac.uk, n.bajaj[AT]imperial[dot]ac[dot]uk
 ### PhD Student: Queen Mary University of London
 ______________________________________
