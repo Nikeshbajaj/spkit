@@ -324,6 +324,19 @@ ______________________________________
 
 # Cite As
 ```
+@misc{spkit@2019,
+  author = {Bajaj,Nikesh and Requena Carrión, Jesús},
+  title = {{SpKit: Signal Processing Toolkit}},
+  url = {https://spkit.github.io},
+  version = {0.0.9.3},
+  year={2021},
+  note ={version 0.9.3, \url{https://spkit.github.io}},
+  howpublished = {\url{https://github.com/Nikeshbajaj/spkit}},
+  publisher={Python package, Github}
+}
+
+
+
 @software{nikesh_bajaj_2021_4710694,
   author       = {Nikesh Bajaj},
   title        = {Nikeshbajaj/spkit: 0.0.9.2},
