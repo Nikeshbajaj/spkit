@@ -24,7 +24,7 @@ Notebook
 This algorithm includes following three approaches to removal artifact in EEG
 
 1. Kurtosis based artifacts - mostly for motion artifacts
-  kur_thr: (default 2) threshold on kurtosis of IC commponents to remove, higher it is, more peaky component is selected
+   kur_thr: (default 2) threshold on kurtosis of IC commponents to remove, higher it is, more peaky component is selected
        : +ve int value
 2. Correlation Based Index (CBI) for eye movement artifacts
    For applying CBI method, index of prefrontal (AF - First Layer of electrodes towards frontal lobe) and frontal lobe (F - second layer of electrodes) channels
