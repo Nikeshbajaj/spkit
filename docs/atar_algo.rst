@@ -1,4 +1,4 @@
-ATAR - Artifact Removal Algorithm for EEG- 
+ATAR - Artifact Removal Algorithm for EEG
 ================
 
 Notebook
