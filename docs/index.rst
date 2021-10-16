@@ -55,6 +55,21 @@ Independent Component Analysis
    :maxdepth: 2
    
    ica
+   
+   
+EEG Artifact Removal Algorithms
+----------   
+
+.. toctree::
+   :maxdepth: 2
+   
+   # ATAR - Automatic and Tunable Artifact Removal Algorithm
+   ---------- 
+   atar_algo
+   
+   # Blind Source Seperation - ICA Based 
+   ---------- 
+   ica_artifact_algo
   
    
 Complex Continuous Wavelet Transform
