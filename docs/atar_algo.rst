@@ -23,7 +23,10 @@ Here is the list of parameters and there simplified meaning given:
 Parameters:
 * $\beta$: This is a main parameter to tune, highher the value, more aggressive the algorithm to remove the artifacts. By default it is set to 0.1. $\beta$ is postive float value.
 * ***OptMode***: This sets the mode of operation, which decides hoe to remove the artifact. By default it is set to 'soft', which means Soft Thresholding, in this mode, rather than removing the pressumed artifact, it is suppressed to the threshold, softly. OptMode='linAtten', suppresses the pressumed artifact depending on how far it is from threshold. Finally, the most common mode - Elimination (OptMode='elim'), which remove the pressumed artifact.
-    * Soft Thresholding and Linear Attenuation require addition parameters to set the associated thresholds which are by default set to bf=2, gf=0.8. 
+    * Soft Thresholding and Linear Attenuation require addition parameters to set the associated thresholds which are by default set to bf=2, gf=0.8.
+    1. Soft Thresholding
+    2. Linear Attenuation
+    3. Elimination
 * ***wv=db3***: Wavelet funtion, by default set to db3, could be any of ['db3'.....'db38', 'sym2.....sym20', 'coif1.....coif17', 'bior1.1....bior6.8', 'rbio1.1...rbio6.8', 'dmey']
 * $k_1$, $k_2$: Lower and upper bounds on threshold $\theta_\alpha$.
 * ***IPR=[25,75]***: interpercentile range, range used to compute threshold
@@ -42,7 +45,7 @@ There are three functions in **spkit.eeg** for **ATAR algorithm**
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_beta_tune.gif
 
 
-A quick example
+A quick example with (1) Soft Thresholding (𝛽=0.1)
 ---------------
 
 ::
@@ -62,7 +65,7 @@ A quick example
    Xf = sp.filter_X(X,band=[0.5], btype='highpass',fs=fs,verbose=0).T
    Xf.shape
 
-   # ATAR Algorithm
+   # ATAR Algorithm - default mode is 'soft' and beta=0.1
    XR = sp.eeg.ATAR_mCh_noParallel(Xf.copy(),verbose=0)
 
    #plots
@@ -94,4 +97,23 @@ A quick example
   
 
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_exp1.png
+
+
+(2) Linear Attenuation
+---------------
+::
+   
+   XR = sp.eeg.ATAR_mCh_noParallel(Xf.copy(),verbose=0,OptMode='linAtten')
+  
+
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_exp2_linAtten.png
+
+
+(3) Elimination
+---------------
+::
+   
+   XR = sp.eeg.ATAR_mCh_noParallel(Xf.copy(),verbose=0,OptMode='elim')   
+
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_exp3_elim.png
 
