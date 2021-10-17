@@ -61,7 +61,7 @@ EEG Artifact Removal Algorithms
 ----------   
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    
    atar_algo
    
