@@ -16,7 +16,7 @@ Notebook
    
 **ATAR Algorithm -  Automatic and Tunable Artifact Removal Algorithm for EEG Signal.** 
 
-The algorithm is based on wavelet packet decomposion (WPD), the full description of algorithm can be found here [Automatic and Tunable Artifact Removal Algorithm for EEG](https://doi.org/10.1016/j.bspc.2019.101624) from the article. 
+The algorithm is based on wavelet packet decomposion (WPD), the full description of algorithm can be found here `**Automatic and Tunable Artifact Removal Algorithm for EEG** <https://doi.org/10.1016/j.bspc.2019.101624>`_ from the article. 
 The algorithm is applied on the given multichannel signal X (n,nch), window wise and reconstructed with overall add method. The defualt window size is set to 1 sec (128 samples). For each window, the threshold $\theta_\alpha$ is computed and applied to filter the wavelet coefficients.
 There is manily one parameter that can be tuned $\beta$ with different operating modes and other settings.
 Here is the list of parameters and there simplified meaning given:
