@@ -1,4 +1,4 @@
-ATAR - Artifact Removal Algorithm for EEG
+ATAR - Automatic and Tunable Artifact Removal Algorithm for EEG
 ================
 
 Notebook
@@ -45,7 +45,7 @@ There are three functions in **spkit.eeg** for **ATAR algorithm**
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_beta_tune.gif
 
 
-A quick example with (1) Soft Thresholding (𝛽=0.1)
+(1) Soft Thresholding (𝛽=0.1) - A quick example
 ---------------
 
 ::
@@ -117,3 +117,95 @@ A quick example with (1) Soft Thresholding (𝛽=0.1)
 
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_exp3_elim.png
 
+
+Tuning 𝛽 with 'soft' : Controlling the aggressiveness
+---------------
+
+::
+   
+   betas = np.r_[np.arange(0.01,0.1,0.02), np.arange(0.1,1.1, 0.1)].round(2)
+
+   for b in betas:
+       XR = sp.eeg.ATAR_mCh_noParallel(Xf.copy(),verbose=0,beta=b,OptMode='soft')
+       XR.shape
+
+       plt.figure(figsize=(15,5))
+       plt.subplot(121)
+       plt.plot(t,XR+np.arange(-7,7)*200)
+       plt.xlim([t[0],t[-1]])
+       plt.xlabel('time (sec)')
+       plt.yticks(np.arange(-7,7)*200,ch_names)
+       plt.grid()
+       plt.title('XR: Corrected Signal: '+r'$\beta=$' + f'{b}')
+
+       plt.subplot(122)
+       plt.plot(t,(Xf-XR)+np.arange(-7,7)*200)
+       plt.xlim([t[0],t[-1]])
+       plt.xlabel('time (sec)')
+       plt.yticks(np.arange(-7,7)*200,ch_names)
+       plt.grid()
+       plt.title('Xf - XR: Difference (removed signal)')
+       plt.show() 
+
+
+ Tuning 𝛽 with 'linAtten'
+---------------
+
+::
+   
+   betas = np.r_[np.arange(0.01,0.1,0.02), np.arange(0.1,1.1, 0.1)].round(2)
+
+   for b in betas:
+       XR = sp.eeg.ATAR_mCh_noParallel(Xf.copy(),verbose=0,beta=b,OptMode='linAtten')
+       XR.shape
+
+       plt.figure(figsize=(15,5))
+       plt.subplot(121)
+       plt.plot(t,XR+np.arange(-7,7)*200)
+       plt.xlim([t[0],t[-1]])
+       plt.xlabel('time (sec)')
+       plt.yticks(np.arange(-7,7)*200,ch_names)
+       plt.grid()
+       plt.title('XR: Corrected Signal: '+r'$\beta=$' + f'{b}')
+
+       plt.subplot(122)
+       plt.plot(t,(Xf-XR)+np.arange(-7,7)*200)
+       plt.xlim([t[0],t[-1]])
+       plt.xlabel('time (sec)')
+       plt.yticks(np.arange(-7,7)*200,ch_names)
+       plt.grid()
+       plt.title('Xf - XR: Difference (removed signal)')
+       plt.show() 
+
+
+Tuning 𝛽 with 'elim'
+---------------
+
+::
+   
+   betas = np.r_[np.arange(0.01,0.1,0.02), np.arange(0.1,1.1, 0.1)].round(2)
+
+   for b in betas:
+       XR = sp.eeg.ATAR_mCh_noParallel(Xf.copy(),verbose=0,beta=b,OptMode='elim')
+       XR.shape
+
+       plt.figure(figsize=(15,5))
+       plt.subplot(121)
+       plt.plot(t,XR+np.arange(-7,7)*200)
+       plt.xlim([t[0],t[-1]])
+       plt.xlabel('time (sec)')
+       plt.yticks(np.arange(-7,7)*200,ch_names)
+       plt.grid()
+       plt.title('XR: Corrected Signal: '+r'$\beta=$' + f'{b}')
+
+       plt.subplot(122)
+       plt.plot(t,(Xf-XR)+np.arange(-7,7)*200)
+       plt.xlim([t[0],t[-1]])
+       plt.xlabel('time (sec)')
+       plt.yticks(np.arange(-7,7)*200,ch_names)
+       plt.grid()
+       plt.title('Xf - XR: Difference (removed signal)')
+       plt.show() 
+       
+       
+       
