@@ -44,3 +44,101 @@ This algorithm includes following three approaches to removal artifact in EEG
         : if None, this  is not applied
    
    
+
+**API**
+
+* sp.eeg.ICA_filtering(...)
+
+
+
+A quick example
+---------------
+
+::
+  
+   import numpy as np
+   import matplotlib.pyplot as plt
+
+   import spkit as sp
+   from spkit.data import load_data
+
+   print(sp.__version__)
+
+   X,ch_names = load_data.eegSample()
+   fs = 128
+
+   # high=pass filtering
+   Xf = sp.filter_X(X,band=[0.5], btype='highpass',fs=fs,verbose=0).T
+   
+   
+   # ICA Filtering
+   XR = sp.eeg.ICA_filtering(Xf.copy(),verbose=1,kur_thr=2,corr_thr=0.8,winsize=128)
+   
+ 
+   t = np.arange(Xf.shape[0])/fs
+   plt.figure(figsize=(15,8))
+   plt.subplot(221)
+   plt.plot(t,Xf+np.arange(-7,7)*200)
+   plt.xlim([t[0],t[-1]])
+   #plt.xlabel('time (sec)')
+   plt.yticks(np.arange(-7,7)*200,ch_names)
+   plt.grid()
+   plt.title('Xf: 14 channel - EEG Signal (filtered)')
+   plt.subplot(223)
+   plt.plot(t,XR+np.arange(-7,7)*200)
+   plt.xlim([t[0],t[-1]])
+   plt.xlabel('time (sec)')
+   plt.yticks(np.arange(-7,7)*200,ch_names)
+   plt.grid()
+   plt.title('XR: Corrected Signal')
+   plt.subplot(224)
+   plt.plot(t,(Xf-XR)+np.arange(-7,7)*200)
+   plt.xlim([t[0],t[-1]])
+   plt.xlabel('time (sec)')
+   plt.yticks(np.arange(-7,7)*200,ch_names)
+   plt.grid()
+   plt.title('Xf - XR: Difference (removed signal)')
+   plt.subplots_adjust(wspace=0.1,hspace=0.3)
+   plt.show()
+   
+   
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/ica_eeg_artifact_ex1.png   
+   
+   
+With smallar segment
+---------------
+
+::
+  
+  Xf1 = Xf[128*10:128*14].copy()
+  
+  XR1 = sp.eeg.ICA_filtering(Xf1.copy(),verbose=1,kur_thr=2,corr_thr=0.8,winsize=128*2)
+  
+  
+  t = np.arange(Xf1.shape[0])/fs
+   plt.figure(figsize=(15,8))
+   plt.subplot(221)
+   plt.plot(t,Xf1+np.arange(-7,7)*200)
+   plt.xlim([t[0],t[-1]])
+   #plt.xlabel('time (sec)')
+   plt.yticks(np.arange(-7,7)*200,ch_names)
+   plt.grid()
+   plt.title('Xf: 14 channel - EEG Signal (filtered)')
+   plt.subplot(223)
+   plt.plot(t,XR1+np.arange(-7,7)*200)
+   plt.xlim([t[0],t[-1]])
+   plt.xlabel('time (sec)')
+   plt.yticks(np.arange(-7,7)*200,ch_names)
+   plt.grid()
+   plt.title('XR: Corrected Signal')
+   plt.subplot(224)
+   plt.plot(t,(Xf1-XR1)+np.arange(-7,7)*200)
+   plt.xlim([t[0],t[-1]])
+   plt.xlabel('time (sec)')
+   plt.yticks(np.arange(-7,7)*200,ch_names)
+   plt.grid()
+   plt.title('Xf - XR: Difference (removed signal)')
+   plt.subplots_adjust(wspace=0.1,hspace=0.3)
+   plt.show()
+
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/ica_eeg_artifact_ex2.png
