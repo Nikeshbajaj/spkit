@@ -208,4 +208,171 @@ Tuning 𝛽 with 'elim'
        plt.show() 
        
        
-       
+Other Settings       
+--------------
+
+wavelet function
+~~~~~~~~~~~~~~~~
+
+::
+   
+   #db8
+   XR = sp.eeg.ATAR_mCh_noParallel(Xf.copy(),wv='db8',beta=0.01,OptMode='elim',verbose=0,)
+
+   plt.figure(figsize=(15,5))
+   plt.subplot(121)
+   plt.plot(t,XR+np.arange(-7,7)*200)
+   plt.xlim([t[0],t[-1]])
+   plt.xlabel('time (sec)')
+   plt.yticks(np.arange(-7,7)*200,ch_names)
+   plt.grid()
+   plt.title('XR: Corrected Signal: '+r'$wv=db8$')
+
+   plt.subplot(122)
+   plt.plot(t,(Xf-XR)+np.arange(-7,7)*200)
+   plt.xlim([t[0],t[-1]])
+   plt.xlabel('time (sec)')
+   plt.yticks(np.arange(-7,7)*200,ch_names)
+   plt.grid()
+   plt.title('Xf - XR: Difference (removed signal)')
+   plt.show()
+
+   #db32
+   XR = sp.eeg.ATAR_mCh_noParallel(Xf.copy(),wv='db32',beta=0.01,OptMode='elim',verbose=0,)
+
+   plt.figure(figsize=(15,5))
+   plt.subplot(121)
+   plt.plot(t,XR+np.arange(-7,7)*200)
+   plt.xlim([t[0],t[-1]])
+   plt.xlabel('time (sec)')
+   plt.yticks(np.arange(-7,7)*200,ch_names)
+   plt.grid()
+   plt.title('XR: Corrected Signal: '+r'$wv=db32$')
+
+   plt.subplot(122)
+   plt.plot(t,(Xf-XR)+np.arange(-7,7)*200)
+   plt.xlim([t[0],t[-1]])
+   plt.xlabel('time (sec)')
+   plt.yticks(np.arange(-7,7)*200,ch_names)
+   plt.grid()
+   plt.title('Xf - XR: Difference (removed signal)')
+   plt.show()
+
+
+upper and lower bounds: :math: 'k_1' and  :math: 'k_2'
+~~~~~~~~~~~~~~~~
+
+k1 and k2 are lower and upper bound on the threshold θα. k1 is set to 10, which means, the lowest threshold value will be 10, this helps to prevent the removal of entire signal (zeroing out) due to present of high magnitute of artifact. k2 is largest threshold value, which in terms set the decaying curve of threshold θα. Increasing k2 will make the removal less aggressive
+
+
+
+::
+   
+   XR = sp.eeg.ATAR_mCh_noParallel(Xf.copy(),wv='db3',beta=0.1,OptMode='elim',verbose=0,k1=10, k2=200)
+   
+   plt.figure(figsize=(15,5))
+   plt.subplot(121)
+   plt.plot(t,XR+np.arange(-7,7)*200)
+   plt.xlim([t[0],t[-1]])
+   plt.xlabel('time (sec)')
+   plt.yticks(np.arange(-7,7)*200,ch_names)
+   plt.grid()
+   plt.title('XR: Corrected Signal: '+r'$k_2=200$')
+
+   plt.subplot(122)
+   plt.plot(t,(Xf-XR)+np.arange(-7,7)*200)
+   plt.xlim([t[0],t[-1]])
+   plt.xlabel('time (sec)')
+   plt.yticks(np.arange(-7,7)*200,ch_names)
+   plt.grid()
+   plt.title('Xf - XR: Difference (removed signal)')
+   plt.show()
+   
+   
+IPR - Interpercentile range
+~~~~~~~~~~~~~~~~
+
+*IPR* is interpercentile range, which is set to 50% (IPR=[25,75]) as default (inter-quartile range), incresing the range increses the aggressiveness of removing artifacts.
+
+::
+   
+   XR = sp.eeg.ATAR_mCh_noParallel(Xf.copy(),wv='db3',beta=0.1,OptMode='elim',verbose=0,k1=10, k2=200, IPR=[15,85])
+
+   plt.figure(figsize=(15,5))
+   plt.subplot(121)
+   plt.plot(t,XR+np.arange(-7,7)*200)
+   plt.xlim([t[0],t[-1]])
+   plt.xlabel('time (sec)')
+   plt.yticks(np.arange(-7,7)*200,ch_names)
+   plt.grid()
+   plt.title('XR: Corrected Signal: '+r'$IPR=[15,85]$~ 70%')
+
+   plt.subplot(122)
+   plt.plot(t,(Xf-XR)+np.arange(-7,7)*200)
+   plt.xlim([t[0],t[-1]])
+   plt.xlabel('time (sec)')
+   plt.yticks(np.arange(-7,7)*200,ch_names)
+   plt.grid()
+   plt.title('Xf - XR: Difference (removed signal)')
+   plt.show()
+
+
+fixing threshold (θα=300), not using ipr method
+~~~~~~~~~~~~~~~~
+
+::
+   
+   XR = sp.eeg.ATAR_mCh_noParallel(Xf.copy(),wv='db3',thr_method=None,theta_a=300,OptMode='elim',verbose=0)
+
+   plt.figure(figsize=(15,5))
+   plt.subplot(121)
+   plt.plot(t,XR+np.arange(-7,7)*200)
+   plt.xlim([t[0],t[-1]])
+   plt.xlabel('time (sec)')
+   plt.yticks(np.arange(-7,7)*200,ch_names)
+   plt.grid()
+   plt.title('XR: Corrected Signal: '+r'$\theta_\alpha=300$')
+
+   plt.subplot(122)
+   plt.plot(t,(Xf-XR)+np.arange(-7,7)*200)
+   plt.xlim([t[0],t[-1]])
+   plt.xlabel('time (sec)')
+   plt.yticks(np.arange(-7,7)*200,ch_names)
+   plt.grid()
+   plt.title('Xf - XR: Difference (removed signal)')
+   plt.show()
+
+
+
+window length (5 sec)
+~~~~~~~~~~~~~~~~
+
+*winsize* is be default set to 128 (1 sec), assuming 128 sampling rate, which can be changed as needed. In following example it is changed to 5 sec
+
+::
+   
+   XR = sp.eeg.ATAR_mCh_noParallel(Xf.copy(),winsize=128*5,beta=0.01,OptMode='elim',verbose=0,)
+
+   plt.figure(figsize=(15,5))
+   plt.subplot(121)
+   plt.plot(t,XR+np.arange(-7,7)*200)
+   plt.xlim([t[0],t[-1]])
+   plt.xlabel('time (sec)')
+   plt.yticks(np.arange(-7,7)*200,ch_names)
+   plt.grid()
+   plt.title('XR: Corrected Signal: '+r'$winsize=5sec$')
+
+   plt.subplot(122)
+   plt.plot(t,(Xf-XR)+np.arange(-7,7)*200)
+   plt.xlim([t[0],t[-1]])
+   plt.xlabel('time (sec)')
+   plt.yticks(np.arange(-7,7)*200,ch_names)
+   plt.grid()
+   plt.title('Xf - XR: Difference (removed signal)')
+   plt.show()
+
+
+
+
+
+
