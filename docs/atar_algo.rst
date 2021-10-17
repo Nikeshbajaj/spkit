@@ -45,7 +45,7 @@ There are three functions in **spkit.eeg** for **ATAR algorithm**
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_beta_tune.gif
    :width: 400
 
-(1) Soft Thresholding (𝛽=0.1) - A quick example
+(1) Soft Thresholding (𝛽=0.1) - a quick example
 ---------------
 
 ::
