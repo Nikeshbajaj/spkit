@@ -271,7 +271,7 @@ wavelet function
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_wv_db32.png
 
 
-upper and lower bounds: :math: `k_1` and  :math: `k_2`
+upper and lower bounds: :math:`k_1` and :math:`k_2`
 ~~~~~~~~~~~~~~~~
 
 k1 and k2 are lower and upper bound on the threshold θα. k1 is set to 10, which means, the lowest threshold value will be 10, this helps to prevent the removal of entire signal (zeroing out) due to present of high magnitute of artifact. k2 is largest threshold value, which in terms set the decaying curve of threshold θα. Increasing k2 will make the removal less aggressive
