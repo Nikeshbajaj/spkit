@@ -331,6 +331,10 @@ IPR - Interpercentile range
 
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_ipr_1.png
 
+constant threshold (θ=300), (not adaptive)
+~~~~~~~~~~~~~~~~
+
+
 fixing threshold (θα=300), not using ipr method to adaptively change threshold
 ~~~~~~~~~~~~~~~~
 
