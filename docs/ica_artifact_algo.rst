@@ -16,9 +16,9 @@ Notebook
 
 ::
   
-  ICA_filtering(X, winsize=128, ICA_method='extended-infomax', kur_thr=2,
-              corr_thr=0.8, AF_ch_index=[0, 13], F_ch_index=[1, 2, 11, 12],
-              verbose=True, hopesize=None)
+  ICA_filtering(X, winsize=128, ICA_method='extended-infomax',
+     kur_thr=2, corr_thr=0.8, AF_ch_index=[0, 13],
+     F_ch_index=[1, 2, 11, 12],verbose=True)
 
 
 This algorithm includes following three approaches to removal artifact in EEG
