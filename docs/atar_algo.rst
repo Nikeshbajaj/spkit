@@ -183,9 +183,9 @@ Tuning 𝛽 with 'elim'
        
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_elim_beta_3.gif
        
-       
-       
- Tuning 𝛽 with 'linAtten'
+
+
+Tuning 𝛽 with 'linAtten'
 ---------------
 
 ::
@@ -271,11 +271,10 @@ wavelet function
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_wv_db32.png
 
 
-upper and lower bounds: :math: 'k_1' and  :math: 'k_2'
+upper and lower bounds: :math: `k_1` and  :math: `k_2`
 ~~~~~~~~~~~~~~~~
 
 k1 and k2 are lower and upper bound on the threshold θα. k1 is set to 10, which means, the lowest threshold value will be 10, this helps to prevent the removal of entire signal (zeroing out) due to present of high magnitute of artifact. k2 is largest threshold value, which in terms set the decaying curve of threshold θα. Increasing k2 will make the removal less aggressive
-
 
 
 ::
@@ -302,6 +301,7 @@ k1 and k2 are lower and upper bound on the threshold θα. k1 is set to 10, whic
    
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_k2_1.png
    
+
 IPR - Interpercentile range
 ~~~~~~~~~~~~~~~~
 
@@ -331,8 +331,11 @@ IPR - Interpercentile range
 
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_ipr_1.png
 
-fixing threshold (θα=300), not using ipr method
+fixing threshold (θα=300), not using ipr method to adaptively change threshold
 ~~~~~~~~~~~~~~~~
+
+Fixing θα with *thr_method=None* will be applying a fixed threshold in non-adaptive manner, this is effective in the cases where you want to 
+remove the specfic artifacts and leave all the other part of signal untouched. As in following example, only very high peaks are removed and other part of signal is left un-affected.
 
 ::
    
