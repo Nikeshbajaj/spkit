@@ -39,59 +39,59 @@ There are three functions in **spkit.eeg** for **ATAR algorithm**
 ***sp.eeg.ATAR_1Ch*** is for single channel input signal x of shape (n,), where as, ***sp.eeg.ATAR_mCh*** is for multichannel signal X with shape (n,ch), which uses joblib for parallel processing of multi channels. For some OS, joblib raise an error of ***BrokenProcessPool***, in that case use  ***sp.eeg.ATAR_mCh_noParallel***, which is same as ***sp.eeg.ATAR_mCh***, except parallel processing. Alternatively, use ***sp.eeg.ATAR_1Ch*** with for loop for each channel.
 
 
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_beta_tune.gif
+
+
 A quick example
 ---------------
 
-
 ::
   
-  import numpy as np
-  import matplotlib.pyplot as plt
-  
-  import spkit as sp
-  from spkit.data import load_data
-  
-  print(sp.__version__)
-  
-  X,ch_names = load_data.eegSample()
-  fs = 128
-  
-  # high=pass filtering
-  Xf = sp.filter_X(X,band=[0.5], btype='highpass',fs=fs,verbose=0).T
-  Xf.shape
-  
-  # ATAR Algorithm
-  XR = sp.eeg.ATAR_mCh_noParallel(Xf.copy(),verbose=0)
-  
-  #plots
+   import numpy as np
+   import matplotlib.pyplot as plt
+
+   import spkit as sp
+   from spkit.data import load_data
+
+   print(sp.__version__)
+
+   X,ch_names = load_data.eegSample()
+   fs = 128
+
+   # high=pass filtering
+   Xf = sp.filter_X(X,band=[0.5], btype='highpass',fs=fs,verbose=0).T
+   Xf.shape
+
+   # ATAR Algorithm
+   XR = sp.eeg.ATAR_mCh_noParallel(Xf.copy(),verbose=0)
+
+   #plots
    t = np.arange(Xf.shape[0])/fs
-   plt.figure(figsize=(12,5))
+   plt.figure(figsize=(15,8))
+   plt.subplot(221)
    plt.plot(t,Xf+np.arange(-7,7)*200)
    plt.xlim([t[0],t[-1]])
-   plt.xlabel('time (sec)')
+   #plt.xlabel('time (sec)')
    plt.yticks(np.arange(-7,7)*200,ch_names)
    plt.grid()
    plt.title('Xf: 14 channel - EEG Signal (filtered)')
-   plt.show()
-
-   plt.figure(figsize=(12,5))
+   plt.subplot(223)
    plt.plot(t,XR+np.arange(-7,7)*200)
    plt.xlim([t[0],t[-1]])
    plt.xlabel('time (sec)')
    plt.yticks(np.arange(-7,7)*200,ch_names)
    plt.grid()
    plt.title('XR: Corrected Signal')
-   plt.show()
-
-   plt.figure(figsize=(12,5))
+   plt.subplot(224)
    plt.plot(t,(Xf-XR)+np.arange(-7,7)*200)
    plt.xlim([t[0],t[-1]])
    plt.xlabel('time (sec)')
    plt.yticks(np.arange(-7,7)*200,ch_names)
    plt.grid()
    plt.title('Xf - XR: Difference (removed signal)')
+   plt.subplots_adjust(wspace=0.1,hspace=0.3)
    plt.show()
   
 
-
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_exp1.png
 
