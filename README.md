@@ -56,7 +56,7 @@ Following functionaliets are added in 0.0.9.3 version
 * **Basic filtering, wavelet filtering, EEG signal processing techniques**
 * **spectral, sample, aproximate and svd entropy functions**
 <p align="center">
-<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/Beta.gif" width="350"/>
+<img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_beta_tune.gif" width="350"/>
 <img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/Wavelet_filtering_topo_map.png" width="350"/>
 </p>
 
