@@ -266,6 +266,11 @@ wavelet function
    plt.show()
 
 
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_wv_db8.png
+
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_wv_db32.png
+
+
 upper and lower bounds: :math: 'k_1' and  :math: 'k_2'
 ~~~~~~~~~~~~~~~~
 
@@ -295,6 +300,7 @@ k1 and k2 are lower and upper bound on the threshold θα. k1 is set to 10, whic
    plt.title('Xf - XR: Difference (removed signal)')
    plt.show()
    
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_k2_1.png
    
 IPR - Interpercentile range
 ~~~~~~~~~~~~~~~~
@@ -323,6 +329,7 @@ IPR - Interpercentile range
    plt.title('Xf - XR: Difference (removed signal)')
    plt.show()
 
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_ipr_1.png
 
 fixing threshold (θα=300), not using ipr method
 ~~~~~~~~~~~~~~~~
@@ -349,7 +356,7 @@ fixing threshold (θα=300), not using ipr method
    plt.title('Xf - XR: Difference (removed signal)')
    plt.show()
 
-
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_alpha_1.png
 
 window length (5 sec)
 ~~~~~~~~~~~~~~~~
@@ -379,7 +386,7 @@ window length (5 sec)
    plt.show()
 
 
-
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_win_1.png
 
 
 
