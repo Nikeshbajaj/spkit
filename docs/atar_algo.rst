@@ -43,7 +43,7 @@ There are three functions in **spkit.eeg** for **ATAR algorithm**
 
 
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_beta_tune.gif
-
+   :width: 400
 
 (1) Soft Thresholding (𝛽=0.1) - A quick example
 ---------------
@@ -148,7 +148,10 @@ Tuning 𝛽 with 'soft' : Controlling the aggressiveness
        plt.show() 
 
 
- Tuning 𝛽 with 'linAtten'
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_soft_beta_3.gif
+
+
+Tuning 𝛽 with 'elim'
 ---------------
 
 ::
@@ -156,7 +159,7 @@ Tuning 𝛽 with 'soft' : Controlling the aggressiveness
    betas = np.r_[np.arange(0.01,0.1,0.02), np.arange(0.1,1.1, 0.1)].round(2)
 
    for b in betas:
-       XR = sp.eeg.ATAR_mCh_noParallel(Xf.copy(),verbose=0,beta=b,OptMode='linAtten')
+       XR = sp.eeg.ATAR_mCh_noParallel(Xf.copy(),verbose=0,beta=b,OptMode='elim')
        XR.shape
 
        plt.figure(figsize=(15,5))
@@ -176,9 +179,13 @@ Tuning 𝛽 with 'soft' : Controlling the aggressiveness
        plt.grid()
        plt.title('Xf - XR: Difference (removed signal)')
        plt.show() 
-
-
-Tuning 𝛽 with 'elim'
+       
+       
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/atar_elim_beta_3.gif
+       
+       
+       
+ Tuning 𝛽 with 'linAtten'
 ---------------
 
 ::
@@ -186,7 +193,7 @@ Tuning 𝛽 with 'elim'
    betas = np.r_[np.arange(0.01,0.1,0.02), np.arange(0.1,1.1, 0.1)].round(2)
 
    for b in betas:
-       XR = sp.eeg.ATAR_mCh_noParallel(Xf.copy(),verbose=0,beta=b,OptMode='elim')
+       XR = sp.eeg.ATAR_mCh_noParallel(Xf.copy(),verbose=0,beta=b,OptMode='linAtten')
        XR.shape
 
        plt.figure(figsize=(15,5))
