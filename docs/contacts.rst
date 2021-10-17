@@ -9,5 +9,5 @@ If any doubt, confusion or feedback please contact me at
 
 Nikesh Bajaj: http://nikeshbajaj.in
 
-Postdoc: Imperial College London
+Postdoc: ***Imperial College London***
 PhD: **Queen Mary University of London**
