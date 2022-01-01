@@ -320,6 +320,12 @@ The Morlet Wavelet function in time and frequency domain are defined as :math:`\
    K_{\sigma} &=e^{-0.5\sigma^{2}}\\
    w &= 2\pi f
 
+
+::
+  
+  XW,S = ScalogramCWT(x,t,fs=fs,wType='Morlet',PlotPSD=True)
+
+
 Gabor wavelet
 -------------
 #TODO
@@ -330,9 +336,13 @@ The Gabor Wavelet function (technically same as Gaussian) in time and frequency 
    \psi(t) &= e^{-(t-t_0)^2/a^2}e^{-jf_0(t-t_0)}\\
    \psi(f) &= e^{-((f-f_0)a)^2}e^{-jt_0(f-f_0)}
  
- 
 **where**
 :math:`a` is oscilation rate and :math:`f_0`  is center frequency
+
+::
+  
+  XW,S = ScalogramCWT(x,t,fs=fs,wType='Gabor',PlotPSD=True)
+
 
 Poisson wavelet
 -------------
@@ -350,7 +360,12 @@ The Poisson Wavelet function in time and frequency domain are defined as :math:`
 **where**
 
 Admiddibility const :math:`C_{\psi} =\frac{1}{n}` and  :math:`w = 2\pi f`
-   
+
+::
+  
+  XW,S = ScalogramCWT(x,t,fs=fs,wType='Poisson',method = 1,PlotPSD=True)
+
+
 #Type 2
 ~~~~~~
 
@@ -366,7 +381,11 @@ Admiddibility const :math:`C_{\psi} =\frac{1}{n}` and  :math:`w = 2\pi f`
    p(t) &=\frac{1}{\pi}\frac{1}{1+t^2}\\
    w &= 2\pi f
    
-   
+::
+  
+  XW,S = ScalogramCWT(x,t,fs=fs,,wType='Poisson',method = 2,PlotPSD=True)
+  
+  
 #Type 3 (n)
 ~~~~~~
  
@@ -380,7 +399,12 @@ Admiddibility const :math:`C_{\psi} =\frac{1}{n}` and  :math:`w = 2\pi f`
 .. math::
    \text{unit step function }\quad u(w) &=1 \quad \text{ if  $w>=0$ }\quad \text{else  } 0\\
    w &= 2\pi f
-   
+
+::
+  
+  XW,S = ScalogramCWT(x,t,fs=fs,wType='Poisson',method = 3,PlotPSD=True)
+  
+  
 #TODO   
 
 Maxican wavelet 
@@ -395,6 +419,11 @@ The Maxican Wavelet function in time and frequency domain are defined as :math:`
  
  
 **where**  :math:`w = 2\pi f` and :math:`w_0 = 2\pi f_0`
+
+::
+  
+  XW,S = ScalogramCWT(x,t,fs=fs,wType='cMaxican',PlotPSD=True)
+
 
 #TODO
 
@@ -413,5 +442,9 @@ The Shannon Wavelet function in time and frequency domain are defined as :math:`
 
 where :math:`\prod (x) = 1` if :math:`x \leq 0.5`, 0 else and :math:`w = 2\pi f` and :math:`w_0 = 2\pi f_0`
 
-
+::
+  
+  XW,S = ScalogramCWT(x,t,fs=fs,wType='cShannon',PlotPSD=True)
+  
+  
 #TODO
