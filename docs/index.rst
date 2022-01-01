@@ -48,6 +48,15 @@ Information Theory
    informationtheory
 
 
+Basic signal processing
+----------   
+
+.. toctree::
+   :maxdepth: 2
+   
+   processing
+
+
 Independent Component Analysis
 ----------   
 
