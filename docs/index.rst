@@ -54,7 +54,7 @@ Basic signal processing
 .. toctree::
    :maxdepth: 2
    
-   processing
+   basic
 
 
 Independent Component Analysis
