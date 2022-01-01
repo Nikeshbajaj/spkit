@@ -54,7 +54,7 @@ Filtering
 .. toctree::
    :maxdepth: 2
    
-   basic
+   filtering
 
 
 Independent Component Analysis
