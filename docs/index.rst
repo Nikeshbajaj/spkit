@@ -48,7 +48,7 @@ Information Theory
    informationtheory
 
 
-Basic signal processing
+Filtering
 ----------   
 
 .. toctree::
@@ -85,7 +85,9 @@ Complex Continuous Wavelet Transform
    
    cwt
    
-   
+
+
+
 Machine Learning
 ---------- 
 
@@ -93,7 +95,16 @@ Machine Learning
    :maxdepth: 3
    
    machinelearning
+
+
+Basic-utilities
+---------- 
+
+.. toctree::
+   :maxdepth: 3
    
+   basic
+
    
 LFSR
 ---------- 
