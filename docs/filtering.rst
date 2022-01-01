@@ -1,7 +1,9 @@
 Filtering
 =========
 
-#TODO - figures- details
+
+
+
 
 Removing DC component (removing drift) - using IIR
 -------------------------------------------------
@@ -78,3 +80,7 @@ Wavelet Filtering - on smaller windows
   xf = sp.wavelet_filtering_win(x,wv='db3',threshold='optimal',winsize=128)
   
   #check help(sp.wavelet_filtering)
+  
+  
+  
+#TODO - figures- details
