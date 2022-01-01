@@ -39,7 +39,7 @@ Entropy of real-valued signal
 
 
 Shannan entropy
-~~~~~~~~~~~~~~~
+-----------
 
 ::
   
@@ -57,8 +57,9 @@ Shannan entropy
   Entropy of x: H(x) =  4.4581180171280685
   Entropy of y: H(y) =  5.04102391756942
 
-Rényi entropy
-~~~~~~~~~~~~~~~
+
+Rényi entropy  (e.g. Collision Entropy)
+-----------
 
 ::
   
