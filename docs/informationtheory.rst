@@ -124,6 +124,53 @@ Cross entropy & Kullback–Leibler divergence
   
   
   
+Spectral Entropy
+-----------  
+
+::
+  
+  H_se = sp.entropy_spectral(x,fs,method='fft')
+  H_se = sp.entropy_spectral(x,fs,method='welch')
+
+
+
+Sample Entropy
+----------- 
+
+::
+  
+  H_sam = sp.entropy_sample(x,m,r)
+
+
+
+Approximate Entropy
+----------- 
+
+::
+  
+  H_apx = sp.entropy_approx(x,m,r)
+
+
+
+Singular Value Decomposition Entropy
+----------- 
+
+::
+  
+  H_svd = sp.entropy_svd(x,order=3, delay=1)
+
+
+Permutation Entropy
+----------- 
+
+::
+  
+  H_prm = sp.entropy_permutation(x,order=3, delay=1)
+
+
+
+  
+  
 .. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
    :width: 100
    :align: right
