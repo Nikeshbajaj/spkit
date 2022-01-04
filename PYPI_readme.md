@@ -52,8 +52,8 @@ pip install spkit --upgrade
 ### For more updated documentation check github or [Documentation](https://spkit.readthedocs.io/)
 
 # Functions list
-## Signal Processing Techniques
-### **Information Theory functions**
+# Signal Processing Techniques
+## **Information Theory functions**
  **for real valued signals**
 * Entropy
   * Shannon entropy
@@ -72,18 +72,18 @@ pip install spkit --upgrade
 * Compute bin_width with various statistical measures
 * Plot Venn Diagram- joint distribuation and normalized entropy values
 
-### **Dispersion Entropy**
-* Dispersion Entropy (Advanced) - for time series signal
+## **Dispersion Entropy** --**for time series (physiological signals)**
+* **Dispersion Entropy** (Advanced) - for time series signal
   * Dispersion Entropy
   * Dispersion Entropy - multiscale
   * Dispersion Entropy - multiscale - refined
 
 
-### **Matrix Decomposition**
+## **Matrix Decomposition**
 * SVD
 * ICA using InfoMax, Extended-InfoMax, FastICA & **Picard**
 
-### **Continuase Wavelet Transform**
+## **Continuase Wavelet Transform**
 * Gauss wavelet
 * Morlet wavelet
 * Gabor wavelet
@@ -91,11 +91,11 @@ pip install spkit --upgrade
 * Maxican wavelet
 * Shannon wavelet
 
-### **Discrete Wavelet Transform**
+## **Discrete Wavelet Transform**
 * Wavelet filtering
 * Wavelet Packet Analysis and Filtering
 
-### **Basic Filtering**
+## **Basic Filtering**
 * Removing DC/ Smoothing for multi-channel signals
 * Bandpass/Lowpass/Highpass/Bandreject filtering for multi-channel signals
 
@@ -104,12 +104,17 @@ pip install spkit --upgrade
 * **ATAR Algorithm** [Automatic and Tunable Artifact Removal Algorithm for EEG from artical](https://www.sciencedirect.com/science/article/pii/S1746809419302058)
 * **ICA based Algorith**
 
-## Advanced Signal Processing Techniques
-* DFT Analysis & Synthesis
-* STFT Analysis & Synthesis
-* Sinasodal Model - Analysis & Synthesis
+## Analysis and Synthesis Models
+* **DFT Analysis & Synthesis**
+* **STFT Analysis & Synthesis**
+* **Sinasodal Model - Analysis & Synthesis**
   - to decompose a signal into sinasodal wave tracks
-* f0 detection
+* **f0 detection**
+
+## Ramanajum Methods for period estimation
+* **Period estimation for a short length sequence using Ramanujam Filters Banks (RFB)**
+* **Minizing sparsity of periods**
+
 
 ## Machine Learning models - with visualizations
 * Logistic Regression
@@ -117,7 +122,7 @@ pip install spkit --upgrade
 * Decision Trees
 * DeepNet (to be updated)
 
-### **Linear Feedback Shift Register**
+## **Linear Feedback Shift Register**
 * pylfsr
 
 
