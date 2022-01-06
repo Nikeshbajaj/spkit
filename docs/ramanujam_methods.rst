@@ -72,7 +72,6 @@ Example: 1
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/RFB_ex1.3.png
    :width: 400
 
-   
-  
-  top 10 periods:  [10  5 11 18 17 16 15 14 13 12]
+ 
+ top 10 periods:  [10  5 11 18 17 16 15 14 13 12]
   
