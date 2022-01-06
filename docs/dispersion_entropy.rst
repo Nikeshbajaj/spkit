@@ -1,9 +1,10 @@
 Dispersion Entropy
 ==================
+#TODO
 
-
-Example: 1
+Dispersion entropy
 ----------
+#TODO
 
 ::
   
@@ -17,8 +18,9 @@ Example: 1
   
   
 
-Example: 2
+Multiscale refined
 ----------
+#TODO
 
 ::
   
