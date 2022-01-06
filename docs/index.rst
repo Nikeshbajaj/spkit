@@ -24,7 +24,7 @@ Signal Processing Toolkit - Documentation!
 :Authors:
     Nikesh Bajaj,
     Jesús Requena Carrión
-:Version: 0.0.9.4 | 02/01/2022
+:Version: 0.0.9.3 | 27/09/2021
 :Home: https://spkit.github.io  
 
 
@@ -87,8 +87,9 @@ Complex Continuous Wavelet Transform
    
 
 
+
 Machine Learning
-----------------
+---------- 
 
 .. toctree::
    :maxdepth: 3
