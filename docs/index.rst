@@ -24,7 +24,7 @@ Signal Processing Toolkit - Documentation!
 :Authors:
     Nikesh Bajaj,
     Jesús Requena Carrión
-:Version: 0.0.9.3 | 27/09/2021
+:Version: 0.0.9.4 | 01/01/2022
 :Home: https://spkit.github.io  
 
 
@@ -46,6 +46,10 @@ Information Theory
    :maxdepth: 3
    
    informationtheory
+
+
+Dispersion Entropy (time-series, physiological signals)
+----------   
 
 
 Filtering
