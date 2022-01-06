@@ -218,14 +218,19 @@ def Wfilter(x,wv='db3',thr_method='ipr',IPR=[25,75],beta=0.1,k1=10,k2=100,theta_
 
 def ATAR_1Ch(x,wv='db3',winsize=128,thr_method='ipr',IPR=[25,75],beta=0.1,k1=None,k2 =100,est_wmax=100,
             theta_a=np.inf,bf=2,gf=0.8,OptMode ='soft',factor=1.0,wpd_mode='symmetric',wpd_maxlevel=None,
-            verbose=True, window=['hamming',True],hopesize=None, ReconMethod='custom',packetwise=False,WPD=True,lvl=[],fs=128.0):
+            verbose=False, window=['hamming',True],hopesize=None, ReconMethod='custom',packetwise=False,WPD=True,lvl=[],fs=128.0):
     '''
+    ''
+    ATAR: - Automatic and Tunable Artifact Removal Algorithm
+    ========================================================
+
     Apply ATAR on short windows of signal (single channel):
+
     Signal is decomposed in smaller overlapping windows and reconstructed after correcting using overlap-add method.
+
     ----
     for more details, check:
-    Bajaj, Nikesh, et al. "Automatic and tunable algorithm for EEG artifact removal using wavelet decomposition with applications in
-    predictive modeling during auditory tasks." Biomedical Signal Processing and Control 55 (2020): 101624.
+    Ref:  Bajaj, Nikesh, et al. "Automatic and tunable algorithm for EEG artifact removal using wavelet decomposition with applications in predictive modeling during auditory tasks." Biomedical Signal Processing and Control 55 (2020): 101624.
     ------------------
 
     Wfilter(x,wv='db3',method=None,IPR=[25,75],beta=0.1,k1=None,k2 =100,
@@ -233,7 +238,7 @@ def ATAR_1Ch(x,wv='db3',winsize=128,thr_method='ipr',IPR=[25,75],beta=0.1,k1=Non
 
     input
     -----
-    X: input multi-channel signal of shape (n,ch)
+    X: input single-channel signal of shape (n,)
 
     Threshold Computation method:
     method : None (default), 'ipr'
@@ -263,6 +268,7 @@ def ATAR_1Ch(x,wv='db3',winsize=128,thr_method='ipr',IPR=[25,75],beta=0.1,k1=Non
     output
     ------
     XR: corrected signal of same shape as input X
+
     '''
     if ReconMethod is None:
         win=np.arange(winsize)
@@ -352,14 +358,17 @@ def ATAR_1Ch(x,wv='db3',winsize=128,thr_method='ipr',IPR=[25,75],beta=0.1,k1=Non
 
 def ATAR_mCh(X,wv='db3',winsize=128,thr_method ='ipr',IPR=[25,75],beta=0.1,k1=10,k2 =100,est_wmax=100,
               theta_a=np.inf,bf=2,gf=0.8,OptMode ='soft',wpd_mode='symmetric',wpd_maxlevel=None,factor=1.0,
-              verbose=True, window=['hamming',True],hopesize=None, ReconMethod='custom',packetwise=False,WPD=True,lvl=[],fs=128.0):
+              verbose=False, window=['hamming',True],hopesize=None, ReconMethod='custom',packetwise=False,WPD=True,lvl=[],fs=128.0,use_joblib=False):
     '''
+    .
+    ATAR: - Automatic and Tunable Artifact Removal Algorithm
+    ========================================================
     Apply ATAR on short windows of signal (multiple channels:):
+
     Signal is decomposed in smaller overlapping windows and reconstructed after correcting using overlap-add method.
     ------
     for more details, check:
-    Bajaj, Nikesh, et al. "Automatic and tunable algorithm for EEG artifact removal using wavelet decomposition with applications in
-    predictive modeling during auditory tasks." Biomedical Signal Processing and Control 55 (2020): 101624.
+    Ref: Bajaj, Nikesh, et al. "Automatic and tunable algorithm for EEG artifact removal using wavelet decomposition with applications in predictive modeling during auditory tasks." Biomedical Signal Processing and Control 55 (2020): 101624.
     ----------------
 
     input
@@ -409,10 +418,16 @@ def ATAR_mCh(X,wv='db3',winsize=128,thr_method ='ipr',IPR=[25,75],beta=0.1,k1=10
         print('Reconstruction Method:',ReconMethod, ', Window:',window,', (Win,Overlap)=',(winsize,hopesize))
 
     if len(X.shape)>1:
-        XR =np.array(Parallel(n_jobs=-1)(delayed(ATAR_1Ch)(X[:,i],wv=wv,winsize=winsize, thr_method=thr_method, IPR=IPR,
+        if use_joblib:
+            XR = np.array(Parallel(n_jobs=-1)(delayed(ATAR_1Ch)(X[:,i],wv=wv,winsize=winsize, thr_method=thr_method, IPR=IPR,
+                  beta=beta, k1=k1,k2 =k2, theta_a=theta_a,bf=bf,gf=gf,est_wmax=est_wmax,OptMode=OptMode, factor=factor, wpd_mode=wpd_mode,
+                  wpd_maxlevel=wpd_maxlevel,verbose=verbose, window=window,hopesize=hopesize,
+                  ReconMethod=ReconMethod,packetwise=packetwise,WPD=WPD,lvl=lvl,fs=fs) for i in range(X.shape[1]))).T
+        else:
+            XR =np.array([ATAR_1Ch(X[:,i],wv=wv,winsize=winsize, thr_method=thr_method, IPR=IPR,
               beta=beta, k1=k1,k2 =k2, theta_a=theta_a,bf=bf,gf=gf,est_wmax=est_wmax,OptMode=OptMode, factor=factor, wpd_mode=wpd_mode,
-              wpd_maxlevel=wpd_maxlevel,verbose=verbose, window=window,hopesize=hopesize,
-              ReconMethod=ReconMethod,packetwise=packetwise,WPD=WPD,lvl=lvl,fs=fs) for i in range(X.shape[1]))).T
+              wpd_maxlevel=wpd_maxlevel,verbose=0, window=window,hopesize=hopesize,
+              ReconMethod=ReconMethod,packetwise=packetwise,WPD=WPD,lvl=lvl,fs=fs) for i in range(X.shape[1])]).T
     else:
         XR =ATAR_1Ch(X,wv=wv,winsize=winsize, thr_method=thr_method, IPR=IPR,
               beta=beta, k1=k1,k2 =k2, theta_a=theta_a,bf=bf,gf=gf,est_wmax=est_wmax,OptMode=OptMode, factor=factor, wpd_mode=wpd_mode,
@@ -420,16 +435,100 @@ def ATAR_mCh(X,wv='db3',winsize=128,thr_method ='ipr',IPR=[25,75],beta=0.1,k1=10
               ReconMethod=ReconMethod,packetwise=packetwise,WPD=WPD,lvl=lvl,fs=fs)
     return XR
 
-def ATAR_mCh_noParallel(X,wv='db3',winsize=128,thr_method ='ipr',IPR=[25,75],beta=0.1,k1=10,k2 =100,est_wmax=100,
+def ATAR(X,wv='db3',winsize=128,thr_method ='ipr',IPR=[25,75],beta=0.1,k1=10,k2 =100,est_wmax=100,
               theta_a=np.inf,bf=2,gf=0.8,OptMode ='soft',wpd_mode='symmetric',wpd_maxlevel=None,factor=1.0,
-              verbose=True, window=['hamming',True],hopesize=None, ReconMethod='custom',packetwise=False,WPD=True,lvl=[],fs=128.0):
+              verbose=False, window=['hamming',True],hopesize=None, ReconMethod='custom',packetwise=False,WPD=True,lvl=[],fs=128.0,use_joblib=False):
     '''
-    Apply ATAR on short windows of signal (multiple channels:): - Without using Joblib - in case that creates issue in some systems and IDE
+    .
+    ATAR: - Automatic and Tunable Artifact Removal Algorithm
+    ========================================================
+
+    Apply ATAR on short windows of signal (multiple channels - if provided on axis 1:):
     Signal is decomposed in smaller overlapping windows and reconstructed after correcting using overlap-add method.
     ------
     for more details, check:
-    Bajaj, Nikesh, et al. "Automatic and tunable algorithm for EEG artifact removal using wavelet decomposition with applications in
-    predictive modeling during auditory tasks." Biomedical Signal Processing and Control 55 (2020): 101624.
+    Ref: Bajaj, Nikesh, et al. "Automatic and tunable algorithm for EEG artifact removal using wavelet decomposition with applications in predictive modeling during auditory tasks." Biomedical Signal Processing and Control 55 (2020): 101624.
+    ----------------
+
+    input
+    -----
+    X: input multi-channel signal of shape (n,ch)
+
+    Wavelet family:
+    wv = ['db3'.....'db38', 'sym2.....sym20', 'coif1.....coif17', 'bior1.1....bior6.8', 'rbio1.1...rbio6.8', 'dmey']
+         :'db3'(default)
+
+    Threshold Computation method:
+    thr_method : None (default), 'ipr'
+           : None: fixed threshold theta_a is applied
+           : ipr : applied with theta_a, bf , gf, beta, k1, k2 and OptMode
+           : theta_b = bf*theta_a
+           : theta_g = gf*theta_a
+
+    Operating modes:
+    OptMode = ['soft','elim','linAtten']
+             : default 'soft'
+             : use 'elim' with globalgood
+
+    Wavelet Decomposition modes:
+    wpd_mode = ['zero', 'constant', 'symmetric', 'periodic', 'smooth', 'periodization']
+                default 'symmetric'
+
+    Reconstruction Method - Overlap-Add method
+    ReconMethod :  None, 'custom', 'HamWin'
+    for 'custom': window[0] is used and applied after denoising is window[1] is True else
+    windowing applied before denoising
+
+    output
+    ------
+    XR: corrected signal of same shape as input X
+    '''
+    if hopesize is None: hopesize=winsize//2
+
+    assert thr_method in [ None, 'ipr']
+    assert OptMode in ['soft','linAtten','elim']
+
+
+    if verbose:
+        print('WPD Artifact Removal')
+        print('WPD:',WPD,' Wavelet:',wv,', Method:',thr_method,', OptMode:',OptMode)
+        if thr_method=='ipr': print('IPR=',IPR,', Beta:',beta, ', [k1,k2]=',[k1,k2])
+        if thr_method is None: print('theta_a: ',theta_a)
+        print('Reconstruction Method:',ReconMethod, ', Window:',window,', (Win,Overlap)=',(winsize,hopesize))
+
+    if len(X.shape)>1:
+        if use_joblib:
+            XR = np.array(Parallel(n_jobs=-1)(delayed(ATAR_1Ch)(X[:,i],wv=wv,winsize=winsize, thr_method=thr_method, IPR=IPR,
+                  beta=beta, k1=k1,k2 =k2, theta_a=theta_a,bf=bf,gf=gf,est_wmax=est_wmax,OptMode=OptMode, factor=factor, wpd_mode=wpd_mode,
+                  wpd_maxlevel=wpd_maxlevel,verbose=verbose, window=window,hopesize=hopesize,
+                  ReconMethod=ReconMethod,packetwise=packetwise,WPD=WPD,lvl=lvl,fs=fs) for i in range(X.shape[1]))).T
+        else:
+            XR =np.array([ATAR_1Ch(X[:,i],wv=wv,winsize=winsize, thr_method=thr_method, IPR=IPR,
+              beta=beta, k1=k1,k2 =k2, theta_a=theta_a,bf=bf,gf=gf,est_wmax=est_wmax,OptMode=OptMode, factor=factor, wpd_mode=wpd_mode,
+              wpd_maxlevel=wpd_maxlevel,verbose=0, window=window,hopesize=hopesize,
+              ReconMethod=ReconMethod,packetwise=packetwise,WPD=WPD,lvl=lvl,fs=fs) for i in range(X.shape[1])]).T
+    else:
+        XR =ATAR_1Ch(X,wv=wv,winsize=winsize, thr_method=thr_method, IPR=IPR,
+              beta=beta, k1=k1,k2 =k2, theta_a=theta_a,bf=bf,gf=gf,est_wmax=est_wmax,OptMode=OptMode, factor=factor, wpd_mode=wpd_mode,
+              wpd_maxlevel=wpd_maxlevel, verbose=verbose, window=window,hopesize=hopesize,
+              ReconMethod=ReconMethod,packetwise=packetwise,WPD=WPD,lvl=lvl,fs=fs)
+    return XR
+
+
+def ATAR_mCh_noParallel(X,wv='db3',winsize=128,thr_method ='ipr',IPR=[25,75],beta=0.1,k1=10,k2 =100,est_wmax=100,
+              theta_a=np.inf,bf=2,gf=0.8,OptMode ='soft',wpd_mode='symmetric',wpd_maxlevel=None,factor=1.0,
+              verbose=False, window=['hamming',True],hopesize=None, ReconMethod='custom',packetwise=False,WPD=True,lvl=[],fs=128.0):
+    '''
+    ''
+    ATAR: - Automatic and Tunable Artifact Removal Algorithm
+    ========================================================
+
+    Apply ATAR on short windows of signal (multiple channels:): - Without using Joblib - in case that creates issue in some systems and IDE
+
+    Signal is decomposed in smaller overlapping windows and reconstructed after correcting using overlap-add method.
+    ------
+    for more details, check:
+    Ref: Bajaj, Nikesh, et al. "Automatic and tunable algorithm for EEG artifact removal using wavelet decomposition with applications in predictive modeling during auditory tasks." Biomedical Signal Processing and Control 55 (2020): 101624.
     ----------------
 
     input
@@ -483,7 +582,7 @@ def ATAR_mCh_noParallel(X,wv='db3',winsize=128,thr_method ='ipr',IPR=[25,75],bet
         XR =np.array([
               ATAR_1Ch(X[:,i],wv=wv,winsize=winsize, thr_method=thr_method, IPR=IPR,
               beta=beta, k1=k1,k2 =k2, theta_a=theta_a,bf=bf,gf=gf,est_wmax=est_wmax,OptMode=OptMode, factor=factor, wpd_mode=wpd_mode,
-              wpd_maxlevel=wpd_maxlevel,verbose=verbose, window=window,hopesize=hopesize,
+              wpd_maxlevel=wpd_maxlevel,verbose=0, window=window,hopesize=hopesize,
               ReconMethod=ReconMethod,packetwise=packetwise,WPD=WPD,lvl=lvl,fs=fs) for i in range(X.shape[1])]).T
     else:
         XR =ATAR_1Ch(X,wv=wv,winsize=winsize, thr_method=thr_method, IPR=IPR,
@@ -491,7 +590,6 @@ def ATAR_mCh_noParallel(X,wv='db3',winsize=128,thr_method ='ipr',IPR=[25,75],bet
               wpd_maxlevel=wpd_maxlevel, verbose=verbose, window=window,hopesize=hopesize,
               ReconMethod=ReconMethod,packetwise=packetwise,WPD=WPD,lvl=lvl,fs=fs)
     return XR
-
 
 def Wfilter_dev(x,wv='db3',thr_method='ipr',IPR=[25,75],beta=0.1,k1=10,k2=100,theta_a=np.inf,est_wmax=100,
             bf=2,gf=0.8,OptMode ='soft',factor=1.0,show_plot=False,wpd_mode='symmetric',wpd_maxlevel=None,
@@ -768,7 +866,7 @@ def ATAR_1Ch_dev(x,wv='db3',winsize=128,thr_method='ipr',IPR=[25,75],beta=0.1,k1
 
 def ATAR_mCh_dev(X,wv='db3',winsize=128,thr_method ='ipr',IPR=[25,75],beta=0.1,k1=10,k2 =100,est_wmax=100,
               theta_a=np.inf,bf=2,gf=0.8,OptMode ='soft',wpd_mode='symmetric',wpd_maxlevel=None,
-              verbose=True, window=['hamming',True],hopesize=None, ReconMethod='custom',packetwise=False,WPD=True,lvl=[],fs=128.0):
+              verbose=True, window=['hamming',True],hopesize=None, ReconMethod='custom',packetwise=False,WPD=True,lvl=[],fs=128.0,use_joblib=False):
 
     '''
     ---- IN DEVELOPMENT MODE ----- AVOID USING IT FOR NOW -----
@@ -819,10 +917,16 @@ def ATAR_mCh_dev(X,wv='db3',winsize=128,thr_method ='ipr',IPR=[25,75],beta=0.1,k
         print('Reconstruction Method:',ReconMethod, ', Window:',window,', (Win,Overlap)=',(winsize,hopesize))
 
     if len(X.shape)>1:
-        XR =np.array(Parallel(n_jobs=-1)(delayed(ATAR_1Ch_dev)(X[:,i],wv=wv,winsize=winsize, thr_method=thr_method, IPR=IPR,
-              beta=beta, k1=k1,k2 =k2, theta_a=theta_a,bf=bf,gf=gf,est_wmax=est_wmax,OptMode=OptMode, factor=factor, wpd_mode=wpd_mode,
-              wpd_maxlevel=wpd_maxlevel,verbose=verbose, window=window,hopesize=hopesize,
-              ReconMethod=ReconMethod,packetwise=packetwise,WPD=WPD,lvl=lvl,fs=fs) for i in range(X.shape[1]))).T
+        if use_joblib:
+            XR =np.array(Parallel(n_jobs=-1)(delayed(ATAR_1Ch_dev)(X[:,i],wv=wv,winsize=winsize, thr_method=thr_method, IPR=IPR,
+                  beta=beta, k1=k1,k2 =k2, theta_a=theta_a,bf=bf,gf=gf,est_wmax=est_wmax,OptMode=OptMode, factor=factor, wpd_mode=wpd_mode,
+                  wpd_maxlevel=wpd_maxlevel,verbose=verbose, window=window,hopesize=hopesize,
+                  ReconMethod=ReconMethod,packetwise=packetwise,WPD=WPD,lvl=lvl,fs=fs) for i in range(X.shape[1]))).T
+        else:
+            XR =np.array([ATAR_1Ch_dev(X[:,i],wv=wv,winsize=winsize, thr_method=thr_method, IPR=IPR,
+                  beta=beta, k1=k1,k2 =k2, theta_a=theta_a,bf=bf,gf=gf,est_wmax=est_wmax,OptMode=OptMode, factor=factor, wpd_mode=wpd_mode,
+                  wpd_maxlevel=wpd_maxlevel,verbose=verbose, window=window,hopesize=hopesize,
+                  ReconMethod=ReconMethod,packetwise=packetwise,WPD=WPD,lvl=lvl,fs=fs) for i in range(X.shape[1])]).T
     else:
         XR =ATAR_1Ch_dev(X,wv=wv,winsize=winsize, thr_method=thr_method, IPR=IPR,
               beta=beta, k1=k1,k2 =k2, theta_a=theta_a,bf=bf,gf=gf,est_wmax=est_wmax,OptMode=OptMode, factor=factor, wpd_mode=wpd_mode,

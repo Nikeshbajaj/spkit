@@ -245,7 +245,7 @@ def showTOPO(Zi,pos,ch_names,axes=None,vmin=None, vmax=None,res=64,interpolation
 
 
 def _test_():
-    print('testing.......dependancies')
+    #print('testing.......dependancies')
     filen ='Standard_1020.csv'
     filen = os.path.join(os.path.dirname(__file__), filen)
     D = pd.read_csv(filen)
@@ -253,13 +253,25 @@ def _test_():
     from scipy.interpolate import CloughTocher2DInterpolator
     from matplotlib import patches
     import itertools
-    print('..............done')
+    #print('..............done')
 
 
 
 
 
 
-_test_()
-print('')
-print('Library loaded')
+try:
+    _test_()
+    #print('')
+    #print('Library loaded')
+except:
+    print('dependencis are not satisfied')
+    '''
+    filen ='Standard_1020.csv'
+    filen = os.path.join(os.path.dirname(__file__), filen)
+    D = pd.read_csv(filen)
+    from scipy.spatial.qhull import Delaunay
+    from scipy.interpolate import CloughTocher2DInterpolator
+    from matplotlib import patches
+    import itertools
+    '''

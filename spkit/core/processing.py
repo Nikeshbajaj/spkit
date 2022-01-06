@@ -1,6 +1,6 @@
 '''
 Basic signal processing methods
-----------------------------------------------------------
+--------------------------------
 Author @ Nikesh Bajaj
 updated on Date: 26 Sep 2021
 Version : 0.0.4
@@ -25,7 +25,7 @@ if sys.version_info[:2] < (3, 3):
 
 import numpy as np
 import matplotlib.pyplot as plt
-import scipy, spkit, copy
+import scipy, copy #spkit
 from scipy import signal
 from scipy.signal import butter, lfilter, filtfilt
 from scipy.signal import savgol_filter
@@ -35,45 +35,143 @@ from copy import deepcopy
 from .infotheory import entropy
 import pywt as wt
 
-def filterDC(x,alpha=256):
+def filterDC_(x,alpha=256):
+    '''
+    TO BE DEPRECIATED  - use filterDC instead
+    ----------------
+
+    Filter out DC component - Remving drift using Recursive (IIR type) filter
+    -------------------------------------
+          y[n] = ((alpha-1)/alpha) * ( x[n] - x[n-1] -y[n-1])
+
+          where y[-1] = x[0], x[-1] = x[0]
+          resulting y[0] = 0
+    input
+    -----
+    x    : (vecctor) input signal
+
+    alpha: (scalar) filter coefficient, higher it is, more suppressed dc component (0 frequency component)
+         : with alpha=256, dc component is suppressed by 20 dB
+
+    initialize_zero: (bool): If True, running backgrpund b will be initialize it with x[0], resulting y[0] = 0
+          if False, b = 0, resulting y[0] ~ x[0], and slowly drifting towards zeros line
+          - recommended to set True
+    output
+    -----
+    y : output vector
+
+    '''
     b = x[0]
-    xf = np.zeros(len(x))
+    y = np.zeros(len(x))
     for i in range(len(x)):
         b = ((alpha - 1) * b + x[i]) / alpha
-        xf[i] = x[i]-b
-    return xf
+        y[i] = x[i]-b
+    return y
 
-def filterDC_X(X,alpha=256,return_background=True):
-    B = X[0]
-    if return_background:Bg = np.zeros_like(X)
-    Xf = np.zeros_like(X)
+def filterDC_X(X,alpha=256,return_background=False,initialize_zero=True):
+    '''
+    TO BE DEPRECIATED   - use filterDC instead
+    ----------------
 
+    Filter out DC component - Remving drift using Recursive (IIR type) filter
+    -------------------------------------
+          y[n] = ((alpha-1)/alpha) * ( x[n] - x[n-1] -y[n-1])
+
+          where y[-1] = x[0], x[-1] = x[0]
+          resulting y[0] = 0
+    input
+    -----
+    x    : (vecctor) input signal
+
+    alpha: (scalar) filter coefficient, higher it is, more suppressed dc component (0 frequency component)
+         : with alpha=256, dc component is suppressed by 20 dB
+
+    initialize_zero: (bool): If True, running backgrpund b will be initialize it with x[0], resulting y[0] = 0
+          if False, b = 0, resulting y[0] ~ x[0], and slowly drifting towards zeros line
+          - recommended to set True
+    output
+    -----
+    y : output vector
+
+    '''
+    B = X[0] if initialize_zero else 0*X[0]
+    if return_background:
+        Bg = np.zeros_like(X)
+    Y = np.zeros_like(X)
     for i in range(X.shape[0]):
         B = ((alpha - 1) * B + X[i]) / alpha
-        Xf[i] = X[i]-B
+        Y[i] = X[i]-B
         if return_background: Bg[i]= copy.copy(B)
-    if return_background: return Xf, Bg
-    return Xf
+    if return_background: return Y, Bg
+    return Y
 
-def filterDC_sGolay(X, window_length=127, polyorder=3, deriv=0, delta=1.0, mode='interp', cval=0.0):
+def filterDC(X,alpha=256,return_background=False,initialize_zero=True):
     '''
+    Filter out DC component - Remving drift using Recursive (IIR type) filter
+    -------------------------------------
+          y[n] = ((alpha-1)/alpha) * ( x[n] - x[n-1] -y[n-1])
+
+          where y[-1] = x[0], x[-1] = x[0]
+          resulting y[0] = 0
+    implemenatation works for single (1d array) or multi-channel (2d array)
+    input
+    -----
+    X : (vecctor) input signal single channel (n,) or multi-channel, channel axis should be 1 shape ~ (n,ch)
+
+    alpha: (scalar) filter coefficient, higher it is, more suppressed dc component (0 frequency component)
+         : with alpha=256, dc component is suppressed by 20 dB
+
+    initialize_zero: (bool): If True, running backgrpund b will be initialize it with x[0], resulting y[0] = 0
+          if False, b = 0, resulting y[0] ~ x[0], and slowly drifting towards zeros line
+          - recommended to set True
+    output
+    -----
+    Y : output vector, shape same as input X (n,) or (n,ch)
+
+    '''
+    B = X[0] if initialize_zero else 0*X[0]
+    if return_background:
+        Bg = np.zeros_like(X)
+    Y = np.zeros_like(X)
+    for i in range(X.shape[0]):
+        B = ((alpha - 1) * B + X[i]) / alpha
+        Y[i] = X[i]-B
+        if return_background: Bg[i]= copy.copy(B)
+    if return_background: return Y, Bg
+    return Y
+
+def filterDC_sGolay(X, window_length=127, polyorder=3, deriv=0, delta=1.0, mode='interp', cval=0.0,return_background=False):
+    '''
+    Filter out DC component - Remving drift using Savitzky-Golay filter
+    -------------------------------------------------------------------
     Savitzky-Golay filter for multi-channels signal: From Scipy library
 
-    X: input multichannel signal - shape (n,ch)
-     : for single channel signal, use X[:,None] to make it two dimensional signal.
+    input
+    -----
+    X : (vecctor) input signal single channel (n,) or multi-channel, channel axis should be 1 shape ~ (n,ch)
     window_length: should be an odd number
     others input parameters as same as in scipy.signal.savgol_filter
-    '''
-    Xm = np.array([savgol_filter(X[:,i], window_length, polyorder,deriv=deriv, delta=delta, axis=-1, mode=mode, cval=cval) for i in range(X.shape[1])]).T
-    Xf = X - Xm
-    return Xf, Xm
+              :(polyorder=3, deriv=0, delta=1.0, mode='interp', cval=0.0)
 
-def filter_X(X,band =[0.5],btype='highpass',order=5,fs=128.0,ftype='filtfilt',verbose=1):
+    output
+    ------
+    Y : corrected signal
+    Xm: background removed -  return only if return_background is True
+    '''
+    if np.ndim(X)>1:
+        Xm = savgol_filter(X, window_length, polyorder,deriv=deriv, delta=delta, axis=0, mode=mode, cval=cval)
+    else:
+        Xm = savgol_filter(X, window_length, polyorder,deriv=deriv, delta=delta, axis=-1, mode=mode, cval=cval)
+    Y = X - Xm
+    if return_background: return Y, Xm
+    return Y
+
+def filter_X(X,fs=128.0,band =[0.5],btype='highpass',order=5,ftype='filtfilt',verbose=1,use_joblib=False):
     '''
     Buttorworth filtering -  basic filtering
     ---------------------
-    X: input multichannel signal - shape (n,ch)
-     : for single channel signal, use X[:,None] to make it two dimensional signal.
+    X : (vecctor) input signal single channel (n,) or multi-channel, channel axis should be 1 shape ~ (n,ch)
+
     band: cut of frequency, for lowpass and highpass, band is list of one, for bandpass list of two numbers
     btype: filter type
     order: order of filter
@@ -84,25 +182,54 @@ def filter_X(X,band =[0.5],btype='highpass',order=5,fs=128.0,ftype='filtfilt',ve
     if verbose: print(X.shape, 'channels axis = 1')
     b,a = butter(order,np.array(band)/(0.5*fs),btype=btype)
     if ftype=='lfilter':
-        Xf  = np.array(Parallel(n_jobs=-1)(delayed(lfilter)(b,a,X[:,i]) for i in range(X.shape[1])))
+        if np.ndim(X)>1:
+            if use_joblib:
+                try:
+                    Xf  = np.array(Parallel(n_jobs=-1)(delayed(lfilter)(b,a,X[:,i]) for i in range(X.shape[1]))).T
+                except:
+                    print('joblib paraller failed computing with loops- turn off --> use_joblib=False')
+                    Xf  = np.array([lfilter(b,a,X[:,i]) for i in range(X.shape[1])]).T
+            else:
+                Xf  = np.array([lfilter(b,a,X[:,i]) for i in range(X.shape[1])]).T
+        else:
+            Xf  = lfilter(b,a,X)
     elif ftype=='filtfilt':
-        Xf  = np.array(Parallel(n_jobs=-1)(delayed(filtfilt)(b,a,X[:,i]) for i in range(X.shape[1])))
+        if np.ndim(X)>1:
+            if use_joblib:
+                try:
+                    Xf  = np.array(Parallel(n_jobs=-1)(delayed(filtfilt)(b,a,X[:,i]) for i in range(X.shape[1]))).T
+                except:
+                    print('joblib paraller failed computing with loops- turn off --> use_joblib=False')
+                    Xf  = np.array([filtfilt(b,a,X[:,i]) for i in range(X.shape[1])]).T
+            else:
+                Xf  = np.array([filtfilt(b,a,X[:,i]) for i in range(X.shape[1])]).T
+        else:
+            Xf  = filtfilt(b,a,X)
     return Xf
 
-def Periodogram(x,fs=128,method ='welch',win='hann',scaling='density', average='mean',detrend='constant',nperseg=None, noverlap=None):
+def Periodogram(x,fs=128,method ='welch',win='hann',nfft=None,scaling='density',average='mean',detrend='constant',nperseg=None, noverlap=None):
     '''
+    Computing Periodogram using Welch or Periodogram method
+    ------------------------------------------------------
     #scaling = 'density'--V**2/Hz 'spectrum'--V**2
     #average = 'mean', 'median'
     #detrend = False, 'constant', 'linear'
+    nfft    = None, n-point FFT
     '''
     if method ==None:
-        f, Pxx = scipy.signal.periodogram(x,fs,win,scaling=scaling,detrend=detrend)
+        f, Pxx = scipy.signal.periodogram(x,fs,win,nfft=nfft,scaling=scaling,detrend=detrend)
     elif method =='welch':
         #f, Pxx = scipy.signal.welch(x,fs,win,nperseg=np.clip(len(x),0,256),scaling=scaling,average=average,detrend=detrend)
-        f, Pxx = scipy.signal.welch(x,fs,win,nperseg=nperseg,noverlap=noverlap,scaling=scaling,average=average,detrend=detrend)
+        f, Pxx = scipy.signal.welch(x,fs,win,nperseg=nperseg,noverlap=noverlap,nfft=nfft,scaling=scaling,average=average,detrend=detrend)
     return np.abs(Pxx)
 
 def getStats(x,detail_level=1,return_names=False):
+    '''
+    Statistics of a given sequence x, excluding NaN values
+    ------------------------------------------------------
+    returns stats and names of statistics measures
+
+    '''
     stats_names =['mean','sd','median','min','max','n','q25','q75','iqr','kur','skw','gmean','entropy']
     esp=1e-5
     if isinstance(x,int) or isinstance(x,float): x =  [x]
@@ -130,7 +257,7 @@ def getStats(x,detail_level=1,return_names=False):
         return np.r_[mn,sd,md,min0,max0,n,q25,q75,iqr,kur,skw], stats_names[:11]
 
     gmn = stats.gmean(x[~np.isnan(x)])
-    entropy = spkit.entropy(x[~np.isnan(x)])
+    entropy = entropy(x[~np.isnan(x)])
     names =['mean','sd','median','min','max','n','q25','q75','iqr','kur','skw','gmean','entropy']
     return np.r_[mn,sd,md,min0,max0,n,q25,q75,iqr,kur,skw,gmn,entropy], stats_names
 
@@ -147,6 +274,31 @@ def getQuickStats(x):
     return [mn,sd,se,md,min0,max0,n]
 
 def OutLiers(x, method='iqr',k=1.5, include_lower=True,include_upper=True,return_lim=False):
+    '''
+    Identyfying outliers
+    --------------------
+    using
+    1. Interquartile Range: below Q1 - k*IQR and above Q3 + k*IQR
+    2. Stander Deviation:   below Mean -k*SD(x) above Mean + k*SD(x)
+
+    input
+    -----
+    x :  1d array or nd-array
+
+    method = 'iqr' or 'sd'
+    k : (default 1.5), factor for range, for SD k=2 is widely used
+    include_lower: if False, excluding lower outliers
+    include_upper: if False excluding upper outliers
+     - At least one of (include_lower, include_upper) should be True
+    return_lim: if True, return includes lower and upper limits (lt, ul)
+
+    output
+    -----
+    idx: index of outliers in x
+    idx_bin: binary array of same size as x, indicating outliers
+    (lt,ut): lower and upper limit for outliers, if  return_lim is True
+
+    '''
     assert (include_upper+include_lower)
     xi = x.copy()
     if method =='iqr':
@@ -156,35 +308,93 @@ def OutLiers(x, method='iqr',k=1.5, include_lower=True,include_upper=True,return
         lt = q1 - k*(q3-q1)
     elif method =='sd':
         sd = np.nanstd(xi)
-        ut = k*sd
-        lt = -k*sd
+        ut = np.nanmean(xi) + k*sd
+        lt = np.nanmean(xi) - k*sd
     else:
         print('Define method')
         return None
 
     if not(include_lower): lt = -np.inf
-
     idx_bin = (xi>=ut) | (xi<=lt)
-    idx = np.where(idx_bin)[0]
-
+    idx = np.where(idx_bin)
     if return_lim:
         return idx, idx_bin, (lt,ut)
-
     return idx, idx_bin
 
+# def Mu_law(x,Mu=255,encoding=True):
+#     '''
+#     Ref: https://en.wikipedia.org/wiki/M-law_algorithm
+#     '''
+#     assert np.max(np.abs(x))<=1
+#
+#     if encoding:
+#         #Companding ~ compression ~ encoding
+#         y = np.sign(x)*np.log(1 + Mu*np.abs(x))/np.log(1+Mu)
+#
+#     else:
+#         #Expanding ~ uncompression/expension ~ decoding
+#         y = np.sign(x)*((1 + Mu)**np.abs(x) - 1)/Mu
+#
+#     return y
+#
+# def A_law(x,A=255,encoding=True):
+#     '''
+#     Ref: https://en.wikipedia.org/wiki/A-law_algorithm
+#     '''
+#     assert np.max(np.abs(x))<=1
+#
+#     y = np.zeros_like(x)
+#
+#     if encoding:
+#         #Companding ~ compression ~ encoding
+#         idx = np.abs(x)<1/A
+#         y[idx]  = A*np.abs(x[idx])
+#         y[~idx] = 1 + np.log(A*np.abs(x[~idx]))
+#         y /= (1 + np.log(A))
+#     else:
+#         #Expanding ~ uncompression/expension ~ decoding
+#         idx = np.abs(x)<(1/(1+np.log(A)))
+#         y[idx]   = np.abs(x[idx])*(1+np.log(A))
+#         y[~idx]  = np.exp(-1+np.abs(x[~idx])*(1+np.log(A)))
+#         y /= A
+#
+#     y *= np.sign(x)
+#
+#     return y
+#
 
 '''
 BASIC WAVELET FILTERING
 ------------------------
 '''
 def get_theta(w,N,k=1.5,method='optimal',IPR=[0.25,0.75]):
+    '''
+    Threshold for wavelet filtering
+    -------------------------------------
+    input
+    -----
+    w: wavelet coeeficients
+    N: length of signal x for noise eastimation
+    method:  method to compute threshold
+          : 'optimal' - optimal threshold based on noise estimation
+          : 'sd'      - mu ± k*sd
+          : 'iqr'     - Q1 - k*IQR, Q3 + k*IQR
+    k: for outlier computation as above
+    IPR   : Inter-percentile range: quartile to be considers for inter-quartile range IPR = [0.25, 0.75]
+          : could be [0.3, 0.7] for more aggressive threshold
+
+    output
+    -----
+    theta_l, theta_u = lower and upper threshold for wavelet coeeficients
+
+    '''
     if method =='optimal':
         sig = np.median(abs(w))/0.6745
         theta_u = sig*np.sqrt(2*np.log(N))
         theta_l = -theta_u
     elif method =='sd':
-        theta_u = k*np.std(w)
-        theta_l = -theta_u
+        theta_u = np.mean(w) + k*np.std(w)
+        theta_l = np.mean(w) - k*np.std(w)
     elif method=='iqr':
         r = stats.iqr(w)
         q1 = np.quantile(w,IPR[0])
@@ -194,9 +404,18 @@ def get_theta(w,N,k=1.5,method='optimal',IPR=[0.25,0.75]):
         theta_l = q1 - k*r
     return theta_l, theta_u
 
-def wavelet_filtering(x,wv='db3',threshold='optimal',filter_out_below=True,k=1.5,mode='elim',show=False,wpd_mode='symmetric',wpd_maxlevel=None,
-           packetwise=False,WPD=True,lvl=[],verbose=False,fs=128.0,sf=1,IPR=[0.25,0.75]):
+def wavelet_filtering(x,wv='db3',threshold='optimal',filter_out_below=True,k=1.5,mode='elim',show=False,wpd_mode='symmetric',
+        wpd_maxlevel=None,packetwise=False,WPD=True,lvl=[],verbose=False,fs=128.0,sf=1,IPR=[0.25,0.75]):
     '''
+    Wavelet Filtering
+    ------------------
+
+    input
+    -----
+
+    x - 1d array
+
+
     Threshold Computation method:
     threshold: 'str' or float
              : if str, method to compute threshold, example : 'optimal', 'sd', 'iqr'
@@ -226,6 +445,11 @@ def wavelet_filtering(x,wv='db3',threshold='optimal',filter_out_below=True,k=1.5
     packetwise: if true, thresholding is applied to each packet/level individually, else globally
     WPD: if true, WPD is applied as wavelet transform
     lvl: list of levels/packets apply the thresholding, if empty, applied to all the levels/packets
+
+
+    output
+    ------
+    xR:  filtered signal, same size as x
     '''
 
     assert isinstance(threshold,str) or isinstance(threshold, float)
@@ -337,6 +561,15 @@ def wavelet_filtering(x,wv='db3',threshold='optimal',filter_out_below=True,k=1.5
 def wavelet_filtering_win(x,winsize=128,wv='db3',threshold='optimal',below=True,k=1.5,mode='elim',wpd_mode='symmetric',
                 wpd_maxlevel=None,packetwise=False,WPD=True,lvl=[],verbose=False,sf=1,
                 hopesize=None, wintype='hamming',windowing_before=False,IPR=[0.25, 0.75]):
+    '''
+    Wavelet Filtering applied to smaller windows
+    --------------------------------------------
+
+    Same as wavelet_filtering fumction, applied to smaller overlapping windows and reconstructed by overlap-add method
+
+    for documentation, check help(wavelet_filtering)
+
+    '''
     if hopesize is None: hopesize = winsize//2
     M   = winsize
     H   = hopesize
@@ -372,45 +605,111 @@ def wavelet_filtering_win(x,winsize=128,wv='db3',threshold='optimal',below=True,
 
     return xR
 
+def WPA_coeff(x,wv='db3',mode='symmetric',maxlevel=None, verticle_stacked=False):
+    '''
+    Wavelet Packet Decomposition
+    ----------------------------
+    input
+    -----
+    x: 1d signal array
+    wv :  wavelet type - default 'db3'
+    mode='symmetric'
+    maxlevel=None -  maximum levels of decomposition will result in 2**maxlevel packets
 
-def WPA_coeff(x,wv='db3',mode='symmetric',maxlevel=None, V=False):
+    verticle_stacked : if True, coeeficients are vertically stacked -  good for temporal alignment
+
+    output
+    -----
+    WK: Wavelet Packet Coeeficients
+       if verticle_stacked True : shape (2**maxlevel, k), 2**maxlevel - packets with k coeeficient in each
+       if verticle_stacked False: shape (2**maxlevel * k, )
+    '''
     wp = wt.WaveletPacket(x, wavelet=wv, mode=mode,maxlevel=maxlevel)
     wr = [wp[node.path].data for node in wp.get_level(wp.maxlevel, 'natural') ]
-    WR = np.vstack(wr) if V else np.hstack(wr)
-    return WR
+    WK = np.vstack(wr) if verticle_stacked else np.hstack(wr)
+    return WK
 
-def WPA_temporal(x,winsize=128,overlap=64,wv='db3',V=True,mode='symmetric',maxlevel=None):
+def WPA_temporal(x,winsize=128,overlap=64,wv='db3',mode='symmetric',maxlevel=None,verticle_stacked=True,pad=True,verbose=0):
+    '''
+    Wavelet Packet Decomposition -  for each window and stacked together
+    -------------------------------------
+    input
+    -----
+    x: 1d signal array
+    wv :  wavelet type - default 'db3'
+    mode='symmetric'
+    maxlevel=None -  maximum levels of decomposition will result in 2**maxlevel packets
+
+    winsize: size of each window, samples at the end will be discarded, if len(x)%overlap is not eqaul to 0
+    to avoid, padd with zeros
+    overlap: overlap
+
+    output
+    -----
+    Wtemp
+
+    '''
+    winsize = int(winsize)
+    overlap = int(overlap)
+    xi = x.copy()
+    if pad:
+        if x.shape[0]%overlap!=0:
+            if verbose: print('padding', overlap - x.shape[0]%overlap)
+            xi = np.r_[x, x[-1]*np.ones(overlap - x.shape[0]%overlap)]
+
     win =np.arange(winsize)
     W =[]
-    while win[-1]<x.shape[0]:
-        Wi = WPA_coeff(x[win],V=V,wv=wv,mode=mode,maxlevel=maxlevel)
+    while win[-1]<xi.shape[0]:
+        Wi = WPA_coeff(xi[win],verticle_stacked=verticle_stacked,wv=wv,mode=mode,maxlevel=maxlevel)
         W.append(Wi)
         win +=overlap
-    Wtemp = np.hstack(W) if V else np.vstack(W).T
+    Wtemp = np.hstack(W) if verticle_stacked else np.vstack(W).T
     return Wtemp
 
-def WPA_plot(x,winsize=128,overlap=64,V=True,wv='db3',mode='symmetric',maxlevel=None,inpterp='sinc',fs=128,plot=True):
+def WPA_plot(x,winsize=128,overlap=64,verticle_stacked=True,wv='db3',mode='symmetric',maxlevel=None,inpterp='sinc',
+             fs=128,plot=True,pad=True,verbose=0, plottype='abs'):
+    '''
+    Wavelet Packet Decomposition -  temporal - Plot
+    -------------------------------------
+
+    return Wavelet coeeficients packet vs time
+
+
+    '''
+    xi = x.copy()
+    if pad:
+        if x.shape[0]%overlap!=0:
+            if verbose: print('padding', overlap - x.shape[0]%overlap)
+            xi = np.r_[x, x[-1]*np.ones(overlap - x.shape[0]%overlap)]
+
+    Wp = WPA_temporal(xi,winsize=winsize,overlap=overlap,wv=wv,mode=mode,maxlevel=maxlevel,
+                         verticle_stacked=verticle_stacked,pad=False,verbose=0)
+
     if fs is None: fs =1
-    t = np.arange(len(x))/fs
+    t = np.arange(len(xi))/fs
 
-    win =np.arange(winsize)
-    W =[]
-    while win[-1]<x.shape[0]:
-        Wi = WPA_coeff(x[win],V=V,wv=wv,mode=mode,maxlevel=maxlevel)
-        W.append(Wi)
-        win +=overlap
+    if plottype=='abs':
+        Wp = np.abs(Wp)
+    elif plottype=='abs_log':
+        Wp = np.log(np.abs(Wp))
+    elif plottype=='abs_log_p1':
+        Wp = np.log(np.abs(Wp)+1)
+    elif plottype=='abs_log10':
+        Wp = np.log10(np.abs(Wp))
+    elif plottype=='abs_log10_p1':
+        Wp = np.log10(np.abs(Wp)+1)
 
-    if V:
-        Wp = np.hstack(W)
-    else:
-        Wp = np.vstack(W).T
     if plot:
         plt.figure(figsize=(15,8))
         plt.subplot(211)
         plt.imshow(Wp,aspect='auto',origin='lower',interpolation=inpterp,cmap='jet',extent=[t[0], t[-1], 1, Wp.shape[0]])
+        plt.xlabel('time (s)')
+        plt.ylabel('packet')
         plt.subplot(212)
-        plt.plot(t,x)
+        plt.plot(t,xi)
         plt.xlim([t[0], t[-1]])
         plt.grid()
+        plt.xlabel('time (s)')
+        plt.ylabel('x: amplitude')
         plt.show()
     return Wp

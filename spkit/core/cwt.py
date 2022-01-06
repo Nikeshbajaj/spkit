@@ -1,4 +1,6 @@
 '''
+Continues Wavelet Transform
+---------------------------
 Author @ Nikesh Bajaj
 Date: 22 Apr 2021
 Version : 0.0.1

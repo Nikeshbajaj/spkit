@@ -12,5 +12,4 @@ from .LogisticRegression import LR, LogisticRegression
 from .Probabilistic import NaiveBayes
 from .Trees import ClassificationTree, RegressionTree
 
-__all__ = [ 'LR','LogisticRegression','NaiveBayes',
-          'ClassificationTree', 'RegressionTree']
+__all__ = [ 'LR','LogisticRegression','NaiveBayes', 'ClassificationTree', 'RegressionTree']

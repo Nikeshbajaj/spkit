@@ -1,3 +1,13 @@
+'''
+Matrix Decompositions
+--------------------------------
+Author @ Nikesh Bajaj
+Date: 18 Apr 2019
+Version : 0.0.3
+Github :  https://github.com/Nikeshbajaj/spkit
+Contact: n.bajaj@qmul.ac.uk
+'''
+
 from __future__ import absolute_import, division, print_function
 
 import sys

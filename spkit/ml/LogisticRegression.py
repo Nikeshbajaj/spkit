@@ -17,7 +17,6 @@ import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 import warnings
 
-
 class LR():
     def  __init__(self,X,y,alpha=0.01,lambd=0,polyfit=True,degree=3,FeatureNormalize=False):
         warnings.warn("Note: In current version, shape of X is (nf, n) and shape of y is (n,1), where nf is number of features and n is number of samples. These will be changed to conventional shapes (e.g. (n,nf), (n,)) of matrixs, in the later version.")
@@ -166,7 +165,6 @@ class LR():
         ax.text(len(bW)*0.4,-1,r'$\hat y = \sigma(Wx+b)$',fontsize=16)
         for i in range(len(bW)):
             ax.text(i-0.2,0,str(np.around(bW[i],3)))
-
 
 class LogisticRegression():
     def  __init__(self,alpha=0.01,lambd=0,polyfit=False,degree=3,FeatureNormalize=False,penalty='l2',

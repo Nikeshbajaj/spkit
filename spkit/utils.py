@@ -1,5 +1,5 @@
 from __future__ import absolute_import, division, print_function
-name = "Signal Processing toolkit | CWT"
+name = "Signal Processing toolkit | utils"
 import sys
 
 if sys.version_info[:2] < (3, 3):
@@ -18,7 +18,7 @@ from infotheory import entropy
 
 A=['\\','-','/','|']
 
-def ProgBar(i,N,title='',style=1,L=50,selfTerminate=True,delta=None):
+def ProgBar(i,N,title='',style=2,L=100,selfTerminate=True,delta=None):
 
     pf = int(100*(i+1)/float(N))
     st = ' '*(3-len(str(pf))) + str(pf) +'%|'
@@ -35,7 +35,7 @@ def ProgBar(i,N,title='',style=1,L=50,selfTerminate=True,delta=None):
     if pf>=100 and selfTerminate:
         print('\nDone..')
 
-def ProgBar_float(i,N,title='',style=1,L=50,selfTerminate=True,delta=None):
+def ProgBar_float(i,N,title='',style=2,L=100,selfTerminate=True,delta=None):
     pf = np.around(100*(i+1)/float(N),2)
     st = ' '*(5-len(str(pf))) + str(pf) +'%|'
     if L==50:
@@ -51,6 +51,7 @@ def ProgBar_float(i,N,title='',style=1,L=50,selfTerminate=True,delta=None):
         print('\nDone..')
 
 def print_list(L,n=3,sep='\t\t'):
+    L = [str(l) for l in L]
     mlen = np.max([len(ll) for ll in L])
     for k in range(0,len(L)-n,n):
         print(sep.join([L[ki] +' '*(mlen-len(L[ki])) for ki in range(k,k+n)]))
@@ -58,8 +59,8 @@ def print_list(L,n=3,sep='\t\t'):
         print(sep.join([L[ki] +' '*(mlen-len(L[ki])) for ki in range(k,len(L))]))
 
 def pretty_print(List,n=3,sep='|\t',show_index=True,trimLength=None):
+    List = [str(l) for l in List]
     for l in List: assert type(l)==str
-
     L = List.copy()
     if show_index: L = [str(i)+' '+ L[i] for i in range(len(L))]
 
