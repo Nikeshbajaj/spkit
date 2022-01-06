@@ -79,6 +79,10 @@ Complex Continuous Wavelet Transform
 
 Ramanujan Filter Banks for Period Estimation
 ---------- 
+.. toctree::
+   :maxdepth: 3
+   
+   ramanujam_methods
 
 
 Sinusodal Model for Analysis and Sythesis of signals
