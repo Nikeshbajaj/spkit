@@ -46,12 +46,12 @@ Single pattern with period of 10
   plt.show()
 
 
-  Pmax = 40  #Largest expected period in the input
-  Rcq  = 10   # Number of repeats in each Ramanujan filter
-  Rav  = 2    #Number of repeats in each averaging filter
-  Th   = 0.2   #Outputs of the RFB are thresholded to zero for all values less than Th*max(output)
+  Pmax = 40   #Largest period expected in signal
+  Rcq  = 10   #Number of repeats in each Ramanujan filter
+  Rav  = 2    #length of averaging filter
+  thr  = 0.2  #to filter out any value below Thr
 
-  y = sp.RFB(x_noise,Pmax, Rcq, Rav, Th)
+  y = sp.RFB(x_noise,Pmax, Rcq, Rav, thr)
 
   plt.figure(figsize=(15,5))
   im = plt.imshow(y.T,aspect='auto',cmap='jet',extent=[1,len(x_noise),Pmax,1])
