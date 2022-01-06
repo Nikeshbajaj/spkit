@@ -52,13 +52,6 @@ Dispersion Entropy --for time series (physiological signals)
 ----------   
 
 
-.. toctree::
-   :maxdepth: 3
-   
-   dispersion_entropy
-
-
-
 Filtering
 ----------   
 
@@ -98,36 +91,18 @@ Complex Continuous Wavelet Transform
    
 
 Analysis and Synthesis Models
-----------   
-
-.. toctree::
-   :maxdepth: 3
-   
-   analysis_synthesis_models
-
-
+----------------------------   
 
 Ramanujam Methods for period estimation
-----------   
-
-.. toctree::
-   :maxdepth: 3
-   
-   ramanujam_methods
-
+---------------------------- 
 
 
 Fractional Fourier Transform
-----------   
-
-.. toctree::
-   :maxdepth: 3
-   
-   FRFT
+----------------------------
 
 
 Machine Learning
----------- 
+----------------
 
 .. toctree::
    :maxdepth: 3
