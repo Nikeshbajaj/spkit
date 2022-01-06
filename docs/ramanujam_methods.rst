@@ -69,6 +69,7 @@ Example: 1
    :width: 400
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/RFB_ex1.2.png
    :width: 400
+   
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/RFB_ex1.3.png
    :width: 400
 
