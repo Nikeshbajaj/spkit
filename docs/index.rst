@@ -48,7 +48,7 @@ Information Theory
    informationtheory
 
 
-Dispersion Entropy --for time series (physiological signals)
+Dispersion Entropy for time series (physiological signals)
 ----------   
 
 
