@@ -4,7 +4,10 @@ Ramanjum Filter Banks
 Period estimation using RFB - (spkit version 0.0.9.4) 
 ----------------------------------------------------
 
-Period of 10
+Finding the hidden patterns that repeats
+
+
+Single pattern with period of 10
 ----------
 
 ::
@@ -77,7 +80,7 @@ Period of 10
  top 10 periods:  [10  5 11 18 17 16 15 14 13 12]
  
  
-Period of 3,7 and 10
+Multiple pattern with periods of 3,7 and 10
 -------------------
 
 ::
