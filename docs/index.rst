@@ -51,6 +51,10 @@ Information Theory
 Dispersion Entropy (time-series, physiological signals)
 ----------   
 
+.. toctree::
+   :maxdepth: 3
+   
+   dispersion_entropy
    
    
 EEG Artifact Removal Algorithms
