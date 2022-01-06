@@ -69,11 +69,11 @@ Single pattern with period of 10
   
   
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/RFB_ex1.1.png
-   :width: 400
+   :width: 600
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/RFB_ex1.2.png
-   :width: 400
+   :width: 600
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/RFB_ex1.3.png
-   :width: 400
+   :width: 300
  
  
  
