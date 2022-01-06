@@ -78,7 +78,8 @@ Complex Continuous Wavelet Transform
 
 
 Ramanujan Filter Banks for Period Estimation
----------- 
+----------
+
 .. toctree::
    :maxdepth: 3
    
@@ -95,6 +96,12 @@ DFT and STFT for Analysis and Sythesis of signals
 
 Franctional Fourier Transform
 ---------- 
+
+.. toctree::
+   :maxdepth: 3
+   
+   fractional_fourier
+
 
 
 Filtering
