@@ -48,10 +48,6 @@ Information Theory
    informationtheory
 
 
-Dispersion Entropy for time series (physiological signals)
-----------   
-
-
 Filtering
 ----------   
 
@@ -89,16 +85,6 @@ Complex Continuous Wavelet Transform
    
    cwt
    
-
-Analysis and Synthesis Models
-----------------------------   
-
-Ramanujam Methods for period estimation
----------------------------- 
-
-
-Fractional Fourier Transform
-----------------------------
 
 
 Machine Learning
