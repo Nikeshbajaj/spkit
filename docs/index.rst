@@ -51,23 +51,6 @@ Information Theory
 Dispersion Entropy (time-series, physiological signals)
 ----------   
 
-
-Filtering
-----------   
-
-.. toctree::
-   :maxdepth: 2
-   
-   filtering
-
-
-Independent Component Analysis
-----------   
-
-.. toctree::
-   :maxdepth: 2
-   
-   ica
    
    
 EEG Artifact Removal Algorithms
@@ -88,9 +71,40 @@ Complex Continuous Wavelet Transform
    :maxdepth: 3
    
    cwt
+
+
+Ramanujan Filter Banks for Period Estimation
+---------- 
+
+
+Sinusodal Model for Analysis and Sythesis of signals
+---------- 
+
+
+DFT and STFT for Analysis and Sythesis of signals
+---------- 
+
+
+Franctional Fourier Transform
+---------- 
+
+
+Filtering
+----------   
+
+.. toctree::
+   :maxdepth: 2
    
+   filtering
 
 
+Independent Component Analysis
+----------   
+
+.. toctree::
+   :maxdepth: 2
+   
+   ica
 
 Machine Learning
 ---------- 
