@@ -89,10 +89,15 @@ Ramanujan Filter Banks for Period Estimation
 Sinusodal Model for Analysis and Sythesis of signals
 ---------- 
 
+.. toctree::
+   :maxdepth: 3
+   
+   analysis_synthesis_models
 
 DFT and STFT for Analysis and Sythesis of signals
 ---------- 
 
+#TODO
 
 Franctional Fourier Transform
 ---------- 
