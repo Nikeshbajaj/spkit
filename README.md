@@ -28,6 +28,9 @@
 <a href="https://doi.org/10.5281/zenodo.4710694"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.4710694.svg" alt="DOI"></a>
 -->
 
+ **[New Documentation](https://spkit.github.io/guide)**
+
+
 -----
 ### For more updated documentation check github or [Documentation](https://spkit.readthedocs.io/)
 ## Table of contents
