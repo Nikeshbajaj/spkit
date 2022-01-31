@@ -28,7 +28,8 @@
 <a href="https://doi.org/10.5281/zenodo.4710694"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.4710694.svg" alt="DOI"></a>
 -->
 
- **[New Documentation](https://spkit.github.io/guide)**
+ 
+## **[New Documentation](https://spkit.github.io/guide)**
 
 
 -----
