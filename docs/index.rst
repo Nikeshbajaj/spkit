@@ -14,7 +14,7 @@ Signal Processing Toolkit - Documentation!
 .. image:: https://img.shields.io/pypi/v/spkit?style=plastic
   :target: https://pypi.python.org/pypi/spkit
   :alt: PyPI
-.. image:: https://static.pepy.tech/personalized-badge/spkit?period=total&units=international_system&left_color=black&right_color=orange&left_text=downloads
+.. image:: https://static.pepy.tech/personalized-badge/spkit?period=total&units=international_system&left_color=black&right_color=blue&left_text=downloads
  :target: https://pepy.tech/project/spkit
 .. image:: https://img.shields.io/pypi/dm/spkit
   :target: https://pypi.python.org/pypi/spkit
