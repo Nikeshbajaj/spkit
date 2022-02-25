@@ -158,6 +158,14 @@ LFSR
    
    pylfsr
 
+API DOc
+---------- 
+
+.. toctree::
+   :maxdepth: 3
+   
+   api
+
 
 Contacts
 ---------- 
@@ -166,3 +174,5 @@ Contacts
    :maxdepth: 1
    
    contacts
+   
+   
