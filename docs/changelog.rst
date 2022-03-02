@@ -1,5 +1,5 @@
 
-0.0.9.4  -
+0.0.9.4  - Jan 4, 2022
 ~~~~~
 
 Following main functions are added in 0.0.9.4 version
@@ -41,25 +41,25 @@ Following functionaliets are added in 0.0.9.2 version
 0.0.8  - Mar 15, 2020
 ~~~~~
 
-* Updates, fix a bug to install with .tar.gz
+* Updated, fixed a bug to install with .tar.gz
 
 
 0.0.7 - Jan 26, 2020
 ~~~~~
 
-* Update with probability computation and compute with different depth
+* Updated with probability computation and compute with different depth
 
 0.0.6 - Jan 16, 2020
 ~~~~~
 
-0.0.5 - skipped
+0.0.5 - skipped :)
 ~~~~~
-:)
+
 
 0.0.4 - Dec 03, 2019
 ~~~~~
 
-* Fixing bugs
+* Fixed bugs
 
 0.0.2 - Sep 19, 2019
 ~~~~~
