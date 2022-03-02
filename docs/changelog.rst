@@ -54,6 +54,7 @@ Following functionaliets are added in 0.0.9.2 version
 
 0.0.5 - skipped
 ~~~~~
+:)
 
 0.0.4 - Dec 03, 2019
 ~~~
