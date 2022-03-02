@@ -166,6 +166,14 @@ API DOc
    
    api
 
+ChangeLog
+---------- 
+
+.. toctree::
+   :maxdepth: 2
+   
+   changelog
+
 
 Contacts
 ---------- 
