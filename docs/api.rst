@@ -23,7 +23,7 @@ Entropy Functions
 
 
 
-.. autosummary::
+::
 
     spkit.entropy
     spkit.mutual_Info
@@ -40,7 +40,7 @@ Entropy Functions
     spkit.dispersion_entropy_multiscale_refined
 
 
-.. autosummary::
+::
     
     spkit.cwt.ScalogramCWT
     spkit.cwt.compare_cwt_example
@@ -105,7 +105,7 @@ Entropy Functions
     
 
 
-.. autosummary::
+.. ::
     
     spkit.eeg.ATAR
     spkit.eeg.ATAR_1Ch
@@ -122,7 +122,7 @@ Entropy Functions
     spkit.eeg.Periodogram
     
     
-.. autosummary::
+.. ::
     
     spkit.data.load_data
     spkit.data.eegSample
