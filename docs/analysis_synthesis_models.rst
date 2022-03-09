@@ -4,15 +4,87 @@ Analysis and Synthesis Models
 DFT Analysis and Synthesis
 -------------------------
 
+
 ::
   
   import numpy as np
   import matplotlib.pyplot as plt
-  import scipy.linalg as LA
   import spkit as sp
   
-  help(sp.dft_analysis)
   
+  X, ch_names = sp.data.load_data.eegSample()
+  fs=128
+  x = X[:,1]
+  t = np.arange(len(x))/fs
+  print(x.shape)
+  
+  
+  mX, pX, N = sp.dft_analysis(x, window='boxcar')
+  y = sp.dft_synthesis(mX, pX, M=N, window='boxcar')
+  print(y.shape)
+  
+  
+  plt.figure(figsize=(13,8))
+  plt.subplot(311)
+  plt.plot(t,x)
+  plt.xlim([t[0],t[-1]])
+  plt.grid()
+  plt.xlabel('time (s)')
+  plt.title('Original signal')
+  plt.ylabel('amplitude (μV)')
+  plt.subplot(323)
+  fr = (fs/2)*np.arange(len(mX))/(len(mX)-1)
+  plt.plot(fr,mX)
+  plt.xlim([fr[0],fr[-1]])
+  plt.grid()
+  plt.ylabel('|X| (dB)')
+  plt.title('Magnitude spectrum')
+  plt.subplot(324)
+  plt.plot(fr,pX)
+  plt.xlim([fr[0],fr[-1]])
+  plt.grid()
+  plt.ylabel('<|X|')
+  plt.title('Phase spectrum')
+
+  plt.subplot(313)
+  plt.plot(t,y)
+  plt.xlim([t[0],t[-1]])
+  plt.grid()
+  plt.title('Reconstructed signal')
+  plt.xlabel('time (s)')
+  plt.ylabel('amplitude (μV)')
+  plt.tight_layout()
+  plt.show()
+  
+
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/dft_analysis_synthesis_1.png
+  
+  
+Effect of windowing
+
+::
+  
+  mX, pX, N = sp.dft_analysis(x, window='hamm',plot=2, fs=fs)
+  
+
+
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/dft_analysis_synthesis_ham_3.png
+  
+  
+
+No windowing
+
+::
+  
+  mX, pX, N = sp.dft_analysis(x, window='boxcar',plot=2, fs=fs)
+
+
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/dft_analysis_synthesis_2.png
+  
+::
+  
+  #check for more details
+  help(sp.dft_analysis)
   help(sp.dft_synthesis)
   
   
@@ -27,7 +99,7 @@ STFT Analysis and Synthesis
   import matplotlib.pyplot as plt
   import spkit as sp
   
-  X,names = sp.data.load_data.eegSample()
+  X,ch_names = sp.data.load_data.eegSample()
   fs=128
   x = X[:,1]
   t = np.arange(len(x))/fs
