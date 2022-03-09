@@ -74,7 +74,7 @@ STFT Analysis and Synthesis
   
 ::  
   
-  check for details
+  #check for details
   help(sp.stft_analysis)
   help(sp.stft_synthesis)
   
