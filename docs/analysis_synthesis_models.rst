@@ -23,6 +23,10 @@ DFT Analysis and Synthesis
   y = sp.dft_synthesis(mX, pX, M=N, window='boxcar')
   print(y.shape)
   
+
+Plot figures
+
+::
   
   plt.figure(figsize=(13,8))
   plt.subplot(311)
@@ -114,6 +118,10 @@ STFT Analysis and Synthesis
   print(y.shape)
   # Reconstructed signal might have a longer length, if original signal size was not multiple of overlap size
   # extra samples can be simply discarded
+  
+  
+Plot figures:  
+::
   
   plt.figure(figsize=(13,8))
   plt.subplot(311)
