@@ -381,6 +381,43 @@ Reconstructed Audio
     https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing_female_recons.wav
     
   
+
+Residual Audio
+~~~~~~~~~~~~~~~~~~~~~~
+::  
+  
+  Xd = x - Xr[:len(x)]
+  
+  
+  mXdt,pXdt = sp.stft_analysis(Xd, winlen=441, overlap=220,window='blackmanharris',nfft=None)
+  
+  plt.figure(figsize=(13,6))
+  plt.subplot(211)
+  plt.plot(t,Xd)
+  plt.xlim([t[0],t[-1]])
+  plt.grid()
+  plt.title(r'Residual: Discarded part of Audio: $x_d(t) = x(t)-x_r(t)$')
+  #plt.xlabel('time (s)')
+  plt.ylabel('amplitude (μV)')
+
+  plt.subplot(212)
+  plt.imshow(mXdt.T,aspect='auto',origin='lower',cmap='jet',extent=[t[0],t[-1],0,fs/2])
+  plt.title(r'Spectrogram of $x_d(t)$')
+  #plt.xlabel('time (s)')
+  plt.ylabel('frequency (Hz)')
+
+  plt.tight_layout()
+  plt.show()
+  IPython.display.Audio(Xd,rate=fs)
+
+
+
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/sinasodal_model_analysis_synthesis_residual_1.png
+  
+  
+
+  
+  
 Residual Audio - hissing sound
 ~~~~~~~~~~~~~~~~~~~~~~
 .. raw:: html
