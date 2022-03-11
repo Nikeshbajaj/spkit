@@ -158,6 +158,67 @@ Plot figures:
   help(sp.stft_analysis)
   help(sp.stft_synthesis)
   
+
+
+Fractional Fourier Transform:FRFT :: Analysis and Synthesis
+---------------------------
+
+::
+  
+  X,names = sp.data.load_data.eegSample()
+  fs=128
+  x = X[:,1]
+  t = np.arange(len(x))/fs
+  print(x.shape)
+
+  # Analysis
+  Xa = sp.frft(x.copy(),alpha=0.2)
+  print(Xa.shape)
+
+  # Synthesis
+  y = sp.frft(Xa.copy(),alpha=-0.2)
+  print(y.shape)
+
+
+
+plots
+
+::
+  
+  plt.figure(figsize=(13,6))
+  plt.subplot(311)
+  plt.plot(t,x)
+  plt.xlim([t[0],t[-1]])
+  plt.grid()
+  plt.title('x(t)')
+  #plt.xlabel('time (s)')
+  plt.ylabel('amplitude (μV)')
+
+  plt.subplot(312)
+  plt.plot(t,Xa.real,label='real')
+  plt.plot(t,Xa.imag,label='imag')
+  plt.xlim([t[0],t[-1]])
+  plt.grid()
+  plt.title(r'FRFT(x(t)), $\alpha=0.2$')
+  #plt.xlabel('time (s)')
+  plt.ylabel('amplitude (μV)')
+  plt.legend()
+
+
+  plt.subplot(313)
+  plt.plot(t,y.real)
+  plt.xlim([t[0],t[-1]])
+  plt.grid()
+  plt.title('Reconstructed signal: x(t)')
+  #plt.xlabel('time (s)')
+  plt.ylabel('amplitude (μV)')
+  plt.tight_layout()
+  plt.show()
+
+  
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/frft_analysis_synthesis_1.png
+  
+  
   
   
 Sinasodal Model for Analysis and Synthesis
@@ -166,9 +227,23 @@ Sinasodal Model for Analysis and Synthesis
 
 ::
   
+  import requests
+  from scipy.io import wavfile
+  import IPython
+  
+  
+  
+  
+  
   help(sp.sineModel_analysis)
   
   help(sp.sineModel_synthesis)
   
+  
+  
+.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/sinasodal_model_analysis_synthesis_1.png
+  
+  
+   
   
  
