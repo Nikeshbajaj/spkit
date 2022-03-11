@@ -18,13 +18,22 @@ DFT Analysis and Synthesis
   t = np.arange(len(x))/fs
   print(x.shape)
   
+Analysis and Synthesis
+~~~~~~~~~~~~~~~~~~~~~~
+
+::
   
+  # Analysis
   mX, pX, N = sp.dft_analysis(x, window='boxcar')
+  
+  # Synthesis
   y = sp.dft_synthesis(mX, pX, M=N, window='boxcar')
   print(y.shape)
   
 
+
 Plot figures
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
   
@@ -65,6 +74,7 @@ Plot figures
   
   
 Effect of windowing
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
   
@@ -77,7 +87,7 @@ Effect of windowing
   
 
 No windowing
-
+~~~~~~~~~~~~~~~~~~~~~~
 ::
   
   mX, pX, N = sp.dft_analysis(x, window='boxcar',plot=2, fs=fs)
@@ -107,6 +117,11 @@ STFT Analysis and Synthesis
   fs=128
   x = X[:,1]
   t = np.arange(len(x))/fs
+
+
+Analysis and Synthesis
+~~~~~~~~~~~~~~~~~~~~~~
+::
   
   # STFT Analysis
   mXt,pXt = sp.stft_analysis(x, winlen=128, overlap=32,window='blackmanharris',nfft=None)
@@ -120,7 +135,9 @@ STFT Analysis and Synthesis
   # extra samples can be simply discarded
   
   
-Plot figures:  
+Plot figures:
+~~~~~~~~~~~~~~~~~~~~~~
+
 ::
   
   plt.figure(figsize=(13,8))
@@ -160,7 +177,7 @@ Plot figures:
   
 
 
-Fractional Fourier Transform:FRFT :: Analysis and Synthesis
+Fractional Fourier Transform: FRFT :: Analysis and Synthesis
 ---------------------------
 
 ::
@@ -171,6 +188,11 @@ Fractional Fourier Transform:FRFT :: Analysis and Synthesis
   t = np.arange(len(x))/fs
   print(x.shape)
 
+
+Analysis and Synthesis
+~~~~~~~~~~~~~~~~~~~~~~
+::
+  
   # Analysis
   Xa = sp.frft(x.copy(),alpha=0.2)
   print(Xa.shape)
@@ -246,7 +268,12 @@ Sinasodal Model for Analysis and Synthesis
 
   print(x.shape, fs)
   
-  
+
+Analysis and Synthesis
+~~~~~~~~~~~~~~~~~~~~~~
+
+::
+    
   # Analysis
   N=20
   fXst, mXst, pXst = sp.sineModel_analysis(x,fs,winlen=3001,overlap=750,
@@ -262,6 +289,7 @@ Sinasodal Model for Analysis and Synthesis
   
   
 Plots
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
   
@@ -333,6 +361,7 @@ Plots
   
    
 Original Audio
+~~~~~~~~~~~~~~~~~~~~~~
 
 .. raw:: html
 
@@ -343,6 +372,7 @@ Original Audio
     
 
 Reconstructed Audio
+~~~~~~~~~~~~~~~~~~~~~~
 
 .. raw:: html
 
@@ -351,7 +381,8 @@ Reconstructed Audio
       Your browser does not support the <code>audio</code> element. 
     </audio>
   
-
+Residual Audio - Hissing sound
+~~~~~~~~~~~~~~~~~~~~~~
 .. raw:: html
 
     <audio controls="controls">
