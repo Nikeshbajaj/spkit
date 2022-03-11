@@ -92,13 +92,14 @@ Ramanujan Filter Banks for Period Estimation
    ramanujam_methods
 
 
-Sinusodal Model for Analysis and Sythesis of signals
+Analysis and Sythesis Models
 ---------- 
 
 .. toctree::
    :maxdepth: 3
    
    analysis_synthesis_models
+
 
 DFT and STFT for Analysis and Sythesis of signals
 ---------- 
