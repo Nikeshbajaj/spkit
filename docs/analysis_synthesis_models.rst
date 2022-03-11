@@ -381,7 +381,7 @@ Reconstructed Audio
     https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing_female_recons.wav
     
   
-Residual Audio - Hissing sound
+Residual Audio - hissing sound
 ~~~~~~~~~~~~~~~~~~~~~~
 .. raw:: html
 
