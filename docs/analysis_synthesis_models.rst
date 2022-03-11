@@ -1,11 +1,9 @@
 Analysis and Synthesis Models
 =============================
 
-`View in Jupyter-Notebook <https://github.com/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Analysis_Sythesis_Models.ipynb>`_
-~~~~~~~~~~~~~~~~~~~~~~  
 
 DFT: Analysis and Synthesis
-~~~~~~~~~~~~~~~~~~~~~~
+===========================
 
 ::
   
@@ -21,7 +19,7 @@ DFT: Analysis and Synthesis
   print(x.shape)
   
 Analysis and Synthesis
-----------------------
+~~~~~~~~~~~~~~~~~~~~~~
 
 
 ::
@@ -36,7 +34,7 @@ Analysis and Synthesis
 
 
 Plot figures
-----------------------
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
   
@@ -77,7 +75,7 @@ Plot figures
   
   
 Effect of windowing
-----------------------
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
   
@@ -90,7 +88,7 @@ Effect of windowing
   
 
 No windowing
-----------------------
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
   
@@ -105,10 +103,12 @@ No windowing
   help(sp.dft_analysis)
   help(sp.dft_synthesis)
   
-  
+
+`View in Jupyter-Notebook <https://github.com/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Analysis_Sythesis_Models.ipynb>`_
+~~~~~~~~~~~~~~~~~~~~~~ 
   
 STFT: Analysis and Synthesis
-~~~~~~~~~~~~~~~~~~~~~~
+===========================
 
 
 ::
@@ -124,7 +124,7 @@ STFT: Analysis and Synthesis
 
 
 Analysis and Synthesis
-----------------------
+~~~~~~~~~~~~~~~~~~~~~~
 ::
   
   # STFT Analysis
@@ -140,7 +140,7 @@ Analysis and Synthesis
   
   
 Plot figures:
-----------------------
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
   
@@ -180,9 +180,11 @@ Plot figures:
   help(sp.stft_synthesis)
   
 
+`View in Jupyter-Notebook <https://github.com/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Analysis_Sythesis_Models.ipynb>`_
+~~~~~~~~~~~~~~~~~~~~~~ 
 
 FRFT: Fractional Fourier Transform
-~~~~~~~~~~~~~~~~~~~~~~
+===========================
 
 ::
   
@@ -194,7 +196,8 @@ FRFT: Fractional Fourier Transform
 
 
 Analysis and Synthesis
----------------------------
+~~~~~~~~~~~~~~~~~~~~~~
+
 ::
   
   # Analysis
@@ -207,8 +210,8 @@ Analysis and Synthesis
 
 
 
-plots
-
+Plot figures
+~~~~~~~~~~~~~~~~~~~~~~
 ::
   
   plt.figure(figsize=(13,6))
@@ -244,7 +247,11 @@ plots
   
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/frft_analysis_synthesis_1.png
   
-  
+
+`View in Jupyter-Notebook-1 <https://github.com/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Analysis_Sythesis_Models.ipynb>`_
+~~~~~~~~~~~~~~~~~~~~~~ 
+`View in Jupyter-Notebook-2 <https://nbviewer.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/FRFT_demo_sine.ipynb>`_
+~~~~~~~~~~~~~~~~~~~~~~ 
   
   
 Sinasodal Model: Analysis and Synthesis
@@ -274,7 +281,7 @@ Sinasodal Model: Analysis and Synthesis
   
 
 Analysis and Synthesis
-~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~ 
 
 ::
     
@@ -297,7 +304,7 @@ Analysis and Synthesis
   
   
 Plots
-~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~ 
 
 ::
   
@@ -368,7 +375,8 @@ Plots
   
 
 Residual
-~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~ 
+
 ::
   
   mXdt,pXdt = sp.stft_analysis(Xd, winlen=441, overlap=220,window='blackmanharris',nfft=None)
@@ -397,7 +405,7 @@ Residual
   
   
 Audio output
-~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~ 
 
 Original Audio
 ---------------------------
@@ -439,8 +447,10 @@ Residual Audio - hissing sound
 `Residual Audio <https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing_female_residual.wav>`_
 
 
-`View in Jupyter-Notebook <https://github.com/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Sinasodal_Model_AnalysisSynthesis.ipynb>`_
-~~~~~~~~~~~~ 
+`View in Jupyter-Notebook-1 <https://github.com/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Analysis_Sythesis_Models.ipynb>`_
+~~~~~~~~~~~~~~~~~~~~~~ 
+`View in Jupyter-Notebook-2 <https://github.com/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Sinasodal_Model_AnalysisSynthesis.ipynb>`_
+~~~~~~~~~~~~~~~~~~~~~~ 
 
 ::
   
