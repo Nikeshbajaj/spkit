@@ -396,7 +396,9 @@ Residual
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/sinasodal_model_analysis_synthesis_residual_1.png
   
   
-  
+Audio output
+~~~~~~~~~~~~
+
 Original Audio
 ---------------------------
 
@@ -438,7 +440,7 @@ Residual Audio - hissing sound
 
 
 `View in Jupyter-Notebook <https://github.com/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Sinasodal_Model_AnalysisSynthesis.ipynb>`_
----------------------------  
+~~~~~~~~~~~~ 
 
 ::
   
