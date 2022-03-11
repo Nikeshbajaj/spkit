@@ -4,8 +4,8 @@ Analysis and Synthesis Models
 `View in Jupyter-Notebook <https://github.com/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Analysis_Sythesis_Models.ipynb>`_
 ~~~~~~~~~~~~~~~~~~~~~~  
 
-DFT Analysis and Synthesis
--------------------------
+DFT: Analysis and Synthesis
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
   
@@ -21,7 +21,8 @@ DFT Analysis and Synthesis
   print(x.shape)
   
 Analysis and Synthesis
-~~~~~~~~~~~~~~~~~~~~~~
+----------------------
+
 
 ::
   
@@ -35,7 +36,7 @@ Analysis and Synthesis
 
 
 Plot figures
-~~~~~~~~~~~~~~~~~~~~~~
+----------------------
 
 ::
   
@@ -76,7 +77,7 @@ Plot figures
   
   
 Effect of windowing
-~~~~~~~~~~~~~~~~~~~~~~
+----------------------
 
 ::
   
@@ -89,7 +90,8 @@ Effect of windowing
   
 
 No windowing
-~~~~~~~~~~~~~~~~~~~~~~
+----------------------
+
 ::
   
   mX, pX, N = sp.dft_analysis(x, window='boxcar',plot=2, fs=fs)
@@ -105,8 +107,8 @@ No windowing
   
   
   
-STFT Analysis and Synthesis
----------------------------
+STFT: Analysis and Synthesis
+~~~~~~~~~~~~~~~~~~~~~~
 
 
 ::
@@ -122,7 +124,7 @@ STFT Analysis and Synthesis
 
 
 Analysis and Synthesis
-~~~~~~~~~~~~~~~~~~~~~~
+----------------------
 ::
   
   # STFT Analysis
@@ -138,7 +140,7 @@ Analysis and Synthesis
   
   
 Plot figures:
-~~~~~~~~~~~~~~~~~~~~~~
+----------------------
 
 ::
   
@@ -179,8 +181,8 @@ Plot figures:
   
 
 
-Fractional Fourier Transform: FRFT :: Analysis and Synthesis
----------------------------
+FRFT: Fractional Fourier Transform
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
   
@@ -192,7 +194,7 @@ Fractional Fourier Transform: FRFT :: Analysis and Synthesis
 
 
 Analysis and Synthesis
-~~~~~~~~~~~~~~~~~~~~~~
+---------------------------
 ::
   
   # Analysis
@@ -245,8 +247,8 @@ plots
   
   
   
-Sinasodal Model for Analysis and Synthesis
----------------------------
+Sinasodal Model: Analysis and Synthesis
+=============================
 
 
 ::
@@ -272,7 +274,7 @@ Sinasodal Model for Analysis and Synthesis
   
 
 Analysis and Synthesis
-~~~~~~~~~~~~~~~~~~~~~~
+---------------------------
 
 ::
     
@@ -289,9 +291,13 @@ Analysis and Synthesis
   Xr = sp.sineModel_synthesis(fXst, mXst, pXst,fs,overlap=750,crop_end=False)
   print(Xr.shape)
   
+  # Residual
+  
+  Xd = x - Xr[:len(x)]
+  
   
 Plots
-~~~~~~~~~~~~~~~~~~~~~~
+---------------------------
 
 ::
   
@@ -360,43 +366,9 @@ Plots
   
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/sinasodal_model_analysis_synthesis_1.png
   
-  
-   
-Original Audio
-~~~~~~~~~~~~~~~~~~~~~~
 
-.. raw:: html
-
-    <audio controls="controls">
-      <source src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing-female.wav" type="audio/wav"> 
-    </audio>
-    
-https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing-female.wav
-
-`Original Audio <https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing-female.wav>`_
-
-
-Reconstructed Audio
-~~~~~~~~~~~~~~~~~~~~~~
-
-.. raw:: html
-
-    <audio controls="controls">
-      <source src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing_female_recons.wav" type="audio/wav">
-    </audio>
-    
-
-https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing_female_recons.wav
-
-`Reconstructed Audio <https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing_female_recons.wav>`_
-  
-
-Residual Audio
-~~~~~~~~~~~~~~~~~~~~~~
-::  
-  
-  Xd = x - Xr[:len(x)]
-  
+Residual
+::
   
   mXdt,pXdt = sp.stft_analysis(Xd, winlen=441, overlap=220,window='blackmanharris',nfft=None)
   
@@ -418,17 +390,43 @@ Residual Audio
   plt.tight_layout()
   plt.show()
   IPython.display.Audio(Xd,rate=fs)
-
-
-
+  
+   
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/sinasodal_model_analysis_synthesis_residual_1.png
   
   
+  
+Original Audio
+---------------------------
 
+.. raw:: html
+
+    <audio controls="controls">
+      <source src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing-female.wav" type="audio/wav"> 
+    </audio>
+    
+https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing-female.wav
+
+`Original Audio <https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing-female.wav>`_
+
+
+Reconstructed Audio
+---------------------------
+
+.. raw:: html
+
+    <audio controls="controls">
+      <source src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing_female_recons.wav" type="audio/wav">
+    </audio>
+    
+
+https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing_female_recons.wav
+
+`Reconstructed Audio <https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing_female_recons.wav>`_
   
-  
+
 Residual Audio - hissing sound
-~~~~~~~~~~~~~~~~~~~~~~
+---------------------------
 .. raw:: html
 
     <audio controls="controls">
@@ -439,9 +437,10 @@ Residual Audio - hissing sound
 
 
 `View in Jupyter-Notebook <https://github.com/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Sinasodal_Model_AnalysisSynthesis.ipynb>`_
-~~~~~~~~~~~~~~~~~~~~~~    
+---------------------------  
 
 ::
   
+  # check for help
   help(sp.sineModel_analysis)
   help(sp.sineModel_synthesis)
