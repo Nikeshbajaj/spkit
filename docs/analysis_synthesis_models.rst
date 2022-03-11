@@ -447,13 +447,14 @@ Residual Audio - hissing sound
 `Residual Audio <https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing_female_residual.wav>`_
 
 
-`View in Jupyter-Notebook-1 <https://github.com/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Analysis_Sythesis_Models.ipynb>`_
-~~~~~~~~~~~~~~~~~~~~~~ 
-`View in Jupyter-Notebook-2 <https://github.com/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Sinasodal_Model_AnalysisSynthesis.ipynb>`_
-~~~~~~~~~~~~~~~~~~~~~~ 
-
 ::
   
   # check for help
   help(sp.sineModel_analysis)
   help(sp.sineModel_synthesis)
+  
+  
+`View in Jupyter-Notebook-1 <https://github.com/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Analysis_Sythesis_Models.ipynb>`_
+~~~~~~~~~~~~~~~~~~~~~~ 
+`View in Jupyter-Notebook-2 <https://github.com/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Sinasodal_Model_AnalysisSynthesis.ipynb>`_
+~~~~~~~~~~~~~~~~~~~~~~   
