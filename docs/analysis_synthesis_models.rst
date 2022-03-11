@@ -1,9 +1,11 @@
 Analysis and Synthesis Models
 =============================
 
+`View in Jupyter-Notebook <https://github.com/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Analysis_Sythesis_Models.ipynb>`_
+~~~~~~~~~~~~~~~~~~~~~~  
+
 DFT Analysis and Synthesis
 -------------------------
-
 
 ::
   
@@ -368,7 +370,11 @@ Original Audio
     <audio controls="controls">
       <source src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing-female.wav" type="audio/wav"> 
     </audio>
-    https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing-female.wav
+    
+https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing-female.wav
+
+`Original Audio <https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing-female.wav>`_
+
 
 Reconstructed Audio
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -376,10 +382,13 @@ Reconstructed Audio
 .. raw:: html
 
     <audio controls="controls">
-      <source src="../spkit/data/singing_female_recons.wav" type="audio/wav">
+      <source src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing_female_recons.wav" type="audio/wav">
     </audio>
-    https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing_female_recons.wav
     
+
+https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing_female_recons.wav
+
+`Reconstructed Audio <https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing_female_recons.wav>`_
   
 
 Residual Audio
@@ -423,10 +432,14 @@ Residual Audio - hissing sound
 .. raw:: html
 
     <audio controls="controls">
-      <source src="../spkit/data/singing_female_residual.wav" type="audio/wav">
+      <source src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing_female_residual.wav" type="audio/wav">
     </audio>
-    https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing_female_residual.wav
     
+`Residual Audio <https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing_female_residual.wav>`_
+
+
+`View in Jupyter-Notebook <https://github.com/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Sinasodal_Model_AnalysisSynthesis.ipynb>`_
+~~~~~~~~~~~~~~~~~~~~~~    
 
 ::
   
