@@ -366,10 +366,9 @@ Original Audio
 .. raw:: html
 
     <audio controls="controls">
-      <source src="../spkit/data/singing-female.wav" type="audio/wav">
-      Your browser does not support the <code>audio</code> element. 
+      <source src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing-female.wav" type="audio/wav"> 
     </audio>
-    
+    https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing-female.wav
 
 Reconstructed Audio
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -378,8 +377,9 @@ Reconstructed Audio
 
     <audio controls="controls">
       <source src="../spkit/data/singing_female_recons.wav" type="audio/wav">
-      Your browser does not support the <code>audio</code> element. 
     </audio>
+    https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing_female_recons.wav
+    
   
 Residual Audio - Hissing sound
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -387,9 +387,9 @@ Residual Audio - Hissing sound
 
     <audio controls="controls">
       <source src="../spkit/data/singing_female_residual.wav" type="audio/wav">
-      Your browser does not support the <code>audio</code> element. 
     </audio>
-
+    https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing_female_residual.wav
+    
 
 ::
   
