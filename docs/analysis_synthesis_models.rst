@@ -274,7 +274,7 @@ Sinasodal Model: Analysis and Synthesis
   
 
 Analysis and Synthesis
----------------------------
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
     
@@ -297,7 +297,7 @@ Analysis and Synthesis
   
   
 Plots
----------------------------
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
   
@@ -368,6 +368,7 @@ Plots
   
 
 Residual
+~~~~~~~~~~~~~~~~~~~~~~
 ::
   
   mXdt,pXdt = sp.stft_analysis(Xd, winlen=441, overlap=220,window='blackmanharris',nfft=None)
