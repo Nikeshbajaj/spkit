@@ -231,19 +231,136 @@ Sinasodal Model for Analysis and Synthesis
   from scipy.io import wavfile
   import IPython
   
+  path2 = 'https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/spkit/data/singing-female.wav'
+  print(path2)
   
   
+  req = requests.get(path2)
+  with open('myfile.wav', 'wb') as f:
+          f.write(req.content)
+
+  fs, x = wavfile.read('myfile.wav')
+  t = np.arange(len(x))/fs
+
+  x=x.astype(float)
+
+  print(x.shape, fs)
   
   
-  help(sp.sineModel_analysis)
+  # Analysis
+  N=20
+  fXst, mXst, pXst = sp.sineModel_analysis(x,fs,winlen=3001,overlap=750,
+                            window='blackmanharris', nfft=None, thr=-10, 
+                            maxn_sines=N,minDur=0.01, freq_devOffset=10,freq_devSlope=0.1)
+
+  print(fXst.shape, mXst.shape, pXst.shape)
   
-  help(sp.sineModel_synthesis)
+  # Synthesis
   
+  Xr = sp.sineModel_synthesis(fXst, mXst, pXst,fs,overlap=750,crop_end=False)
+  print(Xr.shape)
+  
+  
+Plots
+
+::
+  
+  plt.figure(figsize=(13,15))
+  plt.subplot(511)
+  plt.plot(t,x)
+  plt.xlim([t[0],t[-1]])
+  plt.grid()
+  plt.title('Original Auido: x(t)')
+  #plt.xlabel('time (s)')
+  plt.ylabel('amplitude (μV)')
+
+
+
+  mXt,pXt = sp.stft_analysis(x, winlen=441, overlap=220,window='blackmanharris',nfft=None)
+
+  plt.subplot(512)
+  plt.imshow(mXt.T,aspect='auto',origin='lower',cmap='jet',extent=[t[0],t[-1],0,fs/2])
+  plt.title('Spectrogram of x(t)')
+  #plt.xlabel('time (s)')
+  plt.ylabel('frequency (Hz)')
+
+
+
+  fXt1 = (fXst.copy())*(mXst>0)
+  fXt1[fXt1==0]=np.nan
+
+
+  plt.subplot(513)
+  tx = t[-1]*np.arange(fXt1.shape[0])/fXt1.shape[0]
+
+  plt.plot(tx,fXt1,'-k',alpha=0.5)
+  #plt.ylim([0,fs/2])
+  plt.xlim([0,tx[-1]])
+
+  plt.title(f'Sinasodals Tracks: n={N}')
+  plt.xlabel('time (s)')
+  plt.ylabel('frequency (Hz)')
+  plt.grid(alpha=0.3)
+  
+  plt.subplot(514)
+  plt.plot(t,Xr[:len(t)])
+  plt.xlim([t[0],t[-1]])
+  plt.grid()
+  plt.title(f'Reconstructed Audio from {N} Sinasodals: $x_r(t)$')
+  #plt.xlabel('time (s)')
+  plt.ylabel('amplitude')
+
+
+  mXrt,pXrt = sp.stft_analysis(Xr, winlen=441, overlap=220,window='blackmanharris',nfft=None)
+
+  plt.subplot(515)
+  plt.imshow(mXrt.T,aspect='auto',origin='lower',cmap='jet',extent=[t[0],t[-1],0,fs/2])
+  plt.title(r'Spectrogram of $x_r(t)$')
+  #plt.xlabel('time (s)')
+  plt.ylabel('frequency (Hz)')
+  plt.tight_layout()
+  plt.show()
+
+  print('Original Audio: $x(t)$')
+  display(IPython.display.Audio(x,rate=fs))
+
+  print(f'Reconstructed Audio: $x_r(t)$')
+  display(IPython.display.Audio(Xr,rate=fs))
   
   
 .. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/sinasodal_model_analysis_synthesis_1.png
   
   
    
+Original Audio
+
+.. raw:: html
+
+    <audio controls="controls">
+      <source src="../spkit/data/singing-female.wav" type="audio/wav">
+      Your browser does not support the <code>audio</code> element. 
+    </audio>
+    
+
+Reconstructed Audio
+
+.. raw:: html
+
+    <audio controls="controls">
+      <source src="../spkit/data/singing_female_recons.wav" type="audio/wav">
+      Your browser does not support the <code>audio</code> element. 
+    </audio>
   
- 
+
+.. raw:: html
+
+    <audio controls="controls">
+      <source src="../spkit/data/singing_female_residual.wav" type="audio/wav">
+      Your browser does not support the <code>audio</code> element. 
+    </audio>
+
+
+::
+  
+  help(sp.sineModel_analysis)
+  help(sp.sineModel_synthesis)
