@@ -5,7 +5,10 @@ Wavelet Filtering
    :width: 200
    :align: right
    :target: https://nbviewer.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Wavelet_Filtering_1_demo.ipynb
------------
+-----------------------------------------------------------------------------------------------------------------
+.
+.
+.
 
 **Background**
 ----------------
