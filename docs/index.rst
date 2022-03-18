@@ -125,6 +125,16 @@ Filtering
    filtering
 
 
+Wavelet Filtering
+----------
+
+.. toctree::
+   :maxdepth: 2
+   
+   wavelet_filtering.rst
+
+
+
 Independent Component Analysis
 ----------   
 
