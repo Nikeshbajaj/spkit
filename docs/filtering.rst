@@ -29,7 +29,7 @@ Removing DC component (removing drift) - using Savitzky-Golay filter
   
   import spkit as sp
   
-  xf,xb = sp.filterDC_sGolay(x,window_length=127, polyorder=3)
+  xf = sp.filterDC_sGolay(x,window_length=127, polyorder=3)
   
   
   
