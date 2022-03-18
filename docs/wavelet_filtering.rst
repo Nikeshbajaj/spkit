@@ -97,3 +97,10 @@ WPD: False  wv: db3  threshold: optimal  k: 1.5  mode: elim  filter_out_below?: 
 `View in Jupyter-Notebook for details and more examples <https://nbviewer.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Wavelet_Filtering_1_demo.ipynb>`_
 ----------------
   
+  
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
+   :width: 100
+   :align: right
+   :target: https://nbviewer.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Wavelet_Filtering_1_demo.ipynb
+
+-----------   
