@@ -18,16 +18,16 @@ Literature [1] suggest the **optimal threshold** on the wavelet coeffiecient is
   
   \theta = \tilde{\sigma} \sqrt{2log(N)}
   
-where :math:`\tilde{\sigma}`  $\tilde{\sigma}$ is estimation of noise variance and :math:`N` $N$ length of signal
+where :math:`\tilde{\sigma}` is estimation of noise variance and :math:`N` length of signal
 
 
 .. math::
   
   \tilde{\sigma} = median(|X(k)|)/0.6745
 
-and :math:`X(k)` $X(k)$ are wavelet coeffients of :math:`x(n)` $x(n)$
+and :math:`X(k)` are wavelet coeffients of :math:`x(n)`
 
-There are other methods to choose threshold too. One can choose a :math:`\theta =1.5\times SD(X(k))` $\theta =1.5\times SD(X(k))$ or :math:`\theta =IQR(X(k))` $\theta =IQR(X(k))$ as to select the outliers, by standard deviation and interquartile range, respectively.
+There are other methods to choose threshold too. One can choose a :math:`\theta =1.5\times SD(X(k))` or :math:`\theta =IQR(X(k))` as to select the outliers, by standard deviation and interquartile range, respectively.
 
 According to the theory, the **optimal threshold** should be applied by zeroing out the coefficients below with magnitude lower than threshold $|X(k)|<\theta$, and for later two methods of thresholds,standard deviation and interquartile range, the coefficients outside of the threshold should be zeroing out, since they reprepresent the outliers. However, some of the (weired) articles use these thresholds in other-way round.
 
@@ -88,6 +88,6 @@ WPD: False  wv: db3  threshold: optimal  k: 1.5  mode: elim  filter_out_below?: 
 
 
 
-`View in Jupyter-Notebook <https://nbviewer.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Wavelet_Filtering_1_demo.ipynb>`_
+`View in Jupyter-Notebook for details and more examples <https://nbviewer.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Wavelet_Filtering_1_demo.ipynb>`_
 ----------------
   
