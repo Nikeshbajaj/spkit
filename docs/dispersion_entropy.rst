@@ -2,6 +2,14 @@ Dispersion Entropy
 ==================
 #TODO
 
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
+   :width: 200
+   :align: right
+   :target: https://nbviewer.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Dispersion_Entropy_1_demo_EEG.ipynb
+-----------------------------------------------------------------------------------------------------------------
+
+
+
 Backgorund
 ----------
 #TODO
@@ -143,3 +151,11 @@ Mltiscale-refined Dispersion Entropy
 
 `View in Jupyter-Notebook for details <https://nbviewer.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Dispersion_Entropy_1_demo_EEG.ipynb>`_
 ----------------
+
+
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
+   :width: 100
+   :align: right
+   :target: https://nbviewer.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Dispersion_Entropy_1_demo_EEG.ipynb
+
+-----------   
