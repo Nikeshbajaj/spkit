@@ -6,18 +6,28 @@ Wavelet Filtering
 ----------------
 Other than classical frequency filtering, Wavelet filtering is one of common techniques used in signal processing. It allows to filter out short-time duration patterns captured by used wavelet. The patterns to be filtered out depends on the wavelet family (e.g. *db3*) used and number of level of decomposition. 
 
-Algorithmically, it is very straightforward. Decompose a signal $x(n)$, into wavelet coefficients $X(k)$, where each coefficient represents the strength of wavelet pattern at particular time. With some threshold, remove the coefficients by zeroing out and reconstruct the signal back.
+Algorithmically, it is very straightforward. Decompose a signal :math:`x(n)`, into wavelet coefficients :math:`X(k)`, where each coefficient represents the strength of wavelet pattern at particular time. With some threshold, remove the coefficients by zeroing out and reconstruct the signal back.
 
 The machanism to choose a threshold on the strength of wavelet coefficient depends on the application and objective. To remove the noise and compress the signal, a widely used approach is to filter out all the wavelet coefficients with smaller strength.
 
 Literature [1] suggest the **optimal threshold** on the wavelet coeffiecient is
 
-$$ \theta = \tilde{\sigma} \sqrt{2log(N)}$$
-where $\tilde{\sigma}$ is estimation of noise variance and $N$ length of signal
-$$ \tilde{\sigma} = median(|X(k)|)/0.6745$$
-and $X(k)$ are wavelet coeffients of $x(n)$
 
-There are other methods to choose threshold too. One can choose a $\theta =1.5\times SD(X(k))$ or $\theta =IQR(X(k))$ as to select the outliers, by standard deviation and interquartile range, respectively.
+
+.. math::
+  
+  \theta = \tilde{\sigma} \sqrt{2log(N)}
+  
+where :math:`\tilde{\sigma}`  $\tilde{\sigma}$ is estimation of noise variance and :math:`N` $N$ length of signal
+
+
+.. math::
+  
+  \tilde{\sigma} = median(|X(k)|)/0.6745
+
+and :math:`X(k)` $X(k)$ are wavelet coeffients of :math:`x(n)` $x(n)$
+
+There are other methods to choose threshold too. One can choose a :math:`\theta =1.5\times SD(X(k))` $\theta =1.5\times SD(X(k))$ or :math:`\theta =IQR(X(k))` $\theta =IQR(X(k))$ as to select the outliers, by standard deviation and interquartile range, respectively.
 
 According to the theory, the **optimal threshold** should be applied by zeroing out the coefficients below with magnitude lower than threshold $|X(k)|<\theta$, and for later two methods of thresholds,standard deviation and interquartile range, the coefficients outside of the threshold should be zeroing out, since they reprepresent the outliers. However, some of the (weired) articles use these thresholds in other-way round.
 
@@ -29,6 +39,17 @@ A simple block-diagram shown below is the procedure of wavelet filtering.
 
 **References:**
 * [1] D.L. Donoho, J.M. Johnstone, **Ideal spatial adaptation by wavelet shrinkage** Biometrika, 81 (1994), pp. 425-455
+
+
+API
+--
+* **spkit.wavelet_filtering(...)**
+* **spkit.wavelet_filtering_win(...)**
+
+
+In ***spkit***, we have implemented all three methods for threshold computing, can be chosen by *threshold = 'optimal', 'sd' or 'iqr'* or can be passed as a float value for a fixed threshold, e.g. *threshold = 0.5*. It also support to choose, if you want to zero out coefficient below the threshold or above by setting *filter_out_below* True or False. However, default setting is *threshold='optimal'* and *filter_out_below=True*.
+
+There are a few more options to tune threshold and mode of filtering. For more details see doc section or run ```help(sp.wavelet_filtering)```
 
 Example
 ----------------
