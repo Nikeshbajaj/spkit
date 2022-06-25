@@ -142,6 +142,15 @@ Independent Component Analysis
    :maxdepth: 2
    
    ica
+   
+   
+EEG Topographic Maps (Spatio-Temporal/Spectral)
+---------- 
+
+.. toctree::
+   :maxdepth: 2
+   
+   eeg_topog
 
 Machine Learning
 ---------- 
