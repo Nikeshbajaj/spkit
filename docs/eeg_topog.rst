@@ -20,14 +20,14 @@ At t=0, X[0]
   plt.show()    
   
 
-.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/examples/figures/eeg_topo_1.png
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/examples/figures/eeg_topo_1.png
 
 ::
   
   plt.imshow(Zi,cmap='jet',origin='lower')
 
 
-.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/examples/figures/eeg_topo_sqr_1.png
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/examples/figures/eeg_topo_sqr_1.png
 
 
 **With Colorbar as voltage**
@@ -48,7 +48,7 @@ At t=0, X[0]
   plt.colorbar(im)
   plt.show()    
 
-.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/examples/figures/eeg_topo_2.png
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/examples/figures/eeg_topo_2.png
 
 
 ::
@@ -57,7 +57,7 @@ At t=0, X[0]
   plt.colorbar(im)
   plt.show() 
 
-.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/examples/figures/eeg_topo_sqr_2.png
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/examples/figures/eeg_topo_sqr_2.png
 
 
 Spatio-Spectral Map 
@@ -88,7 +88,7 @@ Spatio-Spectral Map
 
 ***Note that colorbar is not shown, and power in each band has different range***
 
-.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/examples/figures/eeg_ssfi_1.png
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/examples/figures/eeg_ssfi_1.png
 
 
 Spatio-Spectro-Temporal Map
@@ -128,4 +128,4 @@ According to Parseval's theorem, energy in time-domain and frequency domain rema
       fig.canvas.draw()
 
 
-.. image:: https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/examples/figures/eeg_dynamic_ssfi_1.gif
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/examples/figures/eeg_dynamic_ssfi_1.gif
