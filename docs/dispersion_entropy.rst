@@ -61,16 +61,18 @@ Pattern dictionary
 ::
   
   patterns_dict
-  
-{(1, 1): 18,
- (1, 2): 2,
- (1, 4): 1,
- (2, 1): 2,
- (2, 2): 23,
- (2, 3): 2,
- (2, 5): 1,
- (3, 1): 1,
- (3, 2): 2,  
+
+:: 
+   
+   {(1, 1): 18,
+    (1, 2): 2,
+    (1, 4): 1,
+    (2, 1): 2,
+    (2, 2): 23,
+    (2, 3): 2,
+    (2, 5): 1,
+    (3, 1): 1,
+    (3, 2): 2,  
   
 
 top 10 patters
@@ -81,17 +83,79 @@ top 10 patters
   idx = np.argsort(PP[:,-1])[::-1]
   PP[idx[:10],:-1]
 
-array([[ 5,  5],
-       [ 6,  6],
-       [ 4,  4],
-       [ 7,  7],
-       [ 6,  5],
-       [ 5,  6],
-       [10, 10],
-       [ 4,  5],
-       [ 5,  4],
-       [ 8,  8]], dtype=int64)
+
+::
+   
+   array([[ 5,  5],
+          [ 6,  6],
+          [ 4,  4],
+          [ 7,  7],
+          [ 6,  5],
+          [ 5,  6],
+          [10, 10],
+          [ 4,  5],
+          [ 5,  4],
+          [ 8,  8]], dtype=int64)
        
+
+Embedding diamension 4
+--------     
+
+::
+  
+  de,prob,patterns_dict,_,_= sp.dispersion_entropy(Xi,classes=20, scale=1, emb_dim=4, delay=1,return_all=True)
+  de
+
+4.86637389336799
+
+top 10 patters
+
+::
+   
+   PP = np.array([list(k)+[patterns_dict[k]] for k in patterns_dict])
+   idx = np.argsort(PP[:,-1])[::-1]
+   PP[idx[:10],:-1]
+
+::
+   
+   array([[10, 10, 10, 10],
+          [11, 11, 11, 11],
+          [12, 12, 12, 12],
+          [ 9,  9,  9,  9],
+          [11, 11, 10, 10],
+          [10, 10, 11, 11],
+          [11, 11, 11, 10],
+          [10, 10, 10, 11],
+          [10, 11, 11, 11],
+          [11, 10, 10, 10]], dtype=int64)
+
+
+top-10, non-constant pattern
+
+::
+  
+   Ptop = np.array(list(PP[idx,:-1]))
+   idx2 = np.where(np.sum(np.abs(Ptop-Ptop.mean(1)[:,None]),1)>0)[0]
+   plt.plot(Ptop[idx2[:10]].T,'--o')
+   plt.xticks([0,1,2,3])
+   plt.grid()
+   plt.show()
+   
+   
+   
+.. image:: figures/DE_Patt1.png
+
+
+::
+  
+  plt.figure(figsize=(15,5))
+  for i in range(10):
+       plt.subplot(2,5,i+1)
+       plt.plot(Ptop[idx2[i]])
+       plt.grid()
+
+.. image:: figures/DE_Patt2.png
+
 
 Dispersion Entropy with sliding window
 --------     
