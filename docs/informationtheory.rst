@@ -1,6 +1,8 @@
 Information Theory for Real-Valued signals
 ==========================================
 
+**Updating the documentation ...**
+
 
 Entropy of signal with finit set of values is easy to compute, since frequency for each value can be computed, however, for real-valued signal
 it is a little different, because of infinite set of amplitude values. For which spkit comes handy. 
@@ -131,7 +133,9 @@ Entropy of real-valued signal  (~ non-IID)
 -----------
   
 Spectral Entropy
-~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
+
+Though spectral entropy compute the entropy of frequency components cosidering that frequency distribuation is ~ IID, However, each frquency component has a temporal characterstics, so this is an indirect way to considering the temporal dependency of a signal 
 
 ::
   
@@ -139,22 +143,26 @@ Spectral Entropy
   H_se = sp.entropy_spectral(x,fs,method='welch')
 
 
-
-Sample Entropy
-~~~~~~~~~~~~~~~~~~~~~~ 
-
-::
-  
-  H_sam = sp.entropy_sample(x,m,r)
-
-
-
 Approximate Entropy
 ~~~~~~~~~~~~~~~~~~~~~~
+
+Aproximate Entropy is Embeding based entropy function. Rather than considering a signal sample, it consider the **m**-continues samples (a m-deminesional temporal pattern) as a symbol generated from a process. This set of "m-continues samples" is considered as "Embeding" and then estimating distribuation of computed symbols (embeddings). In case of a real valued signal, two embeddings will rarely be an exact match, so, the factor **r** is defined as if two embeddings are less than **r** distance away to each other, they are considered as same. This is a way to quantization of embedding and limiting the Embedding Space.
+
+For Aproximate Entropy the value of **r** depends the application and the order (range) of signal. One has to keep in mind that **r** is the distance be between two Embeddings (m-deminesional temporal pattern). A typical value of **r** can be estimated on based of SD of x  ~ 0.2*std(x).
 
 ::
   
   H_apx = sp.entropy_approx(x,m,r)
+
+
+Sample Entropy
+~~~~~~~~~~~~~~~
+
+Sample Entropy is a modified version of Approximate Entropy. m and r are same as in for Approximate entropy
+
+::
+  
+  H_sam = sp.entropy_sample(x,m,r)
 
 
 
