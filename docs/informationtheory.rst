@@ -1,12 +1,15 @@
 Information Theory for Real-Valued signals
 ==========================================
 
+
 Entropy of signal with finit set of values is easy to compute, since frequency for each value can be computed, however, for real-valued signal
 it is a little different, because of infinite set of amplitude values. For which spkit comes handy. 
 
-and (other such functions)
+***Following Entropy functions compute entropy based the on the sample distribuation, which by default consider process to be IID (Independent Identical Disstribuation) - which means no temporal dependency.***
 
-Entropy of real-valued signal
+***For temporal dependency (non-IID) signals, Spectral, Sample, Aproximate, SVD and Dispersion Entropy functions can be used. Which are discribed below***
+
+Entropy of real-valued signal  (~ IID)
 -----------
 
 `View in Jupyter-Notebook <https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Entropy_example.ipynb>`_
@@ -39,7 +42,7 @@ Entropy of real-valued signal
 
 
 Shannan entropy
------------
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
   
@@ -59,7 +62,7 @@ Shannan entropy
 
 
 Rényi entropy  (e.g. Collision Entropy)
------------
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
   
@@ -78,7 +81,7 @@ Rényi entropy  (e.g. Collision Entropy)
 
 
 Mutual Information & Joint Entropy
------------
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
   
@@ -94,7 +97,7 @@ Mutual Information & Joint Entropy
   Mutual Information I(x,y) =  0.05934937774825322
 
 Conditional entropy
------------
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
   
@@ -109,7 +112,7 @@ Conditional entropy
   Conditional Entropy of : H(y|x) =  4.9816745398211655
 
 Cross entropy & Kullback–Leibler divergence
------------  
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
   
@@ -123,10 +126,12 @@ Cross entropy & Kullback–Leibler divergence
   Cross Entropy of : H(x,y) = : 11.591688735915701
   Kullback–Leibler divergence : Dkl(x,y) = : 4.203058010473213
   
-  
+
+Entropy of real-valued signal  (~ non-IID)
+-----------
   
 Spectral Entropy
------------  
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
   
@@ -136,7 +141,7 @@ Spectral Entropy
 
 
 Sample Entropy
------------ 
+~~~~~~~~~~~~~~~~~~~~~~ 
 
 ::
   
@@ -145,7 +150,7 @@ Sample Entropy
 
 
 Approximate Entropy
------------ 
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
   
@@ -154,7 +159,7 @@ Approximate Entropy
 
 
 Singular Value Decomposition Entropy
------------ 
+~~~~~~~~~~~~~~~~~~~~~~
 
 ::
   
@@ -162,7 +167,7 @@ Singular Value Decomposition Entropy
 
 
 Permutation Entropy
------------ 
+~~~~~~~~~~~~~~~~~~~~~~ 
 
 ::
   
@@ -170,6 +175,10 @@ Permutation Entropy
 
 
 
+Dispersion Entropy
+~~~~~~~~~~~~~~~~~~~~~~
+
+check here (https://spkit.readthedocs.io/en/latest/dispersion_entropy.html)
   
   
 .. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
