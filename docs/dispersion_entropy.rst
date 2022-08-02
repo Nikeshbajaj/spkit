@@ -2,6 +2,7 @@ Dispersion Entropy
 ==================
 #TODO
 
+
 .. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
    :width: 200
    :align: right
@@ -12,7 +13,14 @@ Dispersion Entropy
 
 Backgorund
 ----------
-#TODO
+Unlike usual entropy, Dispersion Entropy take the temporal dependency into accounts, same as Sample Entropy and Aproximate Entropy. It is Embeding Based Entropy function. The idea of Dispersion is almost same as Sample and Aproximate, which is to extract Embeddings, estimate their distribuation and compute entropy. However, there is a fine detail that make dispersion entropy more usuful. 
+
+* First, is to map the distribuation original signal to uniform (using CDF), then divide them into n-classes. This is same as done for quantization process of any normally distributed signal, such as speech. In quantization, this mapping helps to minimize the quantization error, by assiging small quantization steps for samples with high density and large for low. Think this in a way, if in a signal, large number of samples belongs to a range (-0.1, 0.1), near to zero, your almost all the embeddings will have at least one value that is in that range. CDF mapping will avoid that. In this python implimentation, we have included other mapping functions, which are commonly used in speech processing, i.e. A-Law, and µ-Law, with parameter A and µ to control the mapping.
+
+* Second, it allows to extract Embedding with delay factor, i.e. if delay is 2, an embeding is continues samples skiping everu other sample. which is kind of decimation. This helps if your signal is sampled at very high sampling frequecy, i.e. super smooth in local region. Consider you hhave a signal with very high smapling rate, then many of the continues samples will have similar values, which will lead to have a very high number of contant embeddings.
+
+* Third, actuall not so much of third, but an alternative to deal with signal with very high sampling rate, is by scale factor, which is nothing but a decimator.
+
 
 
 Dispersion entropy
