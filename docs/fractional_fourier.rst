@@ -3,6 +3,22 @@ Fractional Fourier Transform
 
 #TODO
 
+`View in Jupyter-Notebook <https://nbviewer.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/FRFT_demo_sine.ipynb>`_
+~~~~~~~~~~~~~~~~~~~~~~
+
+
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
+   :width: 200
+   :align: right
+   :target: https://nbviewer.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/FRFT_demo_sine.ipynb
+   
+   
+
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/frft_sin_3.gif
+   :width: 800
+
+
+
 Fractional Fourier Transform
 ---------
 
