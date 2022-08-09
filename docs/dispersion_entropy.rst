@@ -1,14 +1,10 @@
 Dispersion Entropy
 ==================
-#TODO
-
-
 .. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/nav_logo.svg
    :width: 200
    :align: right
    :target: https://nbviewer.org/github/Nikeshbajaj/Notebooks/blob/master/spkit/SP/Dispersion_Entropy_1_demo_EEG.ipynb
 -----------------------------------------------------------------------------------------------------------------
-
 
 
 Backgorund
@@ -23,7 +19,7 @@ Unlike usual entropy, Dispersion Entropy take the temporal dependency into accou
 
 
 
-Dispersion entropy
+An Example
 --------
 ::
   
@@ -44,7 +40,21 @@ Dispersion entropy
 
 2.271749287746759
 
-Probability of all the patterns found
+
+Important Note:  **Log base**
+~~~~~~
+
+The Entropy here is computed as  :math:`-\sum p(x)log_e (p(x))` , natural log. **To convert to log2, simply divide the value with np.log(2)**
+
+::
+   
+   de/np.log(2)
+
+
+3.2774414315752844
+
+
+**Probability of all the patterns found**
 
 ::
   
@@ -189,22 +199,27 @@ Dispersion Entropy multiscale
   
   
   for scl in [1,2,3,5,10,20,30]:
-    de,_ = sp.dispersion_entropy(Xi,classes=10, scale=scl, emb_dim=2, delay=1,return_all=False)
-    print(f'Sacle: {scl}, \t: DE: {de}')
-    
- 
-Sacle: 1, 	: DE: 2.271749287746759
-Sacle: 2, 	: DE: 2.5456280627759336
-Sacle: 3, 	: DE: 2.6984938704051236
-Sacle: 5, 	: DE: 2.682837351130069
-Sacle: 10, 	: DE: 2.5585556625642476
-Sacle: 20, 	: DE: 2.7480275694000103
-Sacle: 30, 	: DE: 2.4767472897625806
+     de,_ = sp.dispersion_entropy(Xi,classes=10, scale=scl, emb_dim=2, delay=1,return_all=False)
+     print(f'Sacle: {scl}, \t: DE: {de}')
+     
+     
+::
+
+   Sacle: 1, 	: DE: 2.271749287746759
+   Sacle: 2, 	: DE: 2.5456280627759336
+   Sacle: 3, 	: DE: 2.6984938704051236
+   Sacle: 5, 	: DE: 2.682837351130069
+   Sacle: 10, 	: DE: 2.5585556625642476
+   Sacle: 20, 	: DE: 2.7480275694000103
+   Sacle: 30, 	: DE: 2.4767472897625806
 
 
+::
+  
   help(sp.dispersion_entropy)
   
-  
+
+
 Mltiscale-refined Dispersion Entropy
 --------
 
@@ -213,6 +228,7 @@ Mltiscale-refined Dispersion Entropy
   de,_ = sp.dispersion_entropy_multiscale_refined(Xi,classes=10, scales=[1, 2, 3, 4, 5], emb_dim=2, delay=1)
   print(de)
  
+
 2.543855087400606
 
 
