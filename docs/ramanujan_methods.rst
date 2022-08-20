@@ -1,4 +1,4 @@
-Ramanjum Filter Banks  
+Ramanujan Filter Banks  
 =====================
 
 Period estimation using RFB - (spkit version 0.0.9.4) 
