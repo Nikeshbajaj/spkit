@@ -94,7 +94,7 @@ Ramanujan Filter Banks for Period Estimation
 .. toctree::
    :maxdepth: 3
    
-   ramanujam_methods
+   ramanujan_methods
 
 
 Analysis and Sythesis Models
