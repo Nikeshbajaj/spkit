@@ -35,12 +35,12 @@ Signal Processing Toolkit - Documentation!
 :Home: https://spkit.github.io  
 
 
-Homepage *spkit* - https://spkit.github.io
-----------
+* Homepage *spkit* - https://spkit.github.io
 
-New Guide: - https://spkit.github.io/guide/ 
-----------
- -- Under preperation
+* New Guide: - https://spkit.github.io/guide/ 
+
+.. 
+  -- Under preperation
  
 Getting started
 ----------
