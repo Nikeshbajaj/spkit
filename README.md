@@ -293,7 +293,7 @@ s4 = ica.transform(x.T)
 
 ### [Decision Trees](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/blob/master/spkit_ML/DecisionTree/1_Tree_ClassificationRegression_spkitV0.0.5.ipynb) - *View in notebook*
 
-[**[jupyter-notebooks]**](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit/0.0.9/ML/Trees/) | **[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Nikeshbajaj/Notebooks/master?urlpath=lab/tree/spkit/0.0.9/ML/Trees)**
+[**[jupyter-notebooks]**](https://nbviewer.jupyter.org/github/Nikeshbajaj/Notebooks/tree/master/spkit/0.0.9/ML/Trees/) | **[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Nikeshbajaj/Notebooks/master?urlpath=lab/tree/spkit/0.0.9/ML/Trees) [![Join the chat at https://gitter.im/spkitpy/community](https://badges.gitter.im/spkitpy/community.svg)](https://gitter.im/spkitpy/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)**
 <p align="center">
 <img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/tree_sinusoidal.png" width="800"/>
 <img src="https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/trees.png" width="800"/>
