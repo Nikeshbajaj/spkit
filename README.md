@@ -28,6 +28,8 @@
 <a href="https://doi.org/10.5281/zenodo.4710694"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.4710694.svg" alt="DOI"></a>
 -->
 
+ [![Join the chat at https://gitter.im/spkitpy/community](https://badges.gitter.im/spkitpy/community.svg)](https://gitter.im/spkitpy/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
  
 ## **[New Documentation](https://spkit.github.io/guide)**
 
