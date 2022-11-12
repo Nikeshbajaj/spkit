@@ -97,7 +97,7 @@ Ramanujan Filter Banks for Period Estimation
    ramanujan_methods
 
 
-Analysis and Sythesis Models
+Analysis and Synthesis Models
 ---------- 
 
 .. toctree::
@@ -106,12 +106,12 @@ Analysis and Sythesis Models
    analysis_synthesis_models
 
 
-DFT and STFT for Analysis and Sythesis of signals
+DFT and STFT for Analysis and Synthesis of signals
 ---------- 
 
 #TODO
 
-Franctional Fourier Transform
+Fractional Fourier Transform
 ---------- 
 
 .. toctree::
@@ -183,7 +183,7 @@ LFSR
    
    pylfsr
 
-API DOc
+API Doc
 ---------- 
 
 .. toctree::
