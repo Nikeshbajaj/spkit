@@ -111,6 +111,13 @@ Following functionaliets are added in 0.0.9.3 version
 pip install spkit
 ```
 
+### with conda
+
+```
+conda install -c nikeshbajaj spkit
+```
+
+
 ### update with pip
 
 ```
