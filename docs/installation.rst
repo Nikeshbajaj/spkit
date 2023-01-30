@@ -20,6 +20,17 @@
   pip install spkit
 
 
+**With conda:**
+
+::
+  
+  conda install -c nikeshbajaj spkit
+
+
+
+
+
+
 **Build from source**
 
 Download the repository or clone it with git, after cd in directory build it from source with
