@@ -21,13 +21,16 @@ if sys.version_info[:2] < (3, 3):
             file = kwargs.get('file', sys.stdout)
             # Why might file=None? IDK, but it works for print(i, file=None)
             file.flush() if file is not None else sys.stdout.flush()
-#from .ICA_methods import ICA
-from core.matDecomposition import ICA, SVD
+
+
 #from matplotlib.gridspec import GridSpec
 from scipy.stats import kurtosis, skew
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import get_window
+
+#from .ICA_methods import ICA
+from ..core.matDecomposition import ICA, SVD
 import utils
 
 def ICA_filtering(X,winsize=128,ICA_method='extended-infomax',kur_thr=2,corr_thr=0.8,AF_ch_index =[0,13],

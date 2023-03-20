@@ -179,7 +179,6 @@ def TopoMap(pos, data,res=64, showplot=False,axes=None,contours=True,showsensors
         if returnIm: return Zi, im
     return Zi
 
-
 ch_names = ['AF3','F7','F3','FC5','T7','P7','O1','O2','P8','T8','FC6','F4','F8','AF4']
 pos, ch1 = s1020_get_epos2d_(ch_names, reorder=False)
 
@@ -198,13 +197,12 @@ def Gen_SSFI(X,pos=pos,res=64,NormalizeEachBand=False,prebar=' ',newline=False):
             if NormalizeEachBand: f /= f.sum()    #Not a good idea, loos the relativeity of bands
             #im,_ = plot_topomap(f[eOrder],epos,show=False,cmap='jet',res=64)
             #Zi = GI.get_Grid(f)
-            Zi = TopoMap(pos,f)
+            Zi = TopoMap(pos,data=f,res=res, showplot=False)
             img.append(Zi)
             band +=14
         Ximages.append(np.array(img))
     if newline: print(' ')
     return np.array(Ximages)
-
 
 def showTOPO(Zi,pos,ch_names,axes=None,vmin=None, vmax=None,res=64,interpolation=None,
              contours=True,showsensors=True,shownames=True,showhead=True):
@@ -243,7 +241,6 @@ def showTOPO(Zi,pos,ch_names,axes=None,vmin=None, vmax=None,res=64,interpolation
         ax.plot(0,0.54,'2k',ms=30)
     return im
 
-
 def _test_():
     #print('testing.......dependancies')
     filen ='Standard_1020.csv'
@@ -254,11 +251,6 @@ def _test_():
     from matplotlib import patches
     import itertools
     #print('..............done')
-
-
-
-
-
 
 try:
     _test_()

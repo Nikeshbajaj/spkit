@@ -1,9 +1,51 @@
 ##------------------------------Dataset Generators---------------------------------------------
 from __future__ import absolute_import, division, print_function
+
+import sys, os
+if sys.version_info[:2] < (3, 3):
+    old_print = print
+    def print(*args, **kwargs):
+        flush = kwargs.pop('flush', False)
+        old_print(*args, **kwargs)
+        if flush:
+            file = kwargs.get('file', sys.stdout)
+            # Why might file=None? IDK, but it works for print(i, file=None)
+            file.flush() if file is not None else sys.stdout.flush()
+
 import numpy as np
 import matplotlib.pyplot as plt
 
 def mclassGaus(N=100, nClasses = 2,var =0.1,ShowPlot=False):
+    y = []
+    X =np.zeros([2,1])
+
+    bi = list(range(-1,2))
+    bx1,bx2 =np.meshgrid(bi,bi)
+    bx1 = np.reshape(bx1,-1)
+    bx2 = np.reshape(bx2,-1)
+
+    ind = list(range(bx1.shape[0]))
+    np.random.shuffle(ind)
+
+    for i in range(nClasses):
+        x1 = var*np.random.randn(1,N) + bx1[ind[i]]
+        x2 = var*np.random.randn(1,N) + bx2[ind[i]]
+        xi = np.vstack([x1,x2])
+        X = np.hstack([X,xi])
+        y  = y + [i]*N
+
+    X = np.delete(X,0,1)
+    y = np.array(y)
+    y = np.reshape(y,[1,y.shape[0]])
+    print(X.shape,y.shape)
+    if ShowPlot:
+        for i in range(nClasses):
+            ii = np.where(y==i)[1]
+            plt.plot(X[0,ii],X[1,ii],'*')
+        plt.show()
+    return X,y
+
+def mclass_gauss(N=100, nClasses = 2,var =0.1,ShowPlot=False):
     y = []
     X =np.zeros([2,1])
 

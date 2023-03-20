@@ -27,7 +27,8 @@ if sys.version_info[:2] < (3, 3):
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import periodogram, welch
-from scipy import stats
+from scipy import stats as scipystats
+from .infomation_theory_advance import cdf_mapping
 
 # Probability distribuation is computed using histogram
 # and optimal bin size of histogram is computed using Freedman–Diaconis rule
@@ -176,7 +177,7 @@ def entropy_cross(x,y,base=2):
     if base !='e': H = H/np.log(base)
     return H
 
-def entropy_spectral(x,fs,method='fft',alpha=1,base=2,normalize=True,axis=-1,nperseg=None,bining=True):
+def entropy_spectral(x,fs,method='fft',alpha=1,base=2,normalize=True,axis=-1,nperseg=None,bining=False):
     '''
     Spectral Entropy
     Measure of the uncertainity of frequency components in a Signal
@@ -455,7 +456,7 @@ def bin_width(x,method='fd'):
     n = len(x)
     if method=='fd':
         #Freedman–Diaconis' choice
-        IQR = stats.iqr(x)
+        IQR = scipystats.iqr(x)
         bw  = 2.0*IQR/(n**(1/3))
         k = np.ceil((np.max(x)-np.min(x))/bw).astype(int)
     elif method=='sqrt':
@@ -472,7 +473,7 @@ def bin_width(x,method='fd'):
         bw  = (np.max(x)-np.min(x))/k
     elif method=='doane':
         #Doane's formula
-        sk_g = np.abs(stats.skew(x))
+        sk_g = np.abs(scipystats.skew(x))
         sg_g = np.sqrt(6*(n-2)/((n+1)*(n+3)))
         gnn  = 1 + sk_g/sg_g
         k    = 1 + np.log2(n) + np.log2(gnn)
@@ -483,6 +484,8 @@ def bin_width(x,method='fd'):
         sig = np.std(x)
         bw  = 3.49*sig/(n**(1/3))
         k = np.ceil((np.max(x)-np.min(x))/bw).astype(int)
+    else:
+        raise NameError("Undefined Method: should be one of {'fd','sqrt','sturges','rice','doane','scott'}")
     return bw,k
 
 def binSize_FD(x):
@@ -499,7 +502,7 @@ def binSize_FD(x):
     ------
     bw : bin width
     '''
-    IQR = stats.iqr(x)
+    IQR = scipystats.iqr(x)
     bw =  2.0*IQR/(len(x)**(1/3))
     return bw
 
@@ -544,7 +547,7 @@ def Quantize(x,scale=1,min_bins=2,A=None, Mu=None,cdf_map=False,nbins=None):
     if Mu is not None:
         x0 = Mu_law(x0,Mu=Mu,encoding=True)
     if cdf_map:
-        x0 = ncdf_mapping(x0)
+        x0 = cdf_mapping(x0)
     xmin = np.min(x0)
     xmax = np.max(x0)
     if nbins is None:
@@ -556,6 +559,111 @@ def Quantize(x,scale=1,min_bins=2,A=None, Mu=None,cdf_map=False,nbins=None):
     y = np.clip(y,0,1)
     y = y*(xmax-xmin) + xmin
     return y
+
+def quantize_signal(x,n_levels=None,A=None,Mu=None,cdf_map=False,keep_range=True,bin_method='fd',bin_scale=1,min_levels=2):
+    '''
+    Quantize signal into discreet levels
+    ------------------------------------
+
+    Before quantization, signal is equalise using either of three methods
+    (1) A-Law, (2) Mu-Law, or (3) Cummulative Distribution Function
+
+
+    input
+    -----
+    x: 1d-array, input signal
+
+    n_levels: int, >1, default=None
+              if None, number of levels are computed based on optimum bin of signal distribuation
+              according to given method (default='fd': Freedman–Diaconis rule).
+              While computing, n_levels, following two parameters are effective; bw_scale, min_levels
+
+        if n_levels=None:
+            bin_method: str, default='fd', {'fd','sqrt','sturges','rice','doane','scott'}
+                        Method to compute bin width 'fd' (Freedman Diaconis Estimator)
+
+
+            bin_scale: scaler, +ve, default=1
+                     It is used to scale the bin width computed by Freedman–Diaconis rule. Higher it is less number of levels are estimated
+
+            min_levels, int, +ve, default=2, while computing n_levels, ensuring the minimum number of levels
+
+    Distribution Equalization: Only one of following can be applied
+     A: int,>0, default=None
+       if not None, A-Law compading is applied to equalise the distribution
+       A>0, A=1, means identity funtion
+
+     Mu: int,>=0, default=None
+       if not None, Mu-Law compading is applied to equalise the distribution
+       Mu>=0, Mu=0 mean identity funtion
+
+     cdf_map: bool, default=False
+            If true, CDF mapping is applied to equalise the distribution
+
+
+    keep_range: bool, default=True
+              If True, return quantized signal is rescaled to its original range, else returned signal is in range of 0 to 1
+
+
+    output
+    ------
+    y:  Quantized signal, same size as x
+        if keep_range=True, y has same range as x, else 0 to 1
+
+    y_int: Quantized signal as integer level, ranges from 0 to n_levels-1
+           Useful to map signal in post-processing
+
+
+    '''
+    # both A-Law and Mu-Law can (should) not be applied
+    # choose only one
+    assert (1*(A is not None) + 1*(Mu is not None) + 1*(cdf_map))<=1
+    assert n_levels>1
+    x0 = x.copy()
+    x_min = np.nanmin(x0)
+    x_max = np.nanmax(x0)
+    #print(x_min, x_max)
+
+    if A is not None or Mu is not None:
+        x0 = x0/np.abs(x0).max()
+
+    if A is not None:
+        x0 = A_law(x0,A=A,companding=True)
+    if Mu is not None:
+        x0 = Mu_law(x0,Mu=Mu,companding=True)
+    if A is not None or Mu is not None:
+        x0 = (x0+1)/2
+
+    if cdf_map:
+        x0 = cdf_mapping(x0)
+        #x0 = 2*(x0-0.5)
+
+    if A is None and Mu is None and (cdf_map==False):
+        #x0_min, x0_max = np.min(x0), np.min(x0)
+        x0 = x0 - np.nanmin(x0)
+        x0 = x0/np.nanmax(x0)
+
+    #print(np.min(x0), np.max(x0), 'from 0 to 1')
+
+    # SINGAL IS NOW BEWEEN 0 to 1
+    if n_levels is None:
+        xmin,xmax = np.min(x0), np.max(x0)
+        bw, _ = bin_width(x0,method=bin_method)
+        #bw = binSize_FD(x0)*bin_scale
+        bw *= bin_scale
+        n_levels = np.clip(np.ceil((xmax-xmin)/bw).astype(int),min_bins,None)
+        #print(n_levels)
+
+    #x0 = (x0 - xmin)/(xmax-xmin)
+    y_int = np.round(x0*(n_levels-1))
+
+    y = y_int/(n_levels-1)
+    y = np.clip(y,0,1)
+
+    if keep_range:
+        #y = 2*(y-0.5)
+        y = y*(x_max-x_min) + x_min
+    return y, y_int
 
 #
 def plotJointEntropyXY(x,y,Venn=True, DistPlot=True,JointPlot=True,printVals=True):

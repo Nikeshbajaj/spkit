@@ -26,14 +26,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys, scipy
 from scipy import linalg as LA
-try:
-    import cvxpy
-except:
-    print('install cvxpy for L1 norm minimization for PeriodStrength fun (Ramanujan methods)')
-
+import warnings
 
 def RFB(x, Pmax=10, Rcq=10, Rav=2, Th=0.2,Penalty=None,return_filters=False, apply_averaging=True):
-    '''
+    r'''
+
     Ramanujan Filter Banks for Estimation and Tracking of Periodicity
     -----------------------------------------------------------------
 
@@ -218,6 +215,16 @@ def PeriodStrength(x,Pmax,method='Ramanujan',lambd=1,L=1,cvxsol=False):
     Python impletation is done by using matlab code version from
     - http://systems.caltech.edu/dsp/students/srikanth/Ramanujan/
     '''
+    if cvxsol:
+        try:
+            import cvxpy
+        except Exception as err:
+            wst =  "cvxpy is not installed! use 'pip install cvxpy --user' \n"
+            wst += "install cvxpy for L1 norm minimization for PeriodStrength fun (Ramanujan methods)"
+            wst += "Or set 'cvxsol=False' to use LMS\n"
+            wst += f"Unexpected {err=}, {type(err)=}"
+            warnings.warn(wst,stacklevel=2)
+            raise
     assert np.ndim(x)==1
     #Nmax = Pmax
     A = Create_Dictionary(Pmax,x.shape[0],method)

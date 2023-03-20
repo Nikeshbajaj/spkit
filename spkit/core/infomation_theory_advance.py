@@ -26,7 +26,7 @@ if sys.version_info[:2] < (3, 3):
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import periodogram, welch
-from scipy import stats
+from scipy import stats as scipystats
 from .infotheory import *
 
 def low_resolution(x, scale):
@@ -66,7 +66,7 @@ def cdf_mapping(x):
     N   = len(x)
     mu  = np.mean(x)
     sig = np.std(x) if np.std(x) != 0 else 0.001
-    ncdf  = stats.norm(loc=mu, scale=sig)
+    ncdf  = scipystats.norm(loc=mu, scale=sig)
     x_cdf = ncdf.cdf(x)
     return x_cdf
 

@@ -13,13 +13,8 @@ if sys.version_info[:2] < (3, 3):
             file.flush() if file is not None else sys.stdout.flush()
 
 import numpy as np
-from scipy  import stats as scipystats
-
-# RELATIVE PATH NAMED TO BE CHANGED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-sys.path.append("..")
-from spkit.core.infotheory import entropy
-from spkit.all_utils.borrowed import resize
+from scipy  import stats
+from ..core.infotheory import entropy
 import warnings
 
 class bcolors:

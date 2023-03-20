@@ -11,7 +11,7 @@ sys.path.append(os.path.dirname(__file__))
 
 #from .infotheory import *
 #from .matDecomposition import ICA, SVD #ICA
-from .processing import *
-import cwt
+#from .processing import *
+#from . import cwt
 
 #__all__ = ['ICA', 'SVD','cwt']

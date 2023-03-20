@@ -29,6 +29,9 @@ from scipy.fftpack import fft, ifft, fftshift
 from scipy.signal import blackmanharris, triang
 from scipy import signal
 
+from .processing import sinc_interp, conv_fft
+
+
 def frft(x,alpha=0.1,method=1):
     '''
     Fractional Fourier Transform
@@ -79,7 +82,7 @@ def frft(x,alpha=0.1,method=1):
         if verbose: print(x0.shape)
         tanf = np.tan(alpha_r/2)
         sinf = np.sin(alpha_r)
-        x0 = np.r_[np.zeros(N-1), interp(x0), np.zeros(N-1)]
+        x0 = np.r_[np.zeros(N-1), sinc_interp(x0), np.zeros(N-1)]
         if verbose:print(alpha_r,tanf,sinf)
         if verbose: print(x0.shape)
         if verbose>1:print(x0.real)
@@ -133,27 +136,6 @@ def ifrft(x,alpha=0.1,method=1, verbose=0):
     '''
     return frft(x,alpha=-alpha,method=method, verbose=verbose)
 
-
-
-def interp(x):
-    #sinc interpolation
-    N = len(x)
-    y = np.zeros(2*N-1) + 1j*0
-    y[::2] = x.copy()
-    t0 = np.arange(-(2*N-3),(2*N-3)+1)/2
-    x_intp = conv_fft(y, np.sinc(t0))
-    #x_intp = x_intp[2*N-2:-2*N+3]
-    x_intp = x_intp[2*N-2-1:-2*N+3]
-    return x_intp
-
-def conv_fft(x,y):
-    N = len(x) + len(y)-1
-    P = 2**np.ceil(np.log2(N)).astype(int)
-    z = np.fft.fft(x,P)*np.fft.fft(y,P)
-    z = np.fft.ifft(z)
-    z = z[:N]
-    return z
-
 def ffrft(x, alpha):
     '''
     Fast Fractional Fourier Transform
@@ -194,7 +176,6 @@ def ffrft(x, alpha):
     Y = Y*alpha_ph
 
     return np.sum(Y,1) / 4
-
 
 def iffrft(x, alpha):
     '''

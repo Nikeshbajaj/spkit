@@ -590,6 +590,7 @@ class DecisionTree(object):
         if DT is None: DT = self.get_tree()
         if shrink:
             DT0 = self.shrinkTree(DT,max_depth=max_depth)
+            DT0 = self.pruneTree(DT0)
             self.tree = DT0
     def plotTree_(self,scale=True,show=True, showtitle =True, showDirection=False,DiffBranchColor=True,legend=True):
         if not(self.trained):

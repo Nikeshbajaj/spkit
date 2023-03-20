@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import scipy, spkit, copy
+import scipy, copy
 from scipy import signal
 from scipy.signal import butter, lfilter, filtfilt
 from scipy.signal import savgol_filter

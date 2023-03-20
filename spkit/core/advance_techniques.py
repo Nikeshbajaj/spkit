@@ -1001,3 +1001,27 @@ def sineModel_synthesis(fXt,mXt,pXt,fs,overlap,crop_end=False):
     y = y[hN:]
     if crop_end: y = y[-overlap:]
     return y
+
+
+#TOBE TESTED
+def simplify_signal(x,fs,winlen,overlap,mag=-1,N=1,thr=-20,minDur=0.01,freq_devOffset=10,freq_devSlope=0.1,window='blackmanharris'):
+    r"""
+    Simplify a signal with Sinasodal Decomposition-Recomposition Model
+    -----------------------------------------------------------------
+
+
+
+
+    """
+    fXst, mXst, pXst = sineModel_analysis(x,fs,winlen=winlen,overlap=overlap,
+                          window=window, nfft=None, thr=thr,
+                          maxn_sines=N,minDur=minDur, freq_devOffset=freq_devOffset,freq_devSlope=freq_devSlope)
+
+
+    if mag<0:
+        xr = sineModel_synthesis(fXst, mXst, pXst,fs,overlap=overlap)
+    else:
+        xr = sineModel_synthesis(fXst, mXst*0+mag, pXst,fs,overlap=overlap)
+
+    xr = xr[:len(x)]
+    return xr, (fXst, mXst, pXst)
