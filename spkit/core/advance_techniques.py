@@ -2,8 +2,8 @@
 Advance signal processing methods
 --------------------------------
 Author @ Nikesh Bajaj
-updated on Date: 1 Jan 2022
-Version : 0.0.1
+updated on Date: 27 March 2023. Version : 0.0.5
+updated on Date: 1 Jan 2022. Version : 0.0.1
 Github :  https://github.com/Nikeshbajaj/spkit
 Contact: n.bajaj@qmul.ac.uk | n.bajaj@imperial.ac.uk
 '''

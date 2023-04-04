@@ -1,3 +1,14 @@
+'''
+Something Magical and Fun with Geomatry
+------------------------------------------
+Author @ Nikesh Bajaj
+updated on Date: 27 March 2023. Version : 0.0.1
+Github :  https://github.com/Nikeshbajaj/spkit
+Contact: n.bajaj@qmul.ac.uk | n.bajaj@imperial.ac.uk
+'''
+
+
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -6,7 +17,7 @@ import sys, os
 
 from . import basic_geo as G
 from ..core.processing import filterDC_sGolay
-from ..all_utils.borrowed import resize
+from ..utils_misc.borrowed import resize
 from scipy import signal
 from scipy.special import ellipkinc,ellipj, ellipk
 

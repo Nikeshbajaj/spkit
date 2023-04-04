@@ -29,7 +29,7 @@ from scipy.fftpack import fft, ifft, fftshift
 from scipy.signal import blackmanharris, triang
 from scipy import signal
 
-from .processing import sinc_interp, conv_fft
+from .processing import sinc_interp, conv1d_fft
 
 
 def frft(x,alpha=0.1,method=1):
@@ -103,7 +103,7 @@ def frft(x,alpha=0.1,method=1):
 
         t0 = np.arange(-(4*N-4),4*N-4+1)
         chrp1 = np.exp(1j*coef*(t0**2))
-        Xa = conv_fft(chrp1,x0)
+        Xa = conv1d_fft(chrp1,x0)
         if verbose: print(x0.shape,Xa.shape)
         Xa = np.sqrt(coef/np.pi)*Xa[4*N-3-1:8*N-7]
         #Faf = Faf(4*N-3:8*N-7)*sqrt(c/pi);
@@ -125,9 +125,10 @@ def frft(x,alpha=0.1,method=1):
         return Xa
 
     elif method==2:
-        sin_x = np.pi/(N+1)/np.sin(alpha)/4
-        t = np.pi/(N+1)*np.tan(alpha/2)/4
-        Cs = np.sqrt(s/np.pi)*np.exp(-1j*(1-a)*np.pi/4)
+        #sin_x = np.pi/(N+1)/np.sin(alpha)/4
+        #t = np.pi/(N+1)*np.tan(alpha/2)/4
+        #Cs = np.sqrt(s/np.pi)*np.exp(-1j*(1-a)*np.pi/4)
+        raise NotImplementedError('Not implemented yet')
 
 def ifrft(x,alpha=0.1,method=1, verbose=0):
     '''

@@ -379,7 +379,7 @@ class LogisticRegression():
             if J<self.tol: break
 
         if J>self.tol:
-            if verbose: print('Cost did not reduce to ' +st(self.tol)+', try incearsing number of iteration or tolarance threshold')
+            if verbose: print('Cost did not reduce to ' +str(self.tol)+', try incearsing number of iteration or tolarance threshold')
         self.trainded = True
 
     def PolyFeature(self,X,degree=2):

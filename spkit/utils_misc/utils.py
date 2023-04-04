@@ -13,15 +13,8 @@ if sys.version_info[:2] < (3, 3):
             file.flush() if file is not None else sys.stdout.flush()
 
 import numpy as np
-from scipy  import stats as scipystats
-
-# RELATIVE PATH NAMED TO BE CHANGED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-sys.path.append("..")
-from spkit.core.infotheory import entropy
-from spkit.utils_misc.borrowed import resize
-#from .core.infotheory import entropy
-#from .all_utils.borrowed import resize
+from scipy  import stats
+from ..core.infotheory import entropy
 import warnings
 
 class bcolors:
@@ -135,7 +128,7 @@ def warning_on_one_line(message, category, filename, lineno, file=None, line=Non
 
 warnings.formatwarning = warning_on_one_line
 
-def view_hierarchical_order(file_obj,sep=' ├── ',level=0,st='',show=True,return_str=False):
+def view_hierarchical_order(file_obj,sep='-->|',level=0,st='',show=True,return_str=False):
     r"""
     View nested dictionary type objects as hierarchical tree-order
     --------------------------------------------------------------

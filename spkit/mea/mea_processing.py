@@ -2,10 +2,9 @@
 
 MEA Processing Library
 --------------------
-
 Author @ Nikesh Bajaj
-updated on Date: 16 March 2023
-Version : 0.0.1
+pdated on Date: 27 March 2023. Version : 0.0.2
+updated on Date: 16 March 2023, Version : 0.0.1
 Github :  https://github.com/Nikeshbajaj/spkit
 Contact: n.bajaj@qmul.ac.uk | n.bajaj@imperial.ac.uk | nikesh.bajaj@qmul.ac.uk
 
@@ -20,10 +19,10 @@ from scipy.signal import find_peaks,find_peaks_cwt,peak_prominences, peak_widths
 import seaborn as sns
 #import io.read_hdf as read_hdf
 #from io_utilis import read_hdf
-from ..all_utils.io_utils import read_hdf
+from ..utils_misc.io_utils import read_hdf
 from ..core.processing import fill_nans_2d, conv2d_nan, filterDC_sGolay
 from ..core.processing import get_activation_time, get_repolarisation_time, agg_angles, show_compass, direction_flow_map
-
+from ..utils import bcolors
 
 
 def get_stim_loc(X,fs=25000,ch=0,fhz=1,N=None,method='max_dvdt',gradient_method='fdiff',sg_window=11,sg_polyorder=3,gauss_window=0,gauss_itr=1, plot=1,verbose=False,figsize=(15,3)):
@@ -201,7 +200,8 @@ def find_bad_channels_idx_v0(X,thr=0.0001,fs=25000,mnmx=[None, None],plot=True,v
     #TODO
 
     """
-
+    CRED = '\033[91m'
+    ENDC = '\033[0m'
 
     bad_channels_idx = []
     for k,x in enumerate(X):
@@ -1637,7 +1637,7 @@ def feature_mat(features,ch_labels,bad_channels=[]):
     Fx_bad[Fx_bad==0] = np.nan
     return Fx, Fx_bad
 
-def compute_cv(Ax,Ax_bad,eD=700,esp=1e-10,cv_pad=np.nan,cv_thr=100,arr_agg='mean',plots=1,verbose=True,flip=False,**kwargs):
+def compute_cv(Ax,Ax_bad,eD=700,esp=1e-10,cv_pad=np.nan,cv_thr=100,arr_agg='mean',plots=1,verbose=True,flip=False,silent_mode=False,**kwargs):
     """
     Compute Conduction Velocity
     --------------------------
@@ -1703,6 +1703,12 @@ def compute_cv(Ax,Ax_bad,eD=700,esp=1e-10,cv_pad=np.nan,cv_thr=100,arr_agg='mean
     --------
 
     """
+
+    if silent_mode:
+        verbose=0
+        plots=0
+
+
     # Time-gradient
     if flip:
         Ax_dx = np.gradient(Ax[::-1],axis=1)
@@ -2486,11 +2492,14 @@ def analyse_mea_file(file_name,stim_fhz,fs=25000,egm_number=-1,
     mat_list_show([Ax, Ax*Mxbad, AxI],figsize=(15,4),vmin=map_prop['at_range'][0],vmax=map_prop['at_range'][1],grid=(1,3),
                   titles=['Activation Time', '- Bad Channels', 'Interpolated Activation Time'],labels=['ms','ms','ms'])
 
-
+    mat_list_show([AxI, AxIx],figsize=(15,4),vmin=map_prop['at_range'][0],vmax=map_prop['at_range'][1],grid=(1,3),
+                  titles=['Interpolated (preserving original values)', 'Interpolation-Smooth'],labels=['ms','ms'])
 
     #=============STEP 9: Computing Conduction Velocity ================
 
     CV_df, CV_thetas, CV0, CV = compute_cv(AxI,Mxbad,flip=False,**cv_param)
+
+    _, CV_thetas_smooth, _, _ = compute_cv(AxIx,Mxbad,flip=False,silent_mode=True,**cv_param)
     #------------------------------------------------------------------------
 
 
@@ -2503,13 +2512,14 @@ def analyse_mea_file(file_name,stim_fhz,fs=25000,egm_number=-1,
     Features_ch['cv_cm_s'] = unarrange_mea_grid(CV.copy(), ch_labels=ch_labels)
 
 
-
     Features_mat['AT']      = Ax
     Features_mat['AT_intp'] = AxI
+    Features_mat['AT_smmoth'] = AxIx
     Features_mat['CV']      = CV
     Features_mat['CV_intp'] = CV0
     Features_mat['Bad_ch']  = Mxbad
     Features_mat['Angle']   = CV_thetas
+    Features_mat['Angle_smooth']   = CV_thetas_smooth
 
     Features_df['Interpolated']= {}
     Features_df['Original']= {}
@@ -2549,6 +2559,7 @@ def analyse_mea_file(file_name,stim_fhz,fs=25000,egm_number=-1,
     Features_df = pd.DataFrame([Features_df['Original'],Features_df['Interpolated']], index=['Original','Interpolated']).T
     if verbose:
         try:
+            from IPython import display
             display(CV_df.round(3))
         except:
             print(CV_df.round(3))
@@ -2584,6 +2595,15 @@ def analyse_mea_file(file_name,stim_fhz,fs=25000,egm_number=-1,
                            heatmap_prop =dict(vmin=map_prop['at_range'][0],vmax=map_prop['at_range'][1],cmap=map_prop['at_cmap']),
                            arr_prop =map_prop['cv_arr_prop'],
                            stream_prop =dict(density=1,color='k',linewidth=2))
+
+    print('Smooth Plot')
+    
+    _  = direction_flow_map(X_theta=CV_thetas_smooth,X=AxIx,upsample=1,
+                        figsize=(15,7),square=True,cbar=False,arr_pivot=pivot,
+                        stream_plot=True,title='CV',show=True,
+                        heatmap_prop =dict(vmin=map_prop['at_range'][0],vmax=map_prop['at_range'][1],cmap=map_prop['at_cmap']),
+                        arr_prop =map_prop['cv_arr_prop'],
+                        stream_prop =dict(density=1,color='k',linewidth=2))
 
 
     print('With upsampling by 2')

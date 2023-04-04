@@ -3,8 +3,8 @@ MEA Processing Library
 --------------------
 
 Author @ Nikesh Bajaj
-updated on Date: 16 March 2023
-Version : 0.0.1
+updated on Date: 27 March 2023. Version : 0.0.2
+updated on Date: 16 March 2023, Version : 0.0.1
 Github :  https://github.com/Nikeshbajaj/spkit
 Contact: n.bajaj@qmul.ac.uk | n.bajaj@imperial.ac.uk | nikesh.bajaj@qmul.ac.uk
 
@@ -14,7 +14,7 @@ Contact: n.bajaj@qmul.ac.uk | n.bajaj@imperial.ac.uk | nikesh.bajaj@qmul.ac.uk
 from __future__ import absolute_import, division, print_function
 
 name = "Signal Processing toolkit | MEA Processing"
-__version__ = '0.0.1'
+__version__ = '0.0.3'
 __author__ = 'Nikesh Bajaj'
 
 import sys, os

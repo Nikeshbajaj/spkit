@@ -2,8 +2,9 @@
 Information Theory techniques
 --------------------------------
 Author @ Nikesh Bajaj
-Date: 18 Apr 2019
-Version : 0.0.3
+updated on Date: 27 March 2023. Version : 0.0.5
+updated on Date: 1 Jan 2022, Version : 0.0.3
+updated on Date: 18 Apr 2019, Version : 0.0.1
 Github :  https://github.com/Nikeshbajaj/spkit
 Contact: n.bajaj@qmul.ac.uk
 '''
@@ -33,7 +34,7 @@ from .infomation_theory_advance import cdf_mapping
 # Probability distribuation is computed using histogram
 # and optimal bin size of histogram is computed using Freedman–Diaconis rule
 
-def entropy(x,alpha=1,ignoreZero=False,base=2,normalize=False):
+def entropy_(x,alpha=1,ignoreZero=False,base=2,normalize=False,return_n_bins=False,is_discrete =False):
     '''
     Rényi entropy of order α
     alpha:[0,inf]
@@ -52,7 +53,10 @@ def entropy(x,alpha=1,ignoreZero=False,base=2,normalize=False):
           : It doesn't make much of difference
     '''
     if base=='e': base =np.exp(1)
-    frq,_ = np.histogram(x,bins='fd')
+    if is_discrete:
+        _,frq = np.unique(x,return_counts=True)
+    else:
+        frq,_ = np.histogram(x,bins='fd')
     N = len(frq)
     if alpha==0:
         H = np.log(N)
@@ -68,9 +72,11 @@ def entropy(x,alpha=1,ignoreZero=False,base=2,normalize=False):
     H /=np.log(base)
     if normalize:
         H /= (np.log(N)/np.log(base))
+    if return_n_bins:
+        return H,N
     return H
 
-def entropy_joint(x,y,ignoreZero=False,base=2):
+def entropy_joint_(x,y,ignoreZero=False,base=2):
     '''
 	H(X,Y) = \sum {P(x,y)*np.log(P(x,y))}
 
@@ -94,7 +100,7 @@ def entropy_joint(x,y,ignoreZero=False,base=2):
     if base!='e': Hxy /= np.log(base)
     return Hxy
 
-def entropy_cond(x,y,ignoreZero=False,base=2):
+def entropy_cond_(x,y,ignoreZero=False,base=2):
     '''H(X|Y) = H(X,Y) - H(Y)
 
     0 <= H(X|Y) <= H(x)
@@ -105,7 +111,7 @@ def entropy_cond(x,y,ignoreZero=False,base=2):
     Hx1y = Hxy-Hy
     return Hx1y
 
-def mutual_Info(x,y,ignoreZero=False,base=2):
+def mutual_Info_(x,y,ignoreZero=False,base=2):
     '''I(X;Y) = H(X)+H(Y)-H(X,Y)'''
     '''I(X;Y) = H(X) - H(X|Y)
 
@@ -116,7 +122,7 @@ def mutual_Info(x,y,ignoreZero=False,base=2):
         entropy_joint(x,y,ignoreZero=ignoreZero,base=base)
     return I
 
-def entropy_kld(x,y,base=2):
+def entropy_kld_(x,y,base=2):
     '''
     H_xy =  \sum{Px*log(Px/Py)}
     Cross entropy - Kullback–Leibler divergence
@@ -146,7 +152,7 @@ def entropy_kld(x,y,base=2):
     if base !='e': H = H/np.log(base)
     return H
 
-def entropy_cross(x,y,base=2):
+def entropy_cross_(x,y,base=2):
     '''
     Cross entropy
     H_xy = - \sum{Px*log(Py)}
@@ -176,6 +182,379 @@ def entropy_cross(x,y,base=2):
     H  = -np.sum(PrX*np.log(PrY))
     if base !='e': H = H/np.log(base)
     return H
+
+# IMPROVED PRECISION OF COMPUTATIONS
+
+
+def entropy(x,alpha=1,base=2,normalize=False,is_discrete=False,bins='fd',return_n_bins=False,ignoreZero=False):
+    '''
+    Rényi entropy of order α
+    alpha:[0,inf]
+         :0: Max-entropy
+             H(x) = log(N)
+             where N = number of bins
+         :1: Shannan entropy
+             H(x) = -\sum{Px*log(Px)}
+         :2: Collision entropy or Rényi entropy
+             H(x) = 1/(1-α)*log{\sum{Px^α}}
+         :inf:Min-entropy:
+             H(x) = -log(max(Px))
+    base: base of log:
+        : if 2, entropy is in bits, e-nats, 10 -bans
+    ignoreZero: if true, probabilities with zero value will be omited, before computations
+          : It doesn't make much of difference
+    '''
+    if base=='e': base =np.exp(1)
+    if is_discrete:
+        _,frq = np.unique(x,return_counts=True)
+    else:
+        frq,_ = np.histogram(x,bins=bins)
+    
+    N = len(frq)
+    if alpha==0:
+        H = np.log(N)
+    else:
+        Pr = frq/np.sum(frq)
+        Pr = Pr[Pr>0] if ignoreZero else Pr+1e-10
+        if alpha==1:
+            H  = -np.sum(Pr*np.log(Pr))
+        elif alpha==np.inf or alpha=='inf':
+            H  = -np.log(np.max(Pr))
+        else:
+            H = (1.0/(1.0-alpha))*np.log(np.sum(Pr**alpha))
+    H /=np.log(base)
+    if normalize:
+        H /= (np.log(N)/np.log(base))
+    if return_n_bins:
+        return H,N
+    return H
+
+def entropy_joint(x,y,base=2,is_discrete=False,bins='fd',return_n_bins=False,ignoreZero=False):
+    '''
+	H(X,Y) = \sum {P(x,y)*np.log(P(x,y))}
+
+    Computing joint probability using histogram2d from numpy
+
+    max{H(x),H(y)} <= H(X,Y) <= H(x) + H(y)
+
+    '''
+    if is_discrete:
+        Nx = len(np.unique(x))
+        Ny = len(np.unique(y))
+    else:
+        # computing the optimal bin size using Freedman–Diaconis rule, or defined by bins
+        if isinstance(bins,str):
+            _,bin_ws = np.histogram(x,bins=bins)
+            Nx = np.ceil((np.max(x)-np.min(x))/(bin_ws[1]-bin_ws[0])).astype(int)
+
+            _,bin_ws = np.histogram(y,bins=bins)
+            Ny = np.ceil((np.max(y)-np.min(y))/(bin_ws[1]-bin_ws[0])).astype(int)
+        elif isinstance(bins,int):
+            Nx,Ny = bins,bins
+        elif isinstance(bins,list):
+            assert len(bins)==2
+            Nx,Ny = bins[0], bins[1]
+        else:
+            raise ValueError("Undefied way of 'bins', it should be 'str, int or list of arrays")
+    #Computing joint probability
+    frq = np.histogram2d(x,y,bins=[Nx,Ny])[0]
+    Prxy = frq/np.sum(frq)
+    Prxy = Prxy[Prxy>0] if ignoreZero else Prxy + 1e-10
+    Hxy = - np.sum(Prxy*np.log(Prxy))
+    if base!='e': Hxy /= np.log(base)
+    if return_n_bins:
+        return Hxy, (Nx,Ny)
+    return Hxy
+
+def entropy_cond(x,y,base=2,is_discrete=False,bins='fd',return_n_bins=False,verbose=False,ignoreZero=False):
+    '''H(X|Y) = H(X,Y) - H(Y)
+
+    0 <= H(X|Y) <= H(x)
+
+    '''
+    Hxy,(Nx,Ny) = entropy_joint(x,y,ignoreZero=ignoreZero,base=base,is_discrete=is_discrete,bins=bins,return_n_bins=True)
+    Hy , Ny_i   = entropy(y,ignoreZero=ignoreZero,base=base,is_discrete=is_discrete,bins=Ny,return_n_bins=True)
+    if verbose: print(Nx,Ny,Ny_i)
+    Hx1y = Hxy-Hy
+    if return_n_bins:
+        return Hx1y, (Nx,Ny)
+    return Hx1y
+
+def mutual_Info(x,y,base=2,is_discrete=False,bins='fd',return_n_bins=False,verbose=False,ignoreZero=False):
+    '''
+       I(X;Y) = H(X)+H(Y)-H(X,Y)
+       
+       I(X;Y) = H(X) - H(X|Y)
+
+    0 <= I(X;Y) <= min{ H(x), H(y) }
+    '''
+    
+    
+    Hx,Nx = entropy(x,ignoreZero=ignoreZero,base=base,is_discrete=is_discrete,bins=bins,return_n_bins=True)
+    Hy,Ny = entropy(y,ignoreZero=ignoreZero,base=base,is_discrete=is_discrete,bins=bins,return_n_bins=True)
+    
+    Hxy,(Nx_i,Ny_i) = entropy_joint(x,y,ignoreZero=ignoreZero,base=base,is_discrete=is_discrete,bins=[Nx,Ny],return_n_bins=True)
+    
+    if verbose: print(Nx,Ny,Nx_i,Ny_i)
+    
+    I = Hx + Hy - Hxy
+    
+    #I = entropy(x,ignoreZero=ignoreZero,base=base)+\
+    #    entropy(y,ignoreZero=ignoreZero,base=base)-\
+    #    entropy_joint(x,y,ignoreZero=ignoreZero,base=base)
+    if return_n_bins:
+        return I,(Nx,Ny)
+    return I
+
+def entropy_kld(x,y,base=2,is_discrete=False,bins='fd',verbose=False,pre_version=False,return_n_bins=False):
+    '''
+    H_xy =  \sum{Px*log(Px/Py)}
+    Cross entropy - Kullback–Leibler divergence
+    '''
+    
+    if pre_version:
+        _,bins = np.histogram(x,bins='fd')
+        binx = bins[1]-bins[0]
+
+        _,bins = np.histogram(y,bins='fd')
+        biny = bins[1]-bins[0]
+
+        binxy = np.min([binx,biny])
+        xy = np.r_[x,y]
+
+        N = np.ceil((max(xy)-min(xy))/binxy).astype(int)
+        
+        frq,_ = np.histogram(x,bins=N)
+        PrX = frq/np.sum(frq)
+
+        frq,_ = np.histogram(y,bins=N)
+        PrY = frq/np.sum(frq)
+
+        #ignoring to be divided by 0
+        PrX += 1e-10
+        PrY += 1e-10
+
+        H_kl  = np.sum(PrX*np.log(PrX/PrY))
+        
+    else:        
+        if is_discrete:
+            Nx = len(np.unique(x))
+            Ny = len(np.unique(y))
+        else:
+            # computing the optimal bin size using Freedman–Diaconis rule, or defined by bins
+            if isinstance(bins,str):
+                _,bin_ws = np.histogram(x,bins=bins)
+                Nx = np.ceil((np.max(x)-np.min(x))/(bin_ws[1]-bin_ws[0])).astype(int)
+                
+                _,bin_ws = np.histogram(y,bins=bins)
+                Ny = np.ceil((np.max(y)-np.min(y))/(bin_ws[1]-bin_ws[0])).astype(int)
+            
+            elif isinstance(bins,int):
+                Nx,Ny  = bins, bins
+            
+            elif isinstance(bins,list):
+                assert len(bins)==2
+                Nx,Ny = bins[0], bins[1]
+            
+            else:
+                raise ValueError("Undefied way of 'bins', it should be 'str, int or list of arrays")
+        
+        if verbose: print(Nx,Ny, isinstance(Nx,int), isinstance(Ny,int),type(Nx),type(Ny))
+        
+        if isinstance(Nx,(int,np.integer)) and isinstance(Ny,(int,np.integer)):
+            N = np.max([Nx,Ny]).astype(int)
+            frq = np.histogram2d(x,y,bins=[N,N])[0]
+        else:
+            #"Undefied way of 'bins', it should be 'str, int or list of arrays of same size"
+            assert (isinstance(Nx,np.ndarray) and isinstance(Ny,np.ndarray)) or (isinstance(Nx,list) and isinstance(Ny,list))
+            assert len(Nx)==len(Ny)
+            frq = np.histogram2d(x,y,bins=[Nx,Ny])[0]
+            N = len(Nx)
+            
+        
+        frx = frq.sum(1)
+        PrX = frx/frx.sum()
+        
+        fry = frq.sum(0)
+        PrY = fry/fry.sum()
+
+        #ignoring to be divided by 0
+        PrX += 1e-10
+        PrY += 1e-10
+
+        H_kl  = np.sum(PrX*np.log(PrX/PrY))
+    
+    if base !='e': H_kl = H_kl/np.log(base)
+        
+    if return_n_bins:
+        return H_kl, (N,N)
+    return H_kl
+
+def entropy_cross(x,y,base=2,is_discrete=False,bins='fd',verbose=False,pre_version=False,return_n_bins=False,):
+    '''
+    Cross entropy
+    H_xy = - \sum{Px*log(Py)}
+    '''
+    
+    if pre_version:
+        _,bins = np.histogram(x,bins='fd')
+        binx = bins[1]-bins[0]
+
+        _,bins = np.histogram(y,bins='fd')
+        biny = bins[1]-bins[0]
+
+        binxy = np.min([binx,biny])
+        xy = np.r_[x,y]
+
+        N = np.ceil((max(xy)-min(xy))/binxy).astype(int)
+
+        frq,_ = np.histogram(x,bins=N)
+        PrX = frq/np.sum(frq)
+
+        frq,_ = np.histogram(y,bins=N)
+        PrY = frq/np.sum(frq)
+
+        #ignoring to be divided by 0
+        PrX += 1e-10
+        PrY += 1e-10
+
+        H_cross  = -np.sum(PrX*np.log(PrY))
+    else:
+        if is_discrete:
+            Nx = len(np.unique(x))
+            Ny = len(np.unique(y))
+        else:
+            # computing the optimal bin size using Freedman–Diaconis rule, or defined by bins
+            if isinstance(bins,str):
+                _,bin_ws = np.histogram(x,bins=bins)
+                Nx = np.ceil((np.max(x)-np.min(x))/(bin_ws[1]-bin_ws[0])).astype(int)
+                
+                _,bin_ws = np.histogram(y,bins=bins)
+                Ny = np.ceil((np.max(y)-np.min(y))/(bin_ws[1]-bin_ws[0])).astype(int)
+            
+            elif isinstance(bins,int):
+                Nx,Ny  = bins, bins
+            
+            elif isinstance(bins,list):
+                assert len(bins)==2
+                Nx,Ny = bins[0], bins[1]
+            
+            else:
+                raise ValueError("Undefied way of 'bins', it should be 'str, int or list of arrays")
+        
+        if verbose: print(Nx,Ny, isinstance(Nx,int), isinstance(Ny,int),type(Nx),type(Ny))
+        
+        if isinstance(Nx,(int,np.integer)) and isinstance(Ny,(int,np.integer)):
+            N = np.max([Nx,Ny]).astype(int)
+            frq = np.histogram2d(x,y,bins=[N,N])[0]
+        else:
+            #"Undefied way of 'bins', it should be 'str, int or list of arrays of same size"
+            assert (isinstance(Nx,np.ndarray) and isinstance(Ny,np.ndarray)) or (isinstance(Nx,list) and isinstance(Ny,list))
+            assert len(Nx)==len(Ny)
+            frq = np.histogram2d(x,y,bins=[Nx,Ny])[0]
+            N = len(Nx)
+            
+        #frq = np.histogram2d(x,y,bins=[N,N])[0]
+        frx = frq.sum(1)
+        PrX = frx/frx.sum()
+        
+        fry = frq.sum(0)
+        PrY = fry/fry.sum()
+
+        #ignoring to be divided by 0
+        PrX += 1e-10
+        PrY += 1e-10
+
+        H_cross = -np.sum(PrX*np.log(PrY))
+        
+    if base !='e': H_cross = H_cross/np.log(base)
+    
+    if return_n_bins:
+        return H_cross, (N,N)
+    return H_cross
+    '''
+    Cross entropy
+    H_xy = - \sum{Px*log(Py)}
+    '''
+    
+    if pre_version:
+        _,bins = np.histogram(x,bins='fd')
+        binx = bins[1]-bins[0]
+
+        _,bins = np.histogram(y,bins='fd')
+        biny = bins[1]-bins[0]
+
+        binxy = np.min([binx,biny])
+        xy = np.r_[x,y]
+
+        N = np.ceil((max(xy)-min(xy))/binxy).astype(int)
+
+        frq,_ = np.histogram(x,bins=N)
+        PrX = frq/np.sum(frq)
+
+        frq,_ = np.histogram(y,bins=N)
+        PrY = frq/np.sum(frq)
+
+        #ignoring to be divided by 0
+        PrX += 1e-10
+        PrY += 1e-10
+
+        H_cross  = -np.sum(PrX*np.log(PrY))
+    else:
+        if is_discrete:
+            Nx = len(np.unique(x))
+            Ny = len(np.unique(y))
+        else:
+            # computing the optimal bin size using Freedman–Diaconis rule, or defined by bins
+            if isinstance(bins,str):
+                _,bin_ws = np.histogram(x,bins=bins)
+                Nx = np.ceil((np.max(x)-np.min(x))/(bin_ws[1]-bin_ws[0])).astype(int)
+                
+                _,bin_ws = np.histogram(y,bins=bins)
+                Ny = np.ceil((np.max(y)-np.min(y))/(bin_ws[1]-bin_ws[0])).astype(int)
+            
+            elif isinstance(bins,int):
+                Nx,Ny  = bins, bins
+            
+            elif isinstance(bins,list):
+                assert len(bins)==2
+                Nx,Ny = bins[0], bins[1]
+            
+            else:
+                raise ValueError("Undefied way of 'bins', it should be 'str, int or list of arrays")
+        
+        if verbose: print(Nx,Ny, isinstance(Nx,int), isinstance(Ny,int),type(Nx),type(Ny))
+        
+        if isinstance(Nx,(int,np.integer)) and isinstance(Ny,(int,np.integer)):
+            N = np.max([Nx,Ny]).astype(int)
+            frq = np.histogram2d(x,y,bins=[N,N])[0]
+        else:
+            #"Undefied way of 'bins', it should be 'str, int or list of arrays of same size"
+            assert (isinstance(Nx,np.ndarray) and isinstance(Ny,np.ndarray)) or (isinstance(Nx,list) and isinstance(Ny,list))
+            assert len(Nx)==len(Ny)
+            frq = np.histogram2d(x,y,bins=[Nx,Ny])[0]
+            N = len(Nx)
+            
+        #frq = np.histogram2d(x,y,bins=[N,N])[0]
+        frx = frq.sum(1)
+        PrX = frx/frx.sum()
+        
+        fry = frq.sum(0)
+        PrY = fry/fry.sum()
+
+        #ignoring to be divided by 0
+        PrX += 1e-10
+        PrY += 1e-10
+
+        H_cross = -np.sum(PrX*np.log(PrY))
+        
+    if base !='e': H_cross = H_cross/np.log(base)
+    
+    if return_n_bins:
+        return H_cross, (N,N)
+    return H_cross
+
+
 
 def entropy_spectral(x,fs,method='fft',alpha=1,base=2,normalize=True,axis=-1,nperseg=None,bining=False):
     '''
@@ -296,7 +675,7 @@ def entropy_permutation(x, order=3, delay=1, base=2,normalize=False):
     H_perm = -np.multiply(Pr, np.log(Pr)).sum()
     H_perm /=np.log(base)
     if normalize:
-        H_perm /= (np.log(factorial(order))/np.log(base))
+        H_perm /= (np.log(np.math.factorial(order))/np.log(base))
     return H_perm
 
 def HistPlot(x,show=False,norm=False):
@@ -618,7 +997,8 @@ def quantize_signal(x,n_levels=None,A=None,Mu=None,cdf_map=False,keep_range=True
     # both A-Law and Mu-Law can (should) not be applied
     # choose only one
     assert (1*(A is not None) + 1*(Mu is not None) + 1*(cdf_map))<=1
-    assert n_levels>1
+    # if chosen, number of levels shoudl be at least 2
+    if n_levels is not None: assert n_levels>1
     x0 = x.copy()
     x_min = np.nanmin(x0)
     x_max = np.nanmax(x0)
@@ -651,7 +1031,7 @@ def quantize_signal(x,n_levels=None,A=None,Mu=None,cdf_map=False,keep_range=True
         bw, _ = bin_width(x0,method=bin_method)
         #bw = binSize_FD(x0)*bin_scale
         bw *= bin_scale
-        n_levels = np.clip(np.ceil((xmax-xmin)/bw).astype(int),min_bins,None)
+        n_levels = np.clip(np.ceil((xmax-xmin)/bw).astype(int),min_levels,None)
         #print(n_levels)
 
     #x0 = (x0 - xmin)/(xmax-xmin)
@@ -664,7 +1044,6 @@ def quantize_signal(x,n_levels=None,A=None,Mu=None,cdf_map=False,keep_range=True
         #y = 2*(y-0.5)
         y = y*(x_max-x_min) + x_min
     return y, y_int
-
 #
 def plotJointEntropyXY(x,y,Venn=True, DistPlot=True,JointPlot=True,printVals=True):
     '''
@@ -752,6 +1131,3 @@ def plotJointEntropyXY(x,y,Venn=True, DistPlot=True,JointPlot=True,printVals=Tru
         print('H(x,y)/(H(x)+H(y))   \t\t',entropy_joint(x,y)/(hx+hy))
         #print('H(x,y)\t/(H(x)+H(y))\t',(sp.entropy_joint(x,y)-np.max([hx,hy]))/(hx+hy-np.max([hx,hy])))
         print('(H(x,y)-max{H(x),H(y)})/min{H(x),H(y)}\t\t',(entropy_joint(x,y)-np.max([hx,hy]))/(np.min([hx,hy])))
-
-
-#--------------Dispersion - Entropy-------------------

@@ -124,7 +124,7 @@ def Wfilter(x,wv='db3',thr_method='ipr',IPR=[25,75],beta=0.1,k1=10,k2=100,theta_
     '''
     verbose=False
     if verbose:
-        print('WPD:',WPD,' wv:',wv,' IPR:',IPR,' beta:',beta,' method:',method,' OptMode:',OptMode)
+        print('WPD:',WPD,' wv:',wv,' IPR:',IPR,' beta:',beta,' method:',thr_method,' OptMode:',OptMode)
         print('k1-k2:',[k1,k2])
 
 
@@ -622,7 +622,7 @@ def Wfilter_dev(x,wv='db3',thr_method='ipr',IPR=[25,75],beta=0.1,k1=10,k2=100,th
     '''
     verbose=False
     if verbose:
-        print('WPD:',WPD,' wv:',wv,' IPR:',IPR,' beta:',beta,' method:',method,' OptMode:',OptMode)
+        print('WPD:',WPD,' wv:',wv,' IPR:',IPR,' beta:',beta,' method:',thr_method,' OptMode:',OptMode)
         print('k1-k2:',[k1,k2])
 
 
@@ -865,8 +865,9 @@ def ATAR_1Ch_dev(x,wv='db3',winsize=128,thr_method='ipr',IPR=[25,75],beta=0.1,k1
     return xR
 
 def ATAR_mCh_dev(X,wv='db3',winsize=128,thr_method ='ipr',IPR=[25,75],beta=0.1,k1=10,k2 =100,est_wmax=100,
-              theta_a=np.inf,bf=2,gf=0.8,OptMode ='soft',wpd_mode='symmetric',wpd_maxlevel=None,
-              verbose=True, window=['hamming',True],hopesize=None, ReconMethod='custom',packetwise=False,WPD=True,lvl=[],fs=128.0,use_joblib=False):
+              theta_a=np.inf,bf=2,gf=0.8,OptMode ='soft',wpd_mode='symmetric',wpd_maxlevel=None,factor=1,
+              verbose=True, window=['hamming',True],hopesize=None, ReconMethod='custom',packetwise=False,WPD=True,lvl=[],
+              fs=128.0,use_joblib=False):
 
     '''
     ---- IN DEVELOPMENT MODE ----- AVOID USING IT FOR NOW -----
@@ -905,15 +906,15 @@ def ATAR_mCh_dev(X,wv='db3',winsize=128,thr_method ='ipr',IPR=[25,75],beta=0.1,k
     '''
     if hopesize is None: hopesize=winsize//2
 
-    assert method in [ None, 'ipr', 'global','outliers','std']
+    assert thr_method in [ None, 'ipr', 'global','outliers','std']
     assert OptMode in ['soft','linAtten','elim']
 
 
     if verbose:
         print('WPD Artifact Removal')
-        print('WPD:',WPD,' Wavelet:',wv,', Method:',method,', OptMode:',OptMode)
-        if method=='ipr': print('IPR=',IPR,', Beta:',beta, ', [k1,k2]=',[k1,k2])
-        if method is None: print('theta_a: ',theta_a)
+        print('WPD:',WPD,' Wavelet:',wv,', Method:',thr_method,', OptMode:',OptMode)
+        if thr_method=='ipr': print('IPR=',IPR,', Beta:',beta, ', [k1,k2]=',[k1,k2])
+        if thr_method is None: print('theta_a: ',theta_a)
         print('Reconstruction Method:',ReconMethod, ', Window:',window,', (Win,Overlap)=',(winsize,hopesize))
 
     if len(X.shape)>1:

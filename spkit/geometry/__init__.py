@@ -3,7 +3,7 @@ GEOMETRY + GEOMAPPING = GEOMAGIC
 ----------------------------------
 Author @ Nikesh Bajaj
 updated on Date: 16 March 2023
-Version : 0.0.1
+Version : 0.0.3
 Github :  https://github.com/Nikeshbajaj/spkit
 Contact: n.bajaj@qmul.ac.uk | n.bajaj@imperial.ac.uk | nikesh.bajaj@qmul.ac.uk
 
@@ -12,7 +12,7 @@ Contact: n.bajaj@qmul.ac.uk | n.bajaj@imperial.ac.uk | nikesh.bajaj@qmul.ac.uk
 from __future__ import absolute_import, division, print_function
 
 name = "Signal Processing toolkit | GEOMETRY | Experimental Stage"
-__version__ = '0.0.1'
+__version__ = '0.0.3'
 __author__ = 'Nikesh Bajaj'
 
 import sys, os

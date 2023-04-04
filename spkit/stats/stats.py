@@ -1,3 +1,15 @@
+"""
+Statistical Utalities
+--------------------
+Author @ Nikesh Bajaj
+updated on Date: 16 March 2023, Version : 0.0.1
+Github :  https://github.com/Nikeshbajaj/spkit
+Contact: n.bajaj@qmul.ac.uk | n.bajaj@imperial.ac.uk | nikesh.bajaj@qmul.ac.uk
+
+"""
+
+
+
 import numpy as np
 import pandas as pd
 import scipy
@@ -38,6 +50,7 @@ def quick_stats(x,show=True,return_table=False,name='x'):
 
         if show:
             try:
+                from IPython import display
                 display(Sdf)
             except:
                 print(Sdf)

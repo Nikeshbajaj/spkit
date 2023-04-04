@@ -417,7 +417,7 @@ def create_dataset(N=100, Dtype='GAUSSIANS', noise=0, varargin = 'PRESET',**Opti
             if Options.has_key('sigmas'):
                 sigmas = Options['sigmas']
 
-            X, Y, ndist, means, sigmas = gaussian(NN, ndist = ndist, means = means, sigmas = sigma)
+            X, Y, ndist, means, sigmas = gaussian(NN, ndist = ndist, means = means, sigmas = sigmas)
 
         varargout = [ndist, means, sigmas ]
 

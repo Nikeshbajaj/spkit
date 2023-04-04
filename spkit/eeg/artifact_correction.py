@@ -31,6 +31,7 @@ from scipy.signal import get_window
 
 #from .ICA_methods import ICA
 from ..core.matDecomposition import ICA, SVD
+from .eeg_map import s1020_get_epos2d_
 import utils
 
 def ICA_filtering(X,winsize=128,ICA_method='extended-infomax',kur_thr=2,corr_thr=0.8,AF_ch_index =[0,13],
@@ -271,33 +272,80 @@ def ICAremoveArtifact(x,ICA_method='extended-infomax',corr_thr=0.8,kur_thr=2.0,A
         xr = x
     return xr
 
-def PlotICACom_mne(W, title=None,ch_names=['AF3','F7','F3','FC5','T7','P7','O1','O2','P8','T8','FC6','F4','F8','AF4']):
-    from mne.channels import read_montage
-    from mne.viz.topomap import plot_topomap
-    #ch_names = ['AF3','F7','F3','FC5','T7','P7','O1','O2','P8','T8','FC6','F4','F8','AF4']
-    montage = read_montage('standard_1020',ch_names)
-    epos = montage.get_pos2d()
-    ch = montage.ch_names
+# def PlotICACom_mne(W, title=None,ch_names=['AF3','F7','F3','FC5','T7','P7','O1','O2','P8','T8','FC6','F4','F8','AF4']):
+#     from mne.channels import read_montage
+#     from mne.viz.topomap import plot_topomap
+#     #ch_names = ['AF3','F7','F3','FC5','T7','P7','O1','O2','P8','T8','FC6','F4','F8','AF4']
+#     montage = read_montage('standard_1020',ch_names)
+#     epos = montage.get_pos2d()
+#     ch = montage.ch_names
+#     eOrder = [ch_names.index(c) for c in ch]
+#     nch = len(ch_names)
+#     mask = np.ones(nch).astype(int)
+
+#     fig, ax = plt.subplots(2,nch//2,figsize=(15,5))
+#     i,j=0,0
+#     for k in range(14):
+#         #e=np.random.randn(14)
+#         e = W[:,k]
+#         plot_topomap(e[eOrder],epos,axes=ax[i,j],show=False,cmap='jet',mask=mask)
+#         for kk in range(len(eOrder)):
+#             ax[i,j].text(epos[kk,0]/3.99,epos[kk,1]/3,ch_names[eOrder[kk]],fontsize=6)
+#         if title is None:
+#             ax[i,j].set_title(str(k))
+#         else:
+#             ax[i,j].set_title(str(title[k]))
+#         j+=1
+#         if j==7:
+#             i+=1
+#             j=0
+#     #plt.axis('off')
+#     plt.subplots_adjust(hspace=0.0,wspace=0.0)
+#     plt.show()
+
+def PlotICACom_mne(W, title=None,ch_names=['AF3','F7','F3','FC5','T7','P7','O1','O2','P8','T8','FC6','F4','F8','AF4'],show_ch=True,
+                   grid='auto',figsize=(15,5),fs=6,txt_pos=(3.99,3),show=True):
+    try:
+        from mne.channels import read_montage
+        #ch_names = ['AF3','F7','F3','FC5','T7','P7','O1','O2','P8','T8','FC6','F4','F8','AF4']
+        montage = read_montage('standard_1020',ch_names)
+        epos = montage.get_pos2d()
+        ch = montage.ch_names
+        
+    except:
+        #from mne.channels import make_standard_montage as read_montage
+        #from spkit.eeg.eeg_map import s1020_get_epos2d_
+        epos, ch = s1020_get_epos2d_(ch_names)
+        txt_pos=(1,1)
+    
     eOrder = [ch_names.index(c) for c in ch]
     nch = len(ch_names)
     mask = np.ones(nch).astype(int)
-
-    fig, ax = plt.subplots(2,nch//2,figsize=(15,5))
+    
+    from mne.viz.topomap import plot_topomap
+    
+    if grid=='auto': grid = (1,W.shape[1]) 
+    fig, ax = plt.subplots(*grid,figsize=figsize)
+    if grid[0]==1: ax = [ax]
     i,j=0,0
-    for k in range(14):
+    for k in range(W.shape[1]):
         #e=np.random.randn(14)
         e = W[:,k]
-        plot_topomap(e[eOrder],epos,axes=ax[i,j],show=False,cmap='jet',mask=mask)
-        for kk in range(len(eOrder)):
-            ax[i,j].text(epos[kk,0]/3.99,epos[kk,1]/3,ch_names[eOrder[kk]],fontsize=6)
+        plot_topomap(e[eOrder],epos,axes=ax[i][j],show=False,cmap='jet',mask=mask)
+        if show_ch:
+            for kk in range(len(eOrder)):
+                ax[i][j].text(epos[kk,0]/txt_pos[0],epos[kk,1]/txt_pos[1],ch_names[eOrder[kk]],fontsize=fs)
         if title is None:
-            ax[i,j].set_title(str(k))
+            ax[i][j].set_title(str(k))
         else:
-            ax[i,j].set_title(str(title[k]))
+            ax[i][j].set_title(str(title[k]))
         j+=1
-        if j==7:
+        if j>=grid[1]:
             i+=1
             j=0
     #plt.axis('off')
-    plt.subplots_adjust(hspace=0.0,wspace=0.0)
-    plt.show()
+    #plt.subplots_adjust(hspace=0.0,wspace=0.0)
+    
+    if show:
+        plt.tight_layout()
+        plt.show()

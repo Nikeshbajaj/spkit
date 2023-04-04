@@ -2,8 +2,8 @@
 Basic signal processing methods
 --------------------------------
 Author @ Nikesh Bajaj
-updated on Date: 26 Sep 2021
-Version : 0.0.4
+updated on Date: 27 March 2023. Version : 0.0.5
+updated on Date: 26 Sep 2021, Version : 0.0.4
 Github :  https://github.com/Nikeshbajaj/spkit
 Contact: n.bajaj@qmul.ac.uk | n.bajaj@imperial.ac.uk
 '''
@@ -41,7 +41,7 @@ sys.path.append("..")
 #sys.path.append(".")
 from .infotheory import entropy
 from ..utils import ProgBar
-from ..all_utils.borrowed import resize
+from ..utils_misc.borrowed import resize
 
 def filterDC_(x,alpha=256):
     '''
@@ -792,12 +792,12 @@ def sinc_interp(x):
     y = np.zeros(2*N-1) + 1j*0
     y[::2] = x.copy()
     t0 = np.arange(-(2*N-3),(2*N-3)+1)/2
-    x_intp = conv_fft(y, np.sinc(t0))
+    x_intp = conv1d_fft(y, np.sinc(t0))
     #x_intp = x_intp[2*N-2:-2*N+3]
     x_intp = x_intp[2*N-2-1:-2*N+3]
     return x_intp
 
-def conv_fft(x,y):
+def conv1d_fft(x,y):
     N = len(x) + len(y)-1
     P = 2**np.ceil(np.log2(N)).astype(int)
     z = np.fft.fft(x,P)*np.fft.fft(y,P)
@@ -1082,7 +1082,7 @@ def fill_nans_2d(X,pkind='linear',filter_size=3,method='conv',clip_range=[None,N
         XI = np.clip(XI, clip_range[0],clip_range[1])
     return XI, Xk
 
-def denorm_kernel(kernel,mode='mid'):
+def denorm_kernel(kernel,mode='mid',keep_scale=False):
     r"""
     De-normalise 1d/2d Kernel
     -----------------------
@@ -1105,7 +1105,9 @@ def denorm_kernel(kernel,mode='mid'):
 
 
     """
-    M = 1./np.nanmax(np.abs(kernel))
+    S = np.nansum(kernel) if keep_scale else 1.
+
+    M = S/np.nanmax(np.abs(kernel))
 
     #assert kernel.ndim ==2 or kernel.ndim==1
 
@@ -1119,11 +1121,11 @@ def denorm_kernel(kernel,mode='mid'):
             r1 = r//2
             m_value = kernel[r1+1, r1+1] if kernel.ndim ==2 else kernel[r1+1]
             #m_valu*M = 1
-            if m_value!=0: M = 1./m_value
+            if m_value!=0: M = S/m_value
         elif r%2==1 and c%2==1:
             r1,c1 = r//2, c//2
             m_value = kernel[r1+1, c1+1] if kernel.ndim ==2 else kernel[r1+1]
-            if m_value!=0: M = 1./m_value
+            if m_value!=0: M = S/m_value
     return kernel*M
 
 def conv2d_nan(x,kernel, boundary='constant', fillvalue=np.nan, denormalise_ker=False):
@@ -2626,7 +2628,7 @@ def minMSE(x,y,W=5,show=False):
             yi = np.r_[np.zeros(np.abs(k))+np.nan,y[:k]]
         else:
             yi = y.copy()
-        mse = np.nanmean((x1-yi)**2)
+        mse = np.nanmean((x-yi)**2)
         Es.append(mse)
     Es = np.array(Es)
     mMSE = np.nanmin(Es)
@@ -2713,13 +2715,38 @@ def create_signal_2d(n=100,sg_winlen=11,sg_polyorder=1,iterations=2,max_dxdt=0.1
     X /=X.max()
     return X
 
+def spatial_filter_dist(X,V,r=0.1,ftype='mean',exclude_self=False,default_value=np.nan,esp=0):
+    r"""
+    Spatial Filter based on Distance
+    --------------------------------
 
-def spatial_filter(X,V,r=0.1,ftype='mean',default=np.nan):
-    r""" Given values X corresponding to spatial locations V
-         applying filter 'mean' or 'median' of radiusn r
+    Given values X corresponding to spatial locations V, in n-Dimentional Space
+         applying a filter 'mean' or 'median' of radius r
 
-    ftype = {'mean', 'median' or any np.fun or a callable function}
+    Parameters
+    ----------
+
+    X: 1d-array of size m, values of points, shape=(m,), can include NaN, if missing
+    V: 2d-array of size (m,n), locations of points
+
+    ftype: str, or callable function:, default = mean
+           filter type, str = {'mean', 'median' or any np.fun or a callable function}
+           All functions should be able to handle NaN values
+
+    exclude_self: bool, default=False,
+                 If True, while estimating new value at location i, self value is excluded
+
+    default_value: scalar, default=np.nan
+                  If no value is calculated, deafult value is used
+
+    Return
+    ------
+    Y: Filtered values
+
     """
+
+    assert X.shape[0]==V.shape[0]
+
     FILTER_ = None
     if isinstance(ftype, str):
         if ftype=='mean':
@@ -2740,10 +2767,83 @@ def spatial_filter(X,V,r=0.1,ftype='mean',default=np.nan):
     except:
         raise NameError("Undefined ftype, it could be one of {'mean', 'median', or numpy function, such as np.nanstd or a callable function}")
 
-    Xi = np.zeros_like(X) + default
+    Y = np.zeros_like(X) + default_value
     for i,p in enumerate(V):
         dist = np.sqrt(np.sum((V-p)**2,1))
-        xi  = X[dist<=r]
-        if len(xi):
-            Xi[i] = FILTER_(xi)
-    return Xi
+
+        if exclude_self:
+            xi = X[ (dist<r) & (dist>esp)].copy()
+        else:
+            xi  = X[dist<r].copy()
+        if len(xi) and len(xi[~np.isnan(xi)]):
+            Y[i] = FILTER_(xi)
+    return Y
+
+def spatial_filter_adj(X,AdjM,ftype='mean',exclude_self=False,default_value=np.nan):
+
+    r"""
+    Spatial Filter based on Connection Matrix: AdjM
+    -----------------------------------------------
+
+
+    Given values X corresponding to spatial locations V, whose adjacency matrix is given as AdjM,
+         applying filter 'mean' or 'median' etc
+
+
+    Parameters
+    ----------
+
+    X    : 1d-array of size m, values of points, shape=(m,), can include NaN, if missing
+    AdjM : 2d-array of size (m,m), Adjacency matrix
+
+    ftype: str, or callable function:, default = mean
+           filter type, str = {'mean', 'median' or any np.fun or a callable function}
+           All functions should be able to handle NaN values
+
+    exclude_self: bool, default=False,
+                 If True, while estimating new value at location i, self value is excluded
+
+    default_value: scalar, default=np.nan
+                  If no value is calculated, deafult value is used
+
+    Return
+    ------
+    Y: Filtered values
+    """
+    assert X.shape[0]==AdjM.shape[0]
+
+
+    FILTER_ = None
+    if isinstance(ftype, str):
+        if ftype=='mean':
+            FILTER_ = np.nanmean
+        elif ftype=='median':
+            FILTER_ = np.nanmedian
+        else:
+            try:
+                FILTER_ = eval(f"np.{ftype}")
+                FILTER_(np.random.randn(5))
+            except:
+                raise NameError("Undefined ftype, it could be one of {'mean', 'median', or numpy function, such as np.nanstd or a callable function}")
+    elif callable(ftype):
+        FILTER_ = ftype
+
+    try:
+        FILTER_(np.random.randn(5))
+    except:
+        raise NameError("Undefined ftype, it could be one of {'mean', 'median', or numpy function, such as np.nanstd or a callable function}")
+
+    Y = np.zeros_like(X) + default_value
+    for i in range(AdjM.shape[0]):
+        idx = list(np.where(AdjM[i])[0])
+        #print(idx)
+        if exclude_self:
+            idx = list(set(idx) - set([i]))
+        else:
+            idx = list(set(idx) | set([i]))
+        idx.sort()
+        #print(idx)
+        xi  = X[idx].copy()
+        if len(xi) and len(xi[~np.isnan(xi)]):
+            Y[i] = FILTER_(xi)
+    return Y

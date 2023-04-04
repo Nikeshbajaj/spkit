@@ -25,7 +25,6 @@ if sys.version_info[:2] < (3, 3):
             file.flush() if file is not None else sys.stdout.flush()
 
 import numpy as np
-from .data import load_data
 import pylfsr
 
 ########################################################################

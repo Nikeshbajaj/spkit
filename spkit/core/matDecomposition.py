@@ -236,20 +236,16 @@ class ICA():
 
 
         if self.method == 'fastica':
-        	from sklearn.decomposition import FastICA
-        	ica = FastICA(whiten=False, random_state=self.random_state, **self.fit_params)
-        	ica.fit(Xpca)
-        	self.unmixing_matrix_ = ica.components_
-
+            from sklearn.decomposition import FastICA
+            ica = FastICA(whiten=False, random_state=self.random_state, **self.fit_params)
+            ica.fit(Xpca)
+            self.unmixing_matrix_ = ica.components_
         elif self.method in ('infomax', 'extended-infomax'):
-        	self.unmixing_matrix_ = infomax(Xpca, random_state=self.random_state,**self.fit_params)
-
-
+            self.unmixing_matrix_ = infomax(Xpca, random_state=self.random_state,**self.fit_params)
         elif self.method == 'picard':
             from picard import picard
             _, W, _ = picard(Xpca.T, whiten=False,random_state=self.random_state, **self.fit_params)
             del _
-
             self.unmixing_matrix_ = W
 
         self.unmixing_matrix_ /= np.sqrt(exp_var)[None, :]  # whitening

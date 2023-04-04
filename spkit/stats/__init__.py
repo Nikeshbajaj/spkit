@@ -1,6 +1,6 @@
 from __future__ import absolute_import, division, print_function
 
-name = "Signal Processing toolkit | MEA Processing"
+name = "Signal Processing toolkit | Statistics"
 __version__ = '0.0.1'
 __author__ = 'Nikesh Bajaj'
 

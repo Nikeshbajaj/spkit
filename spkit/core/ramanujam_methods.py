@@ -2,8 +2,7 @@
 Ramanujan methods
 -----------------
 Author @ Nikesh Bajaj
-updated on Date: 1 jan 2021
-Version : 0.0.1
+updated on Date: 1 jan 2021, Version : 0.0.1
 Github :  https://github.com/Nikeshbajaj/spkit
 Contact: n.bajaj@qmul.ac.uk | n.bajaj@imperial.ac.uk
 '''
@@ -222,7 +221,7 @@ def PeriodStrength(x,Pmax,method='Ramanujan',lambd=1,L=1,cvxsol=False):
             wst =  "cvxpy is not installed! use 'pip install cvxpy --user' \n"
             wst += "install cvxpy for L1 norm minimization for PeriodStrength fun (Ramanujan methods)"
             wst += "Or set 'cvxsol=False' to use LMS\n"
-            wst += f"Unexpected {err=}, {type(err)=}"
+            wst += f"Unexpected {err}, {type(err)}"
             warnings.warn(wst,stacklevel=2)
             raise
     assert np.ndim(x)==1
@@ -407,7 +406,6 @@ def RFB_example_2(periods=[3,7,11],signal_length=100,SNR=10,seed=15):
     plt.ylabel('| X |')
     plt.xlabel(r'frequency $\times$ ($\omega$/2)   ~   1/period ')
     plt.show()
-
 
 def RFB_prange(x,Pmin=1,Pmax=10,skip=1,Rcq=10,Rav=2,thr=0.2,Penalty=None,return_filters=False,apply_averaging=True):
     '''

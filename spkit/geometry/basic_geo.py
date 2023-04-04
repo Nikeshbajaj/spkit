@@ -1,3 +1,14 @@
+'''
+Basic Geomatrical Function & Processings
+------------------------------------------
+Author @ Nikesh Bajaj
+updated on Date: 27 March 2023. Version : 0.0.1
+Github :  https://github.com/Nikeshbajaj/spkit
+Contact: n.bajaj@qmul.ac.uk | n.bajaj@imperial.ac.uk
+'''
+
+
+
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -8,6 +19,7 @@ from scipy.interpolate import CloughTocher2DInterpolator
 from mpl_toolkits.mplot3d import Axes3D, art3d
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 from matplotlib.tri import Triangulation
+import copy
 
 class Inter2DPlane(object):
     def __init__(self,xy_loc,res=[128,128]):
@@ -347,6 +359,131 @@ def plot_proj(Xp,Xp1,Xp1c,Xp2,p):
     ax.grid()
     plt.show()
 
+
+def dir_vectors(V,AdjM,verbose=False):
+    r""" Given V vertices as co-ordinates (n-dimensional space) and AdjM as Adjacency matrix,
+    Compute D, as directional vectors, in form of
+    D = [i,j, v_i,v_j], which indicates as vertex-i connects to vertex-j and
+    and cordinates v_i and v_j, for v_j /= v_i
+
+    D has shape of (nc, 2*n+2), for n-dimensional space, with nc number of connections
+
+    Parameters
+    ----------
+    V: (m,n), m-vertices in n-dimentional space
+    AdjM: (m,m), Adjacency matrix, binary and no self connections, means AdjM[i,i]==0
+
+    Return
+    D: directional vectors
+    """
+    assert set(np.unique(AdjM))==set([0,1])
+    assert np.diag(AdjM).sum()==0
+    assert AdjM.shape[0]==AdjM.shape[1]==V.shape[0]
+
+    D  = []
+    for i in range(AdjM.shape[0]):
+        v_i = V[i]#.astype(float)
+        ci = np.where(AdjM[i])[0]
+        if verbose: print(f'From {i}th vertex to: ')
+        for j in ci:
+            v_j = V[j]#.astype(float)
+            di = [i,j]+list(v_i)+list(v_j)
+            if verbose: print(f' - {j} \t| {v_i.round(3)}--> {v_j.round(3)}')
+            D.append(di)
+    D = np.array(D)
+    return D
+
+def get_adjacency_matrix_depth(V,F,depth=1,remove_self_con=True):
+    r"""
+    Create Adjacency Matrix based on Trianglution Connection Depth
+
+    Returns
+    -------
+    AdjM   : Binary Adjacency Matrix
+    node2C : Dictionary of node to connection list node2C[node_a] = list_of_nodes_connected_to_node_a
+    """
+
+    M = V.shape[0]
+    TA = TriAng(F=F,V=V)
+    E0 = TA.getEdges_idx()
+    node2C ={}
+    for e in E0:
+        e = list(e)
+        for ei in e:
+            if ei not in node2C.keys():
+                node2C[ei] = set()
+            node2C[ei].update(e)
+
+    while depth>1:
+        node2Ci = copy.deepcopy(node2C)
+        for n in node2Ci.keys():
+            nn = node2Ci[n]
+            nnd = set()
+            for ni in nn:
+                nnd.update(node2Ci[ni])
+            node2C[n].update(nnd)
+        depth -=1
+
+    AdjM = np.zeros([M,M])
+    for i in range(M):
+        if i in node2C:
+            c = list(node2C[i])
+            AdjM[i,c]=1
+
+    if remove_self_con:
+        AdjM = AdjM-np.diag(np.diag(AdjM))
+        for i in node2C:
+            node2C[i] = node2C[i]-set([i])
+            if len(node2C[i])==0: del node2C[i]
+    return AdjM, node2C
+
+def get_adjacency_matrix_dist(V,dist=5, remove_self_con=True):
+    r"""
+    Create Adjacency Matrix based on Euclidean distance
+
+    Parameters
+    ----------
+    V   :  vertices, (m,n), m-points in n-dimentional space
+    dist: float, distance
+    Returns
+    -------
+    AdjM   : Binary Adjacency Matrix
+    node2C : Dictionary of node to connection list node2C[node_a] = list_of_nodes_connected_to_node_a
+    """
+
+    M = V.shape[0]
+    AdjM = np.zeros([M,M]).astype(int)
+    node2C ={}
+    for i in range(M):
+        clist = list(np.where(np.sqrt(np.sum((V-V[i])**2,1))<dist)[0])
+        if remove_self_con: clist = list(set(clist)-set([i]))
+        if len(clist):
+            node2C[i] = list(clist)
+            AdjM[i,clist]=1
+    return AdjM,node2C
+
+def node2C_to_adjacency_matrix(node2C, M=None):
+    r"""
+    From node2C to Adjacency Matrix
+
+    """
+    assert isinstance(node2C, dict)
+    for node in node2C:
+        assert isinstance(node,(int,float)) and node>-1
+
+    list_nodes = np.array(list(node2C.keys())).astype(int)
+    if M is not None:
+        assert M>=np.max(list_nodes)
+    else:
+         M=np.max(list_nodes)
+
+    AdjM = np.zeros([M,M]).astype(int)
+    for i in range(M):
+        if i in node2C:
+            clist = list(node2C[i])
+            AdjM[i,clist]=1
+    return AdjM
+
 #========================================
 ## Surface Reconstruction  - 3D to 2D
 #======================================
@@ -659,7 +796,7 @@ def divide_space(X,D,V=None,lamda=0,plot=0,n=30):
         xi,zi = np.meshgrid(xi,zi)
         xi = xi.reshape(-1)
         zi = zi.reshape(-1)
-        yi = np.c_[np.ones(xi.shape[0]),xi,zi]@w
+        yi = np.c_[np.ones(xi.shape[0]),xi,zi]@W
 
         fig = plt.figure(figsize = [6,5])
         ax = fig.add_subplot(111,projection="3d")
@@ -763,6 +900,55 @@ def remove_long_edges_k(V,F,k=1.5,verbose=False):
     F1 = F[idxF]
     if verbose: print(F.shape)
     return F1
+
+
+def surface_plot_mayavi(V,F,X, D=None,colormap_value='cmap',value_range=[None,None],show_points=False,N=1,scale_factor=0.35,scale_mode='scalar',scalars_mag=6,
+              colormap_arr='jet',arr_range=[0,1], tip_length=0.5,tip_radius=0.2,shaft_radius=0.04,color_mode ='color_by_scalar',fign=1,show=True,f=0.98,f1=0.95):
+
+    try:
+        from mayavi import mlab
+    except:
+        raise ImportError("Install 'mayavi' to use this funtion | try 'pip install mayavi' ")
+
+    mode = 'arrow'
+    opacity=1
+    line_width=1
+
+    vmin_arr=arr_range[0]
+    vmax_arr=arr_range[1]
+
+    fig = mlab.figure(fign, bgcolor=(1, 1, 1), fgcolor=(1, 1, 1))
+
+    mlab.triangular_mesh(f1*V[:,0], f1*V[:,1], f1*V[:,2], F, scalars=V[:,0]*0,opacity=1,colormap='gray',vmin=-10,vmax=1)
+
+    Idx = np.where(np.isnan(X))[0]
+    Fi = F.copy()
+    Fi = np.array([fx.tolist() for fx in Fi if not((fx[0] in Idx)+(fx[1] in Idx)+(fx[2] in Idx))])
+
+    mlab.triangular_mesh(f*V[:,0], f*V[:,1], f*V[:,2], Fi, scalars=X,opacity=1,colormap=colormap_value,vmin=value_range[0],vmax=value_range[1])
+
+    if show_points:
+        try:
+            mlab.plot3d(f*V[:,0], f*V[:,1], f*V[:,2],f*V[:,2]*0+scalars_mag,representation='points')
+        except:
+            print('mlab.plot3d Not working, turn off: show_points')
+
+    if D is not None:
+        U = D[:,:3] - D[:,3:6]
+        Xi = D[:,3:6]
+        scalars = car2spar(U)[::N,2]
+
+        if scalars_mag>0: scalars = scalars*0+scalars_mag
+
+        obj = mlab.quiver3d(Xi[::N,0],Xi[::N,1],Xi[::N,2], U[::N,0], U[::N,1], U[::N,2], line_width=line_width,
+                            scale_factor=scale_factor,scale_mode=scale_mode,mode=mode,opacity=opacity,scalars=scalars,
+                            colormap=colormap_arr,vmax=vmax_arr,vmin=vmin_arr)
+
+        obj.glyph.glyph_source.glyph_source.tip_length = tip_length
+        obj.glyph.glyph_source.glyph_source.tip_radius = tip_radius
+        obj.glyph.glyph_source.glyph_source.shaft_radius = shaft_radius
+        obj.glyph.color_mode = color_mode
+    if show: mlab.show()
 
 
 
