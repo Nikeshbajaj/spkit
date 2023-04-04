@@ -3,12 +3,10 @@ pandas
 scipy
 scikit-learn
 python-picard
-matplotlib>1.3
+matplotlib
 PyWavelets
-phyaat
 pylfsr
-pyedflib
 h5py
 seaborn
 joblib
-pickle
+phyaat
