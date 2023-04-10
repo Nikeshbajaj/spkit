@@ -65,6 +65,7 @@ Step-wise Analysis
 #TODO
 
 There are 13 steps to analyse a recording file, which are as follow
+
    1. Read HDF File
    2. Stim loc
    3. Align Cycles
@@ -84,64 +85,130 @@ There are 13 steps to analyse a recording file, which are as follow
 -----------------
 #TODO
 
-
+::
+  
+  sp.io.read_hdf
 
 
 2\. Stim Localisation
 ---------------------
 #TODO
 
+::
+  
+  sp.mea.get_stim_loc
+  
+  
+
 3\. Alignment of Stim Cycles
 ---------------------------
 #TODO
+
+::
+  
+  sp.mea.align_cycles
+
 
 4\. Averaging Cycles or Selecting one
 -------------------------------------
 #TODO
 
+
+
 5\. Activation Time
 -----------------
 #TODO
+
+::
+  
+  sp.mea.activation_time_loc
 
 6\. Repolarisation Time (optional)
 -----------------
 #TODO
 
+::
+  
+  sp.mea.activation_repol_time_loc
+
+
 7\. APD (if RT is computed)
 ---------------------------
 #TODO
+
+::
+  
+  apd_ms = rt_loc_ms-at_loc_ms
+
 
 
 8\. Extracting EGM
 -----------------
 #TODO
 
+::
+  
+  sp.mea.extract_egm
+
 
 9\. EGM Feature Extraction
 -----------------
 #TODO
+
+::
+  
+  sp.mea.egm_features
+
 
 
 10\. Identifying BAD Channels/electrodes
 ----------------------------
 #TODO
 
+::
+  
+  sp.mea.find_bad_channels_idx
+
+
 11\. Creating Feature Matrix
 -----------------
 #TODO
+
+::
+  
+  sp.mea.feature_mat
+
 
 12. Interpolation
 -----------------
 #TODO
 
 
+::
+  
+  sp.fill_nans_2d
+
+
 13. Conduction Velocity
 -----------------
 #TODO
 
+::
+  
+  sp.mea.compute_cv
+
+
 Plots and Figures
 -----------------
 #TODO
+
+::
+  
+  sp.mea.plot_mea_grid
+  sp.mea.mea_feature_map
+  sp.mea.mat_list_show
+  sp.direction_flow_map
+
 
 
 
