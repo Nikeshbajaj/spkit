@@ -12,7 +12,7 @@ Backgorund
 
 #TODO
 
-Multi-Electrode Arrays System utilies an array of electrods mounted on a small plate as a grid electrods (e.g. 60) evenly spaced (700mm apart).
+Multi-Electrode Arrays System utilies an array of electrodes mounted on a small plate as a grid electrodes (e.g. 60) evenly spaced (700mm apart).
 It is used to analyse the eletrophysiology of cells/tissues under different clinical conditions by stimulating with certain voltage on a regular intervals. As shown in figure below, a plate of MEA system of 60 electrodes (source: https://www.multichannelsystems.com/products/meas-60-electrodes). One of the commonly used research field is the cardiac electrophysiology.
 
 .. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/docs_fig/mea_plate_source.png
@@ -34,7 +34,7 @@ This python library analyse the recorded signal file, by extracting the electrog
 
 
 Complete Analysis of a recording
---------------------------------
+---------------------------------
 
 #TODO
 
@@ -42,6 +42,7 @@ One of the simple function to provide complete analysis of recorded file is to u
 This uses the default settings of all the paramters for extracting electrograms, identifying bad eletrodes, extracting features and plotting figures.
 
 ```spkit.mea.analyse_mea_file``` needs two essential inputs, ```files_name``` :  a full path of recoding file in '.h5' format and ```stim_fhz``` frequency of stimulus in Hz.
+
 
 
 ::
@@ -58,8 +59,89 @@ This uses the default settings of all the paramters for extracting electrograms,
 
 
 
+Step-wise Analysis
+------------------
+
+#TODO
+
+There are 13 steps to analyse a recording file, which are as follow
+   1. Read HDF File
+   2. Stim loc
+   3. Align Cycles
+   4. Average Cycles/Select one
+   5. Activation Time
+   6. Activation & Repolarisation Time
+   7. APD
+   8. Extract EGM
+   9. EGM Feature Extraction
+   10. BAD Channels
+   11. Feature Matrix
+   12. Interpolation
+   13. Conduction Velocity
 
 
+1\. Read HDF File
+-----------------
+#TODO
+
+
+
+
+2\. Stim Localisation
+---------------------
+#TODO
+
+3\. Alignment of Stim Cycles
+---------------------------
+#TODO
+
+4\. Averaging Cycles or Selecting one
+-------------------------------------
+#TODO
+
+5\. Activation Time
+-----------------
+#TODO
+
+6\. Repolarisation Time (optional)
+-----------------
+#TODO
+
+7\. APD (if RT is computed)
+---------------------------
+#TODO
+
+
+8\. Extracting EGM
+-----------------
+#TODO
+
+
+9\. EGM Feature Extraction
+-----------------
+#TODO
+
+
+10\. Identifying BAD Channels/electrodes
+----------------------------
+#TODO
+
+11\. Creating Feature Matrix
+-----------------
+#TODO
+
+12. Interpolation
+-----------------
+#TODO
+
+
+13. Conduction Velocity
+-----------------
+#TODO
+
+Plots and Figures
+-----------------
+#TODO
 
 
 
