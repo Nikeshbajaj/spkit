@@ -1,17 +1,9 @@
-**Links:**
------
-
-* **Homepage**   - http://spkit.github.io
-* **Documentation** - https://spkit.readthedocs.io
-* **Github**	    - https://github.com/Nikeshbajaj/spkit
-* **PyPi-project**  - https://pypi.org/project/spkit
-* **Installation:** *pip install spkit*
-
-
 **Installation**
 ---------
 
-**Requirement** : *numpy*,  *matplotlib*
+Installation is simple and easy with minimum requirements
+
+**Requirement** : *numpy*,  *matplotlib*, *pandas*, 
 
 **With pip:**
 
@@ -27,10 +19,6 @@
   conda install -c nikeshbajaj spkit
 
 
-
-
-
-
 **Build from source**
 
 Download the repository or clone it with git, after cd in directory build it from source with
@@ -38,3 +26,14 @@ Download the repository or clone it with git, after cd in directory build it fro
 ::
 
   python setup.py install
+
+
+  
+**Links:**
+-----
+
+* **Homepage**   - http://spkit.github.io
+* **Documentation** - https://spkit.readthedocs.io
+* **Examples** - http://spkit.github.io/examples/
+* **Github**	    - https://github.com/Nikeshbajaj/spkit
+* **PyPi-project**  - https://pypi.org/project/spkit
