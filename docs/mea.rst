@@ -240,6 +240,10 @@ Conduction and Activation Map
 
 
 
+.. image:: https://raw.githubusercontent.com/spkit/spkit.github.io/master/assets/images/docs_fig/mea_act_cv_map_1.png
+   :width: 1000
+   :align: center
+
 
 
 
