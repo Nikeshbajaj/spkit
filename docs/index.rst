@@ -25,19 +25,18 @@ Signal Processing Toolkit - Documentation!
 
 .. important::
     
-    Version: 0.0.9.4 | Released on 01/01/2022
+    Version: 0.0.9.6 | Released on 27/05/2023
     
 
 :Authors:
     Nikesh Bajaj,
     Jesús Requena Carrión
-:Version: 0.0.9.4 | 01/01/2022
 :Home: https://spkit.github.io  
 
 
 * Homepage *spkit* - https://spkit.github.io
 
-* New Guide: - https://spkit.github.io/guide/ 
+.. * New Guide: - https://spkit.github.io/guide/ 
 
 .. 
   -- Under preperation
@@ -78,7 +77,19 @@ EEG Artifact Removal Algorithms
    
    ica_artifact_algo
   
+
+Multi-Electrode Arrays Processing: MEA
+---------------------------------- 
+
+.. toctree::
+   :maxdepth: 3
    
+   mea
+
+
+
+
+  
 Complex Continuous Wavelet Transform
 ---------- 
 
