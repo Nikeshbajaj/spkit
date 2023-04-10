@@ -34,6 +34,15 @@ Signal Processing Toolkit - Documentation!
 :Home: https://spkit.github.io  
 
 
+**New in 0.0.9.6**
+
+* MEA: Multi-Electrode Arrays Processing
+* Geomatrical Functions
+* Differential Entropy, Transfer Entropy, 
+* Signal differentiation, spatial filters
+
+
+
 * Homepage *spkit* - https://spkit.github.io
 
 .. * New Guide: - https://spkit.github.io/guide/ 
