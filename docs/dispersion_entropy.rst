@@ -220,7 +220,7 @@ Dispersion Entropy multiscale
   
 
 
-Mltiscale-refined Dispersion Entropy
+Multiscale-refined Dispersion Entropy
 --------
 
 ::
