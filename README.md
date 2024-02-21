@@ -166,7 +166,7 @@ pip install spkit --upgrade
 # Contacts:
 
 * **Nikesh Bajaj**
-* http://nikeshbajaj.in
+* https://nikeshbajaj.in
 * n.bajaj[AT]qmul.ac.uk, n.bajaj[AT]imperial[dot]ac[dot]uk
 ### Imperial College London
 ______________________________________
