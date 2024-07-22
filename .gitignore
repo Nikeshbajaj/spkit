@@ -1,0 +1,14 @@
+# Ignore
+.DS_Store
+*.DS_Store
+*/.DS_Store
+*.log
+*.py
+*.sh
+*.ipynb
+*.ipynb_checkpoints
+*__pycache__/*
+__pycache__/
+*.py[cod]
+ __pycache__/
+ *.pyc
