@@ -786,6 +786,26 @@ def WPA_plot(x,winsize=128,overlap=64,verticle_stacked=True,wv='db3',mode='symme
         plt.show()
     return Wp
 
+def Wavelet_decompositions(x,wv='db3',L = 6,threshold=np.inf,show=True,WPD=False):
+    '''
+    Decomposing signal into different level of wavalet based signals
+    '''
+    XR = []
+    N = L+1
+    if WPD: N = 2**L
+    for l in range(N):
+        lvl = list(range(N))
+        lvl.remove(l)
+        if show:print(lvl)
+        xr = wavelet_filtering(x.copy(), wv=wv, threshold=threshold,
+                              WPD=WPD, lvl=lvl,wpd_maxlevel=L,verbose=show,show=show,packetwise=True)
+        XR.append(xr)
+
+    XR = np.array(XR).T
+    XR.shape
+    return XR
+
+
 def sinc_interp(x):
     #sinc interpolation
     N = len(x)
@@ -2643,7 +2663,8 @@ def minMSE(x,y,W=5,show=False):
         plt.show()
     return mMSE, Es
 
-def create_signal_1d(n=100,seed=None,sg_polyorder=1,sg_nwin=10,max_dxdt=0.1,iterations=2,max_itr=10,circular=False):
+def create_signal_1d(n=100,seed=None,circular=False,bipolar=True,sg_polyorder=1,sg_nwin=10,max_dxdt=0.1, iterations=2,max_itr=10):
+
     r""" Generate 1D arbitary signal
 
     sg_wid: window_length = (n//sg_wid) for sg_filter
@@ -2651,28 +2672,34 @@ def create_signal_1d(n=100,seed=None,sg_polyorder=1,sg_nwin=10,max_dxdt=0.1,iter
 
     """
     np.random.seed(seed)
-    x = np.random.rand(n)
     window_length = (n//sg_nwin)
     if window_length%2==0: window_length+=1
 
-    if circular: x = np.r_[np.zeros(window_length*2)+x[0],x,np.zeros(window_length*2)+x[0]]
-
+    #print(window_length)
+    x = np.random.rand(n+window_length)
+    #if circular: x = np.r_[np.zeros(window_length*3)+x[0],x,np.zeros(window_length*3)+x[0]]
+    if circular:
+        x[:window_length]  = x[:window_length]*0 + x[0]
+        x[-window_length-1:] = x[-window_length-1:]*0 + x[0]
     xm = x.copy()
 
     if max_dxdt is None:
         #print('max_dxdt:',np.max(np.abs(np.diff(xm))))
         for _ in range(iterations):
-            _,xm = filterDC_sGolay(xm,window_length=window_length,polyorder=sg_polyorder,return_background=True)
+            _,xm = sp.filterDC_sGolay(xm,window_length=window_length,polyorder=sg_polyorder,return_background=True)
             #print('max_dxdt:',np.max(np.abs(np.diff(xm))))
     else:
         itr=0
         while np.max(np.abs(np.diff(xm)))>max_dxdt:
-            _,xm = filterDC_sGolay(xm,window_length=window_length,polyorder=sg_polyorder,return_background=True)
+            _,xm = sp.filterDC_sGolay(xm,window_length=window_length,polyorder=sg_polyorder,return_background=True)
             itr+=1
             if itr>max_itr:break
     np.random.seed(None)
+    xm = xm[window_length//2:-window_length//2]
+    #if circular: xm = xm[1*window_length:-1*window_length]
     xm -= xm.min()
     xm /= xm.max()
+    if bipolar: xm = 2*(xm - 0.5)
     return xm
 
 def create_signal_2d(n=100,sg_winlen=11,sg_polyorder=1,iterations=2,max_dxdt=0.1,max_itr=10,seed=None):

@@ -43,7 +43,76 @@ class bcolors:
 
 A=['\\','-','/','|']
 
-def ProgBar_JL(i,N,title='',style=2,L=100,selfTerminate=True,delta=None):
+def ProgBar_JL(i,N,title='',style=2,L=50,selfTerminate=True,delta=None,sym='▓',color='blue'):
+    '''
+    ▇ ▓ ▒ ░ ▉
+    '''
+    c1 = bcolors.ENDC
+    if color.lower() in ['green','blue','cyan','red']:
+        if color.lower()=='green':
+            c1 = bcolors.OKGREEN
+        elif color.lower()=='blue':
+            c1 = bcolors.OKBLUE
+        elif color.lower()=='cyan':
+            c1 = bcolors.OKCYAN
+        elif color.lower()=='red':
+            c1 = bcolors.CRED
+
+    c2 = bcolors.ENDC
+
+
+    pf = int(100*(i+1)/float(N))
+    st = '\r'+' '*(3-len(str(pf))) + str(pf) +'%|'
+
+    if L==50:
+        pb = sym*int(pf//2)+' '*(L-int(pf//2))
+    else:
+        L = 100
+        pb = sym*pf+' '*(L-pf)
+
+    pb = c1 + pb + c2 +'|'
+
+    if style==1:
+        print(st+A[i%len(A)]+'|'+pb+title,end='', flush=True)
+    elif style==2:
+        print(st+pb+str(N)+'\\'+str(i+1)+'|'+title,end='', flush=True)
+    if pf>=100 and selfTerminate:
+        print('\nDone!')
+
+def ProgBar(i,N,title='',style=2,L=50,selfTerminate=False,sym='▓',color='blue'):
+    '''
+    ▇ ▓ ▒ ░ ▉
+    '''
+    c1 = bcolors.ENDC
+    if color.lower() in ['green','blue','cyan','red']:
+        if color.lower()=='green':
+            c1 = bcolors.OKGREEN
+        elif color.lower()=='blue':
+            c1 = bcolors.OKBLUE
+        elif color.lower()=='cyan':
+            c1 = bcolors.OKCYAN
+        elif color.lower()=='red':
+            c1 = bcolors.CRED
+
+    c2 = bcolors.ENDC
+
+    pf = int(100*(i+1)/float(N))
+    st = ' '*(3-len(str(pf))) + str(pf) +'%|'
+
+    if L==50:
+        pb = sym*int(pf//2)+' '*(L-int(pf//2))
+    else:
+        L = 100
+        pb = sym*pf+' '*(L-pf)
+    pb = c1 + pb + c2 +'|'
+    if style==1:
+        print(st+A[i%len(A)]+'|'+pb+title,end='\r', flush=True)
+    elif style==2:
+        print(st+pb+str(N)+'\\'+str(i+1)+'|'+title,end='\r', flush=True)
+    if pf>=100 and selfTerminate:
+        print('\nDone!')
+
+def ProgBar_JL_v0(i,N,title='',style=2,L=100,selfTerminate=True,delta=None):
     pf = int(100*(i+1)/float(N))
     st = '\r'+' '*(3-len(str(pf))) + str(pf) +'%|'
 
@@ -57,7 +126,7 @@ def ProgBar_JL(i,N,title='',style=2,L=100,selfTerminate=True,delta=None):
     elif style==2:
         print(st+pb+str(N)+'\\'+str(i+1)+'|'+title,end='', flush=True)
     if pf>=100 and selfTerminate:
-        print('\nDone..')
+        print('\nDone!')
 
 def ProgStatus(i,N, title='',style=1,speed=5):
     pt = int(100*(i+1)/N)
@@ -73,7 +142,7 @@ def ProgStatus(i,N, title='',style=1,speed=5):
 
     print(st+title+st0,end='\r',flush=True)
 
-def ProgBar(i,N,title='',style=2,L=100,selfTerminate=True,delta=None):
+def ProgBar_v0(i,N,title='',style=2,L=100,selfTerminate=True,delta=None):
 
     pf = int(100*(i+1)/float(N))
     st = ' '*(3-len(str(pf))) + str(pf) +'%|'
@@ -88,7 +157,8 @@ def ProgBar(i,N,title='',style=2,L=100,selfTerminate=True,delta=None):
     elif style==2:
         print(st+pb+str(N)+'\\'+str(i+1)+'|'+title,end='\r', flush=True)
     if pf>=100 and selfTerminate:
-        print('\nDone..')
+        print('\nDone!')
+
 
 def ProgBar_float(i,N,title='',style=2,L=100,selfTerminate=True,delta=None):
     pf = np.around(100*(i+1)/float(N),2)
@@ -103,7 +173,7 @@ def ProgBar_float(i,N,title='',style=2,L=100,selfTerminate=True,delta=None):
     elif style==2:
         print(st+pb+str(N)+'\\'+str(i+1)+'|'+title,end='\r', flush=True)
     if pf>=100 and selfTerminate:
-        print('\nDone..')
+        print('\nDone!')
 
 def print_list(L,n=3,sep='\t\t'):
     L = [str(l) for l in L]

@@ -92,7 +92,7 @@ def _dtype_bits(kind, bits, itemsize=1):
              bits < (i * 8) or (bits == (i * 8) and kind == 'u'))
 
     return np.dtype(kind + str(s))
-    
+
 def _scale(a, n, m, copy=True):
     """Scale an array of unsigned/positive integers from `n` to `m` bits.
     Numbers can be represented exactly only if `m` is a multiple of `n`.

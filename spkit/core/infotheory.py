@@ -185,9 +185,10 @@ def entropy_cross_(x,y,base=2):
 
 # IMPROVED PRECISION OF COMPUTATIONS
 
-
 def entropy(x,alpha=1,base=2,normalize=False,is_discrete=False,bins='fd',return_n_bins=False,ignoreZero=False):
     '''
+    Entropy H(X)
+
     Rényi entropy of order α
     alpha:[0,inf]
          :0: Max-entropy
@@ -209,7 +210,7 @@ def entropy(x,alpha=1,base=2,normalize=False,is_discrete=False,bins='fd',return_
         _,frq = np.unique(x,return_counts=True)
     else:
         frq,_ = np.histogram(x,bins=bins)
-    
+
     N = len(frq)
     if alpha==0:
         H = np.log(N)
@@ -231,6 +232,8 @@ def entropy(x,alpha=1,base=2,normalize=False,is_discrete=False,bins='fd',return_
 
 def entropy_joint(x,y,base=2,is_discrete=False,bins='fd',return_n_bins=False,ignoreZero=False):
     '''
+    Joint Entropy H(X,Y)
+
 	H(X,Y) = \sum {P(x,y)*np.log(P(x,y))}
 
     Computing joint probability using histogram2d from numpy
@@ -267,7 +270,11 @@ def entropy_joint(x,y,base=2,is_discrete=False,bins='fd',return_n_bins=False,ign
     return Hxy
 
 def entropy_cond(x,y,base=2,is_discrete=False,bins='fd',return_n_bins=False,verbose=False,ignoreZero=False):
-    '''H(X|Y) = H(X,Y) - H(Y)
+    '''
+    Conditional Entropy H(X|Y)
+
+
+    H(X|Y) = H(X,Y) - H(Y)
 
     0 <= H(X|Y) <= H(x)
 
@@ -283,22 +290,22 @@ def entropy_cond(x,y,base=2,is_discrete=False,bins='fd',return_n_bins=False,verb
 def mutual_Info(x,y,base=2,is_discrete=False,bins='fd',return_n_bins=False,verbose=False,ignoreZero=False):
     '''
        I(X;Y) = H(X)+H(Y)-H(X,Y)
-       
+
        I(X;Y) = H(X) - H(X|Y)
 
     0 <= I(X;Y) <= min{ H(x), H(y) }
     '''
-    
-    
+
+
     Hx,Nx = entropy(x,ignoreZero=ignoreZero,base=base,is_discrete=is_discrete,bins=bins,return_n_bins=True)
     Hy,Ny = entropy(y,ignoreZero=ignoreZero,base=base,is_discrete=is_discrete,bins=bins,return_n_bins=True)
-    
+
     Hxy,(Nx_i,Ny_i) = entropy_joint(x,y,ignoreZero=ignoreZero,base=base,is_discrete=is_discrete,bins=[Nx,Ny],return_n_bins=True)
-    
+
     if verbose: print(Nx,Ny,Nx_i,Ny_i)
-    
+
     I = Hx + Hy - Hxy
-    
+
     #I = entropy(x,ignoreZero=ignoreZero,base=base)+\
     #    entropy(y,ignoreZero=ignoreZero,base=base)-\
     #    entropy_joint(x,y,ignoreZero=ignoreZero,base=base)
@@ -311,7 +318,7 @@ def entropy_kld(x,y,base=2,is_discrete=False,bins='fd',verbose=False,pre_version
     H_xy =  \sum{Px*log(Px/Py)}
     Cross entropy - Kullback–Leibler divergence
     '''
-    
+
     if pre_version:
         _,bins = np.histogram(x,bins='fd')
         binx = bins[1]-bins[0]
@@ -323,7 +330,7 @@ def entropy_kld(x,y,base=2,is_discrete=False,bins='fd',verbose=False,pre_version
         xy = np.r_[x,y]
 
         N = np.ceil((max(xy)-min(xy))/binxy).astype(int)
-        
+
         frq,_ = np.histogram(x,bins=N)
         PrX = frq/np.sum(frq)
 
@@ -335,8 +342,8 @@ def entropy_kld(x,y,base=2,is_discrete=False,bins='fd',verbose=False,pre_version
         PrY += 1e-10
 
         H_kl  = np.sum(PrX*np.log(PrX/PrY))
-        
-    else:        
+
+    else:
         if is_discrete:
             Nx = len(np.unique(x))
             Ny = len(np.unique(y))
@@ -345,22 +352,22 @@ def entropy_kld(x,y,base=2,is_discrete=False,bins='fd',verbose=False,pre_version
             if isinstance(bins,str):
                 _,bin_ws = np.histogram(x,bins=bins)
                 Nx = np.ceil((np.max(x)-np.min(x))/(bin_ws[1]-bin_ws[0])).astype(int)
-                
+
                 _,bin_ws = np.histogram(y,bins=bins)
                 Ny = np.ceil((np.max(y)-np.min(y))/(bin_ws[1]-bin_ws[0])).astype(int)
-            
+
             elif isinstance(bins,int):
                 Nx,Ny  = bins, bins
-            
+
             elif isinstance(bins,list):
                 assert len(bins)==2
                 Nx,Ny = bins[0], bins[1]
-            
+
             else:
                 raise ValueError("Undefied way of 'bins', it should be 'str, int or list of arrays")
-        
+
         if verbose: print(Nx,Ny, isinstance(Nx,int), isinstance(Ny,int),type(Nx),type(Ny))
-        
+
         if isinstance(Nx,(int,np.integer)) and isinstance(Ny,(int,np.integer)):
             N = np.max([Nx,Ny]).astype(int)
             frq = np.histogram2d(x,y,bins=[N,N])[0]
@@ -370,11 +377,11 @@ def entropy_kld(x,y,base=2,is_discrete=False,bins='fd',verbose=False,pre_version
             assert len(Nx)==len(Ny)
             frq = np.histogram2d(x,y,bins=[Nx,Ny])[0]
             N = len(Nx)
-            
-        
+
+
         frx = frq.sum(1)
         PrX = frx/frx.sum()
-        
+
         fry = frq.sum(0)
         PrY = fry/fry.sum()
 
@@ -383,9 +390,9 @@ def entropy_kld(x,y,base=2,is_discrete=False,bins='fd',verbose=False,pre_version
         PrY += 1e-10
 
         H_kl  = np.sum(PrX*np.log(PrX/PrY))
-    
+
     if base !='e': H_kl = H_kl/np.log(base)
-        
+
     if return_n_bins:
         return H_kl, (N,N)
     return H_kl
@@ -395,7 +402,7 @@ def entropy_cross(x,y,base=2,is_discrete=False,bins='fd',verbose=False,pre_versi
     Cross entropy
     H_xy = - \sum{Px*log(Py)}
     '''
-    
+
     if pre_version:
         _,bins = np.histogram(x,bins='fd')
         binx = bins[1]-bins[0]
@@ -428,22 +435,22 @@ def entropy_cross(x,y,base=2,is_discrete=False,bins='fd',verbose=False,pre_versi
             if isinstance(bins,str):
                 _,bin_ws = np.histogram(x,bins=bins)
                 Nx = np.ceil((np.max(x)-np.min(x))/(bin_ws[1]-bin_ws[0])).astype(int)
-                
+
                 _,bin_ws = np.histogram(y,bins=bins)
                 Ny = np.ceil((np.max(y)-np.min(y))/(bin_ws[1]-bin_ws[0])).astype(int)
-            
+
             elif isinstance(bins,int):
                 Nx,Ny  = bins, bins
-            
+
             elif isinstance(bins,list):
                 assert len(bins)==2
                 Nx,Ny = bins[0], bins[1]
-            
+
             else:
                 raise ValueError("Undefied way of 'bins', it should be 'str, int or list of arrays")
-        
+
         if verbose: print(Nx,Ny, isinstance(Nx,int), isinstance(Ny,int),type(Nx),type(Ny))
-        
+
         if isinstance(Nx,(int,np.integer)) and isinstance(Ny,(int,np.integer)):
             N = np.max([Nx,Ny]).astype(int)
             frq = np.histogram2d(x,y,bins=[N,N])[0]
@@ -453,11 +460,11 @@ def entropy_cross(x,y,base=2,is_discrete=False,bins='fd',verbose=False,pre_versi
             assert len(Nx)==len(Ny)
             frq = np.histogram2d(x,y,bins=[Nx,Ny])[0]
             N = len(Nx)
-            
+
         #frq = np.histogram2d(x,y,bins=[N,N])[0]
         frx = frq.sum(1)
         PrX = frx/frx.sum()
-        
+
         fry = frq.sum(0)
         PrY = fry/fry.sum()
 
@@ -466,9 +473,9 @@ def entropy_cross(x,y,base=2,is_discrete=False,bins='fd',verbose=False,pre_versi
         PrY += 1e-10
 
         H_cross = -np.sum(PrX*np.log(PrY))
-        
+
     if base !='e': H_cross = H_cross/np.log(base)
-    
+
     if return_n_bins:
         return H_cross, (N,N)
     return H_cross
@@ -476,7 +483,7 @@ def entropy_cross(x,y,base=2,is_discrete=False,bins='fd',verbose=False,pre_versi
     Cross entropy
     H_xy = - \sum{Px*log(Py)}
     '''
-    
+
     if pre_version:
         _,bins = np.histogram(x,bins='fd')
         binx = bins[1]-bins[0]
@@ -509,22 +516,22 @@ def entropy_cross(x,y,base=2,is_discrete=False,bins='fd',verbose=False,pre_versi
             if isinstance(bins,str):
                 _,bin_ws = np.histogram(x,bins=bins)
                 Nx = np.ceil((np.max(x)-np.min(x))/(bin_ws[1]-bin_ws[0])).astype(int)
-                
+
                 _,bin_ws = np.histogram(y,bins=bins)
                 Ny = np.ceil((np.max(y)-np.min(y))/(bin_ws[1]-bin_ws[0])).astype(int)
-            
+
             elif isinstance(bins,int):
                 Nx,Ny  = bins, bins
-            
+
             elif isinstance(bins,list):
                 assert len(bins)==2
                 Nx,Ny = bins[0], bins[1]
-            
+
             else:
                 raise ValueError("Undefied way of 'bins', it should be 'str, int or list of arrays")
-        
+
         if verbose: print(Nx,Ny, isinstance(Nx,int), isinstance(Ny,int),type(Nx),type(Ny))
-        
+
         if isinstance(Nx,(int,np.integer)) and isinstance(Ny,(int,np.integer)):
             N = np.max([Nx,Ny]).astype(int)
             frq = np.histogram2d(x,y,bins=[N,N])[0]
@@ -534,11 +541,11 @@ def entropy_cross(x,y,base=2,is_discrete=False,bins='fd',verbose=False,pre_versi
             assert len(Nx)==len(Ny)
             frq = np.histogram2d(x,y,bins=[Nx,Ny])[0]
             N = len(Nx)
-            
+
         #frq = np.histogram2d(x,y,bins=[N,N])[0]
         frx = frq.sum(1)
         PrX = frx/frx.sum()
-        
+
         fry = frq.sum(0)
         PrY = fry/fry.sum()
 
@@ -547,14 +554,12 @@ def entropy_cross(x,y,base=2,is_discrete=False,bins='fd',verbose=False,pre_versi
         PrY += 1e-10
 
         H_cross = -np.sum(PrX*np.log(PrY))
-        
+
     if base !='e': H_cross = H_cross/np.log(base)
-    
+
     if return_n_bins:
         return H_cross, (N,N)
     return H_cross
-
-
 
 def entropy_spectral(x,fs,method='fft',alpha=1,base=2,normalize=True,axis=-1,nperseg=None,bining=False):
     '''

@@ -608,7 +608,7 @@ def get_square_grid(n=10,vl=5,hl=None,r=1):
     return X
 
 
-def get_sphare(n1=100,n2=100,r=1,prnag=[0,2*np.pi],trang=[0,np.pi]):
+def get_sphare_v0(n1=100,n2=100,r=1,prnag=[0,2*np.pi],trang=[0,np.pi]):
     phi = np.linspace(prnag[0],prnag[1],n1)
     tht = np.linspace(trang[0],trang[1],n2)
     thT,phI = np.meshgrid(tht,phi)
@@ -619,6 +619,19 @@ def get_sphare(n1=100,n2=100,r=1,prnag=[0,2*np.pi],trang=[0,np.pi]):
     x = r*np.cos(phI)*np.sin(thT)
     y = r*np.sin(phI)*np.sin(thT)
     z = r*np.cos(thT)
+    return np.c_[x,y,z]
+
+def get_sphare(n1=100,n2=100,r=1,r2=1,r3=1,phi_rang=[0,2*np.pi],theta_rang=[0,np.pi]):
+    phi = np.linspace(phi_rang[0],phi_rang[1],n1)
+    tht = np.linspace(theta_rang[0],theta_rang[1],n2)
+    thT,phI = np.meshgrid(tht,phi)
+
+    thT = thT.reshape(-1)
+    phI = phI.reshape(-1)
+
+    x = r*np.cos(phI)*np.sin(thT)
+    y = r2*np.sin(phI)*np.sin(thT)
+    z = r3*np.cos(thT)
     return np.c_[x,y,z]
 
 def get_ellipsoid(n1=100,n2=100,rx=1,ry=2,rz=1,prnag=[0,2*np.pi],trang=[0,np.pi]):

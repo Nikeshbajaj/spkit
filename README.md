@@ -45,7 +45,8 @@ pip install spkit
 ```
 pip install spkit --upgrade
 ```
-
+# New in 0.0.9.7:
+## MEA Processing Toolkit
 
 # New in 0.0.9.5:
 ## MEA Processing Toolkit
@@ -166,7 +167,7 @@ pip install spkit --upgrade
 # Contacts:
 
 * **Nikesh Bajaj**
-* https://nikeshbajaj.in
+* http://nikeshbajaj.in
 * n.bajaj[AT]qmul.ac.uk, n.bajaj[AT]imperial[dot]ac[dot]uk
 ### Imperial College London
 ______________________________________

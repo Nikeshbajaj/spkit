@@ -393,7 +393,7 @@ def dir_vectors(V,AdjM,verbose=False):
     D = np.array(D)
     return D
 
-def get_adjacency_matrix_depth(V,F,depth=1,remove_self_con=True):
+def get_adjacency_matrix_depth(V,F,depth=1,remove_self_con=True,ignore_matrix=False):
     r"""
     Create Adjacency Matrix based on Trianglution Connection Depth
 
@@ -424,20 +424,24 @@ def get_adjacency_matrix_depth(V,F,depth=1,remove_self_con=True):
             node2C[n].update(nnd)
         depth -=1
 
-    AdjM = np.zeros([M,M])
-    for i in range(M):
-        if i in node2C:
-            c = list(node2C[i])
-            AdjM[i,c]=1
+    if ignore_matrix: AdjM=None
+    if not(ignore_matrix):
+        AdjM = np.zeros([M,M])
+        for i in range(M):
+            if i in node2C:
+                c = list(node2C[i])
+                AdjM[i,c]=1
 
     if remove_self_con:
-        AdjM = AdjM-np.diag(np.diag(AdjM))
+        if not(ignore_matrix): AdjM = AdjM-np.diag(np.diag(AdjM))
         for i in node2C:
             node2C[i] = node2C[i]-set([i])
             if len(node2C[i])==0: del node2C[i]
+
+
     return AdjM, node2C
 
-def get_adjacency_matrix_dist(V,dist=5, remove_self_con=True):
+def get_adjacency_matrix_dist(V,dist=5, remove_self_con=True,ignore_matrix=False):
     r"""
     Create Adjacency Matrix based on Euclidean distance
 
@@ -452,14 +456,46 @@ def get_adjacency_matrix_dist(V,dist=5, remove_self_con=True):
     """
 
     M = V.shape[0]
-    AdjM = np.zeros([M,M]).astype(int)
+    AdjM=None
+
+    if not(ignore_matrix): AdjM = np.zeros([M,M]).astype(int)
     node2C ={}
     for i in range(M):
         clist = list(np.where(np.sqrt(np.sum((V-V[i])**2,1))<dist)[0])
         if remove_self_con: clist = list(set(clist)-set([i]))
         if len(clist):
             node2C[i] = list(clist)
-            AdjM[i,clist]=1
+            if not(ignore_matrix): AdjM[i,clist]=1
+    return AdjM,node2C
+
+def get_adjacency_matrix_kNN(V,K=5,remove_self_con=True, verbose=False,ignore_matrix=False):
+    r"""
+    Create Adjacency Index Matrix based on Euclidean distance
+
+    Parameters
+    ----------
+    V   : Points, (m,n), m-points in n-dimentional space
+    K   : int, number of nearest neibhbour
+    remove_self_con: bool, if true, self point is excluded from neareast neighbours
+    Returns
+    -------
+    AdjM   : Adjacency Index Matrix, (m, K) shape, index of neareast points, in accending order of distance
+    """
+
+    M = V.shape[0]
+    AdjM=None
+    #AdjM = np.zeros([M,M]).astype(int)
+    #node2C ={}
+    if not(ignore_matrix): AdjM = np.zeros([M,M]).astype(int)
+    node2C ={}
+    for i in range(M):
+        if verbose: sp.utils.ProgBar(i, M,style=2)
+        idx = list(np.argsort(np.sqrt(np.sum((V-V[i])**2,1)))[:K+1])
+        idx.sort()
+        if remove_self_con:
+            if i in idx: idx.remove(i)
+        node2C[i] = idx[:K]
+        if not(ignore_matrix): AdjM[i,idx]=1
     return AdjM,node2C
 
 def node2C_to_adjacency_matrix(node2C, M=None):

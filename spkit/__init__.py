@@ -1,7 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
 name = "Signal Processing toolkit"
-__version__ = '0.0.9.6'
+__version__ = '0.0.9.6.7'
 __author__ = 'Nikesh Bajaj'
 
 
@@ -37,6 +37,8 @@ from .core.processing import (signal_diff, get_activation_time,get_repolarisatio
 from .core.processing import (phase_map,amplitude_equalizer,phase_map_reconstruction,dominent_freq,dominent_freq_win,clean_phase,mean_minSE,minMSE)
 from .core.processing import (create_signal_1d, create_signal_2d,spatial_filter_dist, spatial_filter_adj)
 from .core.matDecomposition import (ICA, SVD,infomax)
+
+from .core.processing import (Wavelet_decompositions)
 ##wavelet_filtering, wavelet_filtering_win, WPA_coeff, WPA_temporal, WPA_plot
 
 # Advanced
@@ -63,6 +65,7 @@ from .core import cwt
 from .utils_misc import io_utils as io
 from .utils_misc import tf_utils
 from .utils_misc import utils as utils_dev
+from .utils_misc.borrowed import resize
 from .data import load_data
 
 #from .mea.mea_processing import *
