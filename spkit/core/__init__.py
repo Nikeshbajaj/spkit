@@ -1,7 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
 name = "Signal Processing toolkit | Core funtions"
-__version__ = '0.0.9.6'
+__version__ = '0.0.9.7'
 __author__ = 'Nikesh Bajaj'
 
 

@@ -35,6 +35,8 @@ from scipy.signal import butter, lfilter#, convolve, boxcar
 from joblib import Parallel, delayed
 from scipy import stats
 import pywt as wt
+import warnings
+warnings.filterwarnings('once')
 
 
 def SoftThresholding(w,theta_a,theta_g):
@@ -270,6 +272,16 @@ def ATAR_1Ch(x,wv='db3',winsize=128,thr_method='ipr',IPR=[25,75],beta=0.1,k1=Non
     XR: corrected signal of same shape as input X
 
     '''
+    if (k1 is not None and np.max(x)<k1) or np.max(x)<k2:
+        warnings.warn('Make sure the upper and lower bound values (k1,k2) are of same order as signal amplitude. If amplitude of signal is much lower than k2 or even k1, ATAR algorithm will have no affect on signal. For example, k2=100, and/or k1=10 is setting for amplitude in micro-volt (in order of 100s). If provided signal is in volt (1e-6), multiply signal with 1e6 (X*1e6) and then apply ATAR')
+
+    if np.max(x) < k2*10:
+        warnings.warn('Upper bound k2 is set to very high. ATAR might have no impact of signal. Either change amplitude unit of signal by multiplying 1e3, or 1e6, or lower the value of k2 and respectively, k1.  One of the straightforward way to set k2 is k2 = np.std(X).')
+
+
+
+
+
     if ReconMethod is None:
         win=np.arange(winsize)
         xR=[]
@@ -409,6 +421,13 @@ def ATAR_mCh(X,wv='db3',winsize=128,thr_method ='ipr',IPR=[25,75],beta=0.1,k1=10
     assert thr_method in [ None, 'ipr']
     assert OptMode in ['soft','linAtten','elim']
 
+    if (k1 is not None and np.max(X)<k1) or np.max(X)<k2:
+        warnings.warn('Make sure the upper and lower bound values (k1,k2) are of same order as signal amplitude. If amplitude of signal is much lower than k2 or even k1, ATAR algorithm will have no affect on signal. For example, k2=100, and/or k1=10 is setting for amplitude in micro-volt (in order of 100s). If provided signal is in volt (1e-6), multiply signal with 1e6 (X*1e6) and then apply ATAR')
+
+    if np.max(X) < k2*10:
+        warnings.warn('Upper bound k2 is set to very high. ATAR might have no impact of signal. Either change amplitude unit of signal by multiplying 1e3, or 1e6, or lower the value of k2 and respectively, k1.')
+
+
 
     if verbose:
         print('WPD Artifact Removal')
@@ -435,9 +454,10 @@ def ATAR_mCh(X,wv='db3',winsize=128,thr_method ='ipr',IPR=[25,75],beta=0.1,k1=10
               ReconMethod=ReconMethod,packetwise=packetwise,WPD=WPD,lvl=lvl,fs=fs)
     return XR
 
-def ATAR(X,wv='db3',winsize=128,thr_method ='ipr',IPR=[25,75],beta=0.1,k1=10,k2 =100,est_wmax=100,
+def ATAR(X,wv='db3',winsize=128,thr_method ='ipr',IPR=[25,75],beta=0.1,k1=10,k2=100,est_wmax=100,
               theta_a=np.inf,bf=2,gf=0.8,OptMode ='soft',wpd_mode='symmetric',wpd_maxlevel=None,factor=1.0,
-              verbose=False, window=['hamming',True],hopesize=None, ReconMethod='custom',packetwise=False,WPD=True,lvl=[],fs=128.0,use_joblib=False):
+              verbose=False, window=['hamming',True],hopesize=None, ReconMethod='custom',
+              packetwise=False,WPD=True,lvl=[],fs=128.0,use_joblib=False):
     '''
     .
     ATAR: - Automatic and Tunable Artifact Removal Algorithm
@@ -487,6 +507,13 @@ def ATAR(X,wv='db3',winsize=128,thr_method ='ipr',IPR=[25,75],beta=0.1,k1=10,k2 
 
     assert thr_method in [ None, 'ipr']
     assert OptMode in ['soft','linAtten','elim']
+
+    if (k1 is not None and np.max(X)<k1) or np.max(X)<k2:
+        warnings.warn('Make sure the upper and lower bound values (k1,k2) are of same order as signal amplitude. If amplitude of signal is much lower than k2 or even k1, ATAR algorithm will have no affect on signal. For example, k2=100, and/or k1=10 is setting for amplitude in micro-volt (in order of 100s). If provided signal is in volt (1e-6), multiply signal with 1e6 (X*1e6) and then apply ATAR')
+
+    if np.max(X) < k2*10:
+        warnings.warn('Upper bound k2 is set to very high. ATAR might have no impact of signal. Either change amplitude unit of signal by multiplying 1e3, or 1e6, or lower the value of k2 and respectively, k1.')
+
 
 
     if verbose:

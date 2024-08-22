@@ -103,7 +103,7 @@ class NaiveBayes():
         a  = (1.0 / (np.sqrt((2.0 * np.pi) * var)))
         px = a*np.exp(-(((xi - mean)**2) / (2 * var)))
         return px,xi
-    def VizPx(self,nfeatures = None):
+    def VizPx(self,nfeatures = None,show=True):
         if self.class_labels is None:
             self.class_labels  = ['C'+str(c) for c in self.classes]
         if self.feature_names is None:
@@ -138,4 +138,4 @@ class NaiveBayes():
                 plt.tight_layout()
                 plt.ticklabel_format(style='sci',axis='y',scilimits=(0,0))
 
-        plt.show()
+        if show: plt.show()

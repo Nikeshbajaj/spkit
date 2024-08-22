@@ -14,7 +14,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 from scipy.spatial import Delaunay, ConvexHull
-from scipy.spatial.qhull import Delaunay
+#from scipy.spatial.qhull import Delaunay
 from scipy.interpolate import CloughTocher2DInterpolator
 from mpl_toolkits.mplot3d import Axes3D, art3d
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection

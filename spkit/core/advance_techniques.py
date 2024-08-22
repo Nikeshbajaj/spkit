@@ -26,46 +26,53 @@ if sys.version_info[:2] < (3, 3):
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.fftpack import fft, ifft, fftshift
-from scipy.signal import blackmanharris, triang
 from scipy import signal
 
+try:
+    from scipy.signal import blackmanharris, triang
+except:
+    # for scipy>1.12, location has changed blackmanharris, triang 
+    from scipy.signal.windows import blackmanharris, triang
+
 def isPower2(n):
-    """
-    Check if num is power of two
+    """Check if num is power of two
+    
     """
     return ((n & (n - 1)) == 0) and n > 0
 
 def dft_analysis(x, window='blackmanharris', N=None,scaling_dB=True,normalize_win=True, plot=False, fs=None):
 
-    """
+    """Discrete Fourier Transform Analysis Model
+
+
     Analysis of a signal x using the Discrete Fourier Transform
     ----------------------------------------------------------
 
     input
     -----
-    x  : 1d-array input signal ofshape (n,)
-    window: window-type (default = 'blackmanharris')
-          : in None, qrectangular window is used
+        x  : 1d-array input signal ofshape (n,)
+        window: window-type (default = 'blackmanharris')
+            : in None, qrectangular window is used
 
-    N : FFT size should be >= len(x) and power of 2
-      : if None then N = 2**np.ceil(np.log2(len(n)))
+        N : FFT size should be >= len(x) and power of 2
+        : if None then N = 2**np.ceil(np.log2(len(n)))
 
-    scaling_dB: bool, if false, then linear scale of spectrum is returned, else in dB
-              : default True
-    normalize_win: bool (default True), if to normalize wondow (recommended)
-    plot: int, (default: 0) for no plot
-        : 1 for plotting magnitude and phse spectrum
-        : 2 for ploting signal along with spectrum
+        scaling_dB: bool, if false, then linear scale of spectrum is returned, else in dB
+                : default True
+        normalize_win: bool (default True), if to normalize wondow (recommended)
+        plot: int, (default: 0) for no plot
+            : 1 for plotting magnitude and phse spectrum
+            : 2 for ploting signal along with spectrum
 
-    fs : sampling frequency, only used to plot the signal when plot=2
-       : if not provided, fs=1 is used
-       : it does not affect any computations
+        fs : sampling frequency, only used to plot the signal when plot=2
+        : if not provided, fs=1 is used
+        : it does not affect any computations
 
     output
     ------
-    mX: magnitude spectrum (of shape=int((N/2)+1)) # positive spectra
-    pX: phase spectrum  same shape as mX
-    N : N-point FFT used for computation
+        mX: magnitude spectrum (of shape=int((N/2)+1)) # positive spectra
+        pX: phase spectrum  same shape as mX
+        N : N-point FFT used for computation
     """
 
     n = x.shape[0]
@@ -155,20 +162,23 @@ def dft_analysis(x, window='blackmanharris', N=None,scaling_dB=True,normalize_wi
     return mX, pX, N
 
 def dft_synthesis(mX, pX, M=None,scaling_dB=True,window=None):
-    """
+    
+    """Discrete Fourier Transform Analysis and Synthesis Model
+
+
     Synthesis of a signal using the Discrete Fourier Transform from positive spectra
     ----------------------------------------------------------
     input
     -----
-    mX: magnitude spectrum - 1d-array  (of shape=int((N/2)+1)) for N-point FFT
-    pX: phase spectrum     - same size as mX
-    M : length of signal: x, if None, then M = N = 2*(len(mX)-1)
-    window: if provided, synthesized signal is rescalled with corresponding window function
-          : undoing the scaling
+        mX: magnitude spectrum - 1d-array  (of shape=int((N/2)+1)) for N-point FFT
+        pX: phase spectrum     - same size as mX
+        M : length of signal: x, if None, then M = N = 2*(len(mX)-1)
+        window: if provided, synthesized signal is rescalled with corresponding window function
+            : undoing the scaling
 
     output
     -------
-    y: output signal of shape (M,)
+        y: output signal of shape (M,)
     """
     # size of positive spectrum including sample 0
     hN = mX.size
@@ -211,30 +221,32 @@ def dft_synthesis(mX, pX, M=None,scaling_dB=True,window=None):
     return y
 
 def stft_analysis(x, winlen, window='blackmanharris',nfft=None, overlap=None):
-    """
+    
+    """Short-Time Fourier Transform Analysis Model
+
     Analysis of a signal using the Short-Time Fourier Transform
     ------------------------------------------------------------
     input
     -----
-    x: 1d-array signal - shape (n,)
-    winlen : window length for analysis (good choice is a odd number)
-           : window size is chosen based on the frequency resolution required
-           : winlen >= Bs*fs/del_f
-           : where Bs=4 for hamming window, Bs=6 for blackman harris
-           : def_f is different between two frequecies (to be resolve)
-           : higher the window length better the frequency resolution, but poor time resolution
-    overlap: overlap of windows
-           : if None then winlen//2 is used (50% overlap)
-           : shorter overlap can improve time resoltion - upto an extend
-    window: analysis window (default = blackmanharris)
-          : if None, rectangular window is used
-    nfft: FFT size, should be >=winlen and power of 2
-        : if None -  nfft = 2**np.ceil(np.log2(len(n)))
+        x: 1d-array signal - shape (n,)
+        winlen : window length for analysis (good choice is a odd number)
+            : window size is chosen based on the frequency resolution required
+            : winlen >= Bs*fs/del_f
+            : where Bs=4 for hamming window, Bs=6 for blackman harris
+            : def_f is different between two frequecies (to be resolve)
+            : higher the window length better the frequency resolution, but poor time resolution
+        overlap: overlap of windows
+            : if None then winlen//2 is used (50% overlap)
+            : shorter overlap can improve time resoltion - upto an extend
+        window: analysis window (default = blackmanharris)
+            : if None, rectangular window is used
+        nfft: FFT size, should be >=winlen and power of 2
+            : if None -  nfft = 2**np.ceil(np.log2(len(n)))
 
     output
     ------
-    mXt : magnitude spectra of shape (number of frames, int((nfft/2)+1))
-    pXt : phase spectra of same shape as mXt
+        mXt : magnitude spectra of shape (number of frames, int((nfft/2)+1))
+        pXt : phase spectra of same shape as mXt
     """
 
     if nfft is None: nfft = int(2**np.ceil(np.log2(winlen)))
@@ -262,19 +274,21 @@ def stft_analysis(x, winlen, window='blackmanharris',nfft=None, overlap=None):
     return mXt, pXt
 
 def stft_synthesis(mXt, pXt, winlen, overlap):
-    """
+    
+    """Short-Time Fourier Transform Synthesis Model
+    
     Synthesis of signal from Short-Time Fourier Transform
     ------------------------------------------------------
     input
     -----
-    mXt: magnitude spectra of signal - 2d-array of shape (number of frames, int((nfft/2)+1))
-    pXt: phase spectra of same size as mXt
-    winlen: window length used while analysing
-    overlap: overlap of windows used while analysing
+        mXt: magnitude spectra of signal - 2d-array of shape (number of frames, int((nfft/2)+1))
+        pXt: phase spectra of same size as mXt
+        winlen: window length used while analysing
+        overlap: overlap of windows used while analysing
 
     output
     ------
-    y : 1d-array - synthesized signal shape = (nFrames*overlap + winlen)
+        y : 1d-array - synthesized signal shape = (nFrames*overlap + winlen)    
     """
     # half -sides of analysis window
     hM1 = int(np.floor((winlen+1)/2))
@@ -291,7 +305,9 @@ def stft_synthesis(mXt, pXt, winlen, overlap):
     return y
 
 def peak_detection(mX, thr):
-    """
+    
+    """Detect spectral peaks
+
     Detect spectral peaks
     ---------------------
     input
@@ -320,7 +336,9 @@ def peak_detection(mX, thr):
     return ploc
 
 def peak_interp(mX, pX, ploc):
-    """
+    
+    """Interpolate peak
+
     Interpolate peak values using parabolic interpolation
     -----------------------------------------------------
     refined loction:
@@ -354,8 +372,10 @@ def peak_interp(mX, pX, ploc):
     return iploc, ipmag, ipphase
 
 def TWM_f0(pfreq,pmag,f0min=0.01,f0max=None,f0_pre=0,f0max_err=1,verbose=0):
-    """
-    Two-Way Mismatch algorithn: Selecting f0 from possible candidates
+    
+    """Two-Way Mismatch algorithm
+
+    Two-Way Mismatch algorithm: Selecting f0 from possible candidates
     -----------------------------------------------------------------
 
     input
@@ -422,7 +442,10 @@ def TWM_f0(pfreq,pmag,f0min=0.01,f0max=None,f0_pre=0,f0max_err=1,verbose=0):
     return 0
 
 def TWM_algo(pfreq, pmag, f0c,verbose=0):
-    """
+    
+    """Two-way mismatch algorithm for f0 detection
+
+
     Two-way mismatch algorithm for f0 detection
     -------------------------------------------
 
@@ -499,7 +522,9 @@ def TWM_algo(pfreq, pmag, f0c,verbose=0):
 
 def f0_detection(x, fs, winlen,nfft=None,overlap=None,window='hann',thr=-10,f0min=0.01,f0max=None,f0err=1,
                  return_cand=False):
-    """
+    
+    """Fundamental frequency detection using TWM
+
     Fundamental frequency detection of a signal using TWM algorithm
     ---------------------------------------------------------------
 
@@ -596,7 +621,9 @@ def f0_detection(x, fs, winlen,nfft=None,overlap=None,window='hann',thr=-10,f0mi
     return f0
 
 def sinc_dirichlet(x, N):
-    """
+    
+    """ Generate the main lobe of a sinc function
+
     Generate the main lobe of a sinc function (Dirichlet kernel)
     ------------------------------------------------------------
     input
@@ -945,13 +972,21 @@ def sineModel_synthesis(fXt,mXt,pXt,fs,overlap,crop_end=False):
         syn_win = np.zeros(N)
 
         # triangular window
-        tri_win = triang(2*H)
+        try:
+            tri_win = triang(2*H)
+        except:
+            tri_win = signal.get_window('triang', 2*H)
+
 
         # add triangular window
         syn_win[hN-H:hN+H] = tri_win
 
         # blackmanharris window
-        bh_win = blackmanharris(N)
+        try:
+            bh_win = blackmanharris(N)
+        except:
+            bh_win = signal.get_window('blackmanharris', N)
+
         bh_win /= np.sum(bh_win)
 
         #synthesis window - triangular/Blackman-Harris of middle half
@@ -1001,7 +1036,6 @@ def sineModel_synthesis(fXt,mXt,pXt,fs,overlap,crop_end=False):
     y = y[hN:]
     if crop_end: y = y[-overlap:]
     return y
-
 
 #TOBE TESTED
 def simplify_signal(x,fs,winlen,overlap,mag=-1,N=1,thr=-20,minDur=0.01,freq_devOffset=10,freq_devSlope=0.1,window='blackmanharris'):

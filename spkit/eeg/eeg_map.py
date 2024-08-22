@@ -159,7 +159,10 @@ class GridInter(object):
     Grid Interpolator for 2d EEG electrodes
     '''
     def __init__(self,pos,res=64):
-        from scipy.spatial.qhull import Delaunay
+        try:
+            from scipy.spatial.qhull import Delaunay
+        except:
+            from scipy.spatial import Delaunay
         import itertools
 
         extremes = np.array([pos.min(axis=0), pos.max(axis=0)])
@@ -192,7 +195,10 @@ class GridInter(object):
         return Zi
 
 def GridInterpolation(pos, data, Xi,Yi):
-    from scipy.spatial.qhull import Delaunay
+    try:
+        from scipy.spatial.qhull import Delaunay
+    except:
+        from scipy.spatial import Delaunay
     from scipy.interpolate import CloughTocher2DInterpolator
     import itertools
 
@@ -243,8 +249,12 @@ def TopoMap(pos, data,res=64, showplot=False,axes=None,contours=True,showsensors
         ax.axis('off')
         if contours:
             contrs = ax.contour(Xi, Yi, Zi, 6, colors='k',linewidths=0.5)
-            for col in contrs.collections:
-                col.set_clip_path(patch)
+            try:
+                for col in contrs.collections:
+                    col.set_clip_path(patch)
+            except:
+                # matplotlib version 3.8 plans to remove .collections
+                contrs.set_clip_path(patch)
         if showsensors:
             ax.plot(ipos[:,0],ipos[:,1],'.k',markersize=2)
 
@@ -502,7 +512,11 @@ def _test_():
     filen ='Standard_1020.csv'
     filen = os.path.join(os.path.dirname(__file__), filen)
     D = pd.read_csv(filen)
-    from scipy.spatial.qhull import Delaunay
+    try:
+        from scipy.spatial.qhull import Delaunay
+    except:
+        from scipy.spatial import Delaunay
+    #from scipy.spatial.qhull import Delaunay
     from scipy.interpolate import CloughTocher2DInterpolator
     from matplotlib import patches
     import itertools

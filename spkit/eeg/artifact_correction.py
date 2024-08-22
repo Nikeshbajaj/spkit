@@ -30,7 +30,7 @@ import matplotlib.pyplot as plt
 from scipy.signal import get_window
 
 #from .ICA_methods import ICA
-from ..core.matDecomposition import ICA, SVD
+from ..core.decomposition import ICA, SVD
 from .eeg_map import s1020_get_epos2d_
 import utils
 

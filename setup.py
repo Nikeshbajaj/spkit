@@ -88,7 +88,7 @@ if __name__ == "__main__":
         'Source': 'https://github.com/Nikeshbajaj/spkit',
         'Tracker': 'https://github.com/Nikeshbajaj/spkit/issues',
         },
-        
+
         platforms='any',
         python_requires='>=3.5',
         install_requires = install_requires,

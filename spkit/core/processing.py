@@ -39,13 +39,14 @@ import seaborn as sns
 
 sys.path.append("..")
 #sys.path.append(".")
-from .infotheory import entropy
+from .information_theory import entropy
 from ..utils import ProgBar
 from ..utils_misc.borrowed import resize
 
 def filterDC_(x,alpha=256):
     '''
     TO BE DEPRECIATED  - use filterDC instead
+
     ----------------
 
     Filter out DC component - Remving drift using Recursive (IIR type) filter
@@ -64,9 +65,10 @@ def filterDC_(x,alpha=256):
     initialize_zero: (bool): If True, running backgrpund b will be initialize it with x[0], resulting y[0] = 0
           if False, b = 0, resulting y[0] ~ x[0], and slowly drifting towards zeros line
           - recommended to set True
-    output
-    -----
-    y : output vector
+
+    Returns
+    ------
+        y : output vector
 
     '''
     b = x[0]
@@ -79,6 +81,7 @@ def filterDC_(x,alpha=256):
 def filterDC_X(X,alpha=256,return_background=False,initialize_zero=True):
     '''
     TO BE DEPRECIATED   - use filterDC instead
+
     ----------------
 
     Filter out DC component - Remving drift using Recursive (IIR type) filter
@@ -87,8 +90,8 @@ def filterDC_X(X,alpha=256,return_background=False,initialize_zero=True):
 
           where y[-1] = x[0], x[-1] = x[0]
           resulting y[0] = 0
-    input
-    -----
+    Parameteres
+    -----------
     x    : (vecctor) input signal
 
     alpha: (scalar) filter coefficient, higher it is, more suppressed dc component (0 frequency component)
@@ -97,9 +100,10 @@ def filterDC_X(X,alpha=256,return_background=False,initialize_zero=True):
     initialize_zero: (bool): If True, running backgrpund b will be initialize it with x[0], resulting y[0] = 0
           if False, b = 0, resulting y[0] ~ x[0], and slowly drifting towards zeros line
           - recommended to set True
-    output
-    -----
-    y : output vector
+
+    Returns
+    ------
+        y : output vector
 
     '''
     B = X[0] if initialize_zero else 0*X[0]
@@ -114,27 +118,31 @@ def filterDC_X(X,alpha=256,return_background=False,initialize_zero=True):
     return Y
 
 def filterDC(X,alpha=256,return_background=False,initialize_zero=True):
-    '''
+    '''Filter out DC component using IIR filter
+
     Filter out DC component - Remving drift using Recursive (IIR type) filter
     -------------------------------------
           y[n] = ((alpha-1)/alpha) * ( x[n] - x[n-1] -y[n-1])
 
           where y[-1] = x[0], x[-1] = x[0]
           resulting y[0] = 0
+
     implemenatation works for single (1d array) or multi-channel (2d array)
-    input
-    -----
-    X : (vecctor) input signal single channel (n,) or multi-channel, channel axis should be 1 shape ~ (n,ch)
 
-    alpha: (scalar) filter coefficient, higher it is, more suppressed dc component (0 frequency component)
-         : with alpha=256, dc component is suppressed by 20 dB
+    Parameteres
+    -----------
+        X : (vecctor) input signal single channel (n,) or multi-channel, channel axis should be 1 shape ~ (n,ch)
 
-    initialize_zero: (bool): If True, running backgrpund b will be initialize it with x[0], resulting y[0] = 0
-          if False, b = 0, resulting y[0] ~ x[0], and slowly drifting towards zeros line
-          - recommended to set True
-    output
-    -----
-    Y : output vector, shape same as input X (n,) or (n,ch)
+        alpha: (scalar) filter coefficient, higher it is, more suppressed dc component (0 frequency component)
+            : with alpha=256, dc component is suppressed by 20 dB
+
+        initialize_zero: (bool): If True, running backgrpund b will be initialize it with x[0], resulting y[0] = 0
+            if False, b = 0, resulting y[0] ~ x[0], and slowly drifting towards zeros line
+            - recommended to set True
+
+    Returns
+    ------
+        Y : output vector, shape same as input X (n,) or (n,ch)
 
     '''
     B = X[0] if initialize_zero else 0*X[0]
@@ -149,23 +157,27 @@ def filterDC(X,alpha=256,return_background=False,initialize_zero=True):
     return Y
 
 def filterDC_sGolay(X, window_length=127, polyorder=3, deriv=0, delta=1.0, mode='interp', cval=0.0,return_background=False):
-    '''
+    '''Filter out DC component using Savitzky-Golay filter
+
     Filter out DC component - Remving drift using Savitzky-Golay filter
     -------------------------------------------------------------------
+
     Savitzky-Golay filter for multi-channels signal: From Scipy library
 
-    input
-    -----
-    X : (vecctor) input signal single channel (n,) or multi-channel, channel axis should be 1 shape ~ (n,ch)
-    window_length: should be an odd number
-    others input parameters as same as in scipy.signal.savgol_filter
-              :(polyorder=3, deriv=0, delta=1.0, mode='interp', cval=0.0)
+    Parameteres
+    -----------
+        X : (vecctor) input signal single channel (n,) or multi-channel, channel axis should be 1 shape ~ (n,ch)
+        window_length: should be an odd number
+        others input parameters as same as in scipy.signal.savgol_filter
+                :(polyorder=3, deriv=0, delta=1.0, mode='interp', cval=0.0)
 
-    output
+    Returns
     ------
-    Y : corrected signal
-    Xm: background removed -  return only if return_background is True
+        Y : corrected signal
+        Xm: background removed -  return only if return_background is True
+
     '''
+
     if isinstance(window_length, float):
         if window_length==int(window_length):
             window_length = int(window_length)
@@ -228,26 +240,28 @@ def filter_X_(X,fs=128.0,band =[0.5],btype='highpass',order=5,ftype='filtfilt',v
 
 #TOBE TESTEST SOS
 def filter_X(X,fs=128.0,band =[0.5],btype='highpass',order=5,ftype='filtfilt',verbose=1,use_joblib=False,filtr_keywors=dict()):
-    '''
+    '''Buttorworth filtering
+
     Buttorworth filtering -  basic filtering
     ----------------------------------------
 
     Parameteres
     -----------
-    X : (vecctor) input signal single channel (n,) or multi-channel, channel axis should be 1 shape ~ (n,ch)
+        X : (vecctor) input signal single channel (n,) or multi-channel, channel axis should be 1 shape ~ (n,ch)
 
-    band: cut of frequency, for lowpass and highpass, band is list of one, for bandpass list of two numbers
-    btype: filter type
-    order: order of filter
-    ftype: filtering approach type, 'filtfilt', 'lfilter', 'SOS', 'sosfilt','sosfiltfilt',
-          'SOS' is mapped to 'sosfiltfilt'
-         : lfilter is causal filter, which introduces delay, filtfilt does not introduce any delay, but it is non-causal filtering
-          SOS:  Filter a signal using IIR Butterworth SOS method. A forward-backward digital filter using cascaded second-order sections.
-         NOTE: 'SOS' is Recommended
+        band: cut of frequency, for lowpass and highpass, band is list of one, for bandpass list of two numbers
+        btype: filter type
+        order: order of filter
+        ftype: filtering approach type, 'filtfilt', 'lfilter', 'SOS', 'sosfilt','sosfiltfilt',
+            'SOS' is mapped to 'sosfiltfilt'
+            : lfilter is causal filter, which introduces delay, filtfilt does not introduce any delay, but it is non-causal filtering
+            SOS:  Filter a signal using IIR Butterworth SOS method. A forward-backward digital filter using cascaded second-order sections.
+            NOTE: 'SOS' is Recommended
 
     Returns
     --------
-    Xf: filtered signal of same size as X
+        Xf: filtered signal of same size as X
+
     '''
     filtfunlist = {'sosfiltfilt':signal.sosfiltfilt, 'sosfilt':signal.sosfilt, 'lfilter':signal.lfilter, 'filtfilt':signal.filtfilt}
 
@@ -294,13 +308,26 @@ def filter_X(X,fs=128.0,band =[0.5],btype='highpass',order=5,ftype='filtfilt',ve
     return Xf
 
 def Periodogram(x,fs=128,method ='welch',win='hann',nfft=None,scaling='density',average='mean',detrend='constant',nperseg=None, noverlap=None):
-    '''
+    '''COmputing Periodogram
+
     Computing Periodogram using Welch or Periodogram method
     ------------------------------------------------------
-    #scaling = 'density'--V**2/Hz 'spectrum'--V**2
-    #average = 'mean', 'median'
-    #detrend = False, 'constant', 'linear'
-    nfft    = None, n-point FFT
+
+    Parameteres
+    -----------
+        x: input signal, 1d array.
+        fs: sampling frequency
+        method: 'welch','None'
+        win: 'hann', 'ham'
+        scaling: 'density'--V**2/Hz 'spectrum'--V**2
+        average: 'mean', 'median'
+        detrend: False, 'constant', 'linear'
+        nfft:  None, n-point FFT
+
+    Returns
+    -------
+        Px: |periodogram|
+
     '''
     if method ==None:
         f, Pxx = scipy.signal.periodogram(x,fs,win,nfft=nfft,scaling=scaling,detrend=detrend)
@@ -412,6 +439,7 @@ def OutLiers(x, method='iqr',k=1.5, include_lower=True,include_upper=True,return
 BASIC WAVELET FILTERING
 ------------------------
 '''
+
 def get_theta(w,N,k=1.5,method='optimal',IPR=[0.25,0.75]):
     '''
     Threshold for wavelet filtering
@@ -451,54 +479,58 @@ def get_theta(w,N,k=1.5,method='optimal',IPR=[0.25,0.75]):
 
 def wavelet_filtering(x,wv='db3',threshold='optimal',filter_out_below=True,k=1.5,mode='elim',show=False,wpd_mode='symmetric',
         wpd_maxlevel=None,packetwise=False,WPD=False,lvl=[],verbose=False,fs=128.0,sf=1,IPR=[0.25,0.75], figsize=(11,6),plot_abs_coef=False):
-    '''
+
+    '''Wavelet Filtering
+
+
     Wavelet Filtering
     ------------------
 
-    input
-    -----
+    Parameters
+    ----------
 
-    x - 1d array
-
-
-    Threshold Computation method:
-    threshold: 'str' or float
-             : if str, method to compute threshold, example : 'optimal', 'sd', 'iqr'
-
-             'optimal': threshold = sig*sqrt(2logN), sig = median(|w|)/0.6745
-             'sd' : threshold = k*SD(w)
-             'iqr': threshold = q3+kr, threshold_l =q1-kr, where r = IQR(w)  #Tukey's fences
-             'ttt': Modified Thompson Tau test (ttt) #TODO
-             default - optimal
-
-    mode: str, 'elim' - remove the coeeficient (by zering out), 'clip' - cliping the coefficient to threshold
-         default 'elim'
-
-    below: bool, if true, wavelet coefficient below threshold are eliminated else obove threshold
+        x: 1d array
 
 
-    Wavelet Decomposition modes:
-    wpd_mode = ['zero', 'constant', 'symmetric', 'periodic', 'smooth', 'periodization']
-                default 'symmetric'
+        Threshold Computation method:
+        threshold: 'str' or float
+                : if str, method to compute threshold, example : 'optimal', 'sd', 'iqr'
 
-    wpd_maxlevel: level of decomposition, if None, max level posible is used
+                'optimal': threshold = sig*sqrt(2logN), sig = median(|w|)/0.6745
+                'sd' : threshold = k*SD(w)
+                'iqr': threshold = q3+kr, threshold_l =q1-kr, where r = IQR(w)  #Tukey's fences
+                'ttt': Modified Thompson Tau test (ttt) #TODO
+                default - optimal
 
-    Wavelet family:
-    wv = ['db3'.....'db38', 'sym2.....sym20', 'coif1.....coif17', 'bior1.1....bior6.8', 'rbio1.1...rbio6.8', 'dmey']
-         :'db3'(default)
+        mode: str, 'elim' - remove the coeeficient (by zering out), 'clip' - cliping the coefficient to threshold
+            default 'elim'
 
-    packetwise: if true, thresholding is applied to each packet/level individually, else globally
-    WPD: if true, WPD is applied as wavelet transform
-    lvl: list of levels/packets apply the thresholding, if empty, applied to all the levels/packets
+        below: bool, if true, wavelet coefficient below threshold are eliminated else obove threshold
 
-    show: bool, deafult=False, if to plot figure, it True, following are used
-        figsize: default=(11,6), size of figure
-        plot_abs_coef: bool, deafult=False,
-                       if True,plot abs coefficient value, else signed
 
-    output
+        Wavelet Decomposition modes:
+        wpd_mode = ['zero', 'constant', 'symmetric', 'periodic', 'smooth', 'periodization']
+                    default 'symmetric'
+
+        wpd_maxlevel: level of decomposition, if None, max level posible is used
+
+        Wavelet family:
+        wv = ['db3'.....'db38', 'sym2.....sym20', 'coif1.....coif17', 'bior1.1....bior6.8', 'rbio1.1...rbio6.8', 'dmey']
+            :'db3'(default)
+
+        packetwise: if true, thresholding is applied to each packet/level individually, else globally
+        WPD: if true, WPD is applied as wavelet transform
+        lvl: list of levels/packets apply the thresholding, if empty, applied to all the levels/packets
+
+        show: bool, deafult=False, if to plot figure, it True, following are used
+            figsize: default=(11,6), size of figure
+            plot_abs_coef: bool, deafult=False,
+                        if True,plot abs coefficient value, else signed
+
+    Returns
     ------
-    xR:  filtered signal, same size as x
+        xR:  filtered signal, same size as x
+
     '''
 
     assert isinstance(threshold,str) or isinstance(threshold, float)
@@ -633,7 +665,10 @@ def wavelet_filtering(x,wv='db3',threshold='optimal',filter_out_below=True,k=1.5
 def wavelet_filtering_win(x,winsize=128,wv='db3',threshold='optimal',filter_out_below=True,k=1.5,mode='elim',wpd_mode='symmetric',
                 wpd_maxlevel=None,packetwise=False,WPD=True,lvl=[],verbose=False,sf=1,
                 hopesize=None, wintype='hamming',windowing_before=False,IPR=[0.25, 0.75]):
-    '''
+
+    '''Wavelet Filtering window-wise
+
+
     Wavelet Filtering applied to smaller windows
     --------------------------------------------
 
@@ -678,23 +713,27 @@ def wavelet_filtering_win(x,winsize=128,wv='db3',threshold='optimal',filter_out_
     return xR
 
 def WPA_coeff(x,wv='db3',mode='symmetric',maxlevel=None, verticle_stacked=False):
-    '''
+
+    '''Wavelet Packet Decomposition
+
     Wavelet Packet Decomposition
     ----------------------------
+
     input
     -----
-    x: 1d signal array
-    wv :  wavelet type - default 'db3'
-    mode='symmetric'
-    maxlevel=None -  maximum levels of decomposition will result in 2**maxlevel packets
+        x: 1d signal array
+        wv :  wavelet type - default 'db3'
+        mode='symmetric'
+        maxlevel=None -  maximum levels of decomposition will result in 2**maxlevel packets
 
-    verticle_stacked : if True, coeeficients are vertically stacked -  good for temporal alignment
+        verticle_stacked : if True, coeeficients are vertically stacked -  good for temporal alignment
 
     output
     -----
-    WK: Wavelet Packet Coeeficients
-       if verticle_stacked True : shape (2**maxlevel, k), 2**maxlevel - packets with k coeeficient in each
-       if verticle_stacked False: shape (2**maxlevel * k, )
+        WK: Wavelet Packet Coeeficients
+        if verticle_stacked True : shape (2**maxlevel, k), 2**maxlevel - packets with k coeeficient in each
+        if verticle_stacked False: shape (2**maxlevel * k, )
+
     '''
     wp = wt.WaveletPacket(x, wavelet=wv, mode=mode,maxlevel=maxlevel)
     wr = [wp[node.path].data for node in wp.get_level(wp.maxlevel, 'natural') ]
@@ -702,23 +741,26 @@ def WPA_coeff(x,wv='db3',mode='symmetric',maxlevel=None, verticle_stacked=False)
     return WK
 
 def WPA_temporal(x,winsize=128,overlap=64,wv='db3',mode='symmetric',maxlevel=None,verticle_stacked=True,pad=True,verbose=0):
-    '''
+
+    '''Wavelet Packet Decomposition - window-wise
+
     Wavelet Packet Decomposition -  for each window and stacked together
-    -------------------------------------
+    -------------------------------------------------------------------
+
     input
     -----
-    x: 1d signal array
-    wv :  wavelet type - default 'db3'
-    mode='symmetric'
-    maxlevel=None -  maximum levels of decomposition will result in 2**maxlevel packets
+        x: 1d signal array
+        wv :  wavelet type - default 'db3'
+        mode='symmetric'
+        maxlevel=None -  maximum levels of decomposition will result in 2**maxlevel packets
 
-    winsize: size of each window, samples at the end will be discarded, if len(x)%overlap is not eqaul to 0
-    to avoid, padd with zeros
-    overlap: overlap
+        winsize: size of each window, samples at the end will be discarded, if len(x)%overlap is not eqaul to 0
+        to avoid, padd with zeros
+        overlap: overlap
 
     output
     -----
-    Wtemp
+        Wtemp
 
     '''
     winsize = int(winsize)
@@ -740,7 +782,9 @@ def WPA_temporal(x,winsize=128,overlap=64,wv='db3',mode='symmetric',maxlevel=Non
 
 def WPA_plot(x,winsize=128,overlap=64,verticle_stacked=True,wv='db3',mode='symmetric',maxlevel=None,inpterp='sinc',
              fs=128,plot=True,pad=True,verbose=0, plottype='abs',figsize=(15,8)):
-    '''
+
+    '''WPA Window-wise - Plot
+
     Wavelet Packet Decomposition -  temporal - Plot
     -------------------------------------
 
@@ -787,9 +831,13 @@ def WPA_plot(x,winsize=128,overlap=64,verticle_stacked=True,wv='db3',mode='symme
     return Wp
 
 def Wavelet_decompositions(x,wv='db3',L = 6,threshold=np.inf,show=True,WPD=False):
-    '''
+
+    '''Decomposing signal into wavelet components
+
+
     Decomposing signal into different level of wavalet based signals
     '''
+
     XR = []
     N = L+1
     if WPD: N = 2**L
@@ -832,9 +880,9 @@ NEW UPDATES 16/03/2023    TOBE TESTES ALL
 
 #TOBE TESTED
 def add_noise(x, snr_db=10,return_noise=False):
-    r"""
+    r"""Add Gaussian Noise to Signal
 
-    ADD Gaussian Noise to Signal
+    Add Gaussian Noise to Signal
     ----------------------------
 
     SNR =  sig_pw/noise_pw
@@ -2686,12 +2734,12 @@ def create_signal_1d(n=100,seed=None,circular=False,bipolar=True,sg_polyorder=1,
     if max_dxdt is None:
         #print('max_dxdt:',np.max(np.abs(np.diff(xm))))
         for _ in range(iterations):
-            _,xm = sp.filterDC_sGolay(xm,window_length=window_length,polyorder=sg_polyorder,return_background=True)
+            _,xm = filterDC_sGolay(xm,window_length=window_length,polyorder=sg_polyorder,return_background=True)
             #print('max_dxdt:',np.max(np.abs(np.diff(xm))))
     else:
         itr=0
         while np.max(np.abs(np.diff(xm)))>max_dxdt:
-            _,xm = sp.filterDC_sGolay(xm,window_length=window_length,polyorder=sg_polyorder,return_background=True)
+            _,xm = filterDC_sGolay(xm,window_length=window_length,polyorder=sg_polyorder,return_background=True)
             itr+=1
             if itr>max_itr:break
     np.random.seed(None)

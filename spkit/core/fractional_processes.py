@@ -26,7 +26,13 @@ if sys.version_info[:2] < (3, 3):
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.fftpack import fft, ifft, fftshift
-from scipy.signal import blackmanharris, triang
+
+try:
+    from scipy.signal import blackmanharris, triang
+except:
+    # for scipy>1.12, location has changed blackmanharris, triang 
+    from scipy.signal.windows import blackmanharris, triang
+
 from scipy import signal
 
 from .processing import sinc_interp, conv1d_fft
