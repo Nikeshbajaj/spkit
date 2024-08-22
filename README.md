@@ -1,6 +1,6 @@
 # Signal Processing toolkit
 
-### Links: **[Homepage](https://spkit.github.io)** | **[Documentation](https://spkit.readthedocs.io/)** | **[Github](https://github.com/Nikeshbajaj/spkit)**  |  **[PyPi - project](https://pypi.org/project/spkit/)** |     _ **Installation:** [pip install spkit](https://pypi.org/project/spkit/)
+### Links: **[Homepage](https://spkit.github.io)** | **[Documentation](https://spkit.readthedocs.io/)** | **[Github](https://github.com/Nikeshbajaj/spkit)**  |  **[PyPi - project](https://pypi.org/project/spkit/)** |
 -----
 ![CircleCI](https://img.shields.io/circleci/build/github/Nikeshbajaj/spkit)
 [![Documentation Status](https://readthedocs.org/projects/spkit/badge/?version=latest)](https://spkit.readthedocs.io/en/latest/?badge=latest)
@@ -45,26 +45,18 @@ pip install spkit
 ```
 pip install spkit --upgrade
 ```
-# New in 0.0.9.7:
-## MEA Processing Toolkit
-
-# New in 0.0.9.5:
-## MEA Processing Toolkit
-  * sp.mea
-## Geometrical Functions
-  * sp.gemetry
-## More on signal processing
-  * sp.core
-## Statistics
-  * sp.stats
 
 
 
-# For updated list of contents and documentation check [github](https://GitHub.com/nikeshbajaj/spkit) or [Documentation](https://spkit.readthedocs.io/)
+.. image:: 
 
-# List of all functions
-# Signal Processing Techniques
-## **Information Theory functions**
+## For updated list of contents and documentation check [github](https://GitHub.com/nikeshbajaj/spkit) or [Documentation](https://spkit.readthedocs.io/)
+
+[<img src="https://github.com/spkit/images/blob/main/extra/spkit_cover_page_2024.png?raw=true"/>](https://spkit.github.io)
+
+
+## List of functions [check updated list on homepage]
+## **Information Theory  and Signal Processing functions**
  **for real valued signals**
  * Entropy
    * Shannon entropy
@@ -79,19 +71,17 @@ pip install spkit --upgrade
    * Sample Entropy
    * Permutation Entropy
    * SVD Entropy
-
-* Plot histogram with optimal bin size
-* Computation of optimal bin size for histogram using FD-rule
-* Compute bin_width with various statistical measures
-* Plot Venn Diagram- joint distribuation and normalized entropy values
-
-## **Dispersion Entropy** --**for time series (physiological signals)**
-* **Dispersion Entropy** (Advanced) - for time series signal
-  * Dispersion Entropy
-  * Dispersion Entropy - multiscale
-  * Dispersion Entropy - multiscale - refined
-
-
+ 
+ * **Dispersion Entropy** (Advanced) - for time series signal
+    * Dispersion Entropy
+    * Dispersion Entropy - multiscale
+    * Dispersion Entropy - multiscale - refined
+* **Differential Entropy** (Advanced) - for time series signal
+    * Differential Entropy
+    * Mutual Information, Conditional, Joint, Entropy
+    * Transfer Entropy
+ 
+      
 ## **Matrix Decomposition**
 * SVD
 * ICA using InfoMax, Extended-InfoMax, FastICA & **Picard**
@@ -108,14 +98,14 @@ pip install spkit --upgrade
 * Wavelet filtering
 * Wavelet Packet Analysis and Filtering
 
-## **Basic Filtering**
+## **Signal Filtering**
 * Removing DC/ Smoothing for multi-channel signals
 * Bandpass/Lowpass/Highpass/Bandreject filtering for multi-channel signals
 
 ## Biomedical Signal Processing
-
-### MEA Processing Toolkit
-
+* EEG Signal Processing
+* MEA Processing Toolkit
+  
 **Artifact Removal Algorithm**
 * **ATAR Algorithm** [Automatic and Tunable Artifact Removal Algorithm for EEG from artical](https://www.sciencedirect.com/science/article/pii/S1746809419302058)
 * **ICA based Algorith**
@@ -124,7 +114,7 @@ pip install spkit --upgrade
 * **DFT Analysis & Synthesis**
 * **STFT Analysis & Synthesis**
 * **Sinasodal Model - Analysis & Synthesis**
-  - to decompose a signal into sinasodal wave tracks
+    - to decompose a signal into sinasodal wave tracks
 * **f0 detection**
 
 ## Ramanajum Methods for period estimation
@@ -135,16 +125,13 @@ pip install spkit --upgrade
 * **Fractional Fourier Transform**
 * **Fast Fractional Fourier Transform**
 
-
-
 ## Machine Learning models - with visualizations
 * Logistic Regression
 * Naive Bayes
 * Decision Trees
-* DeepNet (to be updated)
 
-## **Linear Feedback Shift Register**
-* pylfsr
+
+## and many more ...
 
 
 
@@ -167,7 +154,6 @@ pip install spkit --upgrade
 # Contacts:
 
 * **Nikesh Bajaj**
-* http://nikeshbajaj.in
+* https://nikeshbajaj.in
 * n.bajaj[AT]qmul.ac.uk, n.bajaj[AT]imperial[dot]ac[dot]uk
-### Imperial College London
 ______________________________________
