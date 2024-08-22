@@ -14,7 +14,7 @@ if sys.version_info[:2] < (3, 3):
 
 import numpy as np
 from scipy  import stats
-from ..core.infotheory import entropy
+from ..core.information_theory import entropy
 import warnings
 
 class bcolors:

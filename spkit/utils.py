@@ -18,11 +18,54 @@ from scipy  import stats as scipystats
 # RELATIVE PATH NAMED TO BE CHANGED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 sys.path.append("..")
-from spkit.core.infotheory import entropy
+from spkit.core.information_theory import entropy
 from spkit.utils_misc.borrowed import resize
 #from .core.infotheory import entropy
 #from .all_utils.borrowed import resize
 import warnings
+
+
+class txcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    CRED = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+    BGreen = '\x1b[6;10;42m'
+    BGrey  = '\x1b[6;10;47m'
+    BRed = '\x1b[6;10;41m'
+    BYellow = '\x1b[6;10;43m'
+    BEND = '\x1b[0m'
+    #--new------------
+    CBLACK  = '\33[30m'
+    CGREEN  = '\33[32m'
+    CYELLOW = '\33[33m'
+    CBLUE   = '\33[34m'
+    CVIOLET = '\33[35m'
+    CBEIGE  = '\33[36m'
+    CWHITE  = '\33[37m'
+    CBLACKBG  = '\33[40m'
+    CREDBG    = '\33[41m'
+    CGREENBG  = '\33[42m'
+    CYELLOWBG = '\33[43m'
+    CBLUEBG   = '\33[44m'
+    CVIOLETBG = '\33[45m'
+    CBEIGEBG  = '\33[46m'
+    CWHITEBG  = '\33[47m'
+    CGREY    = '\33[90m'
+    CRED2    = '\33[91m'
+    CGREEN2  = '\33[92m'
+    CYELLOW2 = '\33[93m'
+    CBLUE2   = '\33[94m'
+    CVIOLET2 = '\33[95m'
+    CBEIGE2  = '\33[96m'
+    CWHITE2  = '\33[97m'
+
 
 class bcolors:
     HEADER = '\033[95m'
@@ -40,6 +83,30 @@ class bcolors:
     BRed = '\x1b[6;10;41m'
     BYellow = '\x1b[6;10;43m'
     BEND = '\x1b[0m'
+    #--new------------
+    CBLACK  = '\33[30m'
+    CGREEN  = '\33[32m'
+    CYELLOW = '\33[33m'
+    CBLUE   = '\33[34m'
+    CVIOLET = '\33[35m'
+    CBEIGE  = '\33[36m'
+    CWHITE  = '\33[37m'
+    CBLACKBG  = '\33[40m'
+    CREDBG    = '\33[41m'
+    CGREENBG  = '\33[42m'
+    CYELLOWBG = '\33[43m'
+    CBLUEBG   = '\33[44m'
+    CVIOLETBG = '\33[45m'
+    CBEIGEBG  = '\33[46m'
+    CWHITEBG  = '\33[47m'
+    CGREY    = '\33[90m'
+    CRED2    = '\33[91m'
+    CGREEN2  = '\33[92m'
+    CYELLOW2 = '\33[93m'
+    CBLUE2   = '\33[94m'
+    CVIOLET2 = '\33[95m'
+    CBEIGE2  = '\33[96m'
+    CWHITE2  = '\33[97m'
 
 A=['\\','-','/','|']
 
@@ -48,7 +115,7 @@ def ProgBar_JL(i,N,title='',style=2,L=50,selfTerminate=True,delta=None,sym='▓'
     ▇ ▓ ▒ ░ ▉
     '''
     c1 = bcolors.ENDC
-    if color.lower() in ['green','blue','cyan','red']:
+    if color.lower() in ['green','blue','cyan','red','yellow']:
         if color.lower()=='green':
             c1 = bcolors.OKGREEN
         elif color.lower()=='blue':
@@ -57,6 +124,8 @@ def ProgBar_JL(i,N,title='',style=2,L=50,selfTerminate=True,delta=None,sym='▓'
             c1 = bcolors.OKCYAN
         elif color.lower()=='red':
             c1 = bcolors.CRED
+        elif color.lower()=='yellow':
+            c1 = bcolors.CYELLOW
 
     c2 = bcolors.ENDC
 
@@ -84,7 +153,7 @@ def ProgBar(i,N,title='',style=2,L=50,selfTerminate=False,sym='▓',color='blue'
     ▇ ▓ ▒ ░ ▉
     '''
     c1 = bcolors.ENDC
-    if color.lower() in ['green','blue','cyan','red']:
+    if color.lower() in ['green','blue','cyan','red','yellow']:
         if color.lower()=='green':
             c1 = bcolors.OKGREEN
         elif color.lower()=='blue':
@@ -93,6 +162,8 @@ def ProgBar(i,N,title='',style=2,L=50,selfTerminate=False,sym='▓',color='blue'
             c1 = bcolors.OKCYAN
         elif color.lower()=='red':
             c1 = bcolors.CRED
+        elif color.lower()=='yellow':
+            c1 = bcolors.CYELLOW
 
     c2 = bcolors.ENDC
 
