@@ -157,7 +157,7 @@ pip install spkit --upgrade
   author       = {Nikesh Bajaj},
   title        = {Nikeshbajaj/spkit: 0.0.9.4},
   month        = apr,
-  year         = 2022,
+  year         = 2021,
   publisher    = {Zenodo},
   version      = {0.0.9.4},
   doi          = {10.5281/zenodo.4710694},
