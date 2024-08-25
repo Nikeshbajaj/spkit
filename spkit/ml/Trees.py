@@ -35,26 +35,55 @@ import copy
 
 # Super class for Classification and Regression
 class DecisionTree(object):
-    '''Super class of RegressionTree and ClassificationTree.
+    r"""Super class of RegressionTree and ClassificationTree.
+    
+    .. versionadded 0.0.9.3
 
-    '''
+    Optimizing depth:
+      - In this version, a very large value can be used to build a tree and later can be shrink to lower depth (d),
+      - using ".updateTree(shrink=True, max_depth=d)". The optimal value of depth for given data can be choosing by analysing
+        learning curve using ".getLcurve" method and/or "plotTree(Measures=True)"
+    
+    Parameters
+    -----------
+    max_depth: int:>0,
+      -  maximum depth to go for tree, default is Inf, which leads to overfit
+      - decrease the max depth to reduce the overfitting.
+    
+    min_samples_split: int
+      - minimum number of samples to split further
+    
+    min_impurity: float:
+      - minimum impurity (or gain) to split
+
+    thresholdFromMean: bool, default = False.
+       - if threshold is selcted from mean of two
+       - concecutive unique values of selected a an unique value of feaure.
+          Only applicable to float or int type features, not to catogorical type.   
+
+    """
     def __init__(self, min_samples_split=2, min_impurity=1e-7, max_depth=float("inf"), thresholdFromMean=False):
-        '''
+        r"""
         Optimizing depth:: In this version, a very large value can be used to build a tree and later can be shrink to lower depth (d),
                     using ".updateTree(shrink=True, max_depth=d)". The optimal value of depth for given data can be choosing by analysing
                     learning curve using ".getLcurve" method and/or "plotTree(Measures=True)"
-        Parameters:
-        -----------
-        max_depth ::int:>0, maximum depth to go for tree, default is Inf, which leads to overfit
-                            decrease the max depth to reduce the overfitting.
-        min_samples_split::int: minimum number of samples to split further
-        min_impurity     ::float: minimum impurity (or gain) to split
+        
+        Parameters
+        ----------
+        max_depth: int:>0,
+        -  maximum depth to go for tree, default is Inf, which leads to overfit
+        - decrease the max depth to reduce the overfitting.
+        min_samples_split: int
+        - minimum number of samples to split further
+        min_impurity: float:
+        - minimum impurity (or gain) to split
 
-        thresholdFromMean::bool, if threshold is selcted from mean of two
-                           concecutive unique values of selected a an unique value of feaure.
-                           Only applicable to float or int type features, not to catogorical type.
-                           default is False.
-        '''
+        thresholdFromMean: bool, default = False.
+        - if threshold is selcted from mean of two
+        - concecutive unique values of selected a an unique value of feaure.
+            Only applicable to float or int type features, not to catogorical type.   
+
+        """
 
         self.tree = None  # Root node in dec. tree
 
@@ -89,19 +118,21 @@ class DecisionTree(object):
         self._leaf_value_calculation = None
 
     def fit(self, X, y):
-        '''
-        Building a tree and saving in an dictionary at self.tree
-        Parameters:
-        -----------
-              X:: ndarray (number of sample, number of features)
-              y:: list of 1D array
-        verbose::0(default)-no progress or tree
-               ::1 - show progress
-               ::2 - show tree
-        feature_names:: (optinal) list, Provide for better look at tree while plotting or shwoing the progress,
-                       default to None, if not provided, features are named as f1,...fn.
-
-        '''
+        r"""Building a tree and saving in an dictionary at self.tree
+        
+        Parameters
+        ----------
+        X: ndarray
+          - (number of sample, number of features)
+        
+        y: list of 1D array
+          - labels
+        
+        verbose: int (default=0)
+           - 0 no progress or tree
+           - 1 - show progress
+           - 2 - show tree
+        """
         self.nfeatures = X.shape[1]
         self.one_dim = len(np.shape(y)) == 1
         #self.labels = list(set(y))
@@ -176,7 +207,7 @@ class DecisionTree(object):
                 for threshold in unique_values:
                     # Divide X and y depending on if the feature value of X at index feature_i
                     # meets the threshold
-                    tXy, fXy = self.splitX(Xy, feature_i, threshold)
+                    tXy, fXy = self._splitX(Xy, feature_i, threshold)
 
                     if len(tXy) > 0 and len(fXy) > 0:
                         # Select the y-values of the two sets
@@ -432,7 +463,7 @@ class DecisionTree(object):
         path = path +ipath
         # Test subtree
         return self._predict_proba_depth(x, branch, path,depth=depth+1,max_depth=max_depth)
-    def predict_(self, X,treePath=False):
+    def __predict_(self, X,treePath=False):
         '''Classify samples one by one and return the set of labels '''
 
         if treePath:
@@ -441,27 +472,7 @@ class DecisionTree(object):
             y_pred = np.array([self._predict_value(x)[0] for x in X])
 
         return y_pred
-    def predict(self, X,treePath=False,max_depth=np.inf):
-        '''
-        USE "max_depth" to limit the depth of tree for expected values
-
-        Compute expected value for each sample in X, up till depth=max_depth of the tree
-
-        For classification:
-        Expected value is a label with maximum probabilty among the samples at leaf nodes.
-        For probability and count of each labels at leaf node, use ".predict_proba" method
-
-        For Regression:
-        Expected value is a mean value of smaples at the leaf node.
-        For Standard Deviation and number of samples at leaf node, use ".predict_proba" method
-        '''
-
-        if treePath:
-            y_pred = np.array([list(self._predict_value_depth(x,max_depth=max_depth)) for x in X])
-        else:
-            y_pred = np.array([self._predict_value_depth(x,max_depth=max_depth)[0] for x in X])
-        return y_pred
-    def predict_proba_(self, X,label_counts=False,treePath=False):
+    def __predict_proba_(self, X,label_counts=False,treePath=False):
         '''Compute probability of samples one by one and return the set of labels'''
 
         y_prob   = np.array([self._predict_proba(x)[0] for x in X]).astype(float)
@@ -478,8 +489,50 @@ class DecisionTree(object):
             return y_prob,y_paths
         else:
             return y_prob
-    def predict_proba(self, X,label_counts=False,treePath=False,max_depth=np.inf):
-        '''
+    def predict(self, X,max_depth=np.inf,treePath=False):
+        r"""Predicting labels
+
+
+        USE "max_depth" to limit the depth of tree for expected values
+
+        Compute expected value for each sample in X, up till depth=max_depth of the tree
+
+        For classification:
+        Expected value is a label with maximum probabilty among the samples at leaf nodes.
+        For probability and count of each labels at leaf node, use ".predict_proba" method
+
+        For Regression:
+        Expected value is a mean value of smaples at the leaf node.
+        For Standard Deviation and number of samples at leaf node, use ".predict_proba" method
+        
+        Parameters
+        -----------
+        X: ndarray
+          - (number of sample, number of features)
+        
+        max_depth: int, default=np.inf
+          - maximum depth of the tree to use for the prediction 
+
+        treePath: bool, Default=False
+          - if True, path of the tree is also returned, such as 'TTFTFT...'
+
+
+        Returns
+        -------
+        y: list of 1D array
+          - labels
+          - and paths, if `treePath` is True
+        """
+
+        if treePath:
+            y_pred = np.array([list(self._predict_value_depth(x,max_depth=max_depth)) for x in X])
+        else:
+            y_pred = np.array([self._predict_value_depth(x,max_depth=max_depth)[0] for x in X])
+        return y_pred
+    def predict_proba(self, X,label_counts=False,max_depth=np.inf,treePath=False,):
+        r"""Predicting probabilties of labels
+
+
         USE "max_depth" to limit the depth of tree for expected values
         Compute probabilty/SD for labeles at the leaf till max_depth level, for each sample in X
 
@@ -492,7 +545,31 @@ class DecisionTree(object):
         label_counts=True: Includes in the return, the number of samples at the leaf
 
         treePath=True: Includes the path of tree for each sample as string
-        '''
+
+        Parameters
+        -----------
+        X: ndarray
+          - (number of sample, number of features)
+        
+        max_depth: int, default=np.inf
+          - maximum depth of the tree to use for the prediction 
+
+        label_counts: bool, default=False
+           -  If true 
+               - count of each class labels are returned (classification)
+               - count of samples at the leaf returned (regression)
+
+        treePath: bool, Default=False
+          - if True, path of the tree is also returned, such as 'TTFTFT...'
+
+        Returns
+        -------
+        y_prob: 1D/2D array
+          - labels
+        y_counts: count of labels
+        y_paths: path of each samples
+        """
+
 
         y_prob   = np.array([self._predict_proba_depth(x,max_depth=max_depth)[0] for x in X]).astype(float)
 
@@ -509,17 +586,21 @@ class DecisionTree(object):
         else:
             return y_prob
     def get_tree(self):
+        r"""Extract built tree
+        """
         if self.trained:
             return self.tree
         else:
             print("No tree found, haven't trained yet!!")
     def set_featureNames(self,feature_names=None):
+        r"""Set Feature names
+        """
         if feature_names is None or len(feature_names)!=self.nfeatures:
             if self.verbose: print('setting feature names to default..f1, f2....fn')
             self.feature_names = ['f'+str(i) for i in range(1,self.nfeatures+1)]
         else:
             self.feature_names = feature_names
-    def splitX(self,X,ind,threshold):
+    def _splitX(self,X,ind,threshold):
         if isinstance(threshold, int) or isinstance(threshold, float):
             X1 = X[X[:,ind]>=threshold,:]
             X2 = X[X[:,ind]<threshold,:]
@@ -528,6 +609,17 @@ class DecisionTree(object):
             X2 = X[X[:,ind]!=threshold,:]
         return X1,X2
     def pruneTree(self,DT):
+        r"""Prunning the tree
+
+
+        Parameters
+        ----------
+        DT: A decision Tree
+
+        Returns
+        -------
+        DT: Prunned Tree
+        """
         if not DT['leaf']:
             if DT['T']['leaf'] and DT['F']['leaf']:
                 if DT['T']['value']==DT['F']['value']:
@@ -574,6 +666,18 @@ class DecisionTree(object):
                 DT['F'] = self.pruneTree(DT['F'])
         return DT
     def shrinkTree(self,DT,max_depth=np.inf):
+        r"""Shinking the tree
+        
+        Parameters
+        ----------
+        DT: A decision Tree
+        max_depth: int
+          -  depth, to which tree is to be shrinked
+
+        Returns
+        -------
+        DT: Shrinked Tree
+        """
         DT0 = copy.deepcopy(DT)
         if not DT0['leaf']:
             if DT0['T']['depth']>max_depth or DT0['F']['depth']>max_depth:
@@ -587,12 +691,30 @@ class DecisionTree(object):
                 DT0['F'] = self.shrinkTree(DT0['F'],max_depth=max_depth)
         return DT0
     def updateTree(self,DT=None,shrink=False,max_depth=np.inf):
+        r"""Updating Tree with Shrinking and Pruning
+
+        Parameters
+        ----------
+        DT: A decision Tree,
+          -  if None, root tree self.tree is used
+        max_depth: int
+          -  depth, to which tree is to be shrinked
+        shrink: bool,
+          - if to shrink the tree
+        
+        Returns
+        -------
+        DT: Updated Tree
+        """
         if DT is None: DT = self.get_tree()
         if shrink:
             DT0 = self.shrinkTree(DT,max_depth=max_depth)
             DT0 = self.pruneTree(DT0)
             self.tree = DT0
-    def plotTree_(self,scale=True,show=True, showtitle =True, showDirection=False,DiffBranchColor=True,legend=True):
+    def _plotTree_(self,scale=True,show=True, showtitle =True, showDirection=False,DiffBranchColor=True,legend=True):
+        r"""
+         experimental
+        """
         if not(self.trained):
             print('Tree has not been built yet.... Do training first!!')
             assert self.trained
@@ -623,15 +745,35 @@ class DecisionTree(object):
         else:
             print('Error:: Tree has no branches!!\nAll target values must be same')
     def plotTree(self,scale=True,show=True, showtitle =True,showDirection=False,DiffBranchColor=True,legend=True,showNodevalues=True,
-                  showThreshold=True,hlines=False,Measures = False,dcml=0):
+                  showThreshold=True,hlines=False,Measures = False,dcml=0,leaf_labels=None):
+        r"""Plot Decision Tree
+
+        Parameters
+        ----------
+        scale:
+        show: 
+        showtitle: 
+        showDirection:
+        DiffBranchColor:
+        legend:
+        showNodevalues: 
+        showThreshold: 
+        hlines:
+        Measures:
+        dcml:
+        leaf_labels:
+
+        """
         if Measures: hlines=True
 
         if not(self.trained):
             print('Tree has not been built yet.... Do training first!!')
             assert self.trained
 
-        import copy
+        
         self.DT = copy.deepcopy(self.tree)
+        if leaf_labels is not None and len(leaf_labels):
+            self.DT = self._set_leaf_labels(self.DT, leaf_labels)
         if not(self.DT['leaf']):
             if self.DictDepth(self.DT)>1 and scale:
                 r = self.DictDepth(self.DT['T'])
@@ -659,16 +801,25 @@ class DecisionTree(object):
         else:
             print('Error:: Tree has no branches!!\nAll target values must be same')
     def DictDepth(self,DT,n = 0):
+        r"""Get the maximum depth of dictionary
+
+        """
         if type(DT)==dict:
             n+=1
             for key in DT.keys():
                 n = self.DictDepth(DT[key],n=n)
         return n
     def getTreeDepth(self,DT=None):
+        r"""Get the maximum depth of the tree
+
+        """
         if DT is None:
             DT = copy.deepcopy(self.tree)
         return self.treeDepth(DT)
     def treeDepth(self,DT,mx=0):
+        r"""Compute the maximum depth of the tree
+
+        """
         if DT['leaf']:
             if DT['depth']>mx:
                 mx = DT['depth']
@@ -678,6 +829,11 @@ class DecisionTree(object):
             mx2 = self.treeDepth(DT['F'],mx=mx)
             return max(mx1,mx2)
     def set_xyNode(self,DT,lxy=[0,1],xy=[1,1],rxy=[2,1],ldiff=1):
+        r"""Setting the xy location of each node 
+           
+           in the tree
+
+        """
         DT['xy'] = xy
         if not(DT['leaf']):
             ixy =xy[:] #ixy =xy.copy()
@@ -694,6 +850,9 @@ class DecisionTree(object):
             irxy =xy[:] #irxy =xy.copy()
             self.set_xyNode(DT['F'],xy=ixy,lxy=ilxy,rxy=irxy)
     def showTree(self,DT,DiffBranchColor=False,showNodevalues=True,showThreshold=True):
+        r"""Helper function fot plotTree
+
+        """
         d = 0.0
         x,y = DT['xy']
 
@@ -727,6 +886,9 @@ class DecisionTree(object):
             plt.plot(x,y,'og')
         plt.axis('off')
     def plotTreePath(self,path,ax=None,fig=None):
+        r"""Plotting the path of the tree
+
+        """
         if ax is None:
             fig,ax = plt.subplots(1,1)
         lx,x,rx,y =0,1,2,0
@@ -749,28 +911,22 @@ class DecisionTree(object):
         ax.plot(ix,iy,'og')
         ax.axis('off')
         fig.canvas.draw()
-    def _hlines(self,diff=1,ls='-.',lw=0.5,color='k'):
-        for i in range(self.getTreeDepth()):
-            plt.axhline(y=-i*diff,ls=ls,color=color,lw=lw)
-    def _showMeasures(self,color='b',dcml=0):
-        if len(self.Lcurve)>0:
-            xmn,xmx = plt.gca().get_xlim()
-            msr = self.Lcurve['measure']
-            sfx = '%' if self.Lcurve['measure']=='acc' else ''
-            lst = [ l1 for l1 in list(self.Lcurve[1].keys()) if self.Lcurve[1][l1] is not None ]
-            #st ='train% | test%'
-            st = ' | '.join([l+sfx for l in lst])
-            plt.text(xmx,0.5,st)
-            for d in range(self.getTreeDepth()):
-                pf = [self.Lcurve[d+1][l1] for l1 in lst]
-                if msr=='acc': pf = [p*100 for p in pf]
-                pf = [np.around(p,dcml) for p in pf]
-                if dcml==0: pf = [int(p) for p in pf]
-                st = ' | '.join([str(p)+sfx for p in pf])
-                plt.text(xmx,-d,st,color=color,verticalalignment='center')
-        else:
-            print('No Learning curve values found!!!\n Please use method "getLcurve(Xt,yt,Xs,ys)" to create Lcurve')
     def getLcurve(self,Xt=None,yt=None,Xs=None,ys=None,measure='acc'):
+        r"""Getting Learning Curve
+        By supplying Trainign and Testing Data, compute the given measure for each level of depth
+
+        Parameters
+        -----------
+        Xt, yt: training data
+        Xs, ys: testing data
+        measure: str, metric
+           default='acc' for accuracy
+
+        Returns
+        --------
+        Lcurve: dict,
+          -  as training and testing measures at each level of depth
+        """
         Lcurve ={}
         assert measure in ['acc','mse','mae']
         if self.trained and (Xt is not None or Xs is not None):
@@ -787,6 +943,16 @@ class DecisionTree(object):
         self.Lcurve = Lcurve
         return Lcurve
     def plotLcurve(self,ax=None,title=True):
+        r"""Plotting Learning Curve
+
+        After computing Learning Curve using :func:`getLcurve`, Learnign curve can be plotted
+
+        Parameters
+        ----------
+        ax: axis to plot
+        title: bool, if to show title
+
+        """
         if len(self.Lcurve)>0:
             if ax is None: fig, ax = plt.subplots()
             depth = np.arange(1,self.getTreeDepth()+1).astype(int)
@@ -812,13 +978,111 @@ class DecisionTree(object):
             return loss
         else:
             return np.mean(yp==y)
+    def _hlines(self,diff=1,ls='-.',lw=0.5,color='k'):
+        for i in range(self.getTreeDepth()):
+            plt.axhline(y=-i*diff,ls=ls,color=color,lw=lw)
+    def _showMeasures(self,color='b',dcml=0):
+        if len(self.Lcurve)>0:
+            xmn,xmx = plt.gca().get_xlim()
+            msr = self.Lcurve['measure']
+            sfx = '%' if self.Lcurve['measure']=='acc' else ''
+            lst = [ l1 for l1 in list(self.Lcurve[1].keys()) if self.Lcurve[1][l1] is not None ]
+            #st ='train% | test%'
+            st = ' | '.join([l+sfx for l in lst])
+            plt.text(xmx,0.5,st)
+            for d in range(self.getTreeDepth()):
+                pf = [self.Lcurve[d+1][l1] for l1 in lst]
+                if msr=='acc': pf = [p*100 for p in pf]
+                pf = [np.around(p,dcml) for p in pf]
+                if dcml==0: pf = [int(p) for p in pf]
+                st = ' | '.join([str(p)+sfx for p in pf])
+                plt.text(xmx,-d,st,color=color,verticalalignment='center')
+        else:
+            print('No Learning curve values found!!!\n Please use method "getLcurve(Xt,yt,Xs,ys)" to create Lcurve')
+    def _set_leaf_labels(self,DT,leaf_labels):
+        r"""For Classification Tree, settign leaf labels
+
+
+        """
+        if DT['leaf']:
+            DT['value'] = leaf_labels[DT['value']]
+        else:
+            self._set_leaf_labels(DT['T'], leaf_labels)
+            self._set_leaf_labels(DT['F'], leaf_labels)
+        return DT
 
 class ClassificationTree(DecisionTree):
+    r"""Classification Tree
 
+    Classification Tree is based on super class :class:`DecisionTree`
+
+
+        .. note:: Decsion Tree Super Class
+            - For more details check :class:`DecisionTree`
+
+    Parameters
+    -----------
+    max_depth: int:>0,
+      -  maximum depth to go for tree, default is Inf, which leads to overfit
+      - decrease the max depth to reduce the overfitting.
+    min_samples_split: int
+      - minimum number of samples to split further
+    min_impurity: float:
+      - minimum impurity (or gain) to split
+
+    thresholdFromMean: bool, default = False.
+       - if threshold is selcted from mean of two
+       - concecutive unique values of selected a an unique value of feaure.
+          Only applicable to float or int type features, not to catogorical type.   
+
+
+    See Also
+    --------
+    RegressionTree, NaiveBayes, LogisticRegression, 
+
+
+    Examples
+    --------
+    #sp.ml.ClassificationTree
+    import numpy as np
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    from spkit.ml import ClassificationTree
+
+    mlend_happiness_dataset = 'https://raw.githubusercontent.com/MLEndDatasets/Happiness/main/MLEndHD_attributes.csv'
+    # check - https://mlenddatasets.github.io/happiness/
+
+    data = pd.read_csv(mlend_happiness_dataset)
+    X = data[['Age','Height','Weight']].to_numpy()
+    y = data['HappinessLevel'].to_numpy()
+    X = X[~np.isnan(y)]
+    y = y[~np.isnan(y)]
+    y = 1*(y>5)
+
+    print(X.shape, y.shape)
+    N = X.shape[0]
+    np.random.seed(1)
+    idx = np.arange(N)
+    np.random.shuffle(idx)
+    split = int(N*0.7)
+    X_train, X_test = X[:split], X[split:]
+    y_train, y_test = y[:split], y[split:]
+    print(X_train.shape, y_train.shape, X_test.shape,y_test.shape)
+    model = ClassificationTree(max_depth=4)
+    model.fit(X_train,y_train,verbose=0,feature_names=['Age','Height','Weight'])
+    ytp = model.predict(X_train)
+    ysp = model.predict(X_test)
+    print('Training Accuracy : ',np.mean(ytp==y_train))
+    print('Testing  Accuracy : ',np.mean(ysp==y_test))
+    plt.figure(figsize=(12,6))
+    model.plotTree(show=False,showtitle=False, scale=True,leaf_labels={1:'Happy',0:'Unhappy'})
+    plt.suptitle('Happiness: Classification Tree')
+    plt.show()
+    """
     def __repr__(self):
-        info = 'ClassificationTree(' +\
-               'max_depth={}, min_samples_split={},min_impurity={},'.format(self.max_depth,self.min_samples_split,self.min_impurity) +\
-               'thresholdFromMean='.format(self.thresholdFromMean)
+        info1 = 'ClassificationTree(max_depth={}, min_samples_split={},min_impurity={},'.format(self.max_depth,self.min_samples_split,self.min_impurity)
+        info2 = 'thresholdFromMean='.format(self.thresholdFromMean)
+        info = info1+info2
         return info
     def _entropy(self,y):
         '''
@@ -862,20 +1126,26 @@ class ClassificationTree(DecisionTree):
         px = np.array(frq)/np.sum(frq)
         return list(px), label_counts
     def fit(self, X, y,verbose=0,feature_names=None,randomBranch=False):
-        '''
-        Parameters:
+        r"""Building Classification Tree 
+        
+        Parameters
         -----------
-              X	:: ndarray (number of sample, number of features)
-              y	:: list of 1D array
-        verbose	::0 - no progress or tree (silent)
-				::1 - show progress in short
-				::2 - show progress with details with branches
-				::3 - show progress with branches True/False
-				::4 - show progress in short with plot tree
+        X: ndarray 
+         - (number of sample, number of features)
+        y: list of 1D array
+         - labels
+        
+        verbose: int, deafult=0
+              - 0 - no progress or tree (silent)
+              - 1 - show progress in short
+              - 2 - show progress with details with branches
+			  - 3 - show progress with branches True/False
+			  - 4 - show progress in short with plot tree
 
-        feature_names:: (optinal) list, Provide for better look at tree while plotting or shwoing the progress,
-                       default to None, if not provided, features are named as f1,...fn
-        '''
+        feature_names: list
+             - Provide for better look at tree while plotting or showing the progress,
+             - default to None, if not provided, features are named as f1,...fn
+        """
         self._impurity_calculation = self._infoGain
         self._leaf_value_calculation = self._majority_vote
         self._leaf_prob_calculation = self._probability
@@ -888,7 +1158,61 @@ class ClassificationTree(DecisionTree):
         super(ClassificationTree, self).fit(X, y)
 
 class RegressionTree(DecisionTree):
+    r"""Regression Tree
 
+
+    Regression Tree is based on super class :class:`DecisionTree`
+
+
+        .. note:: Decsion Tree Super Class
+            - For more details check :class:`DecisionTree`
+
+
+    See Also
+    --------
+    ClassificationTree, NaiveBayes, LogisticRegression,
+
+    Examples
+    --------
+    #sp.ml.RegressionTree
+    import numpy as np
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    from spkit.ml import RegressionTree
+
+    mlend_happiness_dataset = 'https://raw.githubusercontent.com/MLEndDatasets/Happiness/main/MLEndHD_attributes.csv'
+    # check - https://mlenddatasets.github.io/happiness/
+
+    data = pd.read_csv(mlend_happiness_dataset)
+    X = data[['Age','Height','Weight']].to_numpy()
+    y = data['HappinessLevel'].to_numpy()
+    X = X[~np.isnan(y)]
+    y = y[~np.isnan(y)]
+    print(X.shape, y.shape)
+    N = X.shape[0]
+    np.random.seed(1)
+    idx = np.arange(N)
+    np.random.shuffle(idx)
+    split = int(N*0.7)
+    X_train, X_test = X[:split], X[split:]
+    y_train, y_test = y[:split], y[split:]
+    print(X_train.shape, y_train.shape, X_test.shape,y_test.shape)
+    model = RegressionTree(max_depth=4)
+    model.fit(X_train,y_train,verbose=0,feature_names=['Age','Height','Weight'])
+    ytp = model.predict(X_train)
+    ysp = model.predict(X_test)
+    print('Depth of trained Tree ', model.getTreeDepth())
+    print('MSE')
+    print('- Training : ',np.mean((ytp-y_train)**2))
+    print('- Testing  : ',np.mean((ysp-y_test)**2))
+    print('MAE')
+    print('- Training : ',np.mean(np.abs(ytp-y_train)))
+    print('- Testing  : ',np.mean(np.abs(ysp-y_test)))
+    plt.figure(figsize=(10,6))
+    model.plotTree(show=False,showtitle=False)
+    plt.suptitle('Happiness Level: Regression Tree')
+    plt.show()
+    """
     def __repr__(self):
         info = 'RegressionTree(' +\
                'max_depth={}, min_samples_split={},min_impurity={},'.format(self.max_depth,self.min_samples_split,self.min_impurity) +\
@@ -919,20 +1243,26 @@ class RegressionTree(DecisionTree):
             std if len(std) > 1 else std[0]
         return std,len(y)
     def fit(self, X, y,verbose=0,feature_names=None,randomBranch=False):
-        '''
-        Parameters:
+        r"""Building Regression Tree 
+        
+        Parameters
         -----------
-              X:: ndarray (number of sample, number of features)
-              y:: list of 1D array
-        verbose::0 - no progress or tree (silent)
-               ::1 - show progress in short
-               ::2 - show progress with details with branches
-			   ::3 - show progress with branches True/False
-			   ::4 - show progress in short with plot tree
+        X: ndarray 
+         - (number of sample, number of features)
+        y: list of 1D array
+         - labels
+        
+        verbose: int, deafult=0
+              - 0 - no progress or tree (silent)
+              - 1 - show progress in short
+              - 2 - show progress with details with branches
+			  - 3 - show progress with branches True/False
+			  - 4 - show progress in short with plot tree
 
-        feature_names:: (optinal) list, Provide for better look at tree while plotting or shwoing the progress,
-                       default to None, if not provided, features are named as f1,...fn
-        '''
+        feature_names: list
+             - Provide for better look at tree while plotting or showing the progress,
+             - default to None, if not provided, features are named as f1,...fn
+        """
         self._impurity_calculation = self._varReduction
         self._leaf_value_calculation = self._mean_of_y
         self._leaf_prob_calculation = self._std_of_y
@@ -942,3 +1272,40 @@ class RegressionTree(DecisionTree):
         self.task = 'regression'
         self.randomBranch=randomBranch
         super(RegressionTree, self).fit(X, y)
+
+
+def temp_fun():
+    """Classification Tree
+    
+    Parameters
+    -----------
+    
+    X	: ndarray (number of sample, number of features)
+    y	: list of 1D array
+    verbose	:0 - no progress or tree (silent)
+            :1 - show progress in short
+            :2 - show progress with details with branches
+            :3 - show progress with branches True/False
+            :4 - show progress in short with plot tree
+
+    feature_names: (optinal) list, 
+       - Provide for better look at tree while plotting or shwoing the progress,
+                    default to None, if not provided, features are named as f1,...fn
+
+    """
+
+    '''Regression Tree
+
+    Parameters:
+    -----------
+            X: ndarray (number of sample, number of features)
+            y: list of 1D array
+    verbose:0 - no progress or tree (silent)
+            :1 - show progress in short
+            :2 - show progress with details with branches
+            :3 - show progress with branches True/False
+            :4 - show progress in short with plot tree
+
+    feature_names: (optinal) list, Provide for better look at tree while plotting or shwoing the progress,
+                    default to None, if not provided, features are named as f1,...fn
+    '''

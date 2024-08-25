@@ -16,7 +16,7 @@ from scipy import signal
 import sys, os
 
 from . import basic_geo as G
-from ..core.processing import filterDC_sGolay
+from ..core.processing import filterDC_sGolay, create_signal_1d, create_signal_2d
 from ..utils_misc.borrowed import resize
 from scipy import signal
 from scipy.special import ellipkinc,ellipj, ellipk
@@ -64,9 +64,8 @@ def ellipj_clx(u, m):
     return sni, cni, dni, phi
 
 def SchwarzChristoffel(X,disc2square=True):
-    '''
-    Schwarz Christoffel Mapping or Conformal Mapping
-    '''
+    r"""Schwarz Christoffel Mapping or Conformal Mapping
+    """
     Ke = 1.854
     m = 1/np.sqrt(2)
     if disc2square:
@@ -108,6 +107,7 @@ def SchwarzChristoffel(X,disc2square=True):
     return Y#,np.c_[rx,ry],(al,bt)
 
 def forceUnitCircle(X):
+    r"""Force points to be in Unit Circle"""
     xi,yi = X[:,0],X[:,1]
     r = np.sqrt(xi**2+yi**2)
     r = np.clip(r,0,1)
@@ -117,26 +117,30 @@ def forceUnitCircle(X):
     return np.c_[xj,yj]
 
 def RadialMapping(X,disc2square=True,esp=1e-3):
-    r"""
-    Radial Mapping
-    --------------
+    r"""Radial Mapping
+    
+    
 
     # disc to square
-    ----------------
-    r = sqrt(u^2 + v^2)
+   
+    .. math::
 
-            |  (0,0)           r=0
-    (x,y) = |  (sign(u)*r, sign(v)*rv/u)   u^2 >= v^2
-            |  (sign(u)*ru/v, sign(v)*r)   u^2 < v^2
+        r = sqrt(u^2 + v^2)
+
+                |  (0,0)           r=0
+        (x,y) = |  (sign(u)*r, sign(v)*rv/u)   u^2 >= v^2
+                |  (sign(u)*ru/v, sign(v)*r)   u^2 < v^2
 
 
     # square to disc
-    -----------------
-    r = sqrt(x^2 + y^2)
+    
+    .. math::
+        
+        r = sqrt(x^2 + y^2)
 
-            |  (0,0)           r=0
-    (u,v) = |  (sign(x)*x^2/r, sign(y)*xy/r)    x^2 >= y^2
-            |  (sign(x)*xy/r,  sign(y)*y^2/r)   x^2 <  y^2
+                |  (0,0)           r=0
+        (u,v) = |  (sign(x)*x^2/r, sign(y)*xy/r)    x^2 >= y^2
+                |  (sign(x)*xy/r,  sign(y)*y^2/r)   x^2 <  y^2
 
 
     """
@@ -194,10 +198,7 @@ def RadialMapping(X,disc2square=True,esp=1e-3):
     return Y
 
 def FGSquircular(X,disc2square=True):
-    r"""
-
-    FGSquircular Mapping
-
+    r"""FGSquircular Mapping
     """
     X[np.isclose(X,0)]=0
     if disc2square:
@@ -222,8 +223,7 @@ def FGSquircular(X,disc2square=True):
     return Y
 
 def Elliptical(X,disc2square=True):
-    r"""
-    Elliptical Mapping
+    r"""Elliptical Mapping
     """
     if disc2square:
         X = forceUnitCircle(X)
@@ -241,31 +241,33 @@ def Elliptical(X,disc2square=True):
     return Y
 
 def ShirleyEA(X,disc2square=True,verbose=0):
-    '''
-    Shirley Mapping
+    r"""Shirley Mapping
+    
     # disc to square
-    ----------------
-    r = sqrt(u^2 + v^2)
+    .. math::
 
-    phi = |   atan2(v,u)        if atan2(v,u) >= - pi/4
-          |   atan2(v,u) + 2pi  else
+        r = sqrt(u^2 + v^2)
+
+        phi = |   atan2(v,u)        if atan2(v,u) >= - pi/4
+            |   atan2(v,u) + 2pi  else
 
 
-            |  (0,0)                      if r=0
-    (x,y) = |  (sign(u)*r, sign(v)*rv/u)  if u^2 >= v^2
-            |  (sign(u)*ru/v, sign(v)*r)  if u^2 < v^2
+                |  (0,0)                      if r=0
+        (x,y) = |  (sign(u)*r, sign(v)*rv/u)  if u^2 >= v^2
+                |  (sign(u)*ru/v, sign(v)*r)  if u^2 < v^2
 
 
     # square to disc
-    -----------------
-    r = sqrt(x^2 + y^2)
+    .. math::
 
-            |  (0,0)           r=0
-    (u,v) = |  (sign(x)*x^2/r, sign(y)*xy/r)    x^2 >= y^2
-            |  (sign(x)*xy/r,  sign(y)*y^2/r)   x^2 <  y^2
+        r = sqrt(x^2 + y^2)
+
+                |  (0,0)           r=0
+        (u,v) = |  (sign(x)*x^2/r, sign(y)*xy/r)    x^2 >= y^2
+                |  (sign(x)*xy/r,  sign(y)*y^2/r)   x^2 <  y^2
 
 
-    '''
+    """
     X[np.isclose(X,0)]=0
     Xi = np.zeros_like(X[:,0])
     Yi = np.zeros_like(X[:,1])
@@ -326,13 +328,14 @@ def ShirleyEA(X,disc2square=True,verbose=0):
     return Y
 
 def ds_mapping(X,disc2square=True,method='Shirley'):
-    '''
+    r"""Disc-Square Mapping (Transformation)
+   
     Disc-Square Mapping (Transformation)
-    --------------------------
+    
     Mapping Disc to Square or Square to Disc
 
     Parameters
-    ---------
+    ----------
     X: 2D grid with |x|<=1, |y|<=1
 
     disc2square: boot, default=True
@@ -342,7 +345,7 @@ def ds_mapping(X,disc2square=True,method='Shirley'):
     Returns
     -------
     Xm : of same size as X
-    '''
+    """
     if method.lower()=='radial' or method.lower()=='radialmapping':
         return RadialMapping(X,disc2square=disc2square)
     elif method.lower()=='fgsquircular':
@@ -355,13 +358,18 @@ def ds_mapping(X,disc2square=True,method='Shirley'):
         return SchwarzChristoffel(X,disc2square=disc2square)
 
 def im2vec(file_name,gray=True, res =101):
-    r"""
+    r"""Image to Vector
 
-    Image to Vector
-    Input:
+    
+    Parameters
+    ----------
     file name or Image Matrix I
+
     res, resolution to change as square matrix
-    Returns: X = [x-corrd, y-corrd, pixle value]
+
+    Returns
+    -------
+    X = [x-corrd, y-corrd, pixle value]
 
     """
     #from skimage.transform import resize
@@ -390,8 +398,8 @@ def im2vec(file_name,gray=True, res =101):
     return X
 
 def vec2im(X,res=101,bg=1,fillgaps=False,smooth=True):
-    r"""
-    vector to image
+    r"""Vector to image
+    
     """
     ch = 1 if len(X.shape)==3 else 3
     I = np.zeros([res,res,3]) if ch==3 else np.zeros([res,res])
@@ -434,6 +442,8 @@ def vec2im(X,res=101,bg=1,fillgaps=False,smooth=True):
     return I
 
 def transform_image(X,file_name=None,disc2square=True,res=100,method='Radial',bg=1,smooth=False,shrink_factor=1):
+    r"""Transform Image
+    """
     if file_name is not None:
         X = im2vec(file_name,gray=False, res=2*res)
         if shrink_factor!=1:
@@ -458,6 +468,8 @@ def transform_image(X,file_name=None,disc2square=True,res=100,method='Radial',bg
     return IT, X, I
 
 def transform_image_all(file,disc2square=True,res=200,bg=1,smooth=False,shrink_factor=1, show=True):
+    r"""Transform Image to all
+    """
     methods = ['RadialMapping', 'FGSquircular', 'Elliptical', 'Shirley', 'SchwarzChristoffel']
     XT = []
     for k,method in enumerate(methods):
@@ -484,6 +496,8 @@ def transform_image_all(file,disc2square=True,res=200,bg=1,smooth=False,shrink_f
     return XT, I
 
 def multi_plots(X,grid=(1,None),figsize=(15,5),titles=[], show=True):
+    r"""Multiple Plots
+    """
     N = len(X)
     plt.figure(figsize=figsize)
     r = int(grid[0])
@@ -500,6 +514,7 @@ def multi_plots(X,grid=(1,None),figsize=(15,5),titles=[], show=True):
     if show: plt.show()
 
 def demo_1(n=100):
+    r"""demo1"""
     X = get_circle(r=1,n=n)
     X = np.vstack([X,X/1.2,X/1.5,X/2, X/3, X/4])
     #print(X.shape)
@@ -530,6 +545,7 @@ def demo_1(n=100):
     plt.show()
 
 def demo_2():
+    r"""demo2"""
     Xd = get_circular_grid(n=20,al=10)
     Xs = get_square_grid(n=20,vl=10)
 
@@ -552,13 +568,15 @@ def demo_2():
 # #======================================
 
 def get_circle(r=1,n=100):
-    r""" get a circle of radius 1 with n points"""
+    r"""Get a circle of radius r with n points"""
     t = 2*np.pi*np.linspace(0,1,n)
     x = r*np.cos(t)
     y = r*np.sin(t)
     return np.c_[x,y]
 
 def get_circular_grid(n=10,al=10,rl=None,rmax=1):
+    r"""Get a circular grid"""
+
     if rl is None: rl=al
 
     PHI = np.linspace(0,2*np.pi,al,endpoint=False)
@@ -567,9 +585,6 @@ def get_circular_grid(n=10,al=10,rl=None,rmax=1):
     for phi in PHI:
         Xi = np.c_[R*np.cos(R*0+phi),R*np.sin(R*0+phi)]
         X.append(Xi)
-
-
-
 
     R = np.linspace(0,rmax,rl)[1:]
     nn=0
@@ -582,7 +597,7 @@ def get_circular_grid(n=10,al=10,rl=None,rmax=1):
     return X
 
 def get_square(n=5,r=1):
-    r""" get a uniform square grid of n by n points between -r to r"""
+    r"""Get a uniform square grid of n by n points between -r to r"""
     #dl = 2*r/n
     xi = np.linspace(-r,r,n)
     yi = np.linspace(-r,r,n)
@@ -590,7 +605,7 @@ def get_square(n=5,r=1):
     return np.c_[x.reshape(-1),y.reshape(-1)]
 
 def get_square_grid(n=10,vl=5,hl=None,r=1):
-    r""" get a square grid of n by n points between -r to r"""
+    r"""Get a square grid of n by n points between -r to r"""
     xi = np.linspace(-r,r,n)
     yi = np.linspace(-r,r,n)
 
@@ -607,7 +622,6 @@ def get_square_grid(n=10,vl=5,hl=None,r=1):
     X = np.vstack(X)
     return X
 
-
 def get_sphare_v0(n1=100,n2=100,r=1,prnag=[0,2*np.pi],trang=[0,np.pi]):
     phi = np.linspace(prnag[0],prnag[1],n1)
     tht = np.linspace(trang[0],trang[1],n2)
@@ -622,6 +636,7 @@ def get_sphare_v0(n1=100,n2=100,r=1,prnag=[0,2*np.pi],trang=[0,np.pi]):
     return np.c_[x,y,z]
 
 def get_sphare(n1=100,n2=100,r=1,r2=1,r3=1,phi_rang=[0,2*np.pi],theta_rang=[0,np.pi]):
+    r"""Get a sphare"""
     phi = np.linspace(phi_rang[0],phi_rang[1],n1)
     tht = np.linspace(theta_rang[0],theta_rang[1],n2)
     thT,phI = np.meshgrid(tht,phi)
@@ -634,9 +649,52 @@ def get_sphare(n1=100,n2=100,r=1,r2=1,r3=1,phi_rang=[0,2*np.pi],theta_rang=[0,np
     z = r3*np.cos(thT)
     return np.c_[x,y,z]
 
-def get_ellipsoid(n1=100,n2=100,rx=1,ry=2,rz=1,prnag=[0,2*np.pi],trang=[0,np.pi]):
-    phi = np.linspace(prnag[0],prnag[1],n1)
-    tht = np.linspace(trang[0],trang[1],n2)
+def get_ellipsoid(n1=100,n2=100,rx=1,ry=2,rz=1,phi_rang=[0,2*np.pi],theta_rang=[0,np.pi]):
+    r"""Get a ellipsoid
+    
+    Parameters
+    ----------
+    n1,n2= (int, int)
+
+    rx: radius-x
+    ry: radius-y
+    rz: radius-z
+
+    phi_rang: phi range
+    theta_rang: theta range
+
+    Returns
+    -------
+    V: (n,3)
+     -  3D points
+
+    See Also
+    --------
+    get_sphare, get_circle, get_circular_grid, get_square, get_square_grid
+
+    Examples
+    --------
+    #sp.geometry.get_ellipsoid
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import spkit as sp
+
+    V = sp.geometry.get_ellipsoid(n1=50, n2=50, rx=1, ry=2, rz=1,)
+    V += 0.01*np.random.randn(V.shape[0],V.shape[1])
+
+    X = sp.create_signal_1d(V.shape[0],bipolar=False,sg_winlen=21,sg_polyorder=2,seed=1)
+
+    fig, ax = plt.subplots(subplot_kw={"projection": "3d"},figsize=(5,6))
+    ax.scatter3D(V[:,0], V[:,1], V[:,2], c=X, cmap='jet',s=10)
+    ax.axis('off')
+    ax.view_init(elev=60, azim=45, roll=15)
+    ax.set_xlim([-1,1])
+    ax.set_ylim([-2,2])
+    ax.set_zlim([-1,1])
+    ax.set_title('ellipsoid')
+    """
+    phi = np.linspace(phi_rang[0],phi_rang[1],n1)
+    tht = np.linspace(theta_rang[0],theta_rang[1],n2)
     thT,phI = np.meshgrid(tht,phi)
 
     thT = thT.reshape(-1)
@@ -648,6 +706,7 @@ def get_ellipsoid(n1=100,n2=100,rx=1,ry=2,rz=1,prnag=[0,2*np.pi],trang=[0,np.pi]
     return np.c_[x,y,z]
 
 def project_on_hemisphere(X,origin_shift =[0,0,0],r_ratio=[None,None,None]):
+    r"""Project on Hemisphare"""
     Xc = X.copy()
     Xc[:,2] -= Xc[:,2].min()
     Xc[:,2] -= origin_shift[2]
@@ -679,81 +738,8 @@ def project_on_hemisphere(X,origin_shift =[0,0,0],r_ratio=[None,None,None]):
     Xp = np.c_[xi,yi,zi]
     return Xp, Xc
 
-
-def create_signal_1d(n=100,seed=None,sg_polyorder=1,sg_nwin=10,max_dxdt=0.1,iterations=2,max_itr=10,circular=False):
-    r""" Generate 1D arbitary signal
-
-    sg_wid: window_length = (n//sg_wid) for sg_filter
-    sg_polyorder: polyorder for sg_filter
-
-    """
-    np.random.seed(seed)
-    x = np.random.rand(n)
-    window_length = (n//sg_nwin)
-    if window_length%2==0: window_length+=1
-
-    if circular: x = np.r_[np.zeros(window_length*2)+x[0],x,np.zeros(window_length*2)+x[0]]
-
-    xm = x.copy()
-
-    if max_dxdt is None:
-        #print('max_dxdt:',np.max(np.abs(np.diff(xm))))
-        for _ in range(iterations):
-            _,xm = filterDC_sGolay(xm,window_length=window_length,polyorder=sg_polyorder,return_background=True)
-            #print('max_dxdt:',np.max(np.abs(np.diff(xm))))
-    else:
-        itr=0
-        while np.max(np.abs(np.diff(xm)))>max_dxdt:
-            _,xm = filterDC_sGolay(xm,window_length=window_length,polyorder=sg_polyorder,return_background=True)
-            itr+=1
-            if itr>max_itr:break
-    np.random.seed(None)
-    xm -= xm.min()
-    xm /= xm.max()
-    return xm
-
-def create_signal_2d(n=100,sg_winlen=11,sg_polyorder=1,iterations=2,max_dxdt=0.1,max_itr=10,seed=None):
-
-    r""" Generate 2D arbitary signal/image patch"""
-
-    np.random.seed(seed)
-    X = np.random.rand(n,n)
-
-    for i in range(n):
-        if iterations is not None:
-            for _ in range(iterations):
-                #win = np.random.randint(3,window_length)
-                #if win%2==0: win+=1
-                _,X[i] = filterDC_sGolay(X[i],window_length=sg_winlen,polyorder=sg_polyorder,return_background=True)
-        else:
-            itr=0
-            while np.max(np.abs(np.diff(X[i])))>max_dxdt:
-                _,X[i] = filterDC_sGolay(X[i],window_length=sg_winlen,polyorder=sg_polyorder,return_background=True)
-                itr+=1
-                if itr>max_itr: break
-
-    X -= X.min()
-    X /=X.max()
-    for i in range(n):
-        if iterations is not None:
-            for _ in range(iterations):
-                #win = np.random.randint(3,window_length)
-                #if win%2==0: win+=1
-                _,X[:,i] = filterDC_sGolay(X[:,i],window_length=sg_winlen,polyorder=sg_polyorder,return_background=True)
-        else:
-            itr=0
-            while np.max(np.abs(np.diff(X[:,i])))>max_dxdt:
-                _,X[:,i] = filterDC_sGolay(X[:,i],window_length=sg_winlen,polyorder=sg_polyorder,return_background=True)
-                itr+=1
-                if itr>max_itr: break
-
-    np.random.seed(None)
-    X -= X.min()
-    X /=X.max()
-    return X
-
 def points_insideCurve(curvXY,gridXY,plot=False):
-    r""" extract points of gridXY, that belongs to insideCurve"""
+    r"""Extract points of gridXY, that belongs to insideCurve"""
     gtXY = np.arctan2(gridXY[:,1],gridXY[:,0])
     grXY = np.sqrt(gridXY[:,1]**2 + gridXY[:,0]**2)
     ctXY = np.arctan2(curvXY[:,1],curvXY[:,0])
@@ -788,7 +774,7 @@ def points_insideCurve(curvXY,gridXY,plot=False):
 def create_random_map_2d(n_samples=500,p=0.3,n1=100,n2=300,trim=True,plot=False,seed=None,seed2=None,
                         param_1d=dict(sg_nwin=10,sg_polyorder=1,iterations=3,max_dxdt=None),
                         param_2d=dict(sg_winlen=31,sg_polyorder=0,iterations=3,max_dxdt=0.02,max_itr=10)):
-    r""" Create a random 2d Patch of arbitary shape"""
+    r"""Create a random 2d Patch of arbitary shape"""
 
     xb = create_signal_1d(n=n1,seed=seed,circular=True,**param_1d)
     xb = xb*(1-p) + p
@@ -855,7 +841,7 @@ def create_random_map_2d(n_samples=500,p=0.3,n1=100,n2=300,trim=True,plot=False,
     return Xc,Xs
 
 def get_boundary_points(XY):
-    r""" Get points of boundary"""
+    r"""Get points of boundary"""
     from scipy.spatial.qhull import Delaunay
     tri = Delaunay(XY)
     tri.simplices
@@ -865,7 +851,7 @@ def get_boundary_points(XY):
     return Pb, XY[Pb]
 
 def get_boundary_points_r(XY,K=3,n=360,shift=True,verbose=0):
-    r""" Get points of boundary"""
+    r"""Get points of boundary"""
     if shift: XY = XY - XY.mean(0)
     gtXY = np.arctan2(XY[:,1],XY[:,0])# + np.pi
     grXY = np.sqrt(XY[:,1]**2 + XY[:,0]**2)
@@ -899,10 +885,14 @@ def get_boundary_points_r(XY,K=3,n=360,shift=True,verbose=0):
     return points,Idx,(theta,rad)
 
 def lin_inter(x1,x2,y1,y2,xt):
+    r"""linear Inpeterpolation
+    """
     yt = y1 + (y2-y1)*(xt-x1)/(x2-x1)
     return yt
 
 def map_to_circle_v1(X,method ='radial',bpoints=200,K=20,origin=[None,None],verbose=0,force=True,shift_back=False):
+    r"""map to circle
+    """
     XYi = X[:,:2]
     XYj = XYi - XYi.mean(0)
     if origin[0] is not None:
@@ -966,6 +956,8 @@ def map_to_circle_v1(X,method ='radial',bpoints=200,K=20,origin=[None,None],verb
     return XY
 
 def map_to_circle_v2(X,method ='radial_scan',bpoints=200,K=20,origin=[None,None],verbose=0,force=True,shift_back=False):
+    r"""map to circle
+    """
     XYi = X[:,:2]
     XYj = XYi - XYi.mean(0)
     if origin[0] is not None:
@@ -1030,7 +1022,8 @@ def map_to_circle_v2(X,method ='radial_scan',bpoints=200,K=20,origin=[None,None]
     return XY
 
 def get_boundary_v1(X,method='delaunay',shift_to0=True,K=5,n=360,verbose=0):
-
+    r"""Get Boundaries
+    """
     if method=='delaunay':
         from scipy.spatial.qhull import Delaunay
         tri = Delaunay(X)
@@ -1095,7 +1088,8 @@ def get_boundary_v1(X,method='delaunay',shift_to0=True,K=5,n=360,verbose=0):
         return peaks,XY[ij][peaks],ij
 
 def get_boundary_v2(X,method='delaunay',shift_to0=True,K=5,n=360,verbose=0):
-
+    r"""Get Boundaries
+    """
     if method=='delaunay':
         from scipy.spatial.qhull import Delaunay
         tri = Delaunay(X)
@@ -1170,7 +1164,8 @@ def get_boundary_v2(X,method='delaunay',shift_to0=True,K=5,n=360,verbose=0):
 def plot_map_2d(X,V,res=[128,128],vminmax=[None,None],fmt='%.2f',method=1,ax=None,fig=None,colorbar=True,lines=True,
                 title=None,show_points=True,alpha=None,origin='lower',
                 vlines =[0,np.pi,2*np.pi], hlines=[0,np.pi/2,np.pi]):
-
+    r"""plot 2d map
+    """
     V2I = G.Inter2DPlane(V[:,:2], res=res)
     if method==2:
         Vmap = V2I.get_image2(X)
@@ -1209,6 +1204,8 @@ def plot_map_2d(X,V,res=[128,128],vminmax=[None,None],fmt='%.2f',method=1,ax=Non
 
 
 def demo_3(seed=1):
+    r"""demo3
+    """
     X,Xs =  create_random_map_2d(n1=100,n2=100,p=0.3,seed=seed,plot=True,trim=True,n_samples=500)
     np.random.seed(None)
     Xa = map_to_circle_v2(Xs,method ='radial_scan',bpoints=200,K=10,origin=[None,None],verbose=0,force=True,shift_back=False)

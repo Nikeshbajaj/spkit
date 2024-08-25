@@ -24,11 +24,6 @@
 
 [![DOI](https://raw.githubusercontent.com/Nikeshbajaj/spkit/master/figures/zenodo.4710694.svg)](https://doi.org/10.5281/zenodo.4710694)
 
-<!--[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4710694.svg)](https://doi.org/10.5281/zenodo.4710694)
-<a href="https://doi.org/10.5281/zenodo.4710694"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.4710694.svg" alt="DOI"></a>
--->
-
------
 
 ## Installation
 
@@ -45,10 +40,6 @@ pip install spkit
 ```
 pip install spkit --upgrade
 ```
-
-
-
-.. image:: 
 
 ## For updated list of contents and documentation check [github](https://GitHub.com/nikeshbajaj/spkit) or [Documentation](https://spkit.readthedocs.io/)
 
@@ -71,7 +62,7 @@ pip install spkit --upgrade
    * Sample Entropy
    * Permutation Entropy
    * SVD Entropy
- 
+
  * **Dispersion Entropy** (Advanced) - for time series signal
     * Dispersion Entropy
     * Dispersion Entropy - multiscale
@@ -80,8 +71,8 @@ pip install spkit --upgrade
     * Differential Entropy
     * Mutual Information, Conditional, Joint, Entropy
     * Transfer Entropy
- 
-      
+
+
 ## **Matrix Decomposition**
 * SVD
 * ICA using InfoMax, Extended-InfoMax, FastICA & **Picard**
@@ -105,7 +96,7 @@ pip install spkit --upgrade
 ## Biomedical Signal Processing
 * EEG Signal Processing
 * MEA Processing Toolkit
-  
+
 **Artifact Removal Algorithm**
 * **ATAR Algorithm** [Automatic and Tunable Artifact Removal Algorithm for EEG from artical](https://www.sciencedirect.com/science/article/pii/S1746809419302058)
 * **ICA based Algorith**
@@ -132,10 +123,6 @@ pip install spkit --upgrade
 
 
 ## and many more ...
-
-
-
-
 
 
 # Cite As

@@ -16,13 +16,87 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class NaiveBayes():
-    """
+    r"""Gaussian Naive Bayes classifier.
+   
     The Gaussian Naive Bayes classifier.
     Based on the bayes rule
 
-    X::shape (n, nf), n samples with nf features
-    y::shape (n,) or (n,1)
+    * X: shape (n, nf), n samples with nf features
+    * y: shape (n,) or (n,1) -  doesn't have to be integers
 
+
+    Computing the posterior probability of x being from class c using Bayes rule.
+
+    .. math::
+
+        P(y_c | x) = \frac{P(x|y_c) P(y_c)}{P(x)}
+
+
+    Attributes
+    ----------
+    parameters: dict()
+      - dictionry of the parameters
+      - parameters[0] for parameters of class 0
+      - parameters are `mu`, `sigma` and `prior` for each feature
+
+    classes: 1d-array
+      -  array for 
+
+    See Also
+    --------
+    LogisticRegression, ClassificationTree, RegressionTree
+
+    Examples
+    --------
+    #sp.ml.NaiveBayes
+    import numpy as np
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    from spkit.ml import NaiveBayes
+
+    mlend_happiness_dataset = 'https://raw.githubusercontent.com/MLEndDatasets/Happiness/main/MLEndHD_attributes.csv'
+    # check - https://mlenddatasets.github.io/happiness/
+
+    data = pd.read_csv(mlend_happiness_dataset)
+    X = data[['Age','Height','Weight']].to_numpy()
+    y = data['HappinessLevel'].to_numpy()
+    X = X[~np.isnan(y)]
+    y = y[~np.isnan(y)]
+    y = 1*(y>5)
+    # NOTE: y can be list or array of string too
+    print(X.shape, y.shape)
+    #(308, 3) (308,)
+
+    N = X.shape[0]
+    np.random.seed(1)
+    idx = np.arange(N)
+    np.random.shuffle(idx)
+    split = int(N*0.7)
+
+    X_train, X_test = X[:split], X[split:]
+    y_train, y_test = y[:split], y[split:]
+    print(X_train.shape, y_train.shape, X_test.shape,y_test.shape)
+    # (215, 3) (215,) (93, 3) (93,)
+    model = NaiveBayes()
+    model.fit(X_train,y_train)
+    ytp = model.predict(X_train)
+    ysp = model.predict(X_test)
+    print('Training Accuracy : ',np.mean(ytp==y_train))
+    print('Testing  Accuracy : ',np.mean(ysp==y_test))
+    #Training Accuracy :  0.8558139534883721
+    #Testing  Accuracy :  0.8924731182795699
+    # Parameters :: $\mu$, $\sigma$
+    print('model parameters')
+    print(model.parameters[0])
+
+    model.set_class_labels(['Happy', 'Unappy'])
+    model.set_feature_names(['Age','Height','Weight'])
+
+    fig = plt.figure(figsize=(10,6))
+    model.VizPx(show=False)
+    plt.suptitle('MLEnd Happiness Data')
+    plt.tight_layout()
+    plt.show()
     """
     def __init__(self):
         self.classes = None
@@ -38,6 +112,26 @@ class NaiveBayes():
         return info
 
     def fit(self, X, y):
+        r"""Fit Naive Bayes
+
+        Compute mu, signma and priors for each features for each class
+
+        Parameters
+        ----------
+        X: 2d-array
+          - shape (n,nf)
+          - Feature Matrix
+
+            .. note:: string labels
+              -  this allows the list strings or any numbers as labels
+              
+
+        y: 1d-array of int, or str
+          - shape (n,1) 
+          - Labels
+
+
+        """
         assert X.shape[0]==y.shape[0]
         assert len(y.shape)==1 or y.shape[1]==1
         self.n, self.nf = X.shape
@@ -85,16 +179,67 @@ class NaiveBayes():
     # Predict the class labels corresponding to the
     # samples in X
     def predict(self, X):
+        r"""Computing/predicting class for given X
+
+        Parameters
+        ----------
+        X: 2d-array
+          - shape (n,nf)
+          - Feature Matrix
+
+        Returns
+        -------
+        yp: (n,)
+          -  array of predicted labels
+
+        See Also
+        --------
+        predict_prob
+
+        """
         Pyx = self._Pyx(X)
         return self.classes[Pyx.argmax(-1)]
     def predict_prob(self,X):
+        r"""Computing the posterior probabiltiy of class for given X
+
+        Parameters
+        ----------
+        X: 2d-array
+          - shape (n,nf)
+          - Feature Matrix
+
+        Returns
+        -------
+        ypr: (n, nc)
+          -  array of posterior probabiltities for each class
+          -  nc -  number of classes
+
+        """
         return self._Pyx(X)
 
     def set_class_labels(self,labels):
+        r"""Set labels of class
+
+        Used while visualizations
+
+        Parameters
+        ----------
+        labels: list of str
+          -  should be same size as number of classes
+        """
         assert len(labels)==len(self.classes)
         self.class_labels = labels
 
     def set_feature_names(self,fnames):
+        r"""Set labels for features
+
+        Used while visualizations
+
+        Parameters
+        ----------
+        fnames: list of str
+          -  should be same size as number of features
+        """
         assert len(fnames)==self.nf
         self.feature_names = fnames
 
@@ -104,6 +249,14 @@ class NaiveBayes():
         px = a*np.exp(-(((xi - mean)**2) / (2 * var)))
         return px,xi
     def VizPx(self,nfeatures = None,show=True):
+        r"""Visualize distribution of each feature for each class
+
+        Parameters
+        ----------
+        nfeatures: None, or list
+          - if None, then all the features are plotted
+          - to plot first 3 features only, use nfeatures = np.arange(3)
+        """
         if self.class_labels is None:
             self.class_labels  = ['C'+str(c) for c in self.classes]
         if self.feature_names is None:

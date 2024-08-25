@@ -22,6 +22,9 @@ from matplotlib.tri import Triangulation
 import copy
 
 class Inter2DPlane(object):
+    r"""Interpolation of 2D Plane
+
+    """
     def __init__(self,xy_loc,res=[128,128]):
         if isinstance(res,int): res = [res,res]
         self.res = res
@@ -41,12 +44,14 @@ class Inter2DPlane(object):
         return Zi
 
 def car2spar(X):
+    r"""Cartesian to Spherical Coordinates"""
     rad = np.linalg.norm(X, axis=1)
     zen = np.arccos(X[:,2] / rad)   #[0, pi],
     azi = np.arctan2(X[:,1], X[:,0])# + np.pi
     return np.c_[rad,zen,azi]
 
 def spar2car(S):
+    r"""Spherical to CartesianCoordinates"""
     # r>=0, th: [0, pi], ph: [0, 2pi]
     r,th,ph = S[:,0],S[:,1],S[:,2]
     x = r*np.cos(ph)*np.sin(th)
@@ -55,6 +60,7 @@ def spar2car(S):
     return np.c_[x,y,z]
 
 def getTriFaces(V, plot=True):
+    r"""Get Triangulation Faces of given Vertices V"""
     V1 = V - V.mean(axis=0)
     rad = np.linalg.norm(V1, axis=1)
     zen = np.arccos(V1[:,-1] / rad)
@@ -68,6 +74,7 @@ def getTriFaces(V, plot=True):
     return tris
 
 def getTriFaces_V2(V, plot=True,npoint_rotate=10,sep=None,verbose=0,zshift=0):
+    r"""Get Triangulation Faces of given Vertices V"""
     V1 = V - V.mean(axis=0) + zshift
     rad = np.linalg.norm(V1, axis=1)
     zen = np.arccos(V1[:,-1] / rad)
@@ -109,6 +116,7 @@ def getTriFaces_V2(V, plot=True,npoint_rotate=10,sep=None,verbose=0,zshift=0):
     return triangles
 
 def getEdges_idx(tri):
+    r"""Get Edges from Triangulation Obj"""
     E = []
     for s in tri.simplices:
         e1 = [s[0],s[1]]
@@ -127,6 +135,7 @@ def getEdges_idx(tri):
     return E
 
 def getEdges_idxSet(tri):
+    r"""Get Edges from Triangulation Obj"""
     E = []
     for s in tri.simplices:
         e1 = [s[0],s[1]]
@@ -146,15 +155,18 @@ def getEdges_idxSet(tri):
     return E
 
 def indx2points_edges(xy,e):
+    r"""Given edge, get point xy"""
     i,j = e
     return set([tuple(xy[i]),tuple(xy[j])])
 
 def removeTri_edge(F,e):
+    r"""Remove all Triangles of given edge e from F"""
     e = list(e)
     Fr = np.array([f for f in F if np.sum(f==e[0])+np.sum(f==e[1])<2])
     return Fr
 
 def isEdge_inTri(T,e):
+    r"""Test if edge is part of triangualtion F"""
     e = list(e)
     for f in T:
         if (np.sum(f==e[0])+np.sum(f==e[1]))==2:
@@ -162,6 +174,7 @@ def isEdge_inTri(T,e):
     return False
 
 def removeTri_Edges(F,E):
+    r"""Remove all Triangles of given edges E from F"""
     Fr = []
     for f in F:
         not_include = True
@@ -175,6 +188,7 @@ def removeTri_Edges(F,E):
     return np.array(Fr)
 
 def selEdges(xy,E,thr,lesthan=True,axis=0):
+    r"""Select Edges with difstance"""
     if lesthan:
         idx = np.where(xy[:,0]<thr)[0]
     else:
@@ -195,6 +209,7 @@ def selEdges(xy,E,thr,lesthan=True,axis=0):
     return E_sel, E_xy
 
 def find_E1inE2(E1_xy, E2_xy):
+    r"""Find common Edges"""
     E1_in_E2_xy = []
     E1_not_E2_xy = []
     E1_in_E2 = []
@@ -209,11 +224,149 @@ def find_E1inE2(E1_xy, E2_xy):
 
     return (E1_in_E2, E1_not_E2), (E1_in_E2_xy,E1_not_E2_xy)
 
+
+def area_tri(p1,p2,p3):
+    r"""Compute Area of a triangle in d-dimension"""
+    # p1 = absX[0]
+    # p2 = absX[1]
+    # p3 = absX[2]
+    a = np.linalg.norm(p1-p2)
+    b = np.linalg.norm(p2-p3)
+    c = np.linalg.norm(p1-p3)
+    s = (a+b+c)/2
+    A = np.sqrt(s*(s-a)*(s-b)*(s-c))
+    return A
+
+def intersection_area_circle(r1,r2,d,plot=False):
+    r"""Overlapping area of two circles
+
+    Parameters
+    ----------
+    r1: raduis of circle 1
+    r2: raduis of circle 2
+    d: distance between center of circle 1 and circle 2
+
+    plot: bool, default=False
+      -  if True, plot two circles
+
+    Returns
+    -------
+    A: Overlapping Area
+
+    """
+    if d<=(r1+r2) and d>=(abs(r1-r2)):
+        a1 = r1**2*np.arccos((d**2 + r1**2 - r2**2)/(2*d*r1))
+        a2 = r2**2*np.arccos((d**2 + r2**2 - r1**2)/(2*d*r2))
+        dd = (-d+r1+r2)*(d+r1-r2)*(d-r1+r2)*(d+r1+r2)
+        di  = 0.5*np.sqrt(dd)
+        A = a1+a2-di
+    elif d<(abs(r1-r2)):
+        A=np.min([np.pi*r1**2, np.pi*r2**2])
+    else:
+        A=0
+    if plot:
+        c1,c2 = np.array([0,0]),np.array([d,0])
+        fig,ax = plt.subplots(figsize=(5,5))
+        circle_1 = plt.Circle(c1, r1, color='C0',lw=2,fill=False,clip_on=False)
+        circle_2 = plt.Circle(c2, r2, color='C1',lw=2,fill=False,clip_on=False)
+        ax.add_patch(circle_1)
+        ax.add_patch(circle_2)
+        #xmin = np.r_[c1-r1, c2-r2].min()
+        #xmax = np.r_[c1+r1, c2+r2].max()
+        #ax.set_xlim([xmin,xmax])
+        ax.plot(*c1,'.C0')
+        ax.plot(*c2,'.C1')
+        #ax.text(*c1,'c1')
+        #ax.text(*c2,'c2')
+        ax.set_aspect('equal')
+        #ax.plot(*P,'oC3')
+        #ax.plot(*Q,'oC3')
+    return A
+
+def angle_between_points(P,Q,c=(0,0),indeg=False):
+    r"""Angle Between line Pc, Qc
+
+    indeg: if True, angle is in Degrees else in radian
+
+    """
+    c = np.array(c)
+    a,b = P-c, Q-c
+    theta = a.dot(b) /(np.linalg.norm(a)*np.linalg.norm(b))
+    theta = np.arccos(theta)
+    if indeg: theta = 180*theta/np.pi
+    return theta
+
+def intersection_points_circles(c1=(0,0),c2=(1,0),r1=1,r2=1.2, plot=False,ax=None):
+    r"""Intersection points of two circles
+     -  if circles are non-overlapping, points will be complex
+    """
+    c1 = np.array(c1)
+    c2 = np.array(c2)
+    R = np.linalg.norm(c1-c2)
+
+    a1 = (c1+c2)/2
+    a2 = ((r1**2 - r2**2)/(2*R**2))*(c2-c1)
+
+    Ri = 2*(r1**2 + r2**2)/R**2  - ((r1**2 - r2**2)**2/R**4)  - 1
+    if Ri<0:
+        Ri = 0.5*np.sqrt(np.abs(Ri))*1j
+    else:
+        Ri = 0.5*np.sqrt(Ri)
+
+    K = np.array([c2[1]-c1[1],c1[0]-c2[0]])
+
+    P = a1 + a2 + Ri*K
+    Q = a1 + a2 - Ri*K
+
+    if plot:
+        if ax is None: fig,ax = plt.subplots(figsize=(5,5))
+        circle_1 = plt.Circle(c1, r1, color='C0',lw=2,fill=False,clip_on=False)
+        circle_2 = plt.Circle(c2, r2, color='C1',lw=2,fill=False,clip_on=False)
+        ax.add_patch(circle_1)
+        ax.add_patch(circle_2)
+        #xmin = np.r_[c1-r1, c2-r2].min()
+        #xmax = np.r_[c1+r1, c2+r2].max()
+        ax.plot(*c1,'.C0')
+        ax.plot(*c2,'.C1')
+        #ax.text(*c1,'c1')
+        #ax.text(*c2,'c2')
+        ax.set_aspect('equal')
+        ax.plot(*P,'oC3')
+        ax.plot(*Q,'oC3')
+        #ax.text(*P,'P')
+        #ax.text(*Q,'Q')
+        #plt.show()
+    return P,Q
+
+def find_circle_distance(area_c1=1,area_c2=1,overlap_area=0.5,precision=0.01,verbose=0,plot=False,return_itr=False):
+    r"""Given two Circles find d
+    """
+    r1 = np.sqrt(area_c1/np.pi)
+    r2 = np.sqrt(area_c2/np.pi)
+
+    assert overlap_area<min(area_c1,area_c2)
+    assert overlap_area>=0
+
+    #if d<=(r1+r2) and d>=(abs(r1-r2)):
+    DA=[[np.nan,np.inf,np.inf]]
+    for di in np.arange(abs(r1-r2), (r1+r2),precision):
+        Ai = intersection_area_circle(r1=r1,r2=r2,d=di,plot=plot)
+        err = abs(Ai-overlap_area)
+        if err>DA[-1][2]: break
+        if verbose: print(f'@d={di:,.4f} --> Ai={Ai:,.4f}, err={err:,.4f}')
+        DA.append([di,Ai,err])
+    DA = np.array(DA)
+    d = DA[-1][0]
+    if return_itr:
+        return d,DA
+    return d
+
 #========================================
 ## Optimal Projection  - 3D to 2D
 #======================================
 
 def rotation_matrix(theta=np.pi/4):
+    r"""3 Rotational Matrices of Theta"""
     Mx = np.array([[1,              0,           0],
                    [0, np.cos(theta),-np.sin(theta)],
                   [0, np.sin(theta), np.cos(theta)]])
@@ -228,6 +381,7 @@ def rotation_matrix(theta=np.pi/4):
     return Mx,My,Mz
 
 def get_neibours(V,p,N=None):
+    r"""Get N Neibours of point p"""
     dist = np.sum((V-p)**2,1)
     idx = np.argsort(dist)
     if N is None:
@@ -235,6 +389,7 @@ def get_neibours(V,p,N=None):
     return idx[:N]
 
 def get_optimal_projection(X,p,d=0,plot=True):
+    r"""Optimal Projection"""
     t = np.arange(np.min(X)/5,np.max(X)/5)[:,None]
     #t.shape
     n1  = p[0] - X[1,:]
@@ -291,6 +446,7 @@ def get_optimal_projection(X,p,d=0,plot=True):
     return Xp2
 
 def get_plane(n=[1,1,1],d=0,px =[],t=(-10,10)):
+    r"""Get a plan in 3D"""
     #n1 = np.array([1,1,1])
     x0 = np.arange(t[0],t[1])
     y0 = np.arange(t[0],t[1])
@@ -307,6 +463,7 @@ def get_plane(n=[1,1,1],d=0,px =[],t=(-10,10)):
     return np.c_[Xi,Yi,Zi]
 
 def get_PCA(X,whiting=True):
+    r"""Get PCA"""
     if whiting:
         Xn = (X - X.mean(0))/(X.std(0)+1e-3)
     else:
@@ -323,12 +480,14 @@ def get_PCA(X,whiting=True):
     return Xpca,V,eValues
 
 def opt_project(X,p,plot=True):
+    r"""Optimal Projection"""
     Xp1 = get_optimal_projection(X,p,d=0,plot=plot)
     Xp2,W,ev = get_PCA(Xp1,whiting=False)
     Xp1c = Xp1 -p
     return Xp1,Xp1c,Xp2
 
 def plot_proj(Xp,Xp1,Xp1c,Xp2,p):
+    r"""Plot Projections"""
     fig = plt.figure(figsize = [8,4])
     ax = fig.add_subplot(121,projection="3d")
     ax.plot(Xp[:,0],Xp[:,1],Xp[:,2],'.',ms=1)
@@ -361,7 +520,9 @@ def plot_proj(Xp,Xp1,Xp1c,Xp2,p):
 
 
 def dir_vectors(V,AdjM,verbose=False):
-    r""" Given V vertices as co-ordinates (n-dimensional space) and AdjM as Adjacency matrix,
+    r"""Directional Vectors
+
+    Given V vertices as co-ordinates (n-dimensional space) and AdjM as Adjacency matrix,
     Compute D, as directional vectors, in form of
     D = [i,j, v_i,v_j], which indicates as vertex-i connects to vertex-j and
     and cordinates v_i and v_j, for v_j /= v_i
@@ -373,7 +534,8 @@ def dir_vectors(V,AdjM,verbose=False):
     V: (m,n), m-vertices in n-dimentional space
     AdjM: (m,m), Adjacency matrix, binary and no self connections, means AdjM[i,i]==0
 
-    Return
+    Returns
+    --------
     D: directional vectors
     """
     assert set(np.unique(AdjM))==set([0,1])
@@ -394,13 +556,21 @@ def dir_vectors(V,AdjM,verbose=False):
     return D
 
 def get_adjacency_matrix_depth(V,F,depth=1,remove_self_con=True,ignore_matrix=False):
-    r"""
-    Create Adjacency Matrix based on Trianglution Connection Depth
+    r"""Create Adjacency Matrix based on Trianglution Connection Depth
+
+    Parameters
+    ----------
+    V: (n,3)
+     - n points in space
+    F: (m,3)
+      - m faces of triangulation
 
     Returns
     -------
-    AdjM   : Binary Adjacency Matrix
-    node2C : Dictionary of node to connection list node2C[node_a] = list_of_nodes_connected_to_node_a
+    AdjM: (n,n)
+      - Binary Adjacency Matrix
+    node2C: dict,
+      - Dictionary of node to connection list node2C[node_a] = list_of_nodes_connected_to_node_a
     """
 
     M = V.shape[0]
@@ -442,17 +612,58 @@ def get_adjacency_matrix_depth(V,F,depth=1,remove_self_con=True,ignore_matrix=Fa
     return AdjM, node2C
 
 def get_adjacency_matrix_dist(V,dist=5, remove_self_con=True,ignore_matrix=False):
-    r"""
-    Create Adjacency Matrix based on Euclidean distance
+    r"""Create Adjacency Matrix based on Euclidean distance
 
     Parameters
     ----------
-    V   :  vertices, (m,n), m-points in n-dimentional space
+    V: array (n,d),
+      - vertices, n-points in d-dimentional space
     dist: float, distance
+
     Returns
     -------
-    AdjM   : Binary Adjacency Matrix
-    node2C : Dictionary of node to connection list node2C[node_a] = list_of_nodes_connected_to_node_a
+    AdjM: (n,n)
+      - Binary Adjacency Matrix
+    node2C: dict,
+      - Dictionary of node to connection list node2C[node_a] = list_of_nodes_connected_to_node_a
+
+    Examples
+    --------
+    #sp.geometry.get_adjacency_matrix_dist
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import spkit as sp
+
+    V = sp.geometry.get_ellipsoid(n1=50, n2=50, rx=1, ry=2, rz=1,)
+    V += 0.01*np.random.randn(V.shape[0],V.shape[1])
+
+    X = sp.create_signal_1d(V.shape[0],bipolar=False,sg_winlen=21,sg_polyorder=2,seed=1)
+    X += 0.1*np.random.randn(X.shape[0])
+
+    AdjM1, _  = sp.geometry.get_adjacency_matrix_dist(V, dist=0.01)
+    AdjM2, _  = sp.geometry.get_adjacency_matrix_dist(V, dist=0.1)
+    AdjM3, _  = sp.geometry.get_adjacency_matrix_dist(V, dist=0.2)
+
+
+    Y1 = sp.graph_filter_adj(X,AdjM1,ftype='mean',exclude_self=False)
+    Y2 = sp.graph_filter_adj(X,AdjM2,ftype='mean',exclude_self=False)
+    Y3 = sp.graph_filter_adj(X,AdjM3,ftype='mean',exclude_self=False)
+
+    fig, ax = plt.subplots(1,4,subplot_kw={"projection": "3d"},figsize=(15,7))
+
+    Ys =[X, Y1, Y2, Y3]
+    TITLEs = ['raw', r'$dist=0.01$',r'$dist=0.1$', r'$dist=0.2$']
+    for i in range(4):
+        ax[i].scatter3D(V[:,0], V[:,1], V[:,2], c=Ys[i], cmap='jet',s=10)
+        ax[i].axis('off')
+        ax[i].view_init(elev=60, azim=45, roll=15)
+        ax[i].set_xlim([-1,1])
+        ax[i].set_ylim([-2,2])
+        ax[i].set_zlim([-1,1])
+        ax[i].set_title(TITLEs[i])
+
+    plt.subplots_adjust(hspace=0,wspace=0)
+    plt.show()
     """
 
     M = V.shape[0]
@@ -469,24 +680,72 @@ def get_adjacency_matrix_dist(V,dist=5, remove_self_con=True,ignore_matrix=False
     return AdjM,node2C
 
 def get_adjacency_matrix_kNN(V,K=5,remove_self_con=True, verbose=False,ignore_matrix=False):
-    r"""
-    Create Adjacency Index Matrix based on Euclidean distance
+    r"""Create Adjacency Index Matrix based on Euclidean distance kNN
 
     Parameters
     ----------
-    V   : Points, (m,n), m-points in n-dimentional space
-    K   : int, number of nearest neibhbour
-    remove_self_con: bool, if true, self point is excluded from neareast neighbours
+    V: Points, (n,d)
+       - n-points in d-dimentional space
+    K: int,
+       - number of nearest neibhbour
+
+    remove_self_con: bool,
+       - if true, self point is excluded from neareast neighbours
+
     Returns
     -------
-    AdjM   : Adjacency Index Matrix, (m, K) shape, index of neareast points, in accending order of distance
+    AdjM: Adjacency Index Matrix,
+       - (n, K) shape, index of neareast points, in accending order of distance
+    node2C: dict,
+      - Dictionary of node to connection list node2C[node_a] = list_of_nodes_connected_to_node_a
+
+
+    Examples
+    --------
+    #sp.geometry.get_adjacency_matrix_kNN
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import spkit as sp
+
+    V = sp.geometry.get_ellipsoid(n1=50, n2=50, rx=1, ry=2, rz=1,)
+    V += 0.01*np.random.randn(V.shape[0],V.shape[1])
+
+    X = sp.create_signal_1d(V.shape[0],bipolar=False,sg_winlen=21,sg_polyorder=2,seed=1)
+    X += 0.1*np.random.randn(X.shape[0])
+
+    AdjM1, _  = sp.geometry.get_adjacency_matrix_kNN(V, K=5)
+    AdjM2, _  = sp.geometry.get_adjacency_matrix_kNN(V, K=21)
+    AdjM3, _  = sp.geometry.get_adjacency_matrix_kNN(V, K=31)
+
+
+    Y1 = sp.graph_filter_adj(X,AdjM1,ftype='mean',exclude_self=False)
+    Y2 = sp.graph_filter_adj(X,AdjM2,ftype='mean',exclude_self=False)
+    Y3 = sp.graph_filter_adj(X,AdjM3,ftype='mean',exclude_self=False)
+
+    fig, ax = plt.subplots(1,4,subplot_kw={"projection": "3d"},figsize=(15,7))
+
+    Ys =[X, Y1, Y2, Y3]
+    TITLEs = ['raw', r'$K=5$',r'$K=21$', r'$K=31$']
+    for i in range(4):
+        ax[i].scatter3D(V[:,0], V[:,1], V[:,2], c=Ys[i], cmap='jet',s=10)
+        ax[i].axis('off')
+        ax[i].view_init(elev=60, azim=45, roll=15)
+        ax[i].set_xlim([-1,1])
+        ax[i].set_ylim([-2,2])
+        ax[i].set_zlim([-1,1])
+        ax[i].set_title(TITLEs[i])
+
+    plt.subplots_adjust(hspace=0,wspace=0)
+    plt.show()
+
     """
 
     M = V.shape[0]
     AdjM=None
     #AdjM = np.zeros([M,M]).astype(int)
     #node2C ={}
-    if not(ignore_matrix): AdjM = np.zeros([M,M]).astype(int)
+    if not(ignore_matrix):
+        AdjM = np.zeros([M,M]).astype(int)
     node2C ={}
     for i in range(M):
         if verbose: sp.utils.ProgBar(i, M,style=2)
@@ -499,8 +758,7 @@ def get_adjacency_matrix_kNN(V,K=5,remove_self_con=True, verbose=False,ignore_ma
     return AdjM,node2C
 
 def node2C_to_adjacency_matrix(node2C, M=None):
-    r"""
-    From node2C to Adjacency Matrix
+    r"""From node2C to Adjacency Matrix
 
     """
     assert isinstance(node2C, dict)
@@ -527,6 +785,9 @@ def node2C_to_adjacency_matrix(node2C, M=None):
 #from scipy.spatial import ConvexHull
 
 class TriAng(object):
+    r"""Triangulation Class (Graph)
+
+    """
     def __init__(self,F,V=None):
         self.V = V
         #self.F = F
@@ -626,9 +887,10 @@ class TriAng(object):
                 return True
         return False
 
-
-
 def unwrape_3d(V, plot=True,npoint_rotate=10,sep=None,verbose=0,zshift=0):
+    r"""Unwraping 3D Point cloud
+
+    """
     V1 = V - V.mean(axis=0) + zshift
     rad = np.linalg.norm(V1, axis=1)
     zen = np.arccos(V1[:,-1] / rad)
@@ -669,6 +931,9 @@ def unwrape_3d(V, plot=True,npoint_rotate=10,sep=None,verbose=0,zshift=0):
     return np.c_[azi1,zen1,rad1],triangles
 
 def unwrape_surface(V,F=None,margin_x=np.pi/6, margin_y=np.pi/6,n=9,origin=[0,0,0]):
+    r"""Unwraping 3D Surface
+
+    """
     V1 = V - V.mean(axis=0) + np.array(origin)
     rad = np.linalg.norm(V1, axis=1)
     zen = np.arccos(V1[:,-1] / rad)
@@ -722,6 +987,9 @@ def unwrape_surface(V,F=None,margin_x=np.pi/6, margin_y=np.pi/6,n=9,origin=[0,0,
     return np.c_[azi3,zen3,rad3],idx3
 
 def unwrape_surface_mirror(V,margin_x=np.pi/6, margin_y=np.pi/6,n=9,origin=[0,0,0]):
+    r"""Unwraping 3D Surface with mirror reflection
+
+    """
     V1 = V - V.mean(axis=0) + np.array(origin)
     rad = np.linalg.norm(V1, axis=1)
     zen = np.arccos(V1[:,-1] / rad)
@@ -773,18 +1041,18 @@ def unwrape_surface_mirror(V,margin_x=np.pi/6, margin_y=np.pi/6,n=9,origin=[0,0,
     return np.c_[azi3,zen3,rad3],idx3
 
 def get_plane(X,lamd=0,n=0):
-    r"""
+    r"""Get Plane passing through (3D) points X
 
-    Get Plane passing through (3D) points X
+
     Using Regularised Least Square,
     lamd: regulariser
 
-    input
-    ------
+    Parameters
+    ----------
     X: 3D points (m,3)
 
-    output
-    ------
+    Returns
+    -------
     W: coefficient
     P: grid of (n,3) on plane, if n>0
     """
@@ -807,9 +1075,7 @@ def get_plane(X,lamd=0,n=0):
     return W,np.c_[xi,yi,zi]
 
 def divide_space(X,D,V=None,lamda=0,plot=0,n=30):
-    r"""
-
-    Divide space point of X, by plane passing from D
+    r"""Divide space point of X, by plane passing from D
 
     Essentially, we are dividing points of X by divider D
     using Least Square Plane, than passes through D
@@ -848,24 +1114,16 @@ def divide_space(X,D,V=None,lamda=0,plot=0,n=30):
     return L,R
 
 def get_center(X):
+    r"""Get center of points"""
+
     p1 = np.median(X,0)
     dist = np.sqrt(np.sum(np.abs(X - p1)**2,1))
     idx = np.argmin(dist)
     c = X[idx]
     return c, idx
 
-def area_tri(p1,p2,p3):
-    # p1 = absX[0]
-    # p2 = absX[1]
-    # p3 = absX[2]
-    a = np.linalg.norm(p1-p2)
-    b = np.linalg.norm(p2-p3)
-    c = np.linalg.norm(p1-p3)
-    s = (a+b+c)/2
-    A = np.sqrt(s*(s-a)*(s-b)*(s-c))
-    return A
-
 def surface_reconstruction(V,shift_mean=True,only_outer=False,return_all=False):
+    r"""Surface Recosntruction"""
     V0 = V.copy()
     if shift_mean:
         V0 = V0 - V0.mean(0)
@@ -887,9 +1145,9 @@ def surface_reconstruction(V,shift_mean=True,only_outer=False,return_all=False):
     return tri.triangles
 
 def downsampling_space(X,n_point):
-    r"""
-    Downsampling space with KMedoids
-    --------------------------------
+    r"""Downsampling space with KMedoids
+
+
     Getting Equidistance points
     """
     from sklearn_extra.cluster import KMedoids
@@ -898,6 +1156,11 @@ def downsampling_space(X,n_point):
     return X_new
 
 def downsampling_surface_points(V,n_points=100,remove_long_edges=True,k=1.5,verbose=True):
+    r"""Downsampling surface
+
+
+    Getting Equidistance points
+    """
     V1 = downsampling_space(V, n_point=n_points)
     Idx1 = []
     for i in range(len(V1)):
@@ -926,6 +1189,8 @@ def downsampling_surface_points(V,n_points=100,remove_long_edges=True,k=1.5,verb
     return V1, F1, Idx1
 
 def remove_long_edges_k(V,F,k=1.5,verbose=False):
+    r"""Remove Long Edges
+    """
     EDis = [np.r_[np.linalg.norm(vp[0]-vp[1]),np.linalg.norm(vp[0]-vp[2]),np.linalg.norm(vp[1]-vp[2])] for vp in V[F]]
     EDis = np.array(EDis)
     if verbose: print(EDis.shape)
@@ -938,9 +1203,11 @@ def remove_long_edges_k(V,F,k=1.5,verbose=False):
     return F1
 
 
-def surface_plot_mayavi(V,F,X, D=None,colormap_value='cmap',value_range=[None,None],show_points=False,N=1,scale_factor=0.35,scale_mode='scalar',scalars_mag=6,
+def surface_plot_mayavi(V,F,X, D=None,colormap_value='jet',value_range=[None,None],show_points=False,N=1,scale_factor=0.35,scale_mode='scalar',scalars_mag=6,
               colormap_arr='jet',arr_range=[0,1], tip_length=0.5,tip_radius=0.2,shaft_radius=0.04,color_mode ='color_by_scalar',fign=1,show=True,f=0.98,f1=0.95):
+    r"""3D Surface Plot using Mayavi
 
+    """
     try:
         from mayavi import mlab
     except:

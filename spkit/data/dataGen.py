@@ -14,8 +14,11 @@ if sys.version_info[:2] < (3, 3):
 
 import numpy as np
 import matplotlib.pyplot as plt
+from ..utils import deprecated
 
-def mclassGaus(N=100, nClasses = 2,var =0.1,ShowPlot=False):
+
+@deprecated("due to naming convension, please use 'mclassGaus' for updated/improved functionality")
+def mclassGaus(N=100, nClasses=2,var =0.1,ShowPlot=False):
     y = []
     X =np.zeros([2,1])
 
@@ -45,7 +48,68 @@ def mclassGaus(N=100, nClasses = 2,var =0.1,ShowPlot=False):
         plt.show()
     return X,y
 
-def mclass_gauss(N=100, nClasses = 2,var =0.1,ShowPlot=False):
+def mclass_gauss(N=100,nClasses=2,var=0.1,ShowPlot=False,return_para=False):
+    r"""Generate Multi-class gaussian samples
+
+
+    Parameters
+    ----------
+    N: int, deafult=100
+      - number of samples from each class
+      - example N = 100, 100 samples for each class
+
+    nClasses: int,  default=0.5
+      - number of classes
+
+    var: scalar, str, default=0.1
+      - variance  -  noise
+    
+    ShowPlot: bool, default=False
+      - Plot the data, 
+        
+        .. versionadded:: 0.0.9.7
+            Added to return parameters
+
+    return_para: bool, default=False
+      - if True, return the parameters
+
+    Returns
+    -------
+    X: 2d-array
+      - data matrix with a sample for each row
+      - shape (n, 2)
+
+        .. versionchanged:: 0.0.9.7
+            shape is changed to (n, 2)
+           
+    y: 1d-array
+      - vector with the labels
+
+        .. versionchanged:: 0.0.9.7
+            shape is changed to (n, )
+
+    See Also
+    --------
+    gaussian, linear, moons, sinusoidal, spiral, create_dataset
+
+    Examples
+    --------
+    #sp.data.mclass_gauss
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import spkit as sp
+    np.random.seed(4)
+    X, y =  sp.data.mclass_gauss(N=100,nClasses=3,var=0.3)
+    np.random.seed(None)
+    plt.figure()
+    plt.plot(X[y==0,0],X[y==0,1],'o')
+    plt.plot(X[y==1,0],X[y==1,1],'o')
+    plt.plot(X[y==2,0],X[y==2,1],'o')
+    plt.xlabel('x1')
+    plt.ylabel('x2')
+    plt.title('Multi-Class Gaussian Data')
+    plt.show()
+    """
     y = []
     X =np.zeros([2,1])
 
@@ -67,33 +131,94 @@ def mclass_gauss(N=100, nClasses = 2,var =0.1,ShowPlot=False):
     X = np.delete(X,0,1)
     y = np.array(y)
     y = np.reshape(y,[1,y.shape[0]])
-    print(X.shape,y.shape)
+    #print(X.shape,y.shape)
     if ShowPlot:
         for i in range(nClasses):
             ii = np.where(y==i)[1]
             plt.plot(X[0,ii],X[1,ii],'*')
         plt.show()
+
+    y = np.squeeze(y)
+    X = np.squeeze(X.T)
+
     return X,y
 
-def spiral(N=[100,100], s = 0.5, wrappings = 'random', m = 'random'):
-    '''
-    %Sample a dataset from a dataset separated by a sinusoidal line
-    %   X, Y, s, wrappings, m = spiral(N, s, wrappings, m)
-    %    INPUT
-    %	N         1x2 vector that fix the numberof samples from each class         N =[n1, n0]
-    %	s         standard deviation of the gaussian noise. Default is 0.5.
-    %	wrappings number of wrappings of each spiral. Default is random.
-    %	m 	  multiplier m of x * sin(m * x) for the second spiral. Default is random.
-    %    OUTPUT
-    %	X data matrix with a sample for each row
-    %   	Y vector with the labels
-    %
-    %   EXAMPLE:
-    %       X, Y,_ ,_ ,_ = spiral([10, 10])
-            X, Y, s, w, m = spiral([10, 10])
-            X, Y, s, wrappings, m = spiral(N=[100,100], s = 0.5)
-            X, y, s, wrappings, m = spiral(N=[100,100], s = 0.5,  wrappings =4.5, m = 3.2)
-    '''
+def spiral(N=[100,100],s=0.5, wrappings='random',m='random',return_para=False,**kwargs):
+    r"""Generate a 2-class dataset of spirals
+
+    Generating 2-classes of spirals
+
+    Parameters
+    ----------
+    N: list or two int, default =[100,100]
+      - vector that fix the number of samples from each class
+      - example N = [100,100], 100 samples for each class
+
+    s: scalar, default=0.5
+      - standard deviation of the gaussian noise.
+
+    wrappings: scalar, str, default='random'
+      - number of wrappings of each spiral.
+    
+    m: scalar, str, default='random'
+      - multiplier m of x * sin(m * x) for the second spiral.
+
+        
+        .. versionadded:: 0.0.9.7
+            Added to return parameters
+
+    return_para: bool, default=False
+      - if True, return the parameters
+
+    Returns
+    -------
+    X: 2d-array
+      - data matrix with a sample for each row
+      - shape (n, 2)
+
+        .. versionchanged:: 0.0.9.7
+            shape is changed to (n, 2)
+           
+    y: 1d-array
+      - vector with the labels
+
+        .. versionchanged:: 0.0.9.7
+            shape is changed to (n, )
+
+    (s, wrappings, m): parameters
+       -  if return_para=True
+    
+
+    See Also
+    --------
+    gaussian, linear, moons, sinusoidal, mclass_gauss, create_dataset
+
+    Examples
+    --------
+    #sp.data.spiral
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import spkit as sp
+    X, y =  sp.data.spiral(N =[100, 100],s=0.1,wrappings=2,m=3)
+    plt.figure()
+    plt.plot(X[y==0,0],X[y==0,1],'o')
+    plt.plot(X[y==1,0],X[y==1,1],'o')
+    plt.xlabel('x1')
+    plt.ylabel('x2')
+    plt.title('Spiral Data')
+    plt.show()
+    """
+    valid_args = ['s', 'wrappings','m','warn']
+    warn_str = ' To turn of this warning, set `warn=False`. [0.0.9.7]'
+    WARN = True
+    if 'warn' in kwargs:
+        WARN = kwargs['warn']
+
+    if WARN:
+        for key in kwargs:
+            if key not in valid_args:
+                warnings.warn(f'Argument {key} is not valid for spiral, will be ignored.' + warn_str)
+
     if type(m)==str and m == 'random':
         m = 1 + np.random.rand()
 
@@ -119,29 +244,91 @@ def spiral(N=[100,100], s = 0.5, wrappings = 'random', m = 'random'):
 
     Y = np.ones([sum(N),1])
     Y[:N[0],0] = 0
+    Y = np.squeeze(Y)
 
-    return X.T, Y.T, s, wrappings, m
+    if return_para:
+        return X, Y, (s, wrappings, m)
 
-def sinusoidal(N=[100,100], s = 0.1):
-    '''
-    %Sample a dataset from a dataset separated by a sinusoidal line
-    %   X, Y, s = sinusoidal(N, s)
-    %    INPUT
-    %	N      1x2 vector that fix the numberof samples from each class
-    % 	s      standard deviation of the gaussian noise. Default is 0.1
-    %    OUTPUT
-    %	X data matrix with a sample for each row
-    %   	Y vector with the labels
-    %
-    %   EXAMPLE:
-    %       X, Y,_ = sinusoidal([10, 10])
-    %       X, Y,_ = sinusoidal(N = [10, 10],s=0.5)
-    '''
+    return X, Y
+
+def sinusoidal(N=[100,100],s=0.1,return_para=False,**kwargs):
+    r"""Generate a 2-class  dataset separated by a sinusoidal line
+
+    Sample a dataset from a dataset separated by a sinusoidal line
+    
+
+    Parameters
+    ----------
+    N: list or two int, default =[100,100]
+      - vector that fix the number of samples from each class
+      - example N = [100,100], 100 samples for each class
+
+    s: scalar, default=0.1
+      - standard deviation of the gaussian noise.
+
+
+        
+        .. versionadded:: 0.0.9.7
+            Added to return parameters
+
+    return_para: bool, default=False
+      - if True, return the parameters
+
+    Returns
+    -------
+    X: 2d-array
+      - data matrix with a sample for each row
+      - shape (n, 2)
+
+        .. versionchanged:: 0.0.9.7
+            shape is changed to (n, 2)
+           
+    y: 1d-array
+      - vector with the labels
+
+        .. versionchanged:: 0.0.9.7
+            shape is changed to (n, )
+
+    s: scalar
+      - parameter, if return_para=True
+
+    See Also
+    --------
+    gaussian, linear, moons, mclass_gauss, spiral, create_dataset
+
+    Examples
+    --------
+    #sp.data.sinusoidal
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import spkit as sp
+    np.random.seed(2)
+    X, y =  sp.data.sinusoidal(N =[100, 100],s=0.1)
+    np.random.seed(None)
+    plt.figure()
+    plt.plot(X[y==0,0],X[y==0,1],'o')
+    plt.plot(X[y==1,0],X[y==1,1],'o')
+    plt.xlabel('x1')
+    plt.ylabel('x2')
+    plt.title('Sinusodal Data')
+    plt.show()
+    """
+    valid_args = ['s','warn']
+    warn_str = ' To turn of this warning, set `warn=False`. [0.0.9.7]'
+    WARN = True
+    if 'warn' in kwargs:
+        WARN = kwargs['warn']
+
+    if WARN:
+        for key in kwargs:
+            if key not in valid_args:
+                warnings.warn(f'Argument {key} is not valid for spiral, will be ignored.' + warn_str)
+                
     X = np.array([0,0])
     while(X.shape[0]<=N[0]):
-        xx = np.random.rand();
-        yy = np.random.rand();
-        fy = 0.7 * 0.5 * np.sin(2 * np.pi * xx) + 0.5;
+        xx = np.random.rand()
+        yy = np.random.rand()
+        fy = 0.7 * 0.5 * np.sin(2 * np.pi * xx) + 0.5
         if(yy <= fy):
             xi = np.array([xx + s*np.random.rand(), yy + s*np.random.rand()])
             X = np.vstack([X, xi])
@@ -149,36 +336,102 @@ def sinusoidal(N=[100,100], s = 0.1):
     X = np.delete(X,0,0)
 
     while(X.shape[0] < sum(N)):
-        xx = np.random.rand();
-        yy = np.random.rand();
-        fy = 0.7 * 0.5 * np.sin(2 * np.pi * xx) + 0.5;
+        xx = np.random.rand()
+        yy = np.random.rand()
+        fy = 0.7 * 0.5 * np.sin(2 * np.pi * xx) + 0.5
         if(yy > fy):
             xi = np.array([xx + s*np.random.rand(), yy + s*np.random.rand()])
             X = np.vstack([X, xi])
 
     Y = np.ones([sum(N),1])
     Y[:N[0],0] = 0
+    Y = np.squeeze(Y)
 
-    return X.T, Y.T, s
+    if return_para:
+        return X, Y, s
 
-def moons(N=[100,100], s =0.1, d='random', angle = 'random'):
-    '''
-    % Sample a dataset from two "moon" distributions
-    %   X, Y, s, d, angle = moons(N, s, d, angle)
-    %    INPUT
-    %	N     1x2 vector that fix the numberof samples from each class
-    %	s     standard deviation of the gaussian noise. Default is 0.1
-    %	d     translation vector between the two classes. With d = 0
-    %	      the classes are placed on a circle. Default is random.
-    %	angle rotation angle of the moons. Default is random.
-    %    OUTPUT
-    %	X data matrix with a sample for each row
-    %   	Y vector with the labels
-    %
-    %   EXAMPLE:
-    %       X, Y,s,d,a = moons([10, 10])
-            X, Y,_,_,_ = moons(N =[10, 10],s=0.5)
-    '''
+    return X, Y
+
+def moons(N=[100,100], s =0.1, d='random', angle = 'random',return_para=False, **kwargs):
+    r"""Generate a 2-class dataset from two "moon" distributions
+
+    Sample a dataset from two "moon" distributions
+
+
+    Parameters
+    ----------
+    N: list or two int, default =[100,100]
+      - vector that fix the number of samples from each class
+      - example N = [100,100], 100 samples for each class
+
+    s: scalar, default=0.1
+      - standard deviation of the gaussian noise.
+
+    d: scalar, str, default='random'
+      - 1x2 translation vector between the two classes. 
+      - With d = 0 the classes are placed on a circle.
+    
+    angle: scalar , default='random'
+      - rotation angle of the moons (radians)
+
+        
+        .. versionadded:: 0.0.9.7
+            Added to return parameters
+
+    return_para: bool, default=False
+      - if True, return the parameters
+
+    Returns
+    -------
+    X: 2d-array
+      - data matrix with a sample for each row
+      - shape (n, 2)
+
+        .. versionchanged:: 0.0.9.7
+            shape is changed to (n, 2)
+           
+    y: 1d-array
+      - vector with the labels
+
+        .. versionchanged:: 0.0.9.7
+            shape is changed to (n, )
+
+    (s, d, angle): parameters
+       - if return_para=True
+
+    
+    See Also
+    --------
+    gaussian, linear, sinusoidal, mclass_gauss, spiral, create_dataset
+
+    Examples
+    --------
+    #sp.data.moons
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import spkit as sp
+    np.random.seed(7)
+    X, y =  sp.data.moons(N =[100, 100],s=0.2,d='random', angle='random')
+    np.random.seed(None)
+    plt.figure()
+    plt.plot(X[y==0,0],X[y==0,1],'o')
+    plt.plot(X[y==1,0],X[y==1,1],'o')
+    plt.xlabel('x1')
+    plt.ylabel('x2')
+    plt.title('Moons Data')
+    plt.show()
+    """
+    valid_args = ['s','d','angle','warn']
+    warn_str = ' To turn of this warning, set `warn=False`. [0.0.9.7]'
+    WARN = True
+    if 'warn' in kwargs:
+        WARN = kwargs['warn']
+
+    if WARN:
+        for key in kwargs:
+            if key not in valid_args:
+                warnings.warn(f'Argument {key} is not valid for spiral, will be ignored.' + warn_str)
+
     if type(angle)==str and angle =='random':
         angle = np.random.rand() * np.pi
 
@@ -209,28 +462,88 @@ def moons(N=[100,100], s =0.1, d='random', angle = 'random'):
 
     Y = np.ones([sum(N),1])
     Y[:N[0],0] = 0
+    Y = np.squeeze(Y)
 
-    return X.T, Y.T, s, d, angle
+    if return_para:
+        return X, Y, (s, d, angle)
 
-def gaussian(N=[100,100], ndist = 3, means ='random', sigmas='random'):
-    '''
-    %Sample a dataset from a mixture of gaussians
-    %   X, Y, ndist, means, sigmas = gaussian(N, ndist, means, sigmas)
-    %    INPUT
-    %	N      1x2 vector that fix the numberof samples from each class
-    %	ndist  number of gaussian for each class. Default is 3.
-    %	means  vector of size(2*ndist X 2) with the means of each gaussian.
-    %	       Default is random.
-    %	sigmas A sequence of covariance matrices of size (2*ndist, 2).
-    %	       Default is random.
-    %    OUTPUT
-    %	X data matrix with a sample for each row
-    %   	Y vector with the labels
-    %
-    %   EXAMPLE:
-    %       X, Y, ndist, means, sigmas = gaussian([10, 10])
-            X, Y,_,_,_ = gaussian(N =[10, 10], ndist = 2)
-    '''
+    return X, Y
+
+def gaussian(N=[100,100], ndist=3, means='random', sigmas='random',return_para=False,**kwargs):
+    r"""Generate a 2-class dataset from a mixture of gaussians
+
+    Sample a dataset from a mixture of gaussians
+
+    Parameters
+    ----------
+    N: list or two int, default =[100,100]
+      - vector that fix the number of samples from each class
+      - example N = [100,100], 100 samples for each class
+
+    ndist: scalar, default=3
+      - number of gaussian for each class. Default is 3
+
+    means:  array, shape (2*ndist X 2), default='random'
+      - vector of size(2*ndist X 2) with the means of each gaussian.
+    
+    sigmas: array , default='random'
+      - A sequence of covariance matrices of size (2*ndist, 2)
+
+        .. versionadded:: 0.0.9.7
+            Added to return parameters
+
+    return_para: bool, default=False
+      - if True, return the parameters
+
+    Returns
+    -------
+    X: 2d-array
+      - data matrix with a sample for each row
+      - shape (n, 2)
+
+        .. versionchanged:: 0.0.9.7
+            shape is changed to (n, 2)
+           
+    y: 1d-array
+      - vector with the labels
+
+        .. versionchanged:: 0.0.9.7
+            shape is changed to (n, )
+
+    (ndist, means, sigmas): parameters
+       - if return_para is True
+       
+    See Also
+    --------
+    linear, moons, sinusoidal, mclass_gauss, spiral, create_dataset
+
+    Examples
+    --------
+    #sp.data.gaussian
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import spkit as sp
+    np.random.seed(3)
+    X, y =  sp.data.gaussian(N =[100, 100],ndist=3, means='random', sigmas='random')
+    np.random.seed(None)
+    plt.figure()
+    plt.plot(X[y==0,0],X[y==0,1],'o')
+    plt.plot(X[y==1,0],X[y==1,1],'o')
+    plt.xlabel('x1')
+    plt.ylabel('x2')
+    plt.title('Gaussian Data')
+    plt.show()
+    """
+    valid_args = ['ndist','means','sigmas','warn']
+    warn_str = ' To turn of this warning, set `warn=False`. [0.0.9.7]'
+    WARN = True
+    if 'warn' in kwargs:
+        WARN = kwargs['warn']
+
+    if WARN:
+        for key in kwargs:
+            if key not in valid_args:
+                warnings.warn(f'Argument {key} is not valid for spiral, will be ignored.' + warn_str)
 
     if type(sigmas)==str and sigmas == 'random':
         sigmas =[0,0]
@@ -262,32 +575,101 @@ def gaussian(N=[100,100], ndist = 3, means ='random', sigmas='random'):
 
     Y = np.ones([sum(N),1])
     Y[:N[0],0] = 0
+    
+    Y = np.squeeze(Y)
 
-    return X.T, Y.T, ndist, means, sigmas
+    if return_para:
+        return X, Y, (ndist, means, sigmas)
 
-def linear_data(N=[100,100], m ='random', b ='random', s =0.1):
-    '''
-    %Sample a dataset from a linear separable dataset
-    %   X, Y, m, b, s = linear(N, m, b)
-    %    INPUT
-    %	N      1x2 vector that fix the numberof samples from each class
-    %	m      slope of the separating line. Default is random.
-    %	b      bias of the line. Default is random.
-    % 	s      standard deviation of the gaussian noise. Default is 0.1
-    %    OUTPUT
-    %	X data matrix with a sample for each row
-    %   	Y vector with the labels
-    %
-    %   EXAMPLE:
-    %       X, Y, m, b, s = linearData([10, 10])
-    %       X, Y, _, _,_ = linearData(N =[10, 10],s=0.5)
-    '''
+    return X, Y
+
+def linear(N=[100,100], m ='random', b ='random', s =0.1,return_para=False,**kwargs):
+    r"""Generate a 2-class dataset separated by a linear boundary
+
+    Generating samples using:
+
+    .. math ::
+
+        y = m*x = b    
+
+    Parameters
+    ----------
+    N: list or two int, default =[100,100]
+      - vector that fix the number of samples from each class
+      - example N = [100,100], 100 samples for each class
+
+    m: scalar, str, default='random'
+      - slope of the separating line. 
+
+    
+    b: scalar, str, default='random'
+      - bias of the line. Default is random.
+    
+    s: float,default= 0.1
+      - standard deviation of the gaussian noise. Default is 0.1
+
+        .. versionadded:: 0.0.9.7
+            Added to return parameters
+
+    return_para: bool, default=False
+      - if True, return the parameters
+
+    Returns
+    -------
+    X: 2d-array
+      - data matrix with a sample for each row
+      - shape (n, 2)
+
+        .. versionchanged:: 0.0.9.7
+            shape is changed to (n, 2)
+           
+    y: 1d-array
+      - vector with the labels
+
+        .. versionchanged:: 0.0.9.7
+            shape is changed to (n, )
+
+    (m, b, s): parameters
+       -  if return_para is True
+
+    
+    See Also
+    --------
+    gaussian, moons, sinusoidal, mclass_gauss, spiral, create_dataset
+
+    Examples
+    --------
+    #sp.data.linear
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import spkit as sp
+    np.random.seed(3)
+    X, y =  sp.data.linear(N =[100, 100],s=0.1)
+    np.random.seed(None)
+    plt.figure()
+    plt.plot(X[y==0,0],X[y==0,1],'o')
+    plt.plot(X[y==1,0],X[y==1,1],'o')
+    plt.xlabel('x1')
+    plt.ylabel('x2')
+    plt.title('Linear Class Data')
+    plt.show()
+    """
+    valid_args = ['m','b','s','warn']
+    warn_str = ' To turn of this warning, set `warn=False`. [0.0.9.7]'
+    WARN = True
+    if 'warn' in kwargs:
+        WARN = kwargs['warn']
+
+    if WARN:
+        for key in kwargs:
+            if key not in valid_args:
+                warnings.warn(f'Argument {key} is not valid for spiral, will be ignored.' + warn_str)
 
     if type(b) ==str and b == 'random':
-        b = np.random.rand()*0.5;
+        b = np.random.rand()*0.5
 
     if type(m) ==str and m == 'random':
-        m = np.random.rand() * 2 +0.01;
+        m = np.random.rand() * 2 + 0.01
 
 
     X =np.array([0,0])
@@ -295,7 +677,7 @@ def linear_data(N=[100,100], m ='random', b ='random', s =0.1):
     while(X.shape[0]<=N[0]):
         xx = np.random.rand()
         yy = np.random.rand()
-        fy = xx * m + b;
+        fy = xx * m + b
         if (yy<= fy):
             xi = [xx + np.random.randn()*s, yy + np.random.randn()*s]
             X = np.vstack([X,xi])
@@ -305,196 +687,189 @@ def linear_data(N=[100,100], m ='random', b ='random', s =0.1):
     while(X.shape[0]<sum(N)):
         xx = np.random.rand()
         yy = np.random.rand()
-        fy = xx * m + b;
+        fy = xx * m + b
         if (yy > fy):
             xi = [xx + np.random.randn()*s, yy + np.random.randn()*s]
             X = np.vstack([X,xi])
 
     Y = np.ones([sum(N),1])
     Y[:N[0],0] = 0
+    Y = np.squeeze(Y)
 
-    return X.T, Y.T, m, b, s
+    if return_para:
+        return X, Y, (m, b, s)
 
-def create_dataset(N=100, Dtype='GAUSSIANS', noise=0, varargin = 'PRESET',**Options):
-    '''
-    %Sample a dataset from different distributions
-    %   [X, Y, varargout] = create_dataset(N, type, noise, varargin)
-    %
-    %   INPUT
-    %       N     Number of samples
-    %       Dtype  Type of distribution used. It must be one from
-    %            'MOONS' 'GAUSSIANS' 'LINEAR' 'SINUSOIDAL' 'SPIRAL'
-    %       noise probability to have a wrong label in the dataset
-    %
-    %       The meaning of the optional parameters depend on the type of the
-    %       dataset, if is set to 'PRESET'a fixed set of parameters is used:
-    %       'MOONS' parameters:
-    %           1- s: standard deviation of the gaussian noise. Default is 0.1
-    %           2- d: 1X2 translation vector between the two classes. With d = 0
-    %                 the classes are placed on a circle. Default is random.
-    %           3- angle: rotation angle of the moons in (radians). Default is random.
-    %
-    %       'GAUSSIANS' parameters:
-    %           1- ndist: number of gaussians for each class. Default is 3.
-    %           2- means: vector of size(2*ndist X 2) with the means of each gaussian.
-    %              Default is random.
-    %           3- sigmas: A sequence of covariance matrices of size (2*ndist, 2).
-    %              Default is random.
-    %
-    %       'LINEAR' parameters:
-    %           1- m: slope of the separating line. Default is random.
-    %           2- b: bias of the line. Default is random.
-    %           3- s: standard deviation of the gaussian noise. Default is 0.1
-    %
-    %       'SINUSOIDAL' parameters:
-    %           1- s: standard deviation of the gaussian noise. Default is 0.1
-    %
-    %       'SPIRAL' parameters:
-    %           1- s: standard deviation of the gaussian noise. Default is 0.5.
-    %           2- wrappings: wrappings number of wrappings of each spiral. Default is random.
-    %           3- m: multiplier m of x * sin(m * x) for the second spiral. Default is
-    %                 random.
-    %
-    %  OUTPUT
-    %   X data matrix with a sample for each row
-    %   Y vector with the labels
-    %   varargout parameters used to sample data
-    %   EXAMPLE:
-    %       [X, Y] = create_dataset(100, 'SPIRAL', 0.01);
-    %       [X, Y] = create_dataset(100, 'SPIRAL', 0.01, 'PRESET');
-    %       [X, Y] = create_dataset(100, 'SPIRAL', 0, 0.1, 2, 2);
-    %	[X, Y] = gaussian(NN, 2, [-5, -7; 2, -9; 10, 5; 12,-6], repmat(eye(2)* 3, 4, 1));
-    '''
-    Dtype = Dtype.upper()
+    return X, Y
 
-    NN = [int(np.floor(N / 2.0)), int(np.ceil(N / 2.0))];
+@deprecated("due to naming convension, please use 'linear_data' for updated/improved functionality")
+def linear_data(*args, **kwargs):
+    r"""Linear Data
+    """
+    return linear(*args, **kwargs)
 
-    usepreset = 0
-    if varargin =='PRESET':
-        usepreset = 1
+def create_dataset(N=100, Dtype='GAUSSIANS',noise=0,use_preset=False,return_para=False,**kwargs):
+    r"""Sample a 2D dataset from different distributions
 
-    if Dtype =='MOONS':
+    Create 2D dataset for 2-class from different distributions
 
-        if usepreset == 1:
-            X, Y, s, d, angle = moons(NN, s = 0.1, d = np.array([-0.5, -0.5]), angle = 0)  #s =0.1, d='random', angle = 'random'
+
+    Parameters
+    ----------
+    N: int, default=100
+       -  Number of total samples, equally divided into two classes
+       - for N=100, there will be 50 in class 0 and 50 in class 1
+          
+    Dtype: str, default='GAUSSIANS'
+       -  Type of distribution used. 
+       -  It must be one from  {'MOONS' 'GAUSSIANS' 'LINEAR' 'SINUSOIDAL' 'SPIRAL'}
+       -  Or                   {'moons' 'gaussians' 'linear' 'sinusoidal' 'spiral'}
+    
+    noise: scalar [0,1], default=0
+      -  probability to have a wrong label in the dataset
+      -  noise=0 mean no wrong label
+
+    return_para: bool, default=False
+      - if True, parameters are returned
+
+    Other parameters: **kwargs
+        - Other parameters can be passed, depending on the selected distibution
+        - if not passed, default setting of those parameters are used.
+
+    warn: bool, default=True
+      -  To turn off the warning of supplying irrelevent arguments, pass `warn=False`.
+
+
+    1. 'GAUSSIANS' parameters: :func:`gaussian`
+          * ndist: scalar, default=3
+             - number of gaussian for each class. 
+          * means:  array, shape (2*ndist X 2), default='random'
+             - vector of size(2*ndist X 2) with the means of each gaussian.
+          * sigmas: array , default='random'
+             - A sequence of covariance matrices of size (2*ndist, 2)
+
+    2.  MOONS' parameters: :func:`moons`
+        * s: scalar, default=0.1
+            - standard deviation of the gaussian noise.
+
+        * d: scalar, str, default='random'
+           - 1x2 translation vector between the two classes. 
+           - With d = 0 the classes are placed on a circle.
+            
+        * angle: scalar , default='random'
+           - rotation angle of the moons (radians)
+
+    3. 'LINEAR' parameters: :func:`linear`
+        * m: scalar, str, default='random'
+            - slope of the separating line. 
+
+        * b: scalar, str, default='random'
+            - bias of the line. Default is random.
+
+        * s: float,default= 0.1
+            - standard deviation of the gaussian noise. Default is 0.1
+
+    4. 'SINUSOIDAL' parameters: :func:`sinusoidal`
+        * s: scalar, default=0.1
+            - standard deviation of the gaussian noise.
+
+    5. 'SPIRAL' parameters: :func:`spiral`
+        * s: scalar, default=0.5
+            - standard deviation of the gaussian noise.
+
+        * wrappings: scalar, str, default='random'
+            - number of wrappings of each spiral.
+
+        * m: scalar, str, default='random'
+            - multiplier m of x * sin(m * x) for the second spiral.
+    
+
+    Returns
+    -------
+
+    X: 2d-array
+      - data matrix with a sample for each row
+      - shape (n, 2)
+           
+    y: 1d-array
+      - vector with the labels
+
+
+    See Also
+    --------
+    gaussian, linear, moons, sinusoidal, spiral, mclass_gauss
+
+    Examples
+    --------
+    #sp.data.create_dataset
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import spkit as sp
+    DTypes = ['moons','gaussian','linear','sinusoidal','spiral']
+    plt.figure(figsize=(15,3))
+    for i, dtype in enumerate(DTypes):
+        #print(dtype)
+        X,y = sp.data.create_dataset(N=200, Dtype=dtype,use_preset=True)
+        plt.subplot(1,5,i+1)
+        plt.plot(X[y==0,0],X[y==0,1],'o')
+        plt.plot(X[y==1,0],X[y==1,1],'o')
+        plt.title(f'{dtype}')
+    plt.tight_layout()
+    plt.show()
+    """
+
+    #Dtype = Dtype.upper()
+    means1 = np.array([[-5, -7],[2, -9],[10, 5],[12,-6]])
+    sigma1 = np.tile(np.eye(2)* 3, (4, 1))
+
+    class presets:
+        moons_kw = dict(s=0.1, d=np.array([-0.5, -0.5]), angle=0)
+        gaussian_kw = dict(ndist=2, means= means1, sigmas = sigma1)
+        linear_kw  = dict(m = 1, b =0, s =0.1)
+        sinusodal_kw = dict(s=0.01)
+        spiral_kw = dict(s = 0.5, wrappings = 2, m = 2)
+
+    NN = [int(np.floor(N / 2.0)), int(np.ceil(N / 2.0))]
+
+    if Dtype in ['MOONS','moons']:
+        if use_preset:
+            X, Y, param = moons(NN,return_para=True, **presets.moons_kw)
         else:
-            #Default Setting : moons(NN,s =0.1, d='random', angle = 'random')
-            s = 0.1
-            d = angle ='random'
+            X, Y, param = moons(NN,return_para=True,**kwargs)
 
-            if Options.has_key('s'):
-                s = Options['s']
-            if Options.has_key('d'):
-                d = Options['d']
-            if Options.has_key('angle'):
-                angle = Options['angle']
-
-            X, Y, s, d, angle = moons(NN, s=s, d=d, angle=angle)
-
-        varargout= [s, d, angle]
-
-    elif Dtype=='GAUSSIANS':
-
-        if usepreset == 1:
-            # gaussian(N, ndist = 3, means ='random', sigmas='random')
-
-            means1 = np.array([[-5, -7],[2, -9],[10, 5],[12,-6]])
-            sigma1 = np.tile(np.eye(2)* 3, (4, 1))
-
-            X, Y, ndist, means, sigmas = gaussian(NN, ndist =2, means = means1, sigmas = sigma1)
+    elif Dtype in ['GAUSSIANS', 'gaussians','gaussian']:
+        if use_preset:
+            X, Y, param = gaussian(NN, return_para=True, **presets.gaussian_kw)
         else:
-            #Default Setting : gaussian(N, ndist = 3, means ='random', sigmas='random')
+            X, Y, param = gaussian(NN, return_para=True,**kwargs)
 
-            ndist = 3
-            means = sigmas = 'random'
-
-            if Options.has_key('ndist'):
-                ndist = Options['ndist']
-
-            if Options.has_key('means'):
-                means = Options['means']
-
-            if Options.has_key('sigmas'):
-                sigmas = Options['sigmas']
-
-            X, Y, ndist, means, sigmas = gaussian(NN, ndist = ndist, means = means, sigmas = sigmas)
-
-        varargout = [ndist, means, sigmas ]
-
-    elif Dtype =='LINEAR':
-
-        if usepreset == 1:
-            # linear_data(N, m ='random', b ='random', s =0.1)
-            X, Y, m, b, s = linear_data(NN, m = 1, b =0, s =0.1)
+    elif Dtype in ['LINEAR','linear']:
+        if use_preset:
+            X, Y, param = linear(NN,return_para=True,**presets.linear_kw )
         else:
-            #Default Setting : linear_data(N, m ='random', b ='random', s =0.1)
+            X, Y, param = linear(NN,return_para=True,**kwargs)
 
-            s, m, b = 0.1, 'random','random'
-
-            if Options.has_key('m'):
-                m = Options['m']
-
-            if Options.has_key('b'):
-                b = Options['b']
-
-            if Options.has_key('s'):
-                s = Options['s']
-
-            X, Y, m, b, s = linear_data(NN, m = m, b =b, s =s)
-
-        varargout = [m, b, s]
-
-    elif Dtype=='SINUSOIDAL':
-
-        if usepreset == 1:
-            # sinusoidal(N, s = 0.1)
-            X, Y, s = sinusoidal(NN, s = 0.01)
+    elif Dtype in ['SINUSOIDAL','sinusoidal']:
+        if use_preset:
+            X, Y, param = sinusoidal(NN, return_para=True,**presets.sinusodal_kw )
         else:
-            #Default Setting : sinusoidal(N, s = 0.1)
-            s = 0.1
-            if Options.has_key('s'):
-                s = Options['s']
+            X, Y, param = sinusoidal(NN, return_para=True,**kwargs)
 
-            X, Y, s = sinusoidal(NN, s = s)
-
-        varargout = [s]
-
-    elif Dtype =='SPIRAL':
-
-        if usepreset == 1:
-            # spiral(N, s = 0.5, wrappings = 'random', m = 'random')
-
-            X, Y, s, wrappings, m = spiral(NN, s = 0.5, wrappings = 2, m = 2)
+    elif Dtype in ['SPIRAL','spiral']:
+        if use_preset:
+            X, Y, param = spiral(NN,return_para=True,**presets.spiral_kw)
         else:
-            # Default Setting :  spiral(N, s = 0.5, wrappings = 'random', m = 'random')
-
-            s, wrappings, m = 0.5, 'random', 'random'
-
-            if Options.has_key('s'):
-                s = Options['s']
-
-            if Options.has_key('wrappings'):
-                wrappings = Options['wrappings']
-
-            if Options.has_key('m'):
-                m = Options['m']
-
-            X, Y, s, wrappings, m = spiral(NN, s = s, wrappings = wrappings, m = m)
-
-        varargout = [s, wrappings, m]
-
+            X, Y, param = spiral(NN,return_para=True,**kwargs)
     else:
 
-        #tkMessageBox.showerror("Tips and tricks",'Specified dataset type is not correct. It must be one of MOONS, GAUSSIANS, LINEAR, SINUSOIDAL, SPIRAL')
-        raise ValueError('Specified dataset type is not correct. It must be one of MOONS, GAUSSIANS, LINEAR, SINUSOIDAL, SPIRAL')
+        raise ValueError('Specified dataset type is not correct. It must be one of {MOONS, GAUSSIANS, LINEAR, SINUSOIDAL, SPIRAL}')
 
-    ind  = np.arange(Y.shape[1])
-    np.random.shuffle(ind)
+    idx  = np.arange(Y.shape[0])
+    np.random.shuffle(idx)
 
-    ind1 = ind[:int(noise*len(ind))]
-    Y[0,ind1] = abs(Y[0,ind1]-1)
-    #swap = np.random.rand(Y.shape[1])<=noise
-    #Y[swap] = Y[swap] + 1
-    #Y[np.where(Y==2)]=0
+    idx = idx[:int(noise*len(idx))]
+    Y[idx] = abs(Y[idx]-1)
 
-    return X.T, Y[0,:], varargout
+    if return_para:
+         return X, Y, param
+
+    return X, Y

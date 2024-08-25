@@ -8,8 +8,8 @@ import sys, os
 sys.path.append(os.path.dirname(__file__))
 
 #from .DeepNet import DeepNet
-from .LogisticRegression import LR, LogisticRegression
+from .Logistic import LR, LogisticRegression
 from .Probabilistic import NaiveBayes
-from .Trees import ClassificationTree, RegressionTree
+from .Trees import ClassificationTree, RegressionTree, DecisionTree
 
 __all__ = [ 'LR','LogisticRegression','NaiveBayes', 'ClassificationTree', 'RegressionTree']

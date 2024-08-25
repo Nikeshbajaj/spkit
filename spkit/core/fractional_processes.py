@@ -36,24 +36,69 @@ except:
 from scipy import signal
 
 from .processing import sinc_interp, conv1d_fft
+from ..utils import deprecated
 
 
-def frft(x,alpha=0.1,method=1):
-    '''
-    Fractional Fourier Transform
-    ---------------------------------
+def frft(x,alpha=0.1,method=1,verbose=0):
+    r"""Fractional Fourier Transform
+    
+    **Fractional Fourier Transform**
 
-    input
-    -----
+    .. math::
+        F^{\alpha}(x) = FRFT(x)
+
+    Parameters
+    ----------
     x:  real signal
-    alpha: value
+    alpha: scalar, 0<a<4
     method=1, other methods to be implemented
 
-    output
-    ------
+    Returns
+    -------
     Y: complex signal
 
-    '''
+
+    References
+    ----------
+    * wikipedia - https://en.wikipedia.org/wiki/Fractional_Fourier_transform
+    
+    
+    Notes
+    -----
+    #TODO
+
+    See Also
+    --------
+    ifrft: Inverse Fractional Fourier Transform
+    ffrft: Fast Fractional Fourier Transform
+    iffrft: Inverse Fast Fractional Fourier Transform
+
+    Examples
+    --------
+    #sp.frft
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import spkit as sp
+    t = np.linspace(0,2,500)
+    x = np.cos(2*np.pi*5*t)
+    xf = sp.frft(x,alpha=0.5)
+    plt.figure(figsize=(10,4))
+    plt.subplot(211)
+    plt.plot(t,x,label='x: input signal')
+    plt.xlim([t[0],t[-1]])
+    plt.xlabel('time (s)')
+    plt.ylabel('x')
+    plt.legend(loc='upper right')
+    plt.subplot(212)
+    plt.plot(t,xf.real,label='xf.real',alpha=0.9)
+    plt.plot(t,xf.imag,label='xf.imag',alpha=0.9)
+    plt.plot(t,np.abs(xf),label='|xf|',alpha=0.9)
+    plt.xlim([t[0],t[-1]])
+    plt.ylabel(r'xf: FRFT(x) $\alpha=0.5$')
+    plt.legend(loc='upper right')
+    plt.tight_layout()
+    plt.show()
+    """
     verbose=0
     x0 = x.copy() + 1j*0
     N     = x0.shape[0]
@@ -137,28 +182,130 @@ def frft(x,alpha=0.1,method=1):
         raise NotImplementedError('Not implemented yet')
 
 def ifrft(x,alpha=0.1,method=1, verbose=0):
-    '''
-    Inverse Fractional Fourier Transform
-    ---------------------------------
-    '''
+    r"""Inverse Fractional Fourier Transform
+
+    **Inverse Fractional Fourier Transform**
+    
+    Parameters
+    ----------
+    x: complex-signal
+    alpha: scalar, 0<a<4
+    method=1, other methods to be implemented
+    
+    Returns
+    -------
+    y: complex signal
+    - reconstruction using IFRFT
+    - imaginary part is mostly zero
+
+    References
+    ----------
+    * wikipedia
+    
+    Notes
+    -----
+    # Recostruction of the signal is has some artifact to be removed.
+
+    See Also
+    --------
+    frft: Fractional Fourier Transform
+    ffrft: Fast Fractional Fourier Transform
+    iffrft: Inverse Fast Fractional Fourier Transform
+
+    Examples
+    --------
+    #sp.ifrft
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import spkit as sp
+    t = np.linspace(0,2,500)
+    x = np.cos(2*np.pi*5*t)
+    xf = sp.frft(x,alpha=0.5)
+    x1 = sp.ifrft(xf,alpha=0.5)
+    plt.figure(figsize=(10,5))
+    plt.subplot(311)
+    plt.plot(t,x,label='x: input signal')
+    plt.xlim([t[0],t[-1]])
+    plt.xlabel('time (s)')
+    plt.ylabel('x')
+    plt.legend(loc='upper right')
+    plt.subplot(312)
+    plt.plot(t,xf.real,label='xf.real',alpha=0.9)
+    plt.plot(t,xf.imag,label='xf.imag',alpha=0.9)
+    plt.plot(t,np.abs(xf),label='|xf|',alpha=0.9)
+    plt.xlim([t[0],t[-1]])
+    plt.ylabel(r'xf: FRFT(x) $\alpha=0.5$')
+    plt.legend(loc='upper right')
+    plt.subplot(313)
+    plt.plot(t,x1.real,label='x1.real',alpha=0.9)
+    plt.plot(t,x1.imag,label='x1.imag',alpha=0.9)
+    plt.plot(t,np.abs(x1),label='|x1|',alpha=0.9)
+    plt.xlim([t[0],t[-1]])
+    plt.ylabel(r'x1: IFRFT(xf) $\alpha=0.5$')
+    plt.legend(loc='upper right')
+    plt.tight_layout()
+    plt.show()
+    """
     return frft(x,alpha=-alpha,method=method, verbose=verbose)
 
 def ffrft(x, alpha):
-    '''
-    Fast Fractional Fourier Transform
-    ---------------------------------
+    r"""Fast Fractional Fourier Transform
+    
+    **Fast Fractional Fourier Transform**
+
       - perfect reconstruction with iffrft
 
-    input
-    -----
+    Parameters
+    ----------
     x:  real signal
     alpha: value
 
-    output
-    ------
+    Returns
+    -------
     Y: complex signal
 
-    '''
+    References
+    ----------
+    * wikipedia - 
+    
+    
+    Notes
+    -----
+    * FRFT :func:`frft` Fractional Fourier Transform, is classic and more accepted approach. Compared to FFRFT, :func:`ffrft`
+
+
+    See Also
+    --------
+    frft: Fractional Fourier Transform
+    ifrft: Inverse Fractional Fourier Transform
+    iffrft: Inverse Fast Fractional Fourier Transform
+
+    Examples
+    --------
+    #sp.ffrft
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import spkit as sp
+    t = np.linspace(0,2,500)
+    x = np.cos(2*np.pi*5*t)
+    xf = sp.ffrft(x,alpha=0.5)
+    plt.figure(figsize=(10,5))
+    plt.subplot(211)
+    plt.plot(t,x,label='x: input signal')
+    plt.xlim([t[0],t[-1]])
+    plt.xlabel('time (s)')
+    plt.ylabel('x')
+    plt.legend(loc='upper right')
+    plt.subplot(212)
+    plt.plot(t,xf.real,label='xf.real',alpha=0.9)
+    plt.plot(t,xf.imag,label='xf.imag',alpha=0.9)
+    plt.plot(t,np.abs(xf),label='|xf|',alpha=0.9)
+    plt.xlim([t[0],t[-1]])
+    plt.ylabel(r'xf: FFRFT(x) $\alpha=0.5$')
+    plt.legend(loc='upper right')
+    plt.tight_layout()
+    plt.show()
+    """
 
 
     def un_permut(x):
@@ -185,8 +332,70 @@ def ffrft(x, alpha):
     return np.sum(Y,1) / 4
 
 def iffrft(x, alpha):
-    '''
-    Inverse Fast Fractional Fourier Transform
-    ---------------------------------
-    '''
+    r"""Inverse Fast Fractional Fourier Transform
+    
+    **Inverse Fast Fractional Fourier Transform**
+
+    Parameters
+    ----------
+    x: complex-signal
+    alpha: scalar, 0<a<4
+    method: default=1
+       - other methods to be implemented
+    
+    Returns
+    -------
+    y: complex signal
+    - reconstruction using IFRFT
+    - imaginary part is mostly zero
+
+    References
+    ----------
+    * wikipedia
+    
+    
+    Notes
+    -----
+    * FRFT: :func:`frft` Fractional Fourier Transform, is classic and more accepted approach. Compared to FFRFT
+
+    See Also
+    --------
+    frft: Fractional Fourier Transform
+    ifrft: Inverse Fractional Fourier Transform
+    ffrft: Fast Fractional Fourier Transform
+    
+    Examples
+    --------
+    #sp.iffrft
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import spkit as sp
+    t = np.linspace(0,2,500)
+    x = np.cos(2*np.pi*5*t)
+    xf = sp.ffrft(x,alpha=0.5)
+    x1 = sp.iffrft(xf,alpha=0.5)
+    plt.figure(figsize=(10,5))
+    plt.subplot(311)
+    plt.plot(t,x,label='x: input signal')
+    plt.xlim([t[0],t[-1]])
+    plt.xlabel('time (s)')
+    plt.ylabel('x')
+    plt.legend(loc='upper right')
+    plt.subplot(312)
+    plt.plot(t,xf.real,label='xf.real',alpha=0.9)
+    plt.plot(t,xf.imag,label='xf.imag',alpha=0.9)
+    plt.plot(t,np.abs(xf),label='|xf|',alpha=0.9)
+    plt.xlim([t[0],t[-1]])
+    plt.ylabel(r'xf: FRFT(x) $\alpha=0.5$')
+    plt.legend(loc='upper right')
+    plt.subplot(313)
+    plt.plot(t,x1.real,label='x1.real',alpha=0.9)
+    plt.plot(t,x1.imag,label='x1.imag',alpha=0.9)
+    plt.plot(t,np.abs(x1),label='|x1|',alpha=0.9)
+    plt.xlim([t[0],t[-1]])
+    plt.ylabel(r'x1: IFRFT(xf) $\alpha=0.5$')
+    plt.legend(loc='upper right')
+    plt.tight_layout()
+    plt.show()
+    """
     return ffrft(x, -alpha)

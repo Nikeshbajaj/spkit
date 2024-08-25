@@ -19,5 +19,14 @@ recursive-include *.ipynb
 recursive-include *.pkl
 recursive-include spkit/data *.pkl
 
+recursive-include spkit/data/files/ *.pkl
+recursive-include spkit/data/files/ *.txt
+
+recursive-include spkit/eeg/files/ *.pkl
+recursive-include spkit/eeg/files/ *.csv
+recursive-include spkit/eeg/files/ *.png
+recursive-include spkit/eeg/files/ *.txt
+
 recursive-exclude * __pycache__
+recursive-exclude * .DS_Store
 recursive-exclude *.yml

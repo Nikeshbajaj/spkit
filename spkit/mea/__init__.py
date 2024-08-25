@@ -31,4 +31,5 @@ sys.path.append(os.path.dirname(__file__))
 
 from .mea_processing import (compute_cv, analyse_mea_file, extract_egm, egm_features)
 from .mea_processing import (get_stim_loc, find_bad_channels_idx, align_cycles, activation_time_loc, activation_repol_time_loc)
-from .mea_processing import (plot_mea_grid, mea_feature_map, mat_list_show, mat_1_show, channel_mask, feature_mat, arrange_mea_grid, unarrange_mea_grid,ch_label2idx, ch_idx2label)
+from .mea_processing import (plot_mea_grid, mea_feature_map, mat_list_show, mat_1_show, channel_mask)
+from .mea_processing import (arrange_mea_grid, unarrange_mea_grid,ch_label2idx, ch_idx2label)
